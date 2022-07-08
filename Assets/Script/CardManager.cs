@@ -44,7 +44,7 @@ public class CardManager : MonoBehaviour
 	[HideInInspector] public int i_ManaCost;
 	[HideInInspector] public bool is_myCardDrag;
 	[HideInInspector] public bool is_useCardArea;
-	[HideInInspector] public bool is_canUseCard;
+	[HideInInspector] public bool is_canUseCard = true;
 	[HideInInspector] public bool is_cardUsing;
 	[HideInInspector] public bool is_useEnhance;
 
@@ -69,7 +69,7 @@ public class CardManager : MonoBehaviour
 		}
 		SetECardState();
 		DetectCardArea();
-		SetCardable();
+		SetCardEnable();
 
 		GameTick_CardManager();
 
@@ -191,9 +191,11 @@ public class CardManager : MonoBehaviour
 		for (int i = 0; i < count; i++)
 		{
 			var targetCard = myCards[i];
-			targetCard?.GetComponent<OrderLayer>().SetOrder(i);
+			targetCard?.GetComponent<OrderLayer>().SetOriginOrder(i);
 		}
 	}
+
+
 	//카드 배치 크기조정 포함. Set Card Pos,Pos
 	void CardAlignment()
 	{
@@ -325,13 +327,15 @@ public class CardManager : MonoBehaviour
 
 		//카드사용안하면 원위치.
 		if (is_canUseCard)
-		{   
+		{
+			Debug.Log("카드사용");
 			// 카드 사용
-			if (_card.i_manaCost <= EntityManager.Inst.playerEntity.i_manaCost )
+			if (_card.i_manaCost <= EntityManager.Inst.playerEntity.i_aether)
 			{
 				is_cardUsing = true;
 				UseCardInArea(_card);
 				EntityManager.Inst.SetUseCard(_card);
+				Debug.Log("카드사용");
 			}
 			
 		}
@@ -340,6 +344,7 @@ public class CardManager : MonoBehaviour
 			// 카드 안사용
 			UseCardSetDefult();
 			SetCardDisable();
+			Debug.Log("카드 미사용");
 		}
 
 
@@ -393,7 +398,7 @@ public class CardManager : MonoBehaviour
 
 
 	//카드 사용 가능하게 만들기
-	void SetCardable()
+	void SetCardEnable()
 	{
         if (is_myCardDrag && is_useCardArea)
         {

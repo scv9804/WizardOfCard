@@ -25,11 +25,16 @@ public class PlayerEntity : MonoBehaviour
 
     [HideInInspector] public bool is_die = false;
 
-    public int MAXMANA = 5;
-    public int i_manaCost;
 
 
-	public void SetupPlayerChar(PlayerChar playerChar)
+    //status
+    public int MAXAETHER = 5;
+    public int i_aether;
+    [HideInInspector] public int i_enchentElement;
+    [HideInInspector] public int i_registanceElemet;
+
+
+    public void SetupPlayerChar(PlayerChar playerChar)
     {
         i_health = playerChar.i_health;
         HEALTHMAX = i_health;
