@@ -76,8 +76,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOverScene()
 	{
-        Debug.Log("호출완료");
-        yield return new WaitForSeconds(0.5f);
+        Debug.Log("GameOver");
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("GameOverScene");
 	}
 

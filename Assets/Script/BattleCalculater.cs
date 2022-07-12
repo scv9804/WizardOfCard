@@ -16,7 +16,6 @@ public class  BattleCalculater: MonoBehaviour
 
    // public enum e_CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff };
 
-
     [HideInInspector] public bool is_canUseSelf;
     [HideInInspector] public int i_enhacneVal=1;
     [HideInInspector] public int i_calcDamage;
