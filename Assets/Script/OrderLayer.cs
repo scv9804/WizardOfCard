@@ -20,7 +20,7 @@ public class OrderLayer : MonoBehaviour
 
 	public void SetMostFrontOrder(bool isMostFront)
 	{
-		SetOrder(isMostFront ? 100 : originOrder);
+		SetOrder(isMostFront ? 200 : this.originOrder);
 	}
 
 	public void SetOrder(int order)

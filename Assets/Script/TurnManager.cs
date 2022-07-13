@@ -61,7 +61,7 @@ public class TurnManager : MonoBehaviour
             yield return delay_07;
             onAddCard?.Invoke();
             yield return delay_07;
-            EntityManager.Inst.playerEntity.i_manaCost = EntityManager.Inst.playerEntity.MAXMANA;
+            EntityManager.Inst.playerEntity.i_aether = EntityManager.Inst.playerEntity.MAXAETHER;
             isLoding = false;
         }
         else

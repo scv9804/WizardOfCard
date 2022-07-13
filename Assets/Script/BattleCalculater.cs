@@ -16,7 +16,6 @@ public class  BattleCalculater: MonoBehaviour
 
    // public enum e_CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff };
 
-
     [HideInInspector] public bool is_canUseSelf;
     [HideInInspector] public int i_enhacneVal=1;
     [HideInInspector] public int i_calcDamage;
@@ -24,8 +23,8 @@ public class  BattleCalculater: MonoBehaviour
 
     public void BattleCalc(Card _card, PlayerEntity _target)
 	{
-        _target.i_manaCost -= _card.i_manaCost;
-        if (_target.i_manaCost <= 0)
+        _target.i_aether -= _card.i_manaCost;
+        if (_target.i_aether <= 0)
         {
             TurnManager.Inst.EndTurn();
         }
@@ -67,8 +66,8 @@ public class  BattleCalculater: MonoBehaviour
 
     public void BattleCalc(Card _card, Entity _target)
     {
-        EntityManager.Inst.playerEntity.i_manaCost -= _card.i_manaCost;
-        if (EntityManager.Inst.playerEntity.i_manaCost <= 0)
+        EntityManager.Inst.playerEntity.i_aether -= _card.i_manaCost;
+        if (EntityManager.Inst.playerEntity.i_aether <= 0)
         {
             TurnManager.Inst.EndTurn();
         }

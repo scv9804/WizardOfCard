@@ -13,11 +13,9 @@
 [Uu]ser[Ss]ettings/
 Project_Data/
 MonoBleedingEdge/
-.vscode/
 
 UnityCrashHandler64
 UnityPlayer.dll
-.vsconfig
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

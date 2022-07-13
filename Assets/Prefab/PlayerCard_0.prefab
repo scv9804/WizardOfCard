@@ -575,7 +575,7 @@ MonoBehaviour:
   - {fileID: 7395019933629544957}
   - {fileID: 7395019933671154982}
   - {fileID: 7395019932878968506}
-  sortingLayerName: 
+  sortingLayerName: Card
 --- !u!61 &2036147294181241873
 BoxCollider2D:
   m_ObjectHideFlags: 0
