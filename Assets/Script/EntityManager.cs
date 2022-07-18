@@ -34,6 +34,8 @@ public class EntityManager : MonoBehaviour
 
 
     [SerializeField] List<Enemy> enemyBuffer;
+    [SerializeField] short Length;
+
     [HideInInspector] public PlayerEntity playerEntity;
 
 
@@ -94,7 +96,8 @@ public class EntityManager : MonoBehaviour
             StartCoroutine(enemy.Attack(playerEntity, enemy));
         }
 
-        Debug.Log("엔티티 공격 호출");
+        Debug.Log("Call from EnemyEntityAttack");
+        yield return new WaitForSeconds(0.1f);
         TurnManager.Inst.EndTurn();
     }
 
