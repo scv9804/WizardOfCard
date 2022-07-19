@@ -14,7 +14,18 @@ public class BackGroundScroll : MonoBehaviour
 
 	[SerializeField] GameObject EndPos;
 
+	Dictionary<GameObject, Transform> dic_originTransForm;
+
+	Transform originTransform;
 	bool is_moving;
+
+	private void Start()
+	{
+		foreach (var Check in Objcet_Trees)
+		{
+			dic_originTransForm.Add(Check, Check.transform);
+		}
+	}
 
 	private void Update()
 	{
@@ -23,16 +34,20 @@ public class BackGroundScroll : MonoBehaviour
 			is_moving = true;
 		}
 		if (is_moving)
-			Invoke("BackGround_StageMove", 0.01f);
+			BackGround_StageMove();
 	}
 
 
 	public void BackGround_StageMove() 
 	{
-		/*	foreach (var Check in Objcet_Trees)
-			{
-				Check.gameObject.transform.position += Vector3.left;
-			}*/
+		foreach (var Check in Objcet_Trees)
+		{
+			Check.gameObject.transform.position += Vector3.left * Time.deltaTime * 10f;
+		}
+
+		Object_BackTree_1.transform.position += Vector3.left * Time.deltaTime * 10f;
+		Object_BackTree_2.transform.position += Vector3.left * Time.deltaTime * 10f;
+		Object_BackTree_3.transform.position += Vector3.left * Time.deltaTime * 10f;
 
 
 		Object_Ground_1.transform.position += Vector3.left * Time.deltaTime * 10f;
