@@ -7,31 +7,48 @@ using DG.Tweening;
 
 public class PlayerEntity : MonoBehaviour
 {
-    [SerializeField] PlayerChar playerChar;
+    public static PlayerEntity Inst { get; private set; }
+    private void Awake()
+    {
+        Inst = this;
+
+        //DontDestroyOnLoad(this);
+    }
+
+
+	[SerializeField] PlayerChar playerChar;
     [SerializeField] SpriteRenderer charater;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] Image healthImage;
-    
-    
 
 
-    [HideInInspector] public bool is_mine;
-    [HideInInspector] public bool attackable;
-    [HideInInspector] public bool is_attackAble;
+
+    public bool attackable;
+    bool is_attackAble;
 
 
-    [HideInInspector] public bool is_die = false;
+    bool is_die = false;
+
+
+    bool is_canUseSelf;
+    int i_enhacneVal = 1;
+    int i_calcDamage;
+    int i_everlasting = 0;  //고정 마법 증폭 (수정여지있음)
+
+
 
 
     #region status
-    public int MAXAETHER = 5; // 최대 코스트
-    public int i_aether; // 코스트
+    int maxAether = 5; // 최대 코스트
+    int i_aether; // 코스트
 
 
-    [HideInInspector] public float i_health;
-    [HideInInspector] public float HEALTHMAX;
-    [HideInInspector] public int i_shield = 0;
+
+
+    float i_health;
+    float maxHealth;
+     int i_shield = 0;
 
     //마법 친화성  타입별 친화성으로 방어, 힐 효과 증폭... defult = 0
     [HideInInspector] int i_magicAffinity_fire = 0;
@@ -52,13 +69,14 @@ public class PlayerEntity : MonoBehaviour
     [HideInInspector] int i_status_;
 
 
-	#endregion
+    #endregion
 
 
     // === 스테이터스 증가/감소 ====
     // 넣는값을 +- 로 조절하기
-	#region set_status
+    #region property_status
 
+    //보류
     public void Add_Status_MagicAffinity_Fire(int _addStatus)
 	{
         i_magicAffinity_fire += _addStatus;
@@ -79,32 +97,81 @@ public class PlayerEntity : MonoBehaviour
         i_magicAffinity_air += _addStatus;
         RefreshPlayer();
     }
-    public void Add_Status_Health(int _addStatus)
-	{
-        i_health += _addStatus;
-        RefreshPlayer();
-    }
-    public void Add_status_MaxHealth(int _addStatus)
-    {
-        HEALTHMAX += _addStatus;
-        RefreshPlayer();
-    }
-    public void Add_Status_Aether(int _addStatus) 
-    {
-        i_aether += _addStatus;
-        RefreshPlayer();
-    }
-    public void Add_Status_MaxAether(int _addStatus)
-	{
-        MAXAETHER += _addStatus;
-        RefreshPlayer();
-    }
-    public void Add_Status_Shiled(int _addStatus)
-	{
-        i_shield += _addStatus;
-        RefreshPlayer();
-    }
 
+
+    public float Status_Health
+	{
+		get
+		{
+            return i_health;
+		}
+		set
+		{
+            i_health = value;
+            RefreshPlayer();
+        }
+    }
+    public float Status_MaxHealth
+    {
+		get
+		{
+            return maxHealth;
+		}
+		set
+		{
+            maxHealth = value;
+            RefreshPlayer();
+        }
+    }
+    public int Status_Aether 
+    {
+		get
+		{
+            return i_aether;
+		}
+		set
+		{
+            i_aether = value;
+            RefreshPlayer();
+        }
+       
+    }
+    public int Status_MaxAether
+	{
+		get
+		{
+            return maxAether;
+		}
+		set
+		{
+            maxAether = value;
+            RefreshPlayer();
+        }
+        
+    }
+    public int Status_Shiled
+	{
+		get
+		{
+            return i_shield; 
+		}
+		set
+		{
+            i_shield = value;
+            RefreshPlayer();
+        }
+    }
+    public int Status_EnchaneValue
+	{
+		get
+		{
+            return i_enhacneVal;
+		}
+		set
+		{
+            i_enhacneVal = value;
+        }
+	}
 
 
     #endregion
@@ -126,11 +193,11 @@ public class PlayerEntity : MonoBehaviour
     public void SetupPlayerChar(PlayerChar playerChar)
     {
         i_health = playerChar.i_health;
-        HEALTHMAX = i_health;
+        maxHealth = i_health;
         ShieldTMP.gameObject.SetActive(false);
 
 
-        UIManager.Inst.HealthTMP_UI.text = i_health + " / " + HEALTHMAX;
+        UIManager.Inst.HealthTMP_UI.text = i_health + " / " + maxHealth;
         charater.sprite = playerChar.sp_sprite;
         healthTMP.text = i_health.ToString();
     }
@@ -169,6 +236,15 @@ public class PlayerEntity : MonoBehaviour
 
     public void RefreshPlayer()
     {
+        Set_ShieldActivate();
+        healthImage.fillAmount = i_health / maxHealth;
+        UIManager.Inst.HealthTMP_UI.text = i_health + " / " + maxHealth;
+        healthTMP.text = i_health.ToString();
+        ShieldTMP.text = i_shield.ToString();
+    }
+
+    void Set_ShieldActivate()
+	{
         if (0 < i_shield)
         {
             ShieldTMP.gameObject.SetActive(true);
@@ -177,12 +253,7 @@ public class PlayerEntity : MonoBehaviour
         {
             ShieldTMP.gameObject.SetActive(false);
         }
-        healthImage.fillAmount = i_health / HEALTHMAX;
-        UIManager.Inst.HealthTMP_UI.text = i_health + " / " + HEALTHMAX;
-        healthTMP.text = i_health.ToString();
-        ShieldTMP.text = i_shield.ToString();
     }
-
 
 
 	#region MouseControlle

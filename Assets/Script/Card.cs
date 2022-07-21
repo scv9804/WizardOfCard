@@ -43,8 +43,8 @@ public class Card : MonoBehaviour
 		card.transform.localScale = v_cardSize;
 
 		splitString();
-
-		explainTMP.text = st_explain; 
+		ExplainRefresh();
+	
 		manaCostTMP.text = i_manaCost.ToString() ;
 		charater.sprite = item.sp_CharacterSprite;
 		nameTMP.text = item.st_cardName;
@@ -63,8 +63,12 @@ public class Card : MonoBehaviour
 
 	public void ExplainRefresh()
 	{
-		string dumy = st_splitExplain[0] + i_damage + st_splitExplain[1];
-		explainTMP.text = dumy;
+		if (st_splitExplain[1] !=  null)
+		{
+			string dumy = st_splitExplain[0] + (i_damage * PlayerEntity.Inst.Status_EnchaneValue) + st_splitExplain[1];
+			explainTMP.text = dumy;
+		}
+		
 	}
 
 

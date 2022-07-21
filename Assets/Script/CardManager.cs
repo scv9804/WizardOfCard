@@ -70,21 +70,12 @@ public class CardManager : MonoBehaviour
 		SetECardState();
 		DetectCardArea();
 		SetCardEnable();
+	}
 
+	private void FixedUpdate()
+	{
 		GameTick_CardManager();
-
-				if (Input.GetKeyDown(KeyCode.R))
-				{
-					AddCard();
-				}
-				if (Input.GetKeyDown(KeyCode.T))
-				{
-					AddDeck();
-				}
-				if (Input.GetKeyDown(KeyCode.Y))
-				{
-					DeckShuffle();
-				}
+		myCards.ForEach(x => x.ExplainRefresh());
 	}
 
 	private void OnDestroy()
@@ -118,11 +109,6 @@ public class CardManager : MonoBehaviour
 	}
 
 
-
-
-
-
-
 	public void DeckShuffle()
 	{
 		for (int i = 0; i < myDeck.Count; i++)
@@ -150,7 +136,7 @@ public class CardManager : MonoBehaviour
 		DeckShuffle();
 	}
 
-	// 손패추가 (추가) 강화카드 사용 시 damage 0을 보내서 데미지 수치를 기본 값으로 변경 <<왜이렇게 만듦? 나 병신인가봄 ㅋㅋ 근데 수정도 귀찮아서 알아서해요 수진씨 ㅋㅋㅋㅋㅋㅋ;;;;;
+	// 손패추가 (추가) 강화카드 사용 시 damage 0을 보내서 데미지 수치를 기본 값으로 변경 <<왜이렇게 만듦? 나 병신인가봄;;
 	public void AddCard()
 	{
 		var tempt = PopDeck();
@@ -163,24 +149,12 @@ public class CardManager : MonoBehaviour
 			var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 			var card = cardObject.GetComponent<Card>();
 			card.Setup(tempt);
-			DrowCardExplainRefresh(card);
 			myCards.Add(card);
 			setOriginOrder();
 			CardAlignment();
 		}
 	}
 
-	void DrowCardExplainRefresh(Card _card)
-    {
-		if (!is_useEnhance)
-		{
-			_card.i_explainDamage = _card.i_explainDamageOrigin;
-		}
-		else
-		{
-			_card.i_explainDamage *= BattleCalculater.Inst.i_enhacneVal;
-		}
-	}
 
 
 
@@ -211,7 +185,7 @@ public class CardManager : MonoBehaviour
 			targetCard.MoveTransform(targetCard.originPRS, true, 0.7f);
 		}
 	}
-	//원형 배치
+	//원형 배치 //안좋은 함수긴함....
 	List<Pos_Rot_Scale> RoundAlignment(Transform _Left_tf, Transform _Right_tf, int _objCount, float _height, Vector3 _scale)
 	{
 		float[] objLerps = new float[_objCount];
@@ -251,7 +225,7 @@ public class CardManager : MonoBehaviour
 
 	#region Deck
 
-	void AddDeck()
+	public void AddDeck()
 	{
 		myDeck.Add(PopItem());
 	}
@@ -330,7 +304,7 @@ public class CardManager : MonoBehaviour
 		{
 			Debug.Log("카드사용");
 			// 카드 사용
-			if (_card.i_manaCost <= EntityManager.Inst.playerEntity.i_aether)
+			if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether)
 			{
 				is_cardUsing = true;
 				UseCardInArea(_card);
@@ -496,63 +470,6 @@ public class CardManager : MonoBehaviour
 		}
 	}
 
-
-	// 강화 카드 사용시 호출
-	public void UseEnhanceRefresh(int _timesVal)
-    {
-		//강화카드는 아님
-		foreach (Card _c in myCards)
-		{
-			switch (_c.i_cardType)
-			{
-				case 0: //Spell
-					{
-						_c.i_damage = _c.i_explainDamageOrigin * _timesVal;
-						break;
-					}
-				case 1: //Spell_Enhance
-					{
-						break;
-					}
-				case 2: // Shiled
-					{
-						_c.i_damage = _c.i_explainDamageOrigin * _timesVal;
-						break;
-					}
-				case 3: //Heal
-					{
-						_c.i_damage = _c.i_explainDamageOrigin * _timesVal;
-						break;
-					}
-				case 4:  //Buff
-					{
-						break;
-					}
-				case 5: //Debuff
-					{
-						break;
-					}
-			}
-		}
-
-		myCards.ForEach(x => x.ExplainRefresh());
-	}
-
-	//강화카드 사용 후 다른 카드 사용시 호출
-	public void AfterUseEnhance()
-    {
-		myCards.ForEach(x => x.i_damage = x.i_explainDamageOrigin);
-
-		foreach (Card _c in myCards)
-		{
-			if (_c.i_cardType == 1) // 1 == spellEnhance (enum item's Num) 
-			{
-				_c.i_damage = _c.i_explainDamageOrigin;
-			}
-		}
-
-		myCards.ForEach(x => x.ExplainRefresh());
-	}
 
 	#endregion
 

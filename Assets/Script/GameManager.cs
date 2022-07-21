@@ -58,7 +58,19 @@ public class GameManager : MonoBehaviour
             level.MoveRoom(3);	
         }
 
-
+        // 카드 드로우 관련 항목.
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            CardManager.Inst.AddCard();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            CardManager.Inst.AddDeck();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            CardManager.Inst.DeckShuffle();
+        }
     }
 
     public void StartGame()

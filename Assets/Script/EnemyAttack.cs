@@ -12,7 +12,7 @@ public class EnemyAttack : MonoBehaviour
 		if (TurnManager.Inst.myTurn == true)
 		{
 			i_attackCount -= 1;
-			EntityManager.Inst.playerEntity.i_health -= 1;
+			EntityManager.Inst.playerEntity.Status_Health -= 1;
 		}
 	}
 

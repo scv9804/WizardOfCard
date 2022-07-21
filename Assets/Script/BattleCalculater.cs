@@ -9,22 +9,19 @@ public class  BattleCalculater: MonoBehaviour
     {
         Inst = this;
 
-        //DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
     }
 
     int Defult;
 
    // public enum e_CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff };
 
-    [HideInInspector] public bool is_canUseSelf;
-    [HideInInspector] public int i_enhacneVal=1;
-    [HideInInspector] public int i_calcDamage;
-    [HideInInspector] public int i_everlasting = 0;  //고정 마법 증폭 (수정여지있음)
+
 
     public void BattleCalc(Card _card, PlayerEntity _target)
 	{
-        _target.i_aether -= _card.i_manaCost;
-        if (_target.i_aether <= 0)
+        _target.Status_Aether -= _card.i_manaCost;
+        if (_target.Status_Aether <= 0)
         {
             TurnManager.Inst.EndTurn();
         }
@@ -66,8 +63,8 @@ public class  BattleCalculater: MonoBehaviour
 
     public void BattleCalc(Card _card, Entity _target)
     {
-        EntityManager.Inst.playerEntity.i_aether -= _card.i_manaCost;
-        if (EntityManager.Inst.playerEntity.i_aether <= 0)
+        EntityManager.Inst.playerEntity.Status_Aether -= _card.i_manaCost;
+        if (EntityManager.Inst.playerEntity.Status_Aether <= 0)
         {
             TurnManager.Inst.EndTurn();
         }
@@ -112,18 +109,12 @@ public class  BattleCalculater: MonoBehaviour
     // 강화중인가?
     private void IsUseEnchance()
     {
-        if (CardManager.Inst.is_useEnhance == true)
-        {
-            i_enhacneVal = 1 + i_everlasting;
-            CardManager.Inst.AfterUseEnhance();
-        }
-        CardManager.Inst.is_useEnhance = false;
+    
     }
     public void SpellEnhanceDamagedCalc(Card _card)
     {
-        i_enhacneVal *= _card.i_explainDamageOrigin;
-        CardManager.Inst.UseEnhanceRefresh(i_enhacneVal);
-        CardManager.Inst.is_useEnhance = true;
+
+
     }
 
 
@@ -196,7 +187,7 @@ public class  BattleCalculater: MonoBehaviour
     // 쉴드
     public void PlayerShieldCalc(Card _card, PlayerEntity _playerEntity)
     {
-        _playerEntity.i_shield += _card.i_damage;
+        _playerEntity.Status_Shiled += _card.i_damage;
         _playerEntity.RefreshPlayer();
         IsUseEnchance();
     }
@@ -205,15 +196,15 @@ public class  BattleCalculater: MonoBehaviour
     //힐
     public void PlayerHealCalc(Card _card, PlayerEntity _playerEntity)
     {
-        if (_playerEntity.i_health + _card.i_damage <= _playerEntity.HEALTHMAX)
+        if (_playerEntity.Status_Health + _card.i_damage <= _playerEntity.Status_MaxHealth)
         {
-            _playerEntity.i_health += _card.i_damage;
+            _playerEntity.Status_Health += _card.i_damage;
             _playerEntity.RefreshPlayer();
             IsUseEnchance();
         }
         else
         {
-            _playerEntity.i_health = _playerEntity.HEALTHMAX;
+            _playerEntity.Status_Health = _playerEntity.Status_MaxHealth;
             _playerEntity.RefreshPlayer();
             IsUseEnchance();
         }

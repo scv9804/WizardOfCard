@@ -98,18 +98,18 @@ public class MapSpriteSelector : MonoBehaviour {
 		{
 			this.gameObject.SetActive(false);
 		}
-		else if (type == 4)
-		{
-			this.gameObject.SetActive(false);
-			SetBoss();
-		}
 		else if (type == 3)
 		{
 			this.gameObject.SetActive(true);
 			spawnedBossIcon?.SetActive(true);
 			mainColor = noSerchColor;
 		}
-	
+		else if (type == 4)
+		{
+			this.gameObject.SetActive(false);
+			SetBoss();
+		}
+
 		rend.color = mainColor;
 	}
 

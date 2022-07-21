@@ -20,6 +20,12 @@ public class LevelGeneration : MonoBehaviour {
 	public GameObject BossRoomIcon;
 	public GameObject roomWhiteObj;
 
+
+
+	// TYPE 4 없애고 IS_Bossroom으로 대체하기 (이와같은 방법으로 상점같은것들도 만들기 쉬울듯함.
+
+
+
 	private void Start()
 	{
 		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
@@ -249,7 +255,7 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 
-	// tlqkf 수정할거 너무많음 ㅇㅇ
+	// 보스룸 만들기. (모두고려하기)
 	void CreateBossRoom()
 	{
 		foreach (var room in rooms)
@@ -259,52 +265,87 @@ public class LevelGeneration : MonoBehaviour {
 			if (room.doorBot == true && room.doorLeft == false && room.doorTop == false && room.doorRight == false)
 			{
 				room.type = 4;
+				room.isBossRoom = true;
 				break;
 			}
 			if (room.doorBot == false && room.doorLeft == true && room.doorTop == false && room.doorRight == false)
 			{
 				room.type = 4;
+				room.isBossRoom = true;
 				break;
 			}
 			if (room.doorBot == false && room.doorLeft == false && room.doorTop == true && room.doorRight == false)
 			{
 				room.type = 4;
+				room.isBossRoom = true;
 				break;
 			}
 			if (room.doorBot == false && room.doorLeft == false && room.doorTop == false && room.doorRight == true)
-			{
+			{	
 				room.type = 4;
+				room.isBossRoom = true;
 				break;
 			}
 		}
 	}
 
-
-
-
 	void RoomRefersh()
 	{
-		//세상에서 가장 미친 문구 ㅋㅋㅋㅋㅋㅋㅋ
+		//세상에서 가장 미친 문구 ㅋㅋㅋㅋㅋㅋㅋ 나름 깔끔하게 고침.
 		try
 		{
 			if (rooms[inPosX, inPosY] != null)
 			{
-				if (rooms[inPosX - 1, inPosY] != null && rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX -1, inPosY ].type != 4)
+				if (rooms[inPosX - 1, inPosY] != null && rooms[inPosX - 1, inPosY].Checked != true )
 				{
 					rooms[inPosX - 1, inPosY].type = 3;
 
 				}
-				if (rooms[inPosX + 1, inPosY] != null && rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY ].type != 4)
+			}
+		}
+		catch
+		{
+			Debug.Log("LeftRoomIsOutOfIndex");
+		}
+		try
+		{
+			if (rooms[inPosX, inPosY] != null)
+			{
+				if (rooms[inPosX + 1, inPosY] != null && rooms[inPosX + 1, inPosY].Checked != true)
 				{
 					rooms[inPosX + 1, inPosY].type = 3;
 
 				}
-				if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
+
+			}
+		}
+		catch
+		{
+			Debug.Log("RightRoomIsOutOfIndex");
+		}
+		try
+		{
+			if (rooms[inPosX, inPosY] != null)
+			{
+
+				if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true)
 				{
 					rooms[inPosX, inPosY + 1].type = 3;
 
 				}
-				if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
+
+			}
+		}
+		catch
+		{
+			Debug.Log("AboveRoomIsOutOfIndex");
+		}
+		try
+		{
+			if (rooms[inPosX, inPosY] != null)
+			{
+
+				if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true)
 				{
 					rooms[inPosX, inPosY - 1].type = 3;
 				}
@@ -312,56 +353,7 @@ public class LevelGeneration : MonoBehaviour {
 		}
 		catch
 		{
-			try
-			{
-					if (rooms[inPosX + 1, inPosY] != null && rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].type != 4)
-					{
-						rooms[inPosX + 1, inPosY].type = 3;
-
-					}
-					if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
-					{
-						rooms[inPosX, inPosY + 1].type = 3;
-
-					}
-					if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-					{
-						rooms[inPosX, inPosY - 1].type = 3;
-
-					}
-			}
-			catch
-			{
-				try
-				{
-
-					if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
-					{
-						rooms[inPosX, inPosY + 1].type = 3;
-
-					}
-					if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-					{
-						rooms[inPosX, inPosY - 1].type = 3;
-
-					}
-				}
-				catch
-				{
-					try
-					{
-						if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-						{
-							rooms[inPosX, inPosY - 1].type = 3;
-						}
-					}
-					catch
-					{
-
-					}
-				}
-
-			}
+			Debug.Log("UnderRoomIsOutOfIndex");
 		}
 		RefreshSpriteColor();
 	}
@@ -369,149 +361,10 @@ public class LevelGeneration : MonoBehaviour {
 	//방이동하기
 	public void MoveRoom(int _moveDir)
 	{
-		//0 --> left
-		//1 --> right
-		//2 --> above
-		//3 --> bellow
+
 		try
 		{
-			LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-
-			switch (_moveDir)
-			{
-				case 0:
-					{
-						if (rooms[inPosX - 1, inPosY] != null)
-						{
-							if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].type == 4)
-							{
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX - 1, inPosY].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosX--;
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-				case 1:
-					{
-						if (rooms[inPosX + 1, inPosY] != null)
-						{						
-							if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].type == 4)
-							{
-								Debug.Log("보스소환시도");
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX + 1, inPosY].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosX++;
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-				case 2:
-					{
-						if (rooms[inPosX, inPosY + 1] != null)
-						{
-							if (rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX , inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type == 4)
-							{
-								Debug.Log("보스소환시도");
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX, inPosY + 1].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosY++;
-
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-				case 3:
-					{
-						if (rooms[inPosX, inPosY - 1] != null)
-						{							
-							if (rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX , inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type == 4)
-							{
-								Debug.Log("보스소환시도");
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX, inPosY - 1].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosY--;
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-			}
+			ChoiseRoom(_moveDir);
 		}
 		catch
 		{
@@ -520,6 +373,150 @@ public class LevelGeneration : MonoBehaviour {
 		RoomRefersh();
 	}
 
+	//0 --> left
+	//1 --> right
+	//2 --> above
+	//3 --> bellow
+	void ChoiseRoom(int _moveDir)
+	{
+		LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+
+		switch (_moveDir)
+		{
+			case 0:
+				{
+					if (rooms[inPosX - 1, inPosY] != null)
+					{
+						if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].isBossRoom == false)
+						{
+							EntityManager.Inst.SpawnEnemyEntity();
+						}
+						else if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].isBossRoom == true)
+						{
+							EntityManager.Inst.SpawnEnemyBossEntity();
+						}
+
+						rooms[inPosX - 1, inPosY].type = 1;
+						rooms[inPosX, inPosY].type = 0;
+
+						inPosX--;
+					}
+					if (rooms[inPosX, inPosY].Checked != true)
+					{
+						UIManager.Inst.ButtonDeActivate();
+						TurnManager.Inst.SetMyTurn();
+						rooms[inPosX, inPosY].Checked = true;
+					}
+					else
+					{
+						level.existRoomCheck();
+						UIManager.Inst.ButtonDeActivate();
+						UIManager.Inst.ButtonActivate();
+					}
+					break;
+				}
+			case 1:
+				{
+					if (rooms[inPosX + 1, inPosY] != null)
+					{
+						if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].isBossRoom == false)
+						{
+							EntityManager.Inst.SpawnEnemyEntity();
+						}
+						else if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].isBossRoom == true)
+						{
+							Debug.Log("보스소환시도");
+							EntityManager.Inst.SpawnEnemyBossEntity();
+						}
+
+						rooms[inPosX + 1, inPosY].type = 1;
+						rooms[inPosX, inPosY].type = 0;
+
+						inPosX++;
+					}
+					if (rooms[inPosX, inPosY].Checked != true)
+					{
+						UIManager.Inst.ButtonDeActivate();
+						TurnManager.Inst.SetMyTurn();
+						rooms[inPosX, inPosY].Checked = true;
+					}
+					else
+					{
+						level.existRoomCheck();
+						UIManager.Inst.ButtonDeActivate();
+						UIManager.Inst.ButtonActivate();
+					}
+					break;
+				}
+			case 2:
+				{
+					if (rooms[inPosX, inPosY + 1] != null)
+					{
+						if (rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].isBossRoom == false)
+						{
+							EntityManager.Inst.SpawnEnemyEntity();
+						}
+						else if (rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].isBossRoom == true)
+						{
+							Debug.Log("보스소환시도");
+							EntityManager.Inst.SpawnEnemyBossEntity();
+						}
+
+						rooms[inPosX, inPosY + 1].type = 1;
+						rooms[inPosX, inPosY].type = 0;
+
+						inPosY++;
+
+					}
+					if (rooms[inPosX, inPosY].Checked != true)
+					{
+						UIManager.Inst.ButtonDeActivate();
+						TurnManager.Inst.SetMyTurn();
+						rooms[inPosX, inPosY].Checked = true;
+					}
+					else
+					{
+						level.existRoomCheck();
+						UIManager.Inst.ButtonDeActivate();
+						UIManager.Inst.ButtonActivate();
+					}
+					break;
+				}
+			case 3:
+				{
+					if (rooms[inPosX, inPosY - 1] != null)
+					{
+						if (rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].isBossRoom == false)
+						{
+							EntityManager.Inst.SpawnEnemyEntity();
+						}
+						else if (rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].isBossRoom == true)
+						{
+							Debug.Log("보스소환시도");
+							EntityManager.Inst.SpawnEnemyBossEntity();
+						}
+
+						rooms[inPosX, inPosY - 1].type = 1;
+						rooms[inPosX, inPosY].type = 0;
+
+						inPosY--;
+					}
+					if (rooms[inPosX, inPosY].Checked != true)
+					{
+						UIManager.Inst.ButtonDeActivate();
+						TurnManager.Inst.SetMyTurn();
+						rooms[inPosX, inPosY].Checked = true;
+					}
+					else
+					{
+						level.existRoomCheck();
+						UIManager.Inst.ButtonDeActivate();
+						UIManager.Inst.ButtonActivate();
+					}
+					break;
+				}
+		}
+	}
 
 	public void existRoomCheck()
 	{

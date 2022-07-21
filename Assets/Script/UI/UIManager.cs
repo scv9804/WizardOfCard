@@ -35,13 +35,13 @@ public class UIManager : MonoBehaviour
 
 	public void CemeteryRefresh()
 	{
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.i_aether > 0)
+		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether > 0)
 		{
 			CardManager.Inst.ShuffleCemetery();
-			EntityManager.Inst.playerEntity.i_aether -= 1;
+			EntityManager.Inst.playerEntity.Status_Aether -= 1;
 		}
 		
-		if(TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.i_aether <= 0)
+		if(TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether <= 0)
 		{
 			TurnManager.Inst.EndTurn();
 		}			
@@ -49,12 +49,12 @@ public class UIManager : MonoBehaviour
 
 	public void HandRefresh()
 	{
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.i_aether > 0)
+		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether > 0)
 		{
 			CardManager.Inst.ShuffleHand();
-			EntityManager.Inst.playerEntity.i_aether -= 1;
+			EntityManager.Inst.playerEntity.Status_Aether -= 1;
 		}
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.i_aether <= 0)
+		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether <= 0)
 		{
 			TurnManager.Inst.EndTurn();
 		}
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
 
 	public void SetManaUI()
 	{
-		ManaTMP_UI.text = EntityManager.Inst.playerEntity.i_aether.ToString() + "/" + EntityManager.Inst.playerEntity.MAXAETHER.ToString();
+		ManaTMP_UI.text = EntityManager.Inst.playerEntity.Status_Aether.ToString() + "/" + EntityManager.Inst.playerEntity.Status_MaxAether.ToString();
 	}
 
 
