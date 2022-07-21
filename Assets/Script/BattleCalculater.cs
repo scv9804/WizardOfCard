@@ -34,7 +34,7 @@ public class  BattleCalculater: MonoBehaviour
                 }
             case 1: //Spell_Enhance
                 {
-                    SpellEnhanceDamagedCalc(_card);
+                    SpellEnhaneCalc(_card);
                     break;
                 }
             case 2: // Shiled
@@ -78,7 +78,7 @@ public class  BattleCalculater: MonoBehaviour
                 }
             case 1: //Spell_Enhance
                 {
-                    SpellEnhanceDamagedCalc(_card);
+                    SpellEnhaneCalc(_card);
                     break;
                 }
             case 2: // Shiled
@@ -107,14 +107,13 @@ public class  BattleCalculater: MonoBehaviour
 
 
     // 강화중인가?
-    private void IsUseEnchance()
+    private void SpellEnchaneReset()
     {
-    
+        PlayerEntity.Inst.Status_EnchaneValue *= 1;
     }
-    public void SpellEnhanceDamagedCalc(Card _card)
+    public void SpellEnhaneCalc(Card _card)
     {
-
-
+        PlayerEntity.Inst.Status_EnchaneValue *= _card.i_damage;
     }
 
 
@@ -125,7 +124,7 @@ public class  BattleCalculater: MonoBehaviour
 	public void EnemySpellDamagedCalc(Card _card, Entity _target)
     {
         _target?.Damaged(_card.i_damage);
-        IsUseEnchance();
+        SpellEnchaneReset();
     }
 
     //주문 강화
@@ -136,7 +135,7 @@ public class  BattleCalculater: MonoBehaviour
     {
         _entity.i_shield += _card.i_damage;
         _entity.RefreshEntity();
-        IsUseEnchance();
+        SpellEnchaneReset();
     }
 
 
@@ -147,13 +146,13 @@ public class  BattleCalculater: MonoBehaviour
         {
             _entity.i_health += _card.i_damage;
             _entity.RefreshEntity();
-            IsUseEnchance();
+            SpellEnchaneReset();
         }
         else
         {
             _entity.i_health = _entity.HEALTHMAX;
             _entity.RefreshEntity();
-            IsUseEnchance();
+            SpellEnchaneReset();
         }
     }
 
@@ -178,7 +177,7 @@ public class  BattleCalculater: MonoBehaviour
     public void PlayerSpellDamagedCalc(Card _card, PlayerEntity _target)
     {
         _target?.Damaged(_card.i_damage);
-        IsUseEnchance();
+        SpellEnchaneReset();
     }
 
     //주문 강화
@@ -189,7 +188,7 @@ public class  BattleCalculater: MonoBehaviour
     {
         _playerEntity.Status_Shiled += _card.i_damage;
         _playerEntity.RefreshPlayer();
-        IsUseEnchance();
+        SpellEnchaneReset();
     }
 
 
@@ -200,13 +199,13 @@ public class  BattleCalculater: MonoBehaviour
         {
             _playerEntity.Status_Health += _card.i_damage;
             _playerEntity.RefreshPlayer();
-            IsUseEnchance();
+            SpellEnchaneReset();
         }
         else
         {
             _playerEntity.Status_Health = _playerEntity.Status_MaxHealth;
             _playerEntity.RefreshPlayer();
-            IsUseEnchance();
+            SpellEnchaneReset();
         }
     }
 
@@ -222,6 +221,6 @@ public class  BattleCalculater: MonoBehaviour
 
     }
 
-    #endregion
+	#endregion
 
 }
