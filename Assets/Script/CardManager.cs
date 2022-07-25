@@ -15,14 +15,19 @@ public class CardManager : MonoBehaviour
 
 	[SerializeField] ItemSO itemSO;
 	[SerializeField] GameObject cardPrefab;
+
+
 	[SerializeField] List<Card> myCards;
 	[SerializeField] List<Card> myCemetery;
+
 	[SerializeField] Transform cardSpawnPos;
 	[SerializeField] Transform LeftCard_Tf;
 	[SerializeField] Transform RightCard_Tf;
 	[SerializeField] Transform UseCard_Tf;
 	[SerializeField] Transform cardGarbage_Tf;
 	[SerializeField] E_CardStats e_CardStats;
+
+
 	[SerializeField] float f_useCardSize;
 	[SerializeField] float f_garbageCardSize;
 	[SerializeField] float f_arrangementSize;
@@ -33,8 +38,8 @@ public class CardManager : MonoBehaviour
 	public Vector3[] v3_cardPaths_onHand;
 
 
-	[SerializeField] List<Item> itemBuffer;
-	[SerializeField] List<Item> myDeck;
+	[SerializeField] List<Card> itemBuffer;
+	[SerializeField] List<Card> myDeck;
 	
 
 	enum E_CardStats { Cannot, CanMouseOver, CanAll };
@@ -51,7 +56,6 @@ public class CardManager : MonoBehaviour
 
 	private void Start()
 	{
-		myDeck = new List<Item>(50);
 		SetupMyDeck();
 		v3_cardPaths_onHand = new Vector3[3];
 		for (int i = 0; i < 6; i++)
@@ -75,7 +79,6 @@ public class CardManager : MonoBehaviour
 	private void FixedUpdate()
 	{
 		GameTick_CardManager();
-		myCards.ForEach(x => x.ExplainRefresh());
 	}
 
 	private void OnDestroy()
@@ -95,7 +98,7 @@ public class CardManager : MonoBehaviour
 
 
 	// 덱에서 카드뽑기
-	public Item PopItem()
+	public Card PopItem()
 	{
 		//총 카드 0장이면 다시 뽑기
 		if (myDeck.Count == 0)
@@ -103,9 +106,9 @@ public class CardManager : MonoBehaviour
 			SetupMyDeck();
 		}
 		//카드 뽑기 
-		Item item = myDeck[0];
+		Card card = myDeck[0];
 		myDeck.RemoveAt(0);
-		return item;
+		return card;
 	}
 
 
@@ -114,7 +117,7 @@ public class CardManager : MonoBehaviour
 		for (int i = 0; i < myDeck.Count; i++)
 		{
 			int rand = UnityEngine.Random.Range(i, myDeck.Count);
-			Item temp = myDeck[i];
+			Card temp = myDeck[i];
 			myDeck[i] = myDeck[rand];
 			myDeck[rand] = temp;
 		}
@@ -123,14 +126,14 @@ public class CardManager : MonoBehaviour
 	//need retouch // 22.5.25 수정
 	void SetupMyDeck()
 	{
-		myDeck = new List<Item>(100);
+		myDeck = new List<Card>(100);
 		// 아이템 버퍼에 추가
 		for (int i = 0; i < itemSO.items.Length; i++)
 		{
-			Item item = itemSO.items[i];
-			for (int j = 0; j < item.f_percentage; j++)
+			Card card = itemSO.items[i].card;
+			for (int j = 0; j < card.card_info.f_percentage; j++)
 			{
-				myDeck.Add(item);
+				myDeck.Add(card);
 			}
 		}
 		DeckShuffle();
@@ -148,7 +151,6 @@ public class CardManager : MonoBehaviour
 		{
 			var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 			var card = cardObject.GetComponent<Card>();
-			card.Setup(tempt);
 			myCards.Add(card);
 			setOriginOrder();
 			CardAlignment();
@@ -230,7 +232,7 @@ public class CardManager : MonoBehaviour
 		myDeck.Add(PopItem());
 	}
 
-	public Item PopDeck()
+	public Card PopDeck()
 	{
 		if (myDeck.Count == 0)
 		{
@@ -238,9 +240,9 @@ public class CardManager : MonoBehaviour
 		}
 		else
 		{
-			Item item = myDeck[0];
+			Card card = myDeck[0];
 			myDeck.RemoveAt(0);
-			return item;
+			return card;
 		}
 		return null;
 	}
@@ -449,7 +451,7 @@ public class CardManager : MonoBehaviour
 
 		for (int i =0; tempt > i; i++)
 		{
-			myDeck.Add(myCemetery[0].item);
+			myDeck.Add(myCemetery[0]);
 			myCemetery.RemoveAt(0);
 		}
 		DeckShuffle();

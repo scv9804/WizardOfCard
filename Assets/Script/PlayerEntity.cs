@@ -20,8 +20,8 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] SpriteRenderer charater;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
-    [SerializeField] Image healthImage;
-
+    [SerializeField] Image healthImage_Bar;
+    Image healthImage_UI;
 
 
     public bool attackable;
@@ -37,10 +37,14 @@ public class PlayerEntity : MonoBehaviour
     int i_everlasting = 0;  //고정 마법 증폭 (수정여지있음)
 
 
+	private void Start()
+	{
+        healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
+	}
 
 
-    #region status
-    int maxAether = 5; // 최대 코스트
+	#region status
+	int maxAether = 5; // 최대 코스트
     int i_aether; // 코스트
 
 
@@ -59,9 +63,6 @@ public class PlayerEntity : MonoBehaviour
     [HideInInspector] int i_magicResistance = 0; //대략 4에 1감소
 
     #endregion
-
-
-
 
 
     #region debuff
@@ -178,8 +179,6 @@ public class PlayerEntity : MonoBehaviour
 
 
 
-
-
     // === 디버프 셋팅 ===
     #region set_debuff
 
@@ -237,10 +236,12 @@ public class PlayerEntity : MonoBehaviour
     public void RefreshPlayer()
     {
         Set_ShieldActivate();
-        healthImage.fillAmount = i_health / maxHealth;
+        healthImage_Bar.fillAmount = i_health / maxHealth;
+        healthImage_UI.fillAmount = i_health / maxHealth;
         UIManager.Inst.HealthTMP_UI.text = i_health + " / " + maxHealth;
         healthTMP.text = i_health.ToString();
         ShieldTMP.text = i_shield.ToString();
+        
     }
 
     void Set_ShieldActivate()

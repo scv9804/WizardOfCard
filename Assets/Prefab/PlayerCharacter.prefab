@@ -105,17 +105,9 @@ MonoBehaviour:
   charater: {fileID: 2077760302346298915}
   healthTMP: {fileID: 2077760302748284320}
   ShieldTMP: {fileID: 2077760302755530901}
-  healthImage: {fileID: 2077760304018420795}
-  i_health: 0
-  HEALTHMAX: 0
-  i_shield: 0
-  is_mine: 0
+  healthImage_Bar: {fileID: 2077760304018420795}
+  healthImage_UI: {fileID: 2350134735970959927}
   attackable: 0
-  is_attackAble: 0
-  is_die: 0
-  MAXAETHER: 5
-  i_aether: 0
-  i_: 0
 --- !u!61 &6157782240726249842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -816,7 +808,7 @@ GameObject:
   - component: {fileID: 2350134735970959927}
   - component: {fileID: 6661157804994035530}
   m_Layer: 5
-  m_Name: HP_UI
+  m_Name: HP_Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

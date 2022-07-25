@@ -9,7 +9,7 @@ public class Card : MonoBehaviour
 {
 
 	[SerializeField] GameObject card;
-	[SerializeField] SpriteRenderer charater;
+//	[SerializeField] SpriteRenderer charater;
 	[SerializeField] SpriteRenderer sp_card;
 	[SerializeField] TMP_Text nameTMP;
 	[SerializeField] TMP_Text healthTMP;
@@ -17,8 +17,8 @@ public class Card : MonoBehaviour
 	[SerializeField] TMP_Text explainTMP;
 	[SerializeField] Vector3 v_cardSize;
 
+	public Card_Info card_info;
 
-	[HideInInspector] public Item item;
 	[HideInInspector] public Pos_Rot_Scale originPRS;
 	[HideInInspector] public int i_CardNum;
 	[HideInInspector] public int i_manaCost;
@@ -32,22 +32,33 @@ public class Card : MonoBehaviour
 
 	 public bool is_Useable_Card = true;
 
-	public void Setup(Item _item)
+
+
+	private void FixedUpdate()
 	{
-		item = _item;
-		i_manaCost = item.i_Cost;
-		i_CardNum = item.i_itemNum;
-		i_cardType = ((int)item.type);
-		st_explain = item.st_explainCard;
-		sp_card.sprite = item.sp_CardSprite;
+		ExplainRefresh();
+	}
+
+	private void Start()
+	{
+		Setup();
+	}
+
+	public void Setup()
+	{
+		i_manaCost = card_info.i_Cost;
+		i_CardNum = card_info.i_itemNum;
+		i_cardType = ((int)card_info.type);
+		st_explain = card_info.st_explainCard;
+		sp_card.sprite = card_info.sp_CardSprite;
 		card.transform.localScale = v_cardSize;
+		sp_card.sprite = card_info.sp_CardSprite;
 
 		splitString();
 		ExplainRefresh();
 	
 		manaCostTMP.text = i_manaCost.ToString() ;
-		charater.sprite = item.sp_CharacterSprite;
-		nameTMP.text = item.st_cardName;
+		nameTMP.text = card_info.st_cardName;
 	}
 
 	//OutPut Srting ¹®ÀÚ¿­ 
