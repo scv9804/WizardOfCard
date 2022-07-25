@@ -139,6 +139,7 @@ public class CardManager : MonoBehaviour
 		DeckShuffle();
 	}
 
+
 	// 손패추가 (추가) 강화카드 사용 시 damage 0을 보내서 데미지 수치를 기본 값으로 변경 <<왜이렇게 만듦? 나 병신인가봄;;
 	public void AddCard()
 	{
@@ -151,6 +152,7 @@ public class CardManager : MonoBehaviour
 		{
 			var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 			var card = cardObject.GetComponent<Card>();
+			card.Setup();
 			myCards.Add(card);
 			setOriginOrder();
 			CardAlignment();
@@ -457,7 +459,7 @@ public class CardManager : MonoBehaviour
 		DeckShuffle();
 	}
 
-	public void ShuffleHand()
+	public IEnumerator ShuffleHand()
 	{
 		int tempt = myCards.Count; 
 		for(int i =0;tempt > i ; i++ )
@@ -469,6 +471,7 @@ public class CardManager : MonoBehaviour
 		for (int i = 0; 6 > i; i++)
 		{
 			AddCard();
+			yield return new WaitForSeconds(0.3f);
 		}
 	}
 

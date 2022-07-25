@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}
   m_sharedMaterial: {fileID: -5906256737900837030, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB9C8\uBC95\uAD6C"
+  m_text: TEST2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}
   m_sharedMaterial: {fileID: -5906256737900837030, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: -2801819417619063475}
   - component: {fileID: 2036147294181241873}
   m_Layer: 0
-  m_Name: PlayerCard_0
+  m_Name: PlayerCard_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -502,7 +502,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4477159931361051813, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
+  m_Sprite: {fileID: 416812731473756612, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -525,14 +525,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_itemNum: 1
-  st_cardName: "\uB9C8\uBC95\uAD6C"
-  i_attack: 1
-  i_Cost: 1
-  f_percentage: 1
-  st_explainCard: 1
-  type: 0
-  sp_CardSprite: {fileID: 4477159931361051813, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
+  i_itemNum: 2
+  st_cardName: TEST2
+  i_attack: 2
+  i_Cost: 2
+  f_percentage: 10
+  st_explainCard: 2
+  type: 1
+  sp_CardSprite: {fileID: 416812731473756612, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
 --- !u!114 &7395019933593546575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,16 +557,16 @@ MonoBehaviour:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
-  i_CardNum: 1
-  i_manaCost: 1
-  i_damage: 1
-  i_cardType: 0
+  i_CardNum: 2
+  i_manaCost: 2
+  i_damage: 2
+  i_cardType: 1
   i_explainDamage: 0
-  st_explain: 1
+  st_explain: 2
   st_splitExplain:
   - 
   - 
-  i_explainDamageOrigin: 1
+  i_explainDamageOrigin: 2
   is_Useable_Card: 1
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
@@ -606,7 +606,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 14.599999, y: 20.41809}
+    oldSize: {x: 14.56, y: 20.277967}
     newSize: {x: 14.614902, y: 20.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -883,7 +883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}
   m_sharedMaterial: {fileID: -5906256737900837030, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}

@@ -1079,10 +1079,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1565842616}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1278654427}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OptionToggle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1882,30 +1882,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 490724210}
-  - component: {fileID: 490724211}
   - component: {fileID: 490724212}
+  - component: {fileID: 490724209}
   m_Layer: 0
-  m_Name: BackGround_Trigger
+  m_Name: BackGround_Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &490724210
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 490724208}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 0.95, y: 0.95, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 23
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &490724211
+--- !u!114 &490724209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1917,6 +1903,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae26f6d855932d2489c75a670c6b7310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &490724210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490724208}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &490724212
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1930,7 +1930,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.060038567, y: -0.008205414}
+  m_Offset: {x: 0, y: -1.8765354}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1941,7 +1941,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 32.751434, y: 19.965523}
+  m_Size: {x: 62.11339, y: 27.550228}
   m_EdgeRadius: 0
 --- !u!1 &498893766
 GameObject:
@@ -5474,7 +5474,6 @@ MonoBehaviour:
   ManaTMP_UI: {fileID: 517384230}
   optionUI: {fileID: 1565842616}
   minimapUI: {fileID: 1413772970}
-  Minimap: {fileID: 1413772970}
   levelGeneration: {fileID: 2133263562}
 --- !u!4 &1278654428
 Transform:

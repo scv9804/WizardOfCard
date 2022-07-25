@@ -9,6 +9,7 @@ public class Item
 {
 	public int itemCode;
 	public Card card;
+	public GameObject card_object;
 }
 
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptalbe Object/ItemSO")]

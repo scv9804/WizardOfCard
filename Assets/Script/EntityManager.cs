@@ -96,7 +96,7 @@ public class EntityManager : MonoBehaviour
             StartCoroutine(enemy.Attack(playerEntity, enemy));
         }
 
-        Debug.Log("Call from EnemyEntityAttack");
+        Debug.Log("Call EnemyEntityAttack");
         yield return new WaitForSeconds(0.1f);
         TurnManager.Inst.EndTurn();
     }

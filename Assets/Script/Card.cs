@@ -35,7 +35,7 @@ public class Card : MonoBehaviour
 
 
 	private void FixedUpdate()
-	{
+	{	
 		ExplainRefresh();
 	}
 
@@ -52,7 +52,6 @@ public class Card : MonoBehaviour
 		st_explain = card_info.st_explainCard;
 		sp_card.sprite = card_info.sp_CardSprite;
 		card.transform.localScale = v_cardSize;
-		sp_card.sprite = card_info.sp_CardSprite;
 
 		splitString();
 		ExplainRefresh();

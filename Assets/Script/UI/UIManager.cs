@@ -27,8 +27,7 @@ public class UIManager : MonoBehaviour
 	public GameObject optionUI;
 	public GameObject minimapUI;
 
-	[SerializeField] GameObject Minimap;
-	[SerializeField]LevelGeneration levelGeneration;
+	[SerializeField] LevelGeneration levelGeneration;
 
 
 
@@ -49,16 +48,24 @@ public class UIManager : MonoBehaviour
 
 	public void HandRefresh()
 	{
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether > 0)
+		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether > 0 && TurnManager.Inst.myTurn)
 		{
-			CardManager.Inst.ShuffleHand();
-			EntityManager.Inst.playerEntity.Status_Aether -= 1;
+			StartCoroutine(Shuffle());
 		}
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether <= 0)
+		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether <= 0 && TurnManager.Inst.myTurn)
 		{
 			TurnManager.Inst.EndTurn();
 		}
 	}
+
+	IEnumerator Shuffle()
+	{
+		StartCoroutine(CardManager.Inst.ShuffleHand());
+		EntityManager.Inst.playerEntity.Status_Aether -= 1;
+		yield return new WaitForSeconds(0.3f);
+
+	}
+
 
 	
 	public void SetDeckCountUI(int _deckCount)
@@ -77,6 +84,7 @@ public class UIManager : MonoBehaviour
 	}
 
 
+	#region minimaps
 
 	public void LeftRoomMove()
 	{
@@ -102,26 +110,6 @@ public class UIManager : MonoBehaviour
 		level.MoveRoom(3);
 	}
 
-	public void ButtonDeActivate()
-	{
-		roomMoveButton_L.gameObject.SetActive(false);
-		roomMoveButton_R.gameObject.SetActive(false);
-		roomMoveButton_U.gameObject.SetActive(false);
-		roomMoveButton_D.gameObject.SetActive(false);
-	}
-
-	public void MinimapToggel()
-	{
-		if (Minimap.activeSelf)
-		{
-			Minimap.SetActive(false);
-		}
-		else
-		{
-			Minimap.SetActive(true);
-		}		
-	}
-
 	public void ButtonActivate()
 	{
 		levelGeneration.existRoomCheck();
@@ -143,6 +131,59 @@ public class UIManager : MonoBehaviour
 		}
 
 	}
+
+	#endregion
+
+
+	#region ToggleButtons
+
+	public void ButtonDeActivate()
+	{
+		roomMoveButton_L.gameObject.SetActive(false);
+		roomMoveButton_R.gameObject.SetActive(false);
+		roomMoveButton_U.gameObject.SetActive(false);
+		roomMoveButton_D.gameObject.SetActive(false);
+	}
+
+	public void MinimapToggel()
+	{
+		if (minimapUI.activeSelf == true)
+		{
+			minimapUI.SetActive(false);
+		}
+		else if(minimapUI.activeSelf == false)
+		{
+			minimapUI.SetActive(true);
+		}
+
+
+		if (optionUI.activeSelf == true)
+		{
+			optionUI.SetActive(false);
+		}
+	}
+
+	public void OptionToggle()
+	{
+		if (optionUI.activeSelf == true)
+		{
+			optionUI.SetActive(false);
+		}
+		else if (optionUI.activeSelf == false)
+		{
+			optionUI.SetActive(true);
+		}
+
+
+		if (minimapUI.activeSelf == true)
+		{
+			minimapUI.SetActive(false);
+		}
+	}
+
+	#endregion
+
+
 
 
 	public void GameOverButton()

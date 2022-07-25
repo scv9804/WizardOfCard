@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackGruond : MonoBehaviour
+public class BackGruond_Cancel : MonoBehaviour
 {
     //레이어 땜에 인식안될 수도 있으니 조심...
     private void OnMouseDown()
@@ -10,7 +10,6 @@ public class BackGruond : MonoBehaviour
         CardManager.Inst.CancelUseCard();
         UIManager.Inst.optionUI.SetActive(false);
         UIManager.Inst.minimapUI.SetActive(false);
-            
     }
 
 }

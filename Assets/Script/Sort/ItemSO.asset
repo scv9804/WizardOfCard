@@ -15,3 +15,7 @@ MonoBehaviour:
   items:
   - itemCode: 0
     card: {fileID: 7395019933593546575, guid: 4d5561ac243f15140891c88b1c765497, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 4d5561ac243f15140891c88b1c765497, type: 3}
+  - itemCode: 1
+    card: {fileID: 7395019933593546575, guid: c56486f628d93084cba6c1ae53396da0, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: c56486f628d93084cba6c1ae53396da0, type: 3}
