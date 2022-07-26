@@ -152,6 +152,7 @@ public class CardManager : MonoBehaviour
 		{
 			var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 			var card = cardObject.GetComponent<Card>();
+			card.SetItemSO(tempt.card_info);
 			card.Setup();
 			myCards.Add(card);
 			setOriginOrder();

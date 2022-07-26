@@ -9,6 +9,7 @@ public class Card : MonoBehaviour
 {
 
 	[SerializeField] GameObject card;
+	[SerializeField] ItemSO itemSO;
 //	[SerializeField] SpriteRenderer charater;
 	[SerializeField] SpriteRenderer sp_card;
 	[SerializeField] TMP_Text nameTMP;
@@ -41,8 +42,15 @@ public class Card : MonoBehaviour
 
 	private void Start()
 	{
+		
 		Setup();
 	}
+
+	public void SetItemSO(Card_Info _card_info)
+	{
+		card_info = _card_info;
+	}
+
 
 	public void Setup()
 	{
