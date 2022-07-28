@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardType {Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff};
+
 
 [System.Serializable]
 public class Item

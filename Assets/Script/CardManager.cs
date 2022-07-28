@@ -304,12 +304,28 @@ public class CardManager : MonoBehaviour
 			return;
 		}
 
+
+
 		//카드사용안하면 원위치.
 		if (is_canUseCard)
 		{
 			Debug.Log("카드사용");
+			if (AttackRange_Self(_card))
+			{
+				UseCardInArea(_card);
+				EntityManager.Inst.SetUseCard(_card);
+				EntityManager.Inst.UseCard_Self();
+				UseCardSetmyCemetery();
+			}
+			else if (AttackRange_AllEnemy(_card))
+			{
+				UseCardInArea(_card);
+				EntityManager.Inst.SetUseCard(_card);
+				EntityManager.Inst.UseCard_AllEnemy();
+				UseCardSetmyCemetery();
+			}
 			// 카드 사용
-			if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether)
+			else if (AttackRange_Single(_card))
 			{
 				is_cardUsing = true;
 				UseCardInArea(_card);
@@ -328,6 +344,33 @@ public class CardManager : MonoBehaviour
 
 
 	}
+
+	#region AttackRange Bool
+	bool AttackRange_Self(Card _card)
+	{
+		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.card_info.attackRange == Utility_enum.AttackRange.Target_Self)
+		{
+			return true;
+		}
+		return false; 
+	}
+	bool AttackRange_AllEnemy(Card _card)
+	{
+		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.card_info.attackRange == Utility_enum.AttackRange.Target_AllEnemy)
+		{
+			return true;
+		}
+		return false;
+	}
+	bool AttackRange_Single(Card _card)
+	{
+		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.card_info.attackRange == Utility_enum.AttackRange.Target_Single)
+		{
+			return true;
+		}
+		return false;
+	}
+	#endregion
 
 	void CardDrag()
 	{

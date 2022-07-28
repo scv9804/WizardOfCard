@@ -527,11 +527,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   i_itemNum: 2
-  st_cardName: TEST2
-  i_attack: 2
+  st_cardName: "\uB9C8\uBC95\uC9C4"
+  i_attack: 0
   i_Cost: 2
+  attackRange: 1
   f_percentage: 10
-  st_explainCard: 2
+  st_explainCard: "\uBAA8\uB4E0 \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C 2\uBC30 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
   type: 1
   sp_CardSprite: {fileID: 416812731473756612, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
 --- !u!114 &7395019933593546575
@@ -547,6 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 7395019933593546574}
+  itemSO: {fileID: 0}
   sp_card: {fileID: 7395019933593546572}
   nameTMP: {fileID: 7395019933344051563}
   healthTMP: {fileID: 7395019933629544956}
@@ -568,6 +570,7 @@ MonoBehaviour:
   - 
   - 
   i_explainDamageOrigin: 2
+  i_attackRange: 0
   is_Useable_Card: 1
 --- !u!114 &-2801819417619063475
 MonoBehaviour:

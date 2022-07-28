@@ -14,10 +14,6 @@ public class  BattleCalculater: MonoBehaviour
 
     int Defult;
 
-   // public enum e_CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff };
-
-
-
     public void BattleCalc(Card _card, PlayerEntity _target)
 	{
         _target.Status_Aether -= _card.i_manaCost;
@@ -138,7 +134,7 @@ public class  BattleCalculater: MonoBehaviour
         SpellEnchaneReset();
     }
 
-
+    
     //Èú
     public void EnemyHealCalc(Card _card, Entity _entity)
     {

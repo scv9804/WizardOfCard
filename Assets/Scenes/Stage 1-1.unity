@@ -6060,7 +6060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1413772971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6482,7 +6482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1565842617
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8848,7 +8848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  cardPrefab: {fileID: 7395019933593546574, guid: 4d5561ac243f15140891c88b1c765497, type: 3}
+  cardPrefab: {fileID: 7395019933593546574, guid: dd901e7a68067da48a8a25dedc095ba9, type: 3}
   myCards: []
   myCemetery: []
   cardSpawnPos: {fileID: 1742877490}

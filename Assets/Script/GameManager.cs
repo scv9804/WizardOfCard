@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private ItemSO item;
+
     void Start()
     {
         StartGame();
@@ -89,7 +91,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator GameOverScene()
 	{
         Debug.Log("GameOver");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene("GameOverScene");
 	}
 

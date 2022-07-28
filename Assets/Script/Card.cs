@@ -31,7 +31,9 @@ public class Card : MonoBehaviour
 	[HideInInspector] public string[] st_splitExplain;
 	[HideInInspector] public int i_explainDamageOrigin;
 
-	 public bool is_Useable_Card = true;
+	public Utility_enum.AttackRange attackRange;
+
+	public bool is_Useable_Card = true;
 
 
 
@@ -60,10 +62,12 @@ public class Card : MonoBehaviour
 		st_explain = card_info.st_explainCard;
 		sp_card.sprite = card_info.sp_CardSprite;
 		card.transform.localScale = v_cardSize;
+		attackRange = card_info.attackRange;
 
 		splitString();
 		ExplainRefresh();
 	
+
 		manaCostTMP.text = i_manaCost.ToString() ;
 		nameTMP.text = card_info.st_cardName;
 	}
