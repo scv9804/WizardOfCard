@@ -432,8 +432,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
-  - component: {fileID: 7395019933593546575}
   - component: {fileID: -2801819417619063475}
+  - component: {fileID: 1439778673537876551}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
@@ -513,42 +513,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7395019933593546575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395019933593546574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e473a6aa4d9eaf742b166720a18ea3b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  card: {fileID: 7395019933593546574}
-  itemSO: {fileID: 0}
-  sp_card: {fileID: 7395019933593546572}
-  nameTMP: {fileID: 7395019933344051563}
-  healthTMP: {fileID: 7395019933629544956}
-  manaCostTMP: {fileID: 7395019933671154985}
-  explainTMP: {fileID: 7395019932878968509}
-  v_cardSize: {x: 0.1, y: 0.1, z: 0.1}
-  card_info: {fileID: 0}
-  originPRS:
-    pos: {x: 3.2499995, y: -4.6200004, z: 0}
-    rot: {x: 0, y: 0, z: -0.13052624, w: 0.9914449}
-    scale: {x: 0.1, y: 0.1, z: 0.1}
-  i_CardNum: 1
-  i_manaCost: 1
-  i_damage: 1
-  i_cardType: 0
-  i_explainDamage: 0
-  st_explain: 1
-  st_splitExplain:
-  - 
-  - 
-  i_explainDamageOrigin: 1
-  is_Useable_Card: 1
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +534,41 @@ MonoBehaviour:
   - {fileID: 7395019933671154982}
   - {fileID: 7395019932878968506}
   sortingLayerName: Card
+--- !u!114 &1439778673537876551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395019933593546574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e473a6aa4d9eaf742b166720a18ea3b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 7395019933593546574}
+  itemSO: {fileID: 0}
+  sp_card: {fileID: 7395019933593546572}
+  nameTMP: {fileID: 7395019933344051563}
+  healthTMP: {fileID: 7395019933629544956}
+  manaCostTMP: {fileID: 7395019933671154985}
+  explainTMP: {fileID: 7395019932878968509}
+  v_cardSize: {x: 0, y: 0, z: 0}
+  card_info: {fileID: 0}
+  originPRS:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0, w: 0}
+    scale: {x: 0, y: 0, z: 0}
+  i_CardNum: 0
+  i_manaCost: 0
+  i_damage: 0
+  i_cardType: 0
+  i_explainDamage: 0
+  st_explain: 
+  st_splitExplain: []
+  i_explainDamageOrigin: 0
+  attackRange: 0
+  is_Useable_Card: 1
 --- !u!61 &2036147294181241873
 BoxCollider2D:
   m_ObjectHideFlags: 0

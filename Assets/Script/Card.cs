@@ -139,7 +139,6 @@ public class Card : MonoBehaviour
 			CardManager.Inst.CardMouseExit(this);
 		}
     }
-
 	private void OnMouseDown()
 	{
 		if (is_Useable_Card)
@@ -148,12 +147,12 @@ public class Card : MonoBehaviour
 		}
 	}
 
-    private void OnMouseUp()
+	private void OnMouseUp()
 	{
 		if (is_Useable_Card)
 		{
 			CardManager.Inst.CardMouseUp(this);
 		}
-    }
+	}
 
 }

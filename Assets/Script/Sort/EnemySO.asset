@@ -13,17 +13,45 @@ MonoBehaviour:
   m_Name: EnemySO
   m_EditorClassIdentifier: 
   enemy:
-  - i_CharCode: 1
+  - i_CharCode: 0
     i_health: 3
     i_attackCount: 1
     i_damage: 1
     f_percentage: 10
-    st_charName: angryRock
-    sp_sprite: {fileID: 21300000, guid: decac127e1350fe4db18244759615f41, type: 3}
-  - i_CharCode: 2
+    st_charName: Wooden
+    sp_sprite: {fileID: 21300000, guid: 00c923be7ecf03e4d9305fce7522b8e5, type: 3}
+  - i_CharCode: 1
     i_health: 2
     i_attackCount: 1
     i_damage: 1
     f_percentage: 12
     st_charName: Slime
-    sp_sprite: {fileID: 21300000, guid: 0131b133101735f44a2d0bce4a66c3a8, type: 3}
+    sp_sprite: {fileID: 21300000, guid: 9c48a0dd23227834e8cdf7aea2192311, type: 3}
+  - i_CharCode: 2
+    i_health: 2
+    i_attackCount: 1
+    i_damage: 1
+    f_percentage: 12
+    st_charName: Gobline
+    sp_sprite: {fileID: 21300000, guid: 9c48a0dd23227834e8cdf7aea2192311, type: 3}
+  - i_CharCode: 3
+    i_health: 2
+    i_attackCount: 1
+    i_damage: 1
+    f_percentage: 12
+    st_charName: robber_1
+    sp_sprite: {fileID: 18698449243562082, guid: 49dcfee63b28ccc4388b20d88c191375, type: 3}
+  - i_CharCode: 4
+    i_health: 2
+    i_attackCount: 1
+    i_damage: 1
+    f_percentage: 12
+    st_charName: robber_2
+    sp_sprite: {fileID: -1718276221466070167, guid: 99a04f01cb623b74c8139a8df6836d09, type: 3}
+  - i_CharCode: 4
+    i_health: 2
+    i_attackCount: 1
+    i_damage: 1
+    f_percentage: 12
+    st_charName: robber_2
+    sp_sprite: {fileID: -5451645765383914804, guid: 8414061d686c9444b874765e10e3542e, type: 3}

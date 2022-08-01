@@ -9,103 +9,54 @@ public class  BattleCalculater: MonoBehaviour
     {
         Inst = this;
 
+        
+
         DontDestroyOnLoad(this);
     }
 
+    [SerializeField] Cards_Magician cards_Magician;
     int Defult;
+    int culc_damage;
 
-    public void BattleCalc(Card _card, PlayerEntity _target)
+    public bool BattleCalc(Card _card, PlayerEntity _target)
 	{
         _target.Status_Aether -= _card.i_manaCost;
         if (_target.Status_Aether <= 0)
         {
             TurnManager.Inst.EndTurn();
+            return false;
         }
-        switch (CardManager.Inst.selectCard.i_cardType)
-        {
-            case 0: //Attack
-                {
-                    PlayerSpellDamagedCalc(_card, _target);
-                    break;
-                }
-            case 1: //Spell_Enhance
-                {
-                    SpellEnhaneCalc(_card);
-                    break;
-                }
-            case 2: // Shiled
-                {
-                    PlayerShieldCalc(_card, _target);
-                    break;
-                }
-            case 3: //Heal
-                {
-                    PlayerHealCalc(_card, _target);
-                    break;
-                }
-            case 4:  //Buff
-                {
-                    PlayerBuffCalc(_card);
-                    break;
-                }
-            case 5: //Debuff
-                {
-                    PlayerDebuffCalc(_card);
-                    break;
-                }
+		else
+		{
+          
+            return true;
         }
-
     }
 
-    public void BattleCalc(Card _card, Entity _target)
+    public bool BattleCalc(Card _card, Entity _target)
     {
         EntityManager.Inst.playerEntity.Status_Aether -= _card.i_manaCost;
         if (EntityManager.Inst.playerEntity.Status_Aether <= 0)
         {
             TurnManager.Inst.EndTurn();
-        }
-        switch (CardManager.Inst.selectCard.i_cardType)
-        {
-            case 0: //Spell
-                {
-                    EnemySpellDamagedCalc(_card, _target);
-                    GameManager.Inst.GameTick();
-                    break;
-                }
-            case 1: //Spell_Enhance
-                {
-                    SpellEnhaneCalc(_card);
-                    break;
-                }
-            case 2: // Shiled
-                {
-                    EnemyShieldCalc(_card, _target);
-                    break;
-                }
-            case 3: //Heal
-                {
-                    EnemyHealCalc(_card, _target);
-                    break;
-                }
-            case 4:  //Buff
-                {
-                    EnemyBuffCalc(_card);
-                    break;
-                }
-            case 5: //Debuff
-                {
-                    EnemyDebuffCalc(_card);
-                    break;
-                }
-        }
-
+            return false;
+		}
+            cards_Magician.MagicBolt(_card, _target);
+            return true;
+        
     }
 
 
+    void EnchaneDamage()
+	{
+       
+	}
+
+
     // 강화중인가?
-    private void SpellEnchaneReset()
+    public void SpellEnchaneReset()
     {
-        PlayerEntity.Inst.Status_EnchaneValue *= 1;
+        PlayerEntity.Inst.Status_EnchaneValue = 1;
     }
     public void SpellEnhaneCalc(Card _card)
     {
@@ -117,11 +68,7 @@ public class  BattleCalculater: MonoBehaviour
 	#region EnemyTarget
 
 	//기본 주문 데미지
-	public void EnemySpellDamagedCalc(Card _card, Entity _target)
-    {
-        _target?.Damaged(_card.i_damage);
-        SpellEnchaneReset();
-    }
+
 
     //주문 강화
 
