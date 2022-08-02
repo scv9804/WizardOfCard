@@ -526,7 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_itemNum: 1
+  i_itemNum: 0
   st_cardName: "\uB9C8\uBC95\uAD6C"
   i_attack: 1
   i_Cost: 1
@@ -560,6 +560,7 @@ MonoBehaviour:
     pos: {x: 3.2499995, y: -4.6200004, z: 0}
     rot: {x: 0, y: 0, z: -0.13052624, w: 0.9914449}
     scale: {x: 0.1, y: 0.1, z: 0.1}
+  i_itemCode: 0
   i_CardNum: 1
   i_manaCost: 1
   i_damage: 1

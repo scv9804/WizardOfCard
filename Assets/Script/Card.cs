@@ -21,6 +21,7 @@ public class Card : MonoBehaviour
 	public Card_Info card_info;
 
 	[HideInInspector] public Pos_Rot_Scale originPRS;
+	 public int i_itemCode;
 	[HideInInspector] public int i_CardNum;
 	[HideInInspector] public int i_manaCost;
 	[HideInInspector] public int i_damage;

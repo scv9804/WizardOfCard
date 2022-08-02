@@ -34,37 +34,14 @@ public class UIManager : MonoBehaviour
 
 	public void CemeteryRefresh()
 	{
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether > 0)
-		{
-			CardManager.Inst.ShuffleCemetery();
-			EntityManager.Inst.playerEntity.Status_Aether -= 1;
-		}
-		
-		if(TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether <= 0)
-		{
-			TurnManager.Inst.EndTurn();
-		}			
+		CardManager.Inst.CemeteryRefesh();			
 	}
 
 	public void HandRefresh()
 	{
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether > 0 && TurnManager.Inst.myTurn)
-		{
-			StartCoroutine(Shuffle());
-		}
-		if (TurnManager.Inst.myTurn == true && EntityManager.Inst.playerEntity.Status_Aether <= 0 && TurnManager.Inst.myTurn)
-		{
-			TurnManager.Inst.EndTurn();
-		}
+		CardManager.Inst.HandRefresh();
 	}
 
-	IEnumerator Shuffle()
-	{
-		StartCoroutine(CardManager.Inst.ShuffleHand());
-		EntityManager.Inst.playerEntity.Status_Aether -= 1;
-		yield return new WaitForSeconds(0.3f);
-
-	}
 
 
 	

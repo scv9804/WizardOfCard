@@ -15,12 +15,11 @@ public class  BattleCalculater: MonoBehaviour
     }
 
     [SerializeField] Cards_Magician cards_Magician;
-    int Defult;
-    int culc_damage;
 
     public bool BattleCalc(Card _card, PlayerEntity _target)
-	{
+    {
         _target.Status_Aether -= _card.i_manaCost;
+
         if (_target.Status_Aether <= 0)
         {
             TurnManager.Inst.EndTurn();
@@ -33,24 +32,26 @@ public class  BattleCalculater: MonoBehaviour
         }
     }
 
-    public bool BattleCalc(Card _card, Entity _target)
+    public void BattleCalc(Card _card, Entity _target)
     {
-        EntityManager.Inst.playerEntity.Status_Aether -= _card.i_manaCost;
+        if ((EntityManager.Inst.playerEntity.Status_Aether - _card.i_manaCost) >= 0)
+        {
+            EntityManager.Inst.playerEntity.Status_Aether -= _card.i_manaCost;
+        }
+        else 
+        {
+            return;
+        }
+
         if (EntityManager.Inst.playerEntity.Status_Aether <= 0)
         {
             TurnManager.Inst.EndTurn();
-            return false;
 		}
-            cards_Magician.MagicBolt(_card, _target);
-            return true;
-        
+		else
+		{
+            cards_Magician.CompareCard(_card, _target); 
+        }
     }
-
-
-    void EnchaneDamage()
-	{
-       
-	}
 
 
     // 강화중인가?
@@ -58,10 +59,7 @@ public class  BattleCalculater: MonoBehaviour
     {
         PlayerEntity.Inst.Status_EnchaneValue = 1;
     }
-    public void SpellEnhaneCalc(Card _card)
-    {
-        PlayerEntity.Inst.Status_EnchaneValue *= _card.i_damage;
-    }
+
 
 
 
@@ -130,7 +128,7 @@ public class  BattleCalculater: MonoBehaviour
     public void PlayerShieldCalc(Card _card, PlayerEntity _playerEntity)
     {
         _playerEntity.Status_Shiled += _card.i_damage;
-        _playerEntity.RefreshPlayer();
+
         SpellEnchaneReset();
     }
 

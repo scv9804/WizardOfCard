@@ -42,7 +42,7 @@ public class CardManager : MonoBehaviour
 	[SerializeField] List<Card> myDeck;
 	
 
-	enum E_CardStats { Cannot, CanMouseOver, CanAll };
+	public enum E_CardStats { Cannot, CanMouseOver, CanAll };
 
 
 	public Card selectCard;
@@ -522,4 +522,40 @@ public class CardManager : MonoBehaviour
 
 	#endregion
 
+
+	#region UIManager
+	public void HandRefresh()
+	{
+		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether > 0 && TurnManager.Inst.myTurn)
+		{
+			StartCoroutine(Shuffle());
+		}
+		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether <= 0 && TurnManager.Inst.myTurn)
+		{
+			TurnManager.Inst.EndTurn();
+		}
+	}
+
+	IEnumerator Shuffle()
+	{
+		StartCoroutine(ShuffleHand());
+		EntityManager.Inst.playerEntity.Status_Aether -= 1;
+		yield return new WaitForSeconds(0.3f);
+	}
+
+	public void CemeteryRefesh()
+	{
+		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether > 0)
+		{
+			CardManager.Inst.ShuffleCemetery();
+			EntityManager.Inst.playerEntity.Status_Aether -= 1;
+		}
+
+		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether <= 0)
+		{
+			TurnManager.Inst.EndTurn();
+		}
+	}
+
+	#endregion
 }
