@@ -1,26 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
 public class NotificationPanel : MonoBehaviour
 {
-    [SerializeField] TMP_Text notificationTMP;
+    [SerializeField] Sprite []turnSprite;
+    Image turnImage;
 
-    public void Show(string _message)
+    public void Show(bool _myTurn)
     {
-        notificationTMP.text = _message;
+		if (_myTurn)
+		{
+            turnImage.sprite = turnSprite[0];
+		}
+		else
+        {
+            turnImage.sprite = turnSprite[1];
+        }
         //Ease Google ÂüÁ¶.
         Sequence sequence = DOTween.Sequence()
-            .Append(transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutQuad))
+            .Append(transform.DOScale(Vector3.one *0.7f , 0.3f).SetEase(Ease.InOutQuad))
             .AppendInterval(0.9f)
             .Append(transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InOutQuad));
     }
 
     private void Start()
     {
-
+        turnImage = GetComponent<Image>();
     }
 
     [ContextMenu("SclaeOne")]

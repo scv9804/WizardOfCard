@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
 	public TMP_Text ManaTMP_UI;
 	public GameObject optionUI;
 	public GameObject minimapUI;
+	public GameObject inventoryUI;
 
 	[SerializeField] LevelGeneration levelGeneration;
 
@@ -59,6 +60,8 @@ public class UIManager : MonoBehaviour
 	{
 		ManaTMP_UI.text = EntityManager.Inst.playerEntity.Status_Aether.ToString() + "/" + EntityManager.Inst.playerEntity.Status_MaxAether.ToString();
 	}
+
+
 
 
 	#region minimaps
@@ -110,6 +113,7 @@ public class UIManager : MonoBehaviour
 	}
 
 	#endregion
+
 
 
 	#region ToggleButtons

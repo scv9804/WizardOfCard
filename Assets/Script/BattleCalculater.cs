@@ -27,7 +27,7 @@ public class  BattleCalculater: MonoBehaviour
         }
 		else
 		{
-          
+            cards_Magician.CompareCard(_card, _target);
             return true;
         }
     }
@@ -43,7 +43,7 @@ public class  BattleCalculater: MonoBehaviour
             return;
         }
 
-        if (EntityManager.Inst.playerEntity.Status_Aether <= 0)
+        if (EntityManager.Inst.playerEntity.Status_Aether < 0)
         {
             TurnManager.Inst.EndTurn();
 		}

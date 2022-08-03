@@ -24,7 +24,7 @@ public class Card : MonoBehaviour
 	 public int i_itemCode;
 	[HideInInspector] public int i_CardNum;
 	[HideInInspector] public int i_manaCost;
-	[HideInInspector] public int i_damage;
+	 public int i_damage;
 	[HideInInspector] public int i_cardType;
 
 	[HideInInspector] public int i_explainDamage;

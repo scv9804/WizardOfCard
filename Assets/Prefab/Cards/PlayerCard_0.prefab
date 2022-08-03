@@ -532,7 +532,7 @@ MonoBehaviour:
   i_Cost: 1
   attackRange: 2
   f_percentage: 10
-  st_explainCard: 1
+  st_explainCard: "\uC801\uC5D0\uAC8C 1\uC758 \uB370\uBBF8\uC9C0\uB97C \uC90D\uB2C8\uB2E4."
   type: 0
   sp_CardSprite: {fileID: 4477159931361051813, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
 --- !u!114 &7395019933593546575

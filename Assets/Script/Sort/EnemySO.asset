@@ -53,5 +53,5 @@ MonoBehaviour:
     i_attackCount: 1
     i_damage: 1
     f_percentage: 12
-    st_charName: robber_2
+    st_charName: Engle_1
     sp_sprite: {fileID: -5451645765383914804, guid: 8414061d686c9444b874765e10e3542e, type: 3}

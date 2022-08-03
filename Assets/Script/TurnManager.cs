@@ -57,7 +57,7 @@ public class TurnManager : MonoBehaviour
         if (myTurn == true)
         {
             //GameManager.Inst.Notification("내 턴");
-            Notification("My turn");
+            TurnNotification_Bool(true);
             yield return delay_07;
             onAddCard?.Invoke();
             yield return delay_07;
@@ -67,7 +67,7 @@ public class TurnManager : MonoBehaviour
         else
         {
             // GameManager.Inst.Notification("상대 턴");
-            Notification("Enemy Turn");
+            TurnNotification_Bool(false);
             yield return delay_07;
             yield return delay_07;
             StartCoroutine(EntityManager.Inst.EnemyEntityAttack());
@@ -90,9 +90,9 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(Co_StartTurn());
 	}
 
-    public void Notification(string _message)
+    public void TurnNotification_Bool(bool _myTurn)
     {
-        notificationPanel.Show(_message);
+        notificationPanel.Show(_myTurn);
     }
 
 }

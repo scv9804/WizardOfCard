@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Cards_Magician : MonoBehaviour
 {
-
 	public void CompareCard(Card _card, Entity _target)
 	{
 		switch (_card.i_CardNum)
@@ -102,7 +101,7 @@ public class Cards_Magician : MonoBehaviour
 		}
 
 
-
+		
 		GameManager.Inst.GameTick();
 	}
 
@@ -113,7 +112,7 @@ public class Cards_Magician : MonoBehaviour
 
 
 
-	#region MagicBolt
+	#region MagicBolt_0
 	public void MagicBolt(Card _card, Entity _target)
 	{
 		_target?.Damaged(CulcEnchaneDamage(_card));
@@ -126,9 +125,7 @@ public class Cards_Magician : MonoBehaviour
 		BattleCalculater.Inst.SpellEnchaneReset();
 		_target.RefreshPlayer();
 	}
-	#endregion
-
-
+	#endregion 
 
 	public void N_TimeSpellDamage(Card _card)
 	{
