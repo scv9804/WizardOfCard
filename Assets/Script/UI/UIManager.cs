@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour
 	}
 
 
-
 	
 	public void SetDeckCountUI(int _deckCount)
 	{
@@ -142,6 +141,10 @@ public class UIManager : MonoBehaviour
 		{
 			optionUI.SetActive(false);
 		}
+		if (inventoryUI.activeSelf == true)
+		{
+			inventoryUI.SetActive(false);
+		}
 	}
 
 	public void OptionToggle()
@@ -160,12 +163,41 @@ public class UIManager : MonoBehaviour
 		{
 			minimapUI.SetActive(false);
 		}
+		if (inventoryUI.activeSelf == true)
+		{
+			inventoryUI.SetActive(false);
+		}
+	}
+
+	public void InventoryToggle()
+	{
+		if (inventoryUI.activeSelf == true)
+		{
+			inventoryUI.SetActive(false);
+		}
+		else if (optionUI.activeSelf == false)
+		{
+			inventoryUI.SetActive(true);
+		}
+
+
+		if (minimapUI.activeSelf == true)
+		{
+			minimapUI.SetActive(false);
+		}
+		if (optionUI.activeSelf == true)
+		{
+			optionUI.SetActive(false);
+		}
 	}
 
 	#endregion
 
 
-
+	public void InventoryCancleButton()
+	{
+		inventoryUI.gameObject.SetActive(false);
+	}
 
 	public void GameOverButton()
     {

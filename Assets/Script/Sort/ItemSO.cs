@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class Item
+public class Item_Card
 {
 	public int itemCode;
 	public Card card;
@@ -15,5 +15,5 @@ public class Item
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptalbe Object/ItemSO")]
 public class ItemSO : ScriptableObject
 {
-	public Item[] items;
+	public Item_Card[] items;
 } 

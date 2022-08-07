@@ -23,6 +23,8 @@ public static class Utility_enum
 {
     public enum AttackRange { Target_AllEnemy, Target_Self, Target_Single };
     public enum e_CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff };
+
+    public enum ItemType {Use, Equi, Quest}
 }
 
 public class Utility : MonoBehaviour

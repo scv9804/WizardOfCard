@@ -8,8 +8,7 @@ public class BackGruond_Cancel : MonoBehaviour
     private void OnMouseDown()
     {
         CardManager.Inst.CancelUseCard();
-        UIManager.Inst.optionUI.SetActive(false);
-        UIManager.Inst.minimapUI.SetActive(false);
+    
     }
 
 }
