@@ -28,6 +28,17 @@ public class UIManager : MonoBehaviour
 	public GameObject minimapUI;
 	public GameObject inventoryUI;
 
+	public GameObject CardCancleArea;
+	public GameObject optionCancleArea;
+	public GameObject minimapCancleArea;
+	public GameObject inventoryCancleArea;
+
+	bool isCardUse = true;
+	bool isOptionUse = false;
+	bool isMinimapUse = false;
+	bool isInventoryUse = false;
+	
+
 	[SerializeField] LevelGeneration levelGeneration;
 
 
@@ -117,6 +128,29 @@ public class UIManager : MonoBehaviour
 
 	#region ToggleButtons
 
+	void SetStateUI()
+	{
+		minimapUI.SetActive(isMinimapUse);
+		optionUI.SetActive(isOptionUse);
+		inventoryUI.SetActive(isInventoryUse);
+
+		optionCancleArea.gameObject.SetActive(isOptionUse);
+		inventoryCancleArea.gameObject.SetActive(isInventoryUse);
+		minimapCancleArea.gameObject.SetActive(isMinimapUse);
+		CardCancleArea.gameObject.SetActive(isCardUse);
+	}
+
+	public void SetClose()
+	{
+		isCardUse = true;
+		isMinimapUse = false;
+		isOptionUse = false;
+		isInventoryUse = false;
+
+		SetStateUI();
+		CardManager.Inst.SetCardStateBack();
+	}
+
 	public void ButtonDeActivate()
 	{
 		roomMoveButton_L.gameObject.SetActive(false);
@@ -127,77 +161,58 @@ public class UIManager : MonoBehaviour
 
 	public void MinimapToggel()
 	{
-		if (minimapUI.activeSelf == true)
-		{
-			minimapUI.SetActive(false);
-		}
-		else if(minimapUI.activeSelf == false)
-		{
-			minimapUI.SetActive(true);
-		}
-
+		isMinimapUse = !isMinimapUse; 
 
 		if (optionUI.activeSelf == true)
 		{
-			optionUI.SetActive(false);
+			isOptionUse = false;
 		}
 		if (inventoryUI.activeSelf == true)
 		{
-			inventoryUI.SetActive(false);
+			isInventoryUse = false;
 		}
+		isCardUse = false;
+		SetStateUI();
+		CardManager.Inst.SetCardstateCannot();
 	}
 
 	public void OptionToggle()
 	{
-		if (optionUI.activeSelf == true)
-		{
-			optionUI.SetActive(false);
-		}
-		else if (optionUI.activeSelf == false)
-		{
-			optionUI.SetActive(true);
-		}
+		isOptionUse = !isOptionUse;
 
 
 		if (minimapUI.activeSelf == true)
 		{
-			minimapUI.SetActive(false);
+			isMinimapUse = false;
 		}
 		if (inventoryUI.activeSelf == true)
 		{
-			inventoryUI.SetActive(false);
+			isInventoryUse = false;
 		}
+		isCardUse = false;
+		SetStateUI();
+		CardManager.Inst.SetCardstateCannot();
 	}
 
 	public void InventoryToggle()
 	{
-		if (inventoryUI.activeSelf == true)
-		{
-			inventoryUI.SetActive(false);
-		}
-		else if (optionUI.activeSelf == false)
-		{
-			inventoryUI.SetActive(true);
-		}
+		isInventoryUse = !isInventoryUse;
 
 
 		if (minimapUI.activeSelf == true)
 		{
-			minimapUI.SetActive(false);
+			isMinimapUse = false;
 		}
 		if (optionUI.activeSelf == true)
 		{
-			optionUI.SetActive(false);
+			isOptionUse = false;
 		}
+		isCardUse = false;
+		SetStateUI();
+		CardManager.Inst.SetCardstateCannot();
 	}
-
 	#endregion
 
-
-	public void InventoryCancleButton()
-	{
-		inventoryUI.gameObject.SetActive(false);
-	}
 
 	public void GameOverButton()
     {

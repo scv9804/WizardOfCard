@@ -25,7 +25,7 @@ public class CardManager : MonoBehaviour
 	[SerializeField] Transform RightCard_Tf;
 	[SerializeField] Transform UseCard_Tf;
 	[SerializeField] Transform cardGarbage_Tf;
-	[SerializeField] E_CardStats e_CardStats;
+	[SerializeField] public E_CardStats e_CardStats;
 
 
 	[SerializeField] float f_useCardSize;
@@ -71,7 +71,6 @@ public class CardManager : MonoBehaviour
 		{
 			CardDrag();
 		}
-		SetECardState();
 		DetectCardArea();
 		SetCardEnable();
 	}
@@ -402,7 +401,7 @@ public class CardManager : MonoBehaviour
 		_card.GetComponent<OrderLayer>().SetMostFrontOrder(_isEnlarge);
 	}
 
-	void SetECardState()
+	public void SetECardState()
 	{
 		if (TurnManager.Inst.isLoding)
 		{
@@ -556,6 +555,20 @@ public class CardManager : MonoBehaviour
 			TurnManager.Inst.EndTurn();
 		}
 	}
+
+
+	E_CardStats tempt;
+	public void SetCardstateCannot()
+	{
+		tempt = e_CardStats;
+		e_CardStats = E_CardStats.Cannot;
+	}
+
+	public void SetCardStateBack()
+	{
+		e_CardStats = tempt;
+	}
+
 
 	#endregion
 }

@@ -2577,7 +2577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &490724209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6210,7 +6210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &961500123
 Transform:
   m_ObjectHideFlags: 0
@@ -7617,6 +7617,10 @@ MonoBehaviour:
   optionUI: {fileID: 1565842616}
   minimapUI: {fileID: 1413772970}
   inventoryUI: {fileID: 1977805407}
+  CardCancleArea: {fileID: 490724208}
+  optionCancleArea: {fileID: 1228617403}
+  minimapCancleArea: {fileID: 437419663}
+  inventoryCancleArea: {fileID: 961500122}
   levelGeneration: {fileID: 2133263562}
 --- !u!4 &1278654428
 Transform:

@@ -6,7 +6,7 @@ public class BackGroundMap : MonoBehaviour
 {
 	private void OnMouseUp()
 	{
-		UIManager.Inst.minimapUI.SetActive(false);
+		UIManager.Inst.SetClose();
 	}
 
 }

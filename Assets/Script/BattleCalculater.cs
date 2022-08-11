@@ -22,6 +22,7 @@ public class  BattleCalculater: MonoBehaviour
 
         if (_target.Status_Aether <= 0)
         {
+            cards_Magician.CompareCard(_card, _target);
             TurnManager.Inst.EndTurn();
             return false;
         }
@@ -56,7 +57,7 @@ public class  BattleCalculater: MonoBehaviour
 
     // 강화중인가?
     public void SpellEnchaneReset()
-    {
+    { 
         PlayerEntity.Inst.Status_EnchaneValue = 1;
     }
 

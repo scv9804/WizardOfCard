@@ -74,6 +74,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Attack");
             isLoding = false;
         }
+        CardManager.Inst.SetECardState();
     }
 
     // 턴종료시 호출, 턴 바꾸려면 얘호출하면 줄줄이 호출임

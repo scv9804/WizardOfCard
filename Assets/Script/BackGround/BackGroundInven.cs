@@ -6,6 +6,6 @@ public class BackGroundInven : MonoBehaviour
 {
 	private void OnMouseUp()
 	{
-		UIManager.Inst.inventoryUI.SetActive(false);
+		UIManager.Inst.SetClose();
 	}
 }

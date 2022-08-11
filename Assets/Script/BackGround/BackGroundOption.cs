@@ -6,6 +6,6 @@ public class BackGroundOption : MonoBehaviour
 {
 	private void OnMouseUp()
 	{
-		UIManager.Inst.optionUI.SetActive(false);
+		UIManager.Inst.SetClose();
 	}
 }

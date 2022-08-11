@@ -25,9 +25,17 @@ public class Slot : MonoBehaviour, IPointerUpHandler
 	public void OnPointerUp(PointerEventData eventData)
 	{
 		bool isUse = item.Use();
-		if (isUse)
+		try
 		{
-			Inventory.Inst.RemoveItem(slotnum);
+			if (isUse)
+			{
+				Inventory.Inst.RemoveItem(slotnum);
+			}
 		}
+		catch
+		{
+			Debug.Log((slotnum + 1) + "번쨰의 "+"Slot안에 Item이 없습니다.");
+		}
+
 	}
 }
