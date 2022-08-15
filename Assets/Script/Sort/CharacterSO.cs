@@ -9,6 +9,7 @@ public class PlayerChar
 	public int i_CharCode;
 	public int i_health;
 	public string st_charName;
+	public int ShiledEnchant;
 	public Sprite sp_sprite;
 }
 

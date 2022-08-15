@@ -25,7 +25,7 @@ public class CardManager : MonoBehaviour
 	[SerializeField] Transform RightCard_Tf;
 	[SerializeField] Transform UseCard_Tf;
 	[SerializeField] Transform cardGarbage_Tf;
-	[SerializeField] public E_CardStats e_CardStats;
+	[SerializeField] public E_CardStats e_CardStats = E_CardStats.Cannot;
 
 
 	[SerializeField] float f_useCardSize;
@@ -514,7 +514,7 @@ public class CardManager : MonoBehaviour
 		for (int i = 0; 6 > i; i++)
 		{
 			AddCard();
-			yield return new WaitForSeconds(0.3f);
+			yield return new WaitForSeconds(0.1f);
 		}
 	}
 
@@ -558,7 +558,8 @@ public class CardManager : MonoBehaviour
 
 
 	E_CardStats tempt;
-	public void SetCardstateCannot()
+
+	public void SetCardStateCannot()
 	{
 		tempt = e_CardStats;
 		e_CardStats = E_CardStats.Cannot;

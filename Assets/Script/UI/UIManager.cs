@@ -12,6 +12,10 @@ public class UIManager : MonoBehaviour
 	{
 		Inst = this;
 	}
+	private void Start()
+	{
+		inventoryUI.SetActive(false);
+	}
 
 
 	public Button roomMoveButton_L;
@@ -22,6 +26,7 @@ public class UIManager : MonoBehaviour
 	public TMP_Text DeckCountTMP_UI;
 	public TMP_Text CemeteryCountTMP_UI;
 	public TMP_Text HealthTMP_UI;
+	public TMP_Text myturn_UI_TMP;
 
 	public TMP_Text ManaTMP_UI;
 	public GameObject optionUI;
@@ -32,6 +37,8 @@ public class UIManager : MonoBehaviour
 	public GameObject optionCancleArea;
 	public GameObject minimapCancleArea;
 	public GameObject inventoryCancleArea;
+	public GameObject gameClearBack_UI;
+	public GameObject Reword_UI;
 
 	bool isCardUse = true;
 	bool isOptionUse = false;
@@ -42,19 +49,32 @@ public class UIManager : MonoBehaviour
 	[SerializeField] LevelGeneration levelGeneration;
 
 
-
+	private void FixedUpdate()
+	{
+		if (TurnManager.Inst.myTurn)
+		{
+			myturn_UI_TMP.text = "내 턴";
+		}
+		else
+		{
+			myturn_UI_TMP.text = "상대 턴";
+		}
+	}
+	
 
 	public void CemeteryRefresh()
 	{
-		CardManager.Inst.CemeteryRefesh();			
+		if (TurnManager.Inst.myTurn )
+			CardManager.Inst.CemeteryRefesh();		
 	}
 
 	public void HandRefresh()
 	{
-		CardManager.Inst.HandRefresh();
+		if (TurnManager.Inst.myTurn )
+			CardManager.Inst.HandRefresh();
 	}
 
-
+	
 	
 	public void SetDeckCountUI(int _deckCount)
 	{
@@ -72,6 +92,16 @@ public class UIManager : MonoBehaviour
 	}
 
 
+	public void MapClearUI()
+	{
+		gameClearBack_UI.SetActive(true);
+	}
+
+	public void MapClearUIAccpetButton()
+	{
+		RewordManager.Inst.AddClearReword();
+		gameClearBack_UI.SetActive(false);
+	}
 
 
 	#region minimaps
@@ -106,20 +136,23 @@ public class UIManager : MonoBehaviour
 		if (levelGeneration.i_Room_L)
 		{
 			roomMoveButton_L.gameObject.SetActive(true);
+			Debug.Log("방선택");
 		}
 		if (levelGeneration.i_Room_R)
 		{
 			roomMoveButton_R.gameObject.SetActive(true);
+			Debug.Log("방선택");
 		}
 		if (levelGeneration.i_Room_U)
 		{
 			roomMoveButton_U.gameObject.SetActive(true);
+			Debug.Log("방선택");
 		}
 		if (levelGeneration.i_Room_D)
 		{
 			roomMoveButton_D.gameObject.SetActive(true);
+			Debug.Log("방선택");
 		}
-
 	}
 
 	#endregion
@@ -173,7 +206,7 @@ public class UIManager : MonoBehaviour
 		}
 		isCardUse = false;
 		SetStateUI();
-		CardManager.Inst.SetCardstateCannot();
+		CardManager.Inst.SetCardStateCannot();
 	}
 
 	public void OptionToggle()
@@ -191,7 +224,7 @@ public class UIManager : MonoBehaviour
 		}
 		isCardUse = false;
 		SetStateUI();
-		CardManager.Inst.SetCardstateCannot();
+		CardManager.Inst.SetCardStateCannot();
 	}
 
 	public void InventoryToggle()
@@ -209,7 +242,7 @@ public class UIManager : MonoBehaviour
 		}
 		isCardUse = false;
 		SetStateUI();
-		CardManager.Inst.SetCardstateCannot();
+		CardManager.Inst.SetCardStateCannot();
 	}
 	#endregion
 

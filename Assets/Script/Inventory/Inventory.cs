@@ -25,10 +25,16 @@ public class Inventory : MonoBehaviour
 
 	public List<Item_Inven> items = new List<Item_Inven>();
 	public Slot [] slots;
+	[SerializeField] Image wandImage;
+	[SerializeField] Image bookImage;
+	[SerializeField] Image hatImage;
+	[SerializeField] Image suitImage;
+	[SerializeField] Image ringImage;
+	[SerializeField] Image posion_1;
+	[SerializeField] Image posion_2;
+	[SerializeField] Image posion_3;
 
-	
-	
-
+	#region inven
 	public void ReDrowSlots()
 	{
 		for (int i = 0; slots.Length > i; i++)
@@ -68,6 +74,17 @@ public class Inventory : MonoBehaviour
 		items.RemoveAt(_index);
 		onChangeItem.Invoke();
 	}
+	#endregion
+
+
+	#region Equiment
+
+	public void EqumentRefresh()
+	{
+
+	}
+
+	#endregion
 
 }
 

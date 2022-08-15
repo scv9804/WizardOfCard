@@ -196,7 +196,7 @@ public class PlayerEntity : MonoBehaviour
         ShieldTMP.gameObject.SetActive(false);
 
 
-        UIManager.Inst.HealthTMP_UI.text = i_health + " / " + maxHealth;
+        UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
         charater.sprite = playerChar.sp_sprite;
         healthTMP.text = i_health.ToString();
     }
@@ -238,7 +238,7 @@ public class PlayerEntity : MonoBehaviour
         Set_ShieldActivate();
         healthImage_Bar.fillAmount = i_health / maxHealth;
         healthImage_UI.fillAmount = i_health / maxHealth;
-        UIManager.Inst.HealthTMP_UI.text = i_health + " / " + maxHealth;
+        UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
         healthTMP.text = i_health.ToString();
         ShieldTMP.text = i_shield.ToString();
         

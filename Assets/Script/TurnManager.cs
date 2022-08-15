@@ -58,6 +58,7 @@ public class TurnManager : MonoBehaviour
         {
             //GameManager.Inst.Notification("≥ª ≈œ");
             TurnNotification_Bool(true);
+            CardManager.Inst.SetCardStateCannot();
             yield return delay_07;
             onAddCard?.Invoke();
             yield return delay_07;

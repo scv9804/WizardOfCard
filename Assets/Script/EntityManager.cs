@@ -237,7 +237,9 @@ public class EntityManager : MonoBehaviour
             if (enemyEntities.Count == 0)
             {
                 Debug.Log("다음방으로");
-                UIManager.Inst.ButtonActivate();  
+                UIManager.Inst.ButtonActivate();
+                RewordManager.Inst.GameClear();
+                CardManager.Inst.SetCardStateCannot();
             }
         }
 
