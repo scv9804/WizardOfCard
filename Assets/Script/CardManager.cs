@@ -570,6 +570,17 @@ public class CardManager : MonoBehaviour
 		e_CardStats = tempt;
 	}
 
+	public bool BoolCradCanall()
+	{
+		if (e_CardStats == E_CardStats.CanAll)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	#endregion
 }

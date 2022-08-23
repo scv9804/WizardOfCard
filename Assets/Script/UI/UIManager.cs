@@ -194,55 +194,64 @@ public class UIManager : MonoBehaviour
 
 	public void MinimapToggel()
 	{
-		isMinimapUse = !isMinimapUse; 
+		if (CardManager.Inst.BoolCradCanall())
+		{
+			isMinimapUse = !isMinimapUse;
 
-		if (optionUI.activeSelf == true)
-		{
-			isOptionUse = false;
+			if (optionUI.activeSelf == true)
+			{
+				isOptionUse = false;
+			}
+			if (inventoryUI.activeSelf == true)
+			{
+				isInventoryUse = false;
+			}
+			isCardUse = false;
+			SetStateUI();
+			CardManager.Inst.SetCardStateCannot();
 		}
-		if (inventoryUI.activeSelf == true)
-		{
-			isInventoryUse = false;
-		}
-		isCardUse = false;
-		SetStateUI();
-		CardManager.Inst.SetCardStateCannot();
 	}
 
 	public void OptionToggle()
 	{
-		isOptionUse = !isOptionUse;
+		if (CardManager.Inst.BoolCradCanall())
+		{
+			isOptionUse = !isOptionUse;
 
 
-		if (minimapUI.activeSelf == true)
-		{
-			isMinimapUse = false;
-		}
-		if (inventoryUI.activeSelf == true)
-		{
-			isInventoryUse = false;
-		}
-		isCardUse = false;
-		SetStateUI();
-		CardManager.Inst.SetCardStateCannot();
+			if (minimapUI.activeSelf == true)
+			{
+				isMinimapUse = false;
+			}
+			if (inventoryUI.activeSelf == true)
+			{
+				isInventoryUse = false;
+			}
+			isCardUse = false;
+			SetStateUI();
+			CardManager.Inst.SetCardStateCannot();
+		}	
 	}
 
 	public void InventoryToggle()
 	{
-		isInventoryUse = !isInventoryUse;
+		if (CardManager.Inst.BoolCradCanall())
+		{
+			isInventoryUse = !isInventoryUse;
 
 
-		if (minimapUI.activeSelf == true)
-		{
-			isMinimapUse = false;
+			if (minimapUI.activeSelf == true)
+			{
+				isMinimapUse = false;
+			}
+			if (optionUI.activeSelf == true)
+			{
+				isOptionUse = false;
+			}
+			isCardUse = false;
+			SetStateUI();
+			CardManager.Inst.SetCardStateCannot();
 		}
-		if (optionUI.activeSelf == true)
-		{
-			isOptionUse = false;
-		}
-		isCardUse = false;
-		SetStateUI();
-		CardManager.Inst.SetCardStateCannot();
 	}
 	#endregion
 

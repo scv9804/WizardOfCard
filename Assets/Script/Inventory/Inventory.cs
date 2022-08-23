@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour
 	public delegate void OnChangeItem();
 	public OnChangeItem onChangeItem;
 
+	
+
 	const int INVENMAX = 25;
 
 	private void Awake()
@@ -20,32 +22,42 @@ public class Inventory : MonoBehaviour
 	private void Start()
 	{
 		slotNumbering();
+		AcquireItem(ItemDataBase.inst.item_Invens[0]);
 		onChangeItem += ReDrowSlots;
 	}
 
-	public List<Item_Inven> items = new List<Item_Inven>();
+	public Slot [] quickSlot;
 	public Slot [] slots;
-	[SerializeField] Image wandImage;
-	[SerializeField] Image bookImage;
-	[SerializeField] Image hatImage;
-	[SerializeField] Image suitImage;
-	[SerializeField] Image ringImage;
-	[SerializeField] Image posion_1;
-	[SerializeField] Image posion_2;
-	[SerializeField] Image posion_3;
+	[SerializeField] Slot wandSlot;
+	[SerializeField] Slot bookSlot;
+	[SerializeField] Slot hatSlot;
+	[SerializeField] Slot suitSlot;
+	[SerializeField] Slot ringSlot;
+	[SerializeField] Slot posion_1;
+	[SerializeField] Slot posion_2;
+	[SerializeField] Slot posion_3;
 
 	#region inven
 	public void ReDrowSlots()
 	{
-		for (int i = 0; slots.Length > i; i++)
+		for (int i =0; slots.Length > i; i++)
 		{
-			slots[i].RemoveSlot();
-		}
-		for (int i =0; items.Count > i; i++)
-		{
-			slots[i].item = items[i];
 			slots[i].UpdateSlotUI();
 		}
+		
+		Debug.Log("슬롯 다시 그리기");
+	}
+
+	public void ReDrowEquiSlot()
+	{
+		wandSlot.UpdateSlotUI();
+		bookSlot.UpdateSlotUI();
+		hatSlot.UpdateSlotUI();
+		suitSlot.UpdateSlotUI();
+		ringSlot.UpdateSlotUI();
+		posion_1.UpdateSlotUI();
+		posion_2.UpdateSlotUI();
+		posion_3.UpdateSlotUI();
 	}
 
 	void slotNumbering()
@@ -56,37 +68,26 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public bool Additem(Item_Inven _item)
+	public void AcquireItem(Item_Inven _item)
 	{
-		if (items.Count < slots.Length)
+		for (int i = 0; i < slots.Length; i++)
 		{
-			items.Add(_item);
-			if (onChangeItem != null)
-				onChangeItem.Invoke();
-			return true;
+			if (slots[i].item.itemName == "")
+			{
+				slots[i].item = _item;
+				slots[i].UpdateSlotUI();
+				return;
+			}
 		}
-		return false;
 	}
 
-
-	public void RemoveItem(int _index)
-	{
-		items.RemoveAt(_index);
-		onChangeItem.Invoke();
-	}
 	#endregion
 
 
-	#region Equiment
-
-	public void EqumentRefresh()
+	public void Equiment()
 	{
 
 	}
 
-	#endregion
 
 }
-
-
-

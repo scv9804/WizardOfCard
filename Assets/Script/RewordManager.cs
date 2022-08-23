@@ -40,7 +40,9 @@ public class RewordManager : MonoBehaviour
 
 	public void AddClearReword() 
 	{
-		Inventory.Inst.Additem(itemdata.item_Invens[0]);
+		Debug.Log("누름진입");
+		Inventory.Inst.AcquireItem(itemdata.item_Invens[0]);
+		Debug.Log("탈출");
 	}
 	
 }
