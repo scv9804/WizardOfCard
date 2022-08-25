@@ -165,7 +165,7 @@ ScriptedImporter:
     spriteName: 
     isGroup: 1
     parentIndex: -1
-    spriteID: 
+    spriteID: 00000000000000000000000000000000
     layerID: 86
     mosaicPosition: {x: 0, y: 0}
   - name: "\uB808\uC774\uC5B4 192 \uBCF5\uC0AC 3"
