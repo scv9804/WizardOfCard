@@ -27,11 +27,15 @@ public class DeckScrollView : MonoBehaviour
     public void SetCards()
 	{
         var newUI = Instantiate(uiPrefab, scrollRect.content).GetComponent<RectTransform>();
+        uiobjects.Add(newUI);
 
         float y = 0f;
-		for (int i = 0; i < uiobjects.Count; i += 5)
+        Debug.Log("??");
+
+        for (int i = 0; i < uiobjects.Count; i += 5)
 		{
             y += uiobjects[i].sizeDelta.y + space;
+            Debug.Log(i);
 		}
         
 
