@@ -9,6 +9,7 @@ public class Cards_Magician : MonoBehaviour
 		switch (_card.i_CardNum)
 		{
 			case 0:
+				StartCoroutine(PlayerEntity.Inst.ChangeSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite));
 				MagicBolt(_card , _target);
 				break;
 			case 1:
@@ -49,12 +50,9 @@ public class Cards_Magician : MonoBehaviour
 
 		}
 
-
-
-
-
 		GameManager.Inst.GameTick();
 	}
+
 	public void CompareCard(Card _card, PlayerEntity _target)
 	{
 		switch (_card.i_CardNum)

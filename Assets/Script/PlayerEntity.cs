@@ -16,22 +16,25 @@ public class PlayerEntity : MonoBehaviour
     }
 
 
-	[SerializeField] PlayerChar playerChar;
-    [SerializeField] SpriteRenderer charater;
+    [HideInInspector] public PlayerChar playerChar;
+    [SerializeField] SpriteRenderer charaterSprite;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] Image healthImage_Bar;
+    [SerializeField] GameObject AttackEffect;
+    [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
     Image healthImage_UI;
 
 
+    Vector3 originScale;
+    Vector3 originPos;
+
     public bool attackable;
+    
     bool is_attackAble;
-
-
     bool is_die = false;
-
-
     bool is_canUseSelf;
+
     int i_enhacneVal = 1;
     int i_calcDamage;
     int i_everlasting = 0;  //고정 마법 증폭 (수정여지있음)
@@ -40,6 +43,7 @@ public class PlayerEntity : MonoBehaviour
 	private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
+        SetDefultPS();
 	}
 
 
@@ -189,15 +193,24 @@ public class PlayerEntity : MonoBehaviour
 
 
     // 플레이어 기본 정보 설정
-    public void SetupPlayerChar(PlayerChar playerChar)
+    public void SetupPlayerChar(PlayerChar _playerChar)
     {
-        i_health = playerChar.i_health;
+        playerChar = _playerChar;
+        i_health = _playerChar.i_health;
         maxHealth = i_health;
-        ShieldTMP.gameObject.SetActive(false);
+		if (i_shield == 0)
+        {
+            ShieldTMP.gameObject.SetActive(false);
+		}
+		else
+		{
+            ShieldTMP.text = i_shield.ToString();
+            ShieldTMP.gameObject.SetActive(true);
+        }
 
 
         UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
-        charater.sprite = playerChar.sp_sprite;
+        charaterSprite.sprite = _playerChar.sp_sprite;
         healthTMP.text = i_health.ToString();
     }
 
@@ -255,6 +268,42 @@ public class PlayerEntity : MonoBehaviour
             ShieldTMP.gameObject.SetActive(false);
         }
     }
+
+
+
+	#region DoTween
+
+	public IEnumerator ChangeSprite(Sprite _sprite)
+	{
+        this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
+        charaterSprite.sprite = _sprite;
+        this.transform.DOMove(this.originPos + new Vector3(0.15f ,0, 0), 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        this.transform.DOMove(this.originPos, 0.2f);
+        yield return new WaitForSeconds(0.2f) ;
+        DoOrigin();
+	}
+
+
+    public void DoOrigin()
+	{
+        this.transform.DOScale(originScale, 0);
+        this.transform.position = originPos;
+        charaterSprite.sprite = playerChar.sp_sprite;
+	}
+
+
+
+
+    public void SetDefultPS()
+	{
+        originScale = this.transform.localScale;
+        originPos = this.transform.position;
+	}
+
+
+	#endregion
+
 
 
 	#region MouseControlle

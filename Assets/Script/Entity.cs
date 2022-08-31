@@ -125,6 +125,7 @@ public class Entity : MonoBehaviour
 
             AttackDOTween(_enemy);
 
+            PlayerEntity.Inst.ChangeSprite(_player.playerChar.damagedSprite);
 
             yield return new WaitForSeconds(0.1f);
         }

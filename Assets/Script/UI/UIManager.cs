@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		inventoryUI.SetActive(false);
+		SetClose();
 	}
 
 
@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
 	public GameObject optionUI;
 	public GameObject minimapUI;
 	public GameObject inventoryUI;
+	public GameObject deckUI;
+	public GameObject CemeteryUI;
 
 	public GameObject CardCancleArea;
 	public GameObject optionCancleArea;
@@ -40,14 +42,16 @@ public class UIManager : MonoBehaviour
 	public GameObject gameClearBack_UI;
 	public GameObject Reword_UI;
 
-	bool isCardUse = true;
-	bool isOptionUse = false;
-	bool isMinimapUse = false;
-	bool isInventoryUse = false;
-	
+
+	bool isDeckUse;
+	bool isCardUse;
+	bool isOptionUse;
+	bool isMinimapUse;
+	bool isCemeteryUse;
+	bool isInventoryUse;
+	bool isUIUse;
 
 	[SerializeField] LevelGeneration levelGeneration;
-
 
 	private void FixedUpdate()
 	{
@@ -60,7 +64,25 @@ public class UIManager : MonoBehaviour
 			myturn_UI_TMP.text = "ªÛ¥Î ≈œ";
 		}
 	}
-	
+
+
+	public bool IsUIUse 
+	{ 
+		get { return isUIUse; }
+		set { isUIUse = value; }
+	}
+
+	public bool CanUseUI()
+	{
+		if (isUIUse)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	public void CemeteryRefresh()
 	{
@@ -166,11 +188,15 @@ public class UIManager : MonoBehaviour
 		minimapUI.SetActive(isMinimapUse);
 		optionUI.SetActive(isOptionUse);
 		inventoryUI.SetActive(isInventoryUse);
+		deckUI.SetActive(isDeckUse);
+		CemeteryUI.SetActive(isCemeteryUse);
 
 		optionCancleArea.gameObject.SetActive(isOptionUse);
 		inventoryCancleArea.gameObject.SetActive(isInventoryUse);
 		minimapCancleArea.gameObject.SetActive(isMinimapUse);
 		CardCancleArea.gameObject.SetActive(isCardUse);
+
+		Debug.Log("??");
 	}
 
 	public void SetClose()
@@ -179,9 +205,11 @@ public class UIManager : MonoBehaviour
 		isMinimapUse = false;
 		isOptionUse = false;
 		isInventoryUse = false;
+		isCemeteryUse = false;
+		isDeckUse = false;
 
 		SetStateUI();
-		CardManager.Inst.SetCardStateBack();
+	//	CardManager.Inst.SetCardStateBack();
 	}
 
 	public void ButtonDeActivate()
@@ -194,7 +222,11 @@ public class UIManager : MonoBehaviour
 
 	public void MinimapToggel()
 	{
-		if (CardManager.Inst.BoolCradCanall())
+		if (isMinimapUse)
+		{
+			SetClose();
+		}
+		else if (isUIUse)
 		{
 			isMinimapUse = !isMinimapUse;
 
@@ -206,6 +238,15 @@ public class UIManager : MonoBehaviour
 			{
 				isInventoryUse = false;
 			}
+			if (deckUI.activeSelf == true)
+			{
+				isDeckUse = false;
+			}
+			if (CemeteryUI.activeSelf == true)
+			{
+				isCemeteryUse = false;
+			}
+
 			isCardUse = false;
 			SetStateUI();
 			CardManager.Inst.SetCardStateCannot();
@@ -214,7 +255,11 @@ public class UIManager : MonoBehaviour
 
 	public void OptionToggle()
 	{
-		if (CardManager.Inst.BoolCradCanall())
+		if (isOptionUse)
+		{
+			SetClose();
+		}
+		else if (isUIUse)
 		{
 			isOptionUse = !isOptionUse;
 
@@ -227,6 +272,15 @@ public class UIManager : MonoBehaviour
 			{
 				isInventoryUse = false;
 			}
+			if (deckUI.activeSelf == true)
+			{
+				isDeckUse = false;
+			}
+			if (CemeteryUI.activeSelf == true)
+			{
+				isCemeteryUse = false;
+			}
+
 			isCardUse = false;
 			SetStateUI();
 			CardManager.Inst.SetCardStateCannot();
@@ -235,7 +289,11 @@ public class UIManager : MonoBehaviour
 
 	public void InventoryToggle()
 	{
-		if (CardManager.Inst.BoolCradCanall())
+		if (isInventoryUse)
+		{
+			SetClose();
+		}
+		else if (isUIUse)
 		{
 			isInventoryUse = !isInventoryUse;
 
@@ -248,11 +306,89 @@ public class UIManager : MonoBehaviour
 			{
 				isOptionUse = false;
 			}
+			if (deckUI.activeSelf == true)
+			{
+				isDeckUse = false;
+			}
+			if (CemeteryUI.activeSelf == true)
+			{
+				isCemeteryUse = false;
+			}
+
 			isCardUse = false;
 			SetStateUI();
 			CardManager.Inst.SetCardStateCannot();
 		}
 	}
+
+	public void DeckToggle()
+	{
+		if (isDeckUse)
+		{
+			SetClose();
+		}
+		else if (isUIUse)
+		{
+			isDeckUse = !isDeckUse;
+
+
+			if (minimapUI.activeSelf == true)
+			{
+				isMinimapUse = false;
+			}
+			if (optionUI.activeSelf == true)
+			{
+				isOptionUse = false;
+			}
+			if (inventoryUI.activeSelf == true)
+			{
+				isInventoryUse = false;
+			}
+			if (CemeteryUI.activeSelf == true)
+			{
+				isCemeteryUse = false;
+			}
+
+			isCardUse = false;
+			SetStateUI();
+			CardManager.Inst.SetCardStateCannot();
+		}
+	}
+
+	public void CemeteryToggle()
+	{
+		if (isCemeteryUse)
+		{
+			SetClose();
+		}
+		else if (isUIUse)
+		{
+			isCemeteryUse = !isCemeteryUse;
+
+
+			if (minimapUI.activeSelf == true)
+			{
+				isMinimapUse = false;
+			}
+			if (optionUI.activeSelf == true)
+			{
+				isOptionUse = false;
+			}
+			if (inventoryUI.activeSelf == true)
+			{
+				isInventoryUse = false;
+			}
+			if (deckUI.activeSelf == true)
+			{
+				isDeckUse = false;
+			}
+
+			isCardUse = false;
+			SetStateUI();
+			CardManager.Inst.SetCardStateCannot();
+		}
+	}
+
 	#endregion
 
 

@@ -32,14 +32,16 @@ public class DeckScrollView : MonoBehaviour
         float y = 0f;
         Debug.Log("??");
 
-        for (int i = 0; i < uiobjects.Count; i += 5)
+        for (int i = 0 ; i <= uiobjects.Count ; i++)
 		{
-            y += uiobjects[i].sizeDelta.y + space;
-            Debug.Log(i);
+			if (i % 5 == 0)
+			{
+                y += uiobjects[0].sizeDelta.y + space;
+                Debug.Log(i);
+            }
 		}
-        
-
-
         scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
-	}
+    }
+
+
 }

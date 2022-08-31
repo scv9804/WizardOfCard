@@ -63,6 +63,7 @@ public class TurnManager : MonoBehaviour
             onAddCard?.Invoke();
             yield return delay_07;
             EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
+            UIManager.Inst.IsUIUse = true;
             isLoding = false;
         }
         else
@@ -73,6 +74,7 @@ public class TurnManager : MonoBehaviour
             yield return delay_07;
             StartCoroutine(EntityManager.Inst.EnemyEntityAttack());
             Debug.Log("Attack");
+            UIManager.Inst.IsUIUse = false;
             isLoding = false;
         }
         CardManager.Inst.SetECardState();

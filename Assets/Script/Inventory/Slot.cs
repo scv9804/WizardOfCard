@@ -76,6 +76,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 				DragSlot.Inst.dragSlot = this;
 				DragSlot.Inst.DragSetImage(itemIcon);
 				DragSlot.Inst.transform.position = eventData.position;
+				DragSlot.Inst.SetColor(1);
 			}
 		}
 	}
@@ -85,7 +86,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 		if (slotState == SlotState.Inven  )
 		{
 			if (item.itemName != "")
+			{
 				DragSlot.Inst.transform.position = eventData.position;
+				DragSlot.Inst.SetColor(1);
+			}
 		}
 	}
 
