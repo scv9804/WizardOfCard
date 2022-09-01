@@ -10,7 +10,7 @@ public class Card : MonoBehaviour
 
 	[SerializeField] GameObject card;
 	[SerializeField] ItemSO itemSO;
-//	[SerializeField] SpriteRenderer charater;
+	[SerializeField] SpriteRenderer charater;
 	[SerializeField] SpriteRenderer sp_card;
 	[SerializeField] TMP_Text nameTMP;
 	[SerializeField] TMP_Text healthTMP;
@@ -19,14 +19,15 @@ public class Card : MonoBehaviour
 	[SerializeField] Vector3 v_cardSize;
 
 	public Card_Info card_info;
+	public int i_itemCode;
+	public int i_damage;
 
+	[HideInInspector] public SpriteRenderer enemyDamagedEffectSpriteRenderer;
+	[HideInInspector] public SpriteRenderer playerAttackEffectSpriteRenderer;
 	[HideInInspector] public Pos_Rot_Scale originPRS;
-	 public int i_itemCode;
 	[HideInInspector] public int i_CardNum;
 	[HideInInspector] public int i_manaCost;
-	 public int i_damage;
 	[HideInInspector] public int i_cardType;
-
 	[HideInInspector] public int i_explainDamage;
 	[HideInInspector] public string st_explain;
 	[HideInInspector] public string[] st_splitExplain;
@@ -64,6 +65,8 @@ public class Card : MonoBehaviour
 		sp_card.sprite = card_info.sp_CardSprite;
 		card.transform.localScale = v_cardSize;
 		attackRange = card_info.attackRange;
+		enemyDamagedEffectSpriteRenderer = card_info.enemyDamageSprite;
+		playerAttackEffectSpriteRenderer = card_info.playerAttackSprite;
 
 		splitString();
 		ExplainRefresh();

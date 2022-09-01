@@ -23,6 +23,7 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] Image healthImage_Bar;
     [SerializeField] GameObject AttackEffect;
     [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
+    [SerializeField] SpriteRenderer damagedEffectSpriteRenderer;
     Image healthImage_UI;
 
 
@@ -50,8 +51,6 @@ public class PlayerEntity : MonoBehaviour
 	#region status
 	int maxAether = 5; // 최대 코스트
     int i_aether; // 코스트
-
-
 
 
     float i_health;
@@ -273,10 +272,14 @@ public class PlayerEntity : MonoBehaviour
 
 	#region DoTween
 
-	public IEnumerator ChangeSprite(Sprite _sprite)
+    /**
+     * 테스트
+     */
+	public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
-        charaterSprite.sprite = _sprite;
+        charaterSprite.sprite = _character;
+        AttackEffectSpriteRenderer.sprite = _effect;
         this.transform.DOMove(this.originPos + new Vector3(0.15f ,0, 0), 0.1f);
         AttackWandEffect();
         yield return new WaitForSeconds(0.15f);
@@ -284,6 +287,18 @@ public class PlayerEntity : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         DoOrigin();
 	}
+
+
+    public IEnumerator DamagedSprite(Sprite _character)
+    {
+        this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0);
+        charaterSprite.sprite = _character;
+        this.transform.DOMove(this.originPos + new Vector3(- 0.15f, 0, 0), 0.15f);
+        yield return new WaitForSeconds(0.15f);
+        this.transform.DOMove(this.originPos, 0.05f);
+        yield return new WaitForSeconds(0.05f);
+        DoOrigin();
+    }
 
 
     public void AttackWandEffect()

@@ -9,8 +9,9 @@ public class Cards_Magician : MonoBehaviour
 		switch (_card.i_CardNum)
 		{
 			case 0:
-				StartCoroutine(PlayerEntity.Inst.ChangeSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite));
 				MagicBolt(_card , _target);
+				StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite ,_card.playerAttackEffectSpriteRenderer.sprite));
+				StartCoroutine(_target.Damaged(_card.enemyDamagedEffectSpriteRenderer.sprite));
 				break;
 			case 1:
 				Debug.Log("잘못된 선택입니다.");

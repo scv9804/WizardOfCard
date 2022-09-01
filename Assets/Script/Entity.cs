@@ -123,26 +123,31 @@ public class Entity : MonoBehaviour
         {
             _player.Damaged(_enemy.i_damage);
             AttackDOTween(_enemy);
-            PlayerEntity.Inst.ChangeSprite(_player.playerChar.damagedSprite);
+            PlayerEntity.Inst.DamagedSprite(_player.playerChar.damagedSprite);
             yield return new WaitForSeconds(0.1f);
         }
 
 	}
 
-    public IEnumerator ChangeSprite(Sprite _sprite)
+    public IEnumerator Damaged(Sprite _sprite)
     {
         DamagedSpriteRenederer.sprite = _sprite;
-        
-    
+        SetDamagedOpacityTrue();
+
         yield return new WaitForSeconds(0.15f);
- 
+
+        Sequence sequence1 = DOTween.Sequence()
+       .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
+
         yield return new WaitForSeconds(0.05f);
     }
 
-    public void Damaged()
-	{
-
-	} 
+    void SetDamagedOpacityTrue()
+    {
+        Color tempt = Color.white;
+        tempt.a = 1f;
+        DamagedSpriteRenederer.color = tempt;
+    } 
 
 
     void AttackDOTween(Entity _enemy)
