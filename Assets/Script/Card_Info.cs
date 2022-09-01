@@ -18,4 +18,5 @@ public class Card_Info : MonoBehaviour
 
 	public CardType type;
 	public Sprite sp_CardSprite;
+	public SpriteRenderer damageSprite;
 }

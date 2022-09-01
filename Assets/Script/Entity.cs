@@ -11,10 +11,10 @@ public class Entity : MonoBehaviour
     [SerializeField] Enemy enemy;
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] SpriteRenderer charater;
+    [SerializeField] SpriteRenderer DamagedSpriteRenederer;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] Image healthImage;
-
 
     [HideInInspector] public float i_health;
     [HideInInspector] public float HEALTHMAX;
@@ -122,22 +122,34 @@ public class Entity : MonoBehaviour
 		for (int i =0; i < _enemy.i_attackCount; i++)
         {
             _player.Damaged(_enemy.i_damage);
-
             AttackDOTween(_enemy);
-
             PlayerEntity.Inst.ChangeSprite(_player.playerChar.damagedSprite);
-
             yield return new WaitForSeconds(0.1f);
         }
 
 	}
 
+    public IEnumerator ChangeSprite(Sprite _sprite)
+    {
+        DamagedSpriteRenederer.sprite = _sprite;
+        
+    
+        yield return new WaitForSeconds(0.15f);
+ 
+        yield return new WaitForSeconds(0.05f);
+    }
+
+    public void Damaged()
+	{
+
+	} 
 
 
     void AttackDOTween(Entity _enemy)
 	{
         _enemy.transform.DOLocalMoveX(_enemy.transform.localPosition.x - 0.5f , 0.2f ).SetEase(Ease.Linear).SetLoops(2, LoopType.Yoyo);
-	}
+	
+    }
 
 
 

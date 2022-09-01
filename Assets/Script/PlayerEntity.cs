@@ -278,11 +278,20 @@ public class PlayerEntity : MonoBehaviour
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
         charaterSprite.sprite = _sprite;
         this.transform.DOMove(this.originPos + new Vector3(0.15f ,0, 0), 0.1f);
-        yield return new WaitForSeconds(0.1f);
+        AttackWandEffect();
+        yield return new WaitForSeconds(0.15f);
         this.transform.DOMove(this.originPos, 0.2f);
-        yield return new WaitForSeconds(0.2f) ;
+        yield return new WaitForSeconds(0.05f);
         DoOrigin();
 	}
+
+
+    public void AttackWandEffect()
+	{
+        Sequence sequence1 = DOTween.Sequence()
+        .Append(AttackEffectSpriteRenderer.DOFade(1, 0.15f))
+        .Append(AttackEffectSpriteRenderer.DOFade(0, 0.05f));
+    }
 
 
     public void DoOrigin()
