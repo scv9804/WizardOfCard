@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a1254ccfa46bdc4eae99de99c999bfa, type: 3}
   m_Name: ItemHealEffect_Elixir
   m_EditorClassIdentifier: 
-  HealPoint: 30
+  HealPoint: 40

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76cb54ec476db94bb7b9ffa9635ebe2, type: 3}
   m_Name: ItemAetherEffect_Middle
   m_EditorClassIdentifier: 
-  AetherPoint: 0
+  AetherPoint: 2
