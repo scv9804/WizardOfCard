@@ -21208,17 +21208,59 @@ MonoBehaviour:
   - itemCode: 0
     itemName: dd
     itemExplain: zxcsd
-    itemIcon: {fileID: 7921298036083937340, guid: ffb21ad55a0a01140a83034d6400138e, type: 3}
+    itemIcon: {fileID: 21300000, guid: 5282fda4072def944a4507cd9b5de036, type: 3}
     itemType: 0
     efts:
-    - {fileID: 11400000, guid: 98e1b47952487b743b7b590d5bc0f802, type: 2}
+    - {fileID: 11400000, guid: 446b5417ae9d24d4eb34f8ff8395d027, type: 2}
   - itemCode: 1
     itemName: ss
     itemExplain: zxc
-    itemIcon: {fileID: 5642402472962025011, guid: ffb21ad55a0a01140a83034d6400138e, type: 3}
-    itemType: 1
+    itemIcon: {fileID: 21300000, guid: 0c229bc4887fdb44c830a1a7b9ad249a, type: 3}
+    itemType: 0
     efts:
-    - {fileID: 11400000, guid: 98e1b47952487b743b7b590d5bc0f802, type: 2}
+    - {fileID: 11400000, guid: adada4653a84fd54ca2dc02aa17dc9a2, type: 2}
+  - itemCode: 1
+    itemName: rgsjdgjsdngkds
+    itemExplain: zxc
+    itemIcon: {fileID: 21300000, guid: c6e5c3f1e51eeee47afaea72c66d433f, type: 3}
+    itemType: 0
+    efts:
+    - {fileID: 11400000, guid: cd3d14636f063f240bf3f2c8f649166d, type: 2}
+  - itemCode: 1
+    itemName: rgsjdgjsdngkds
+    itemExplain: zxc
+    itemIcon: {fileID: 21300000, guid: a29619aa97cf3a0468daff7f961bb484, type: 3}
+    itemType: 0
+    efts:
+    - {fileID: 11400000, guid: 79252743167d0eb4eb40e437b4fee343, type: 2}
+  - itemCode: 1
+    itemName: rgsjdgjsdngkds
+    itemExplain: zxc
+    itemIcon: {fileID: 21300000, guid: 66ee21ffc1ff8a14687bec4b0a09d41f, type: 3}
+    itemType: 0
+    efts:
+    - {fileID: 11400000, guid: 7ea955cf0fce51449afeab6498282908, type: 2}
+  - itemCode: 1
+    itemName: rgsjdgjsdngkds
+    itemExplain: zxc
+    itemIcon: {fileID: 21300000, guid: 0cb3d5f7f7a1f064d9342ba97a5a451e, type: 3}
+    itemType: 0
+    efts:
+    - {fileID: 11400000, guid: a9a5e94153467cc4b80c880f8df2006d, type: 2}
+  - itemCode: 1
+    itemName: rgsjdgjsdngkds
+    itemExplain: zxc
+    itemIcon: {fileID: 21300000, guid: d56b16d83bfb1ab418723e239f2b366d, type: 3}
+    itemType: 0
+    efts:
+    - {fileID: 11400000, guid: feda8b12237e731429e38a7df35bf6c9, type: 2}
+  - itemCode: 1
+    itemName: rgsjdgjsdngkds
+    itemExplain: zxc
+    itemIcon: {fileID: 21300000, guid: e1c200b24792fac4ca057c262d0baad3, type: 3}
+    itemType: 0
+    efts:
+    - {fileID: 11400000, guid: d636832f193499b479bf4d82ac382e3a, type: 2}
 --- !u!4 &2124350032
 Transform:
   m_ObjectHideFlags: 0

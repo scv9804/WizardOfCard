@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1254ccfa46bdc4eae99de99c999bfa, type: 3}
-  m_Name: New Item Heal Effect
+  m_Script: {fileID: 11500000, guid: c76cb54ec476db94bb7b9ffa9635ebe2, type: 3}
+  m_Name: ItemAetherEffect_Elixir
   m_EditorClassIdentifier: 
-  AmmorPoint: 1
+  AetherPoint: 0

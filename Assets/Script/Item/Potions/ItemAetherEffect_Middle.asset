@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb8c926af06370b45857a8b6bee745cb, type: 3}
-  m_Name: New Wand_01
+  m_Script: {fileID: 11500000, guid: c76cb54ec476db94bb7b9ffa9635ebe2, type: 3}
+  m_Name: ItemAetherEffect_Middle
   m_EditorClassIdentifier: 
+  AetherPoint: 0
