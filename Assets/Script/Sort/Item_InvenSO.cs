@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Item_Inven
 {
-    public int itemCode;
     public string itemName;
-    public string itemExplain;
+    public string itemExplain;   
+    public int itemCode;
     public Sprite itemIcon;
     public Utility_enum.ItemType itemType;
     public List<ItemEffect> efts;

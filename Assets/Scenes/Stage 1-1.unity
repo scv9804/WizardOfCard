@@ -340,9 +340,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -3380,9 +3380,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -3441,9 +3441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -3584,9 +3584,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -3764,9 +3764,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -3889,9 +3889,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -4544,9 +4544,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -6196,9 +6196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -6490,9 +6490,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -6588,9 +6588,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -7616,9 +7616,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -7796,9 +7796,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -7949,9 +7949,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -8294,9 +8294,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -8437,9 +8437,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -9653,9 +9653,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -10624,9 +10624,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -10886,9 +10886,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -11137,9 +11137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -11484,9 +11484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -11732,9 +11732,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -11912,9 +11912,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -12724,9 +12724,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -14615,9 +14615,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -14788,9 +14788,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -15169,9 +15169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -15746,9 +15746,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -15926,9 +15926,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -17304,9 +17304,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -17838,9 +17838,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -17981,9 +17981,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -18608,9 +18608,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -19855,9 +19855,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -20275,9 +20275,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -20336,9 +20336,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -20786,9 +20786,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemCode: 0
     itemName: 
     itemExplain: 
+    itemCode: 0
     itemIcon: {fileID: 0}
     itemType: 0
     efts: []
@@ -21205,62 +21205,150 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item_Invens:
-  - itemCode: 0
-    itemName: dd
-    itemExplain: zxcsd
+  - itemName: "\uB85C\uC6B0 \uD790 \uBB3C\uC57D"
+    itemExplain: "\uCCB4\uB825\uC744 5 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 0
     itemIcon: {fileID: 21300000, guid: 5282fda4072def944a4507cd9b5de036, type: 3}
     itemType: 0
     efts:
-    - {fileID: 11400000, guid: 446b5417ae9d24d4eb34f8ff8395d027, type: 2}
-  - itemCode: 1
-    itemName: ss
-    itemExplain: zxc
+    - {fileID: 11400000, guid: adada4653a84fd54ca2dc02aa17dc9a2, type: 2}
+  - itemName: "\uBBF8\uB4E4 \uD790 \uBB3C\uC57D"
+    itemExplain: "\uCCB4\uB825\uC744 10 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 1
     itemIcon: {fileID: 21300000, guid: 0c229bc4887fdb44c830a1a7b9ad249a, type: 3}
     itemType: 0
     efts:
-    - {fileID: 11400000, guid: adada4653a84fd54ca2dc02aa17dc9a2, type: 2}
-  - itemCode: 1
-    itemName: rgsjdgjsdngkds
-    itemExplain: zxc
+    - {fileID: 11400000, guid: 446b5417ae9d24d4eb34f8ff8395d027, type: 2}
+  - itemName: "\uD558\uC774 \uD790 \uBB3C\uC57D"
+    itemExplain: "\uCCB4\uB825\uC744 15 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 2
     itemIcon: {fileID: 21300000, guid: c6e5c3f1e51eeee47afaea72c66d433f, type: 3}
     itemType: 0
     efts:
     - {fileID: 11400000, guid: cd3d14636f063f240bf3f2c8f649166d, type: 2}
-  - itemCode: 1
-    itemName: rgsjdgjsdngkds
-    itemExplain: zxc
+  - itemName: "\uD790 \uC5D8\uB9AD\uC11C"
+    itemExplain: "\uCCB4\uB825\uC744 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 3
     itemIcon: {fileID: 21300000, guid: a29619aa97cf3a0468daff7f961bb484, type: 3}
     itemType: 0
     efts:
     - {fileID: 11400000, guid: 79252743167d0eb4eb40e437b4fee343, type: 2}
-  - itemCode: 1
-    itemName: rgsjdgjsdngkds
-    itemExplain: zxc
+  - itemName: "\uB85C\uC6B0 \uB9C8\uB098 \uBB3C\uC57D"
+    itemExplain: "\uB9C8\uB098\uB97C 1 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 4
     itemIcon: {fileID: 21300000, guid: 66ee21ffc1ff8a14687bec4b0a09d41f, type: 3}
     itemType: 0
     efts:
     - {fileID: 11400000, guid: 7ea955cf0fce51449afeab6498282908, type: 2}
-  - itemCode: 1
-    itemName: rgsjdgjsdngkds
-    itemExplain: zxc
+  - itemName: "\uBBF8\uB4E4 \uB9C8\uB098 \uBB3C\uC57D"
+    itemExplain: "\uB9C8\uB098\uB97C 2 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 5
     itemIcon: {fileID: 21300000, guid: 0cb3d5f7f7a1f064d9342ba97a5a451e, type: 3}
     itemType: 0
     efts:
     - {fileID: 11400000, guid: a9a5e94153467cc4b80c880f8df2006d, type: 2}
-  - itemCode: 1
-    itemName: rgsjdgjsdngkds
-    itemExplain: zxc
+  - itemName: "\uD558\uC774 \uB9C8\uB098 \uBB3C\uC57D"
+    itemExplain: "\uB9C8\uB098\uB97C 3 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 6
     itemIcon: {fileID: 21300000, guid: d56b16d83bfb1ab418723e239f2b366d, type: 3}
     itemType: 0
     efts:
     - {fileID: 11400000, guid: feda8b12237e731429e38a7df35bf6c9, type: 2}
-  - itemCode: 1
-    itemName: rgsjdgjsdngkds
-    itemExplain: zxc
+  - itemName: "\uB9C8\uB098 \uC5D8\uB9AD\uC11C"
+    itemExplain: "\uB9C8\uB098\uB97C 4 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemCode: 7
     itemIcon: {fileID: 21300000, guid: e1c200b24792fac4ca057c262d0baad3, type: 3}
     itemType: 0
     efts:
     - {fileID: 11400000, guid: d636832f193499b479bf4d82ac382e3a, type: 2}
+  - itemName: "\uB9C8\uB098 \uAC00\uC18D \uBB3C\uC57D"
+    itemExplain: "\uCE74\uB4DC\uB97C 3\uC7A5 \uB4DC\uB85C\uC6B0 \uD569\uB2C8\uB2E4."
+    itemCode: 8
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+  - itemName: "\uBBF8\uCE58\uAD11\uC774 \uBB3C\uC57D"
+    itemExplain: "\uB9C8\uB098\uB97C 1~3 \uD68C\uBCF5\uD558\uACE0, \uCCB4\uB825\uC744
+      5~10 \uC783\uC2B5\uB2C8\uB2E4."
+    itemCode: 9
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+    - {fileID: 0}
+  - itemName: "\uC5F0\uAE08\uC220\uC0AC\uC758 \uC2E4\uD5D8\uC6A9 \uBB3C\uC57D"
+    itemExplain: "\uBB34\uC791\uC704 \uCE74\uB4DC 1\uC7A5\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4."
+    itemCode: 10
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+  - itemName: "\uD53C\uBD80 \uACBD\uC9C8\uD654 \uBB3C\uC57D"
+    itemExplain: "\uC274\uB4DC\uB97C 5\uB9CC\uD07C \uC0DD\uC131\uD569\uB2C8\uB2E4."
+    itemCode: 11
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+  - itemName: "\uC545\uB9C8\uC758 \uCD95\uBCF5 \uBB3C\uC57D"
+    itemExplain: "\uCE74\uB4DC 1\uC7A5\uC744 \uAD50\uCCB4\uD569\uB2C8\uB2E4. \uCC9C\uC0AC\uC640
+      \uC804\uD22C\uD560 \uD655\uB960\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    itemCode: 12
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+    - {fileID: 0}
+  - itemName: "\uCC9C\uC0AC\uC758 \uCD95\uBCF5 \uBB3C\uC57D"
+    itemExplain: "\uCD5C\uB300 \uCCB4\uB825\uC774 5 \uC99D\uAC00\uD569\uB2C8\uB2E4.
+      \uC545\uB9C8\uC640 \uC804\uD22C\uD560 \uD655\uB960\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    itemCode: 13
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+    - {fileID: 0}
+  - itemName: "\uB300\uB9C8\uBC95\uC0AC\uC758 \uBE44\uC804 \uBB3C\uC57D"
+    itemExplain: "\uC5D0\uD14C\uB974 \uCE5C\uD654\uC131\uC774 4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    itemCode: 14
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+  - itemName: "\uB9C8\uB098 \uD3ED\uC8FC\uC758 \uBB3C\uC57D"
+    itemExplain: "\uBAA8\uB4E0 \uCE74\uB4DC\uC758 \uBE44\uC6A9\uC774 0\uC774 \uB429\uB2C8\uB2E4.
+      \uCCB4\uB825\uC744 20 \uC783\uC2B5\uB2C8\uB2E4."
+    itemCode: 15
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+    - {fileID: 0}
+  - itemName: "\uAE08\uC9C0\uB41C \uD608\uCCAD"
+    itemExplain: "\uC5D0\uD14C\uB974 \uCE5C\uD654\uC131\uC774 8\uB9CC\uD07C, \uC5D0\uD14C\uB974
+      \uBD84\uC0B0\uC774 2\uB9CC\uD07C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    itemCode: 16
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+    - {fileID: 0}
+  - itemName: "\uD3ED\uAD49\uD0C4"
+    itemExplain: "\uB370\uBBF8\uC9C0\uB97C 25 \uC90D\uB2C8\uB2E4."
+    itemCode: 17
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
+  - itemName: "\uD589\uC6B4\uC758 \uBB3C\uC57D"
+    itemExplain: "\uC774\uBC88 \uC804\uD22C\uBD80\uD130 3\uBC88\uC9F8 \uBC29\uAE4C\uC9C0
+      \uC804\uD22C \uC2DC \uD68D\uB4DD \uACE8\uB4DC\uB7C9\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    itemCode: 18
+    itemIcon: {fileID: 0}
+    itemType: 0
+    efts:
+    - {fileID: 0}
 --- !u!4 &2124350032
 Transform:
   m_ObjectHideFlags: 0
