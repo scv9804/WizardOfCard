@@ -66,7 +66,7 @@ public class Card : MonoBehaviour
 		card.transform.localScale = v_cardSize;
 		attackRange = card_info.attackRange;
 		enemyDamagedEffectSpriteRenderer = card_info.enemyDamageSprite;
-		playerAttackEffectSpriteRenderer = card_info.playerAttackSprite;
+		playerAttackEffectSpriteRenderer = card_info.playerAttackSprite;	
 
 		splitString();
 		ExplainRefresh();

@@ -32,7 +32,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Card myUseCard;
 
 
-
+    [SerializeField] EnemyAttackList enemyAttackList;
     [SerializeField] List<Enemy> enemyBuffer;
     [SerializeField] short Length;
 
