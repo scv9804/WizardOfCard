@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -280,10 +281,8 @@ public class PlayerEntity : MonoBehaviour
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
         charaterSprite.sprite = _character;
         AttackEffectSpriteRenderer.sprite = _effect;
-        this.transform.DOMove(this.originPos + new Vector3(0.15f ,0, 0), 0.1f);
         AttackWandEffect();
         yield return new WaitForSeconds(0.15f);
-        this.transform.DOMove(this.originPos, 0.2f);
         yield return new WaitForSeconds(0.05f);
         DoOrigin();
 	}

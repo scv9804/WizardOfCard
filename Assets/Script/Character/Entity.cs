@@ -12,9 +12,11 @@ public class Entity : MonoBehaviour
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] SpriteRenderer charater;
     [SerializeField] SpriteRenderer DamagedSpriteRenederer;
+    [SerializeField] GameObject Shield;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] Image healthImage;
+    [SerializeField] Material dissolveMaterial;
 
     [HideInInspector] public float i_health;
     [HideInInspector] public float HEALTHMAX;
@@ -22,15 +24,40 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_attackCount ;
     [HideInInspector] public int i_damage;
 
+
     public bool is_mine;
     public bool attackable = true;
-
-
-    [HideInInspector] public Vector3 originPos;
-    
-
     public bool is_die = false;
 
+    [HideInInspector] public Vector3 originPos;
+
+
+    float fade = 1f;
+    public bool isDissolving = false;
+
+    private void Start()
+    {
+        dissolveMaterial = GetComponent<SpriteRenderer>().material;
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isDissolving = true;
+        }
+        if (isDissolving)
+        {
+            fade -= 2*Time.deltaTime;
+            if (fade <= 0)
+            {
+                EntityManager.Inst.CheckDieEveryEnemy();
+            }
+
+            dissolveMaterial.SetFloat("_Fade", fade);
+        }
+    }
 
     public void SetupEnemy(EnemyBoss _enemy)
     {
@@ -129,18 +156,23 @@ public class Entity : MonoBehaviour
 
 	}
 
+
     public IEnumerator Damaged(Sprite _sprite)
     {
         DamagedSpriteRenederer.sprite = _sprite;
         SetDamagedOpacityTrue();
-
+        this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
         yield return new WaitForSeconds(0.15f);
-
+        this.transform.DOMove(this.originPos, 0.2f);
+        if (i_health <= 0)
+        {
+            isDissolving = true;
+        }
         Sequence sequence1 = DOTween.Sequence()
        .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
-
         yield return new WaitForSeconds(0.05f);
     }
+
 
     void SetDamagedOpacityTrue()
     {
@@ -153,14 +185,12 @@ public class Entity : MonoBehaviour
     void AttackDOTween(Entity _enemy)
 	{
         _enemy.transform.DOLocalMoveX(_enemy.transform.localPosition.x - 0.5f , 0.2f ).SetEase(Ease.Linear).SetLoops(2, LoopType.Yoyo);
-	
     }
 
 
 
 
 
-    //좋지않은 코드. 오브젝트 풀링 나중에 할거임 임시코드
     public void DestroyTest()
 	{
         Destroy(this.gameObject);

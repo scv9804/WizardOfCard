@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     public void GameTick()
 	{
-        EntityManager.Inst.CheckDieEveryEnemy();
+  //      EntityManager.Inst.CheckDieEveryEnemy();
 	}
 
 
