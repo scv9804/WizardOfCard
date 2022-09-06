@@ -18,7 +18,9 @@ public class CardManager : MonoBehaviour
 
 
 	[SerializeField] List<Card> myCards;
-	[SerializeField] List<Card> myCemetery;
+	[HideInInspector] public List<Card> myCemetery;
+	List<Card> itemBuffer;
+	[HideInInspector] public List<Card> myDeck;
 
 	[SerializeField] Transform cardSpawnPos;
 	[SerializeField] Transform LeftCard_Tf;
@@ -38,8 +40,7 @@ public class CardManager : MonoBehaviour
 	public Vector3[] v3_cardPaths_onHand;
 
 
-	[SerializeField] List<Card> itemBuffer;
-	[SerializeField] List<Card> myDeck;
+
 	
 
 	public enum E_CardStats { Cannot, CanMouseOver, CanAll };
@@ -568,6 +569,10 @@ public class CardManager : MonoBehaviour
 	public void SetCardStateBack()
 	{
 		e_CardStats = tempt;
+		if (TurnManager.Inst.myTurn == true)
+		{
+			e_CardStats = E_CardStats.CanAll;
+		}
 	}
 
 	public bool BoolCradCanall()

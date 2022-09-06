@@ -12,11 +12,13 @@ public class Entity : MonoBehaviour
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] SpriteRenderer charater;
     [SerializeField] SpriteRenderer DamagedSpriteRenederer;
-    [SerializeField] GameObject Shield;
+    [SerializeField] GameObject Particle;
+    [SerializeField] ParticleSystem particle;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] Image healthImage;
     [SerializeField] Material dissolveMaterial;
+    [SerializeField] GameObject StateOff;
 
     [HideInInspector] public float i_health;
     [HideInInspector] public float HEALTHMAX;
@@ -50,11 +52,6 @@ public class Entity : MonoBehaviour
         if (isDissolving)
         {
             fade -= 2*Time.deltaTime;
-            if (fade <= 0)
-            {
-                EntityManager.Inst.CheckDieEveryEnemy();
-            }
-
             dissolveMaterial.SetFloat("_Fade", fade);
         }
     }
@@ -164,12 +161,19 @@ public class Entity : MonoBehaviour
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
         yield return new WaitForSeconds(0.15f);
         this.transform.DOMove(this.originPos, 0.2f);
+        Sequence sequence1 = DOTween.Sequence()
+    .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
         if (i_health <= 0)
         {
+            particle.Play();
+            StateOff.SetActive(false);
             isDissolving = true;
+            yield return new WaitForSeconds(1f); 
+            if (fade <= 0)
+            {
+                EntityManager.Inst.CheckDieEveryEnemy();
+            }
         }
-        Sequence sequence1 = DOTween.Sequence()
-       .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
         yield return new WaitForSeconds(0.05f);
     }
 

@@ -56,6 +56,7 @@ public class TurnManager : MonoBehaviour
 
         if (myTurn == true)
         {
+            UIManager.Inst.TurnEndButtonActivae();
             //GameManager.Inst.Notification("내 턴");
             TurnNotification_Bool(true);
             CardManager.Inst.SetCardStateCannot();
@@ -68,6 +69,7 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
+            UIManager.Inst.TurnEndButtonActivae();
             // GameManager.Inst.Notification("상대 턴");
             TurnNotification_Bool(false);
             yield return delay_07;

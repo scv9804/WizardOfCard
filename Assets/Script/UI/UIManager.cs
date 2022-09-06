@@ -35,14 +35,14 @@ public class UIManager : MonoBehaviour
 	public GameObject deckUI;
 	public GameObject CemeteryUI;
 
+	public Image turnEndButtonSpriteImage;
 	public GameObject CardCancleArea;
 	public GameObject optionCancleArea;
 	public GameObject minimapCancleArea;
 	public GameObject inventoryCancleArea;
 	public GameObject gameClearBack_UI;
 	public GameObject Reword_UI;
-
-
+	
 	bool isDeckUse;
 	bool isCardUse;
 	bool isOptionUse;
@@ -52,6 +52,8 @@ public class UIManager : MonoBehaviour
 	bool isUIUse;
 
 	[SerializeField] LevelGeneration levelGeneration;
+
+	
 
 	private void FixedUpdate()
 	{
@@ -63,8 +65,32 @@ public class UIManager : MonoBehaviour
 		{
 			myturn_UI_TMP.text = "ªÛ¥Î ≈œ";
 		}
+
 	}
 
+
+	public void TurnEndButton()
+	{
+		if (TurnManager.Inst.myTurn)
+		{
+			TurnManager.Inst.EndTurn();
+		}
+	}
+
+	public void TurnEndButtonActivae()
+	{
+		
+		if (TurnManager.Inst.myTurn)
+		{
+			Color color = Color.white;
+			turnEndButtonSpriteImage.color = color;
+		}
+		else
+		{
+			Color color = Color.gray;
+			turnEndButtonSpriteImage.color = color;
+		}
+	}
 
 	public bool IsUIUse 
 	{ 
@@ -86,13 +112,13 @@ public class UIManager : MonoBehaviour
 
 	public void CemeteryRefresh()
 	{
-		if (TurnManager.Inst.myTurn )
+		if (TurnManager.Inst.myTurn && CardManager.Inst.myCemetery.Count != 0 )
 			CardManager.Inst.CemeteryRefesh();		
 	}
 
 	public void HandRefresh()
 	{
-		if (TurnManager.Inst.myTurn )
+		if (TurnManager.Inst.myTurn && CardManager.Inst.myDeck.Count != 0)
 			CardManager.Inst.HandRefresh();
 	}
 
@@ -209,7 +235,7 @@ public class UIManager : MonoBehaviour
 		isDeckUse = false;
 
 		SetStateUI();
-	//	CardManager.Inst.SetCardStateBack();
+		CardManager.Inst.SetCardStateBack();
 	}
 
 	public void ButtonDeActivate()
