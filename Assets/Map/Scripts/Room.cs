@@ -14,4 +14,5 @@ public class Room
 		gridPos = _gridPos;
 		type = _type;
 	}
+
 }

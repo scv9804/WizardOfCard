@@ -1,0 +1,1920 @@
+fileFormatVersion: 2
+guid: 75199efe7fcb2024cb1d78a6737d660d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 813132950109438085
+    second: MiniMap_0
+  - first:
+      213: -7515214742534813092
+    second: MiniMap_1
+  - first:
+      213: 8793266336936729395
+    second: MiniMap_2
+  - first:
+      213: 4923211517018221239
+    second: MiniMap_3
+  - first:
+      213: -2398012402859913123
+    second: MiniMap_4
+  - first:
+      213: -1440200073229213381
+    second: MiniMap_5
+  - first:
+      213: 1867691512132127717
+    second: MiniMap_6
+  - first:
+      213: -7336819336655506959
+    second: MiniMap_7
+  - first:
+      213: -6240923574521663694
+    second: MiniMap_8
+  - first:
+      213: -5526096113650681038
+    second: MiniMap_9
+  - first:
+      213: -1445937494089847972
+    second: MiniMap_10
+  - first:
+      213: 5277896778902777008
+    second: MiniMap_11
+  - first:
+      213: -7714797024128119617
+    second: MiniMap_12
+  - first:
+      213: 6220451558812305759
+    second: MiniMap_13
+  - first:
+      213: -8879333913064890246
+    second: MiniMap_14
+  - first:
+      213: 3920245839877898926
+    second: MiniMap_15
+  - first:
+      213: -7030104816639203432
+    second: MiniMap_16
+  - first:
+      213: 5711172073027863031
+    second: MiniMap_17
+  - first:
+      213: -4369282309115434657
+    second: MiniMap_18
+  - first:
+      213: -7758635044448628326
+    second: MiniMap_19
+  - first:
+      213: 381455852754487872
+    second: MiniMap_20
+  - first:
+      213: -2890958191026929130
+    second: MiniMap_21
+  - first:
+      213: -1400993789536323674
+    second: MiniMap_22
+  - first:
+      213: -2822844476071150714
+    second: MiniMap_23
+  - first:
+      213: -6484982756151889900
+    second: MiniMap_24
+  - first:
+      213: -731781016171037628
+    second: MiniMap_25
+  - first:
+      213: 7143803466044643097
+    second: MiniMap_26
+  - first:
+      213: 3739067765647723544
+    second: MiniMap_27
+  - first:
+      213: -1556664900758952914
+    second: MiniMap_28
+  - first:
+      213: -7106766566873161803
+    second: MiniMap_29
+  - first:
+      213: 2274109536928870467
+    second: MiniMap_30
+  - first:
+      213: 6696896088563346581
+    second: MiniMap_31
+  - first:
+      213: -1898867534064520721
+    second: MiniMap_32
+  - first:
+      213: 612906931631620565
+    second: MiniMap_33
+  - first:
+      213: 8476104296679865029
+    second: MiniMap_34
+  - first:
+      213: -8508131269051424295
+    second: MiniMap_35
+  - first:
+      213: -3792559353508656335
+    second: MiniMap_36
+  - first:
+      213: 794348042313571974
+    second: MiniMap_37
+  - first:
+      213: -3109935223720011734
+    second: MiniMap_38
+  - first:
+      213: -3494990743715203545
+    second: MiniMap_39
+  - first:
+      213: 201513843841373811
+    second: MiniMap_40
+  - first:
+      213: 8261600204497538248
+    second: MiniMap_41
+  - first:
+      213: 7171421203151545143
+    second: MiniMap_42
+  - first:
+      213: -5140092335844421590
+    second: MiniMap_43
+  - first:
+      213: -7712597115954449148
+    second: MiniMap_44
+  - first:
+      213: 7706803857597535274
+    second: MiniMap_45
+  - first:
+      213: -5008047087454135429
+    second: MiniMap_46
+  - first:
+      213: 5895219379101372509
+    second: MiniMap_47
+  - first:
+      213: 4157955905201783021
+    second: MiniMap_48
+  - first:
+      213: 498099990735926432
+    second: MiniMap_49
+  - first:
+      213: 1288486982127420471
+    second: MiniMap_50
+  - first:
+      213: 5289346290162491934
+    second: MiniMap_51
+  - first:
+      213: 2298234242866222943
+    second: MiniMap_52
+  - first:
+      213: -6144634964874331922
+    second: MiniMap_53
+  - first:
+      213: -4937233928917840134
+    second: MiniMap_54
+  - first:
+      213: 2386616491567751381
+    second: MiniMap_55
+  - first:
+      213: 4157719270682937225
+    second: MiniMap_56
+  - first:
+      213: 5156273130536989236
+    second: MiniMap_57
+  - first:
+      213: 4993308317966949712
+    second: MiniMap_58
+  - first:
+      213: -3412863072489246521
+    second: MiniMap_59
+  - first:
+      213: -1561246276866194139
+    second: MiniMap_60
+  - first:
+      213: -4121768157890833379
+    second: MiniMap_61
+  - first:
+      213: -6899689673127137875
+    second: MiniMap_62
+  - first:
+      213: 1223456392673579869
+    second: MiniMap_63
+  - first:
+      213: -6007239502990215679
+    second: MiniMap_64
+  - first:
+      213: 5436754231619435309
+    second: MiniMap_65
+  - first:
+      213: 8515148114100128724
+    second: MiniMap_66
+  - first:
+      213: -6817938480001251191
+    second: MiniMap_67
+  - first:
+      213: 7468049956370577882
+    second: MiniMap_68
+  - first:
+      213: -4387260773694188236
+    second: MiniMap_69
+  - first:
+      213: 3309506492719947917
+    second: MiniMap_70
+  - first:
+      213: -5135363718164949170
+    second: MiniMap_71
+  - first:
+      213: 8616359971480844286
+    second: MiniMap_72
+  - first:
+      213: -5020006123152269822
+    second: MiniMap_73
+  - first:
+      213: 2242688080818536815
+    second: MiniMap_74
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniMap_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1252
+        width: 133
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58040762c14d84b00800000000000000
+      internalID: 813132950109438085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_1
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 1247
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5a0f6c420894b790800000000000000
+      internalID: -7515214742534813092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_2
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 1252
+        width: 128
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33b938c0525f70a70800000000000000
+      internalID: 8793266336936729395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_3
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 1254
+        width: 132
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7baabf95ac2c25440800000000000000
+      internalID: 4923211517018221239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_4
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 1252
+        width: 133
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d50dd80cc6c88bed0800000000000000
+      internalID: -2398012402859913123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_5
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 1247
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b316ea5f9a1630ce0800000000000000
+      internalID: -1440200073229213381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_6
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 1252
+        width: 128
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ebc5aae88f5be910800000000000000
+      internalID: 1867691512132127717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_7
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 1254
+        width: 133
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f17e697fa16e2a90800000000000000
+      internalID: -7336819336655506959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_8
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1137
+        width: 133
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23f66462319c369a0800000000000000
+      internalID: -6240923574521663694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_9
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 1137
+        width: 132
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23b3f27fcdc5f43b0800000000000000
+      internalID: -5526096113650681038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_10
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1152
+        width: 132
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5b2b51928ffeebe0800000000000000
+      internalID: -1445937494089847972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_11
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 1142
+        width: 132
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bcadab282bde3940800000000000000
+      internalID: 5277896778902777008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_12
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 1137
+        width: 133
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc4a963bf88fe490800000000000000
+      internalID: -7714797024128119617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_13
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 1137
+        width: 133
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5948814cbb735650800000000000000
+      internalID: 6220451558812305759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_14
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 1152
+        width: 133
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7020bdc9d446c480800000000000000
+      internalID: -8879333913064890246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_15
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 1142
+        width: 133
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea2002e22d2876630800000000000000
+      internalID: 3920245839877898926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_16
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1033
+        width: 137
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89725769aec007e90800000000000000
+      internalID: -7030104816639203432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_17
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 1034
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f105f7cdb8224f40800000000000000
+      internalID: 5711172073027863031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_18
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1033
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f59a6c9a3e03d53c0800000000000000
+      internalID: -4369282309115434657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_19
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 1033
+        width: 137
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a911eb9b88ac35490800000000000000
+      internalID: -7758635044448628326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_20
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 1034
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04acce8b3143b4500800000000000000
+      internalID: 381455852754487872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_21
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 1033
+        width: 132
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 612855b97d041e7d0800000000000000
+      internalID: -2890958191026929130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_22
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 925
+        width: 137
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a7b82a329bae8ce0800000000000000
+      internalID: -1400993789536323674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_23
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 920
+        width: 128
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68bfa93b7ed33d8d0800000000000000
+      internalID: -2822844476071150714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_24
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 925
+        width: 137
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 410780dca86b006a0800000000000000
+      internalID: -6484982756151889900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_25
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 918
+        width: 137
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44c30cdfa0138d5f0800000000000000
+      internalID: -731781016171037628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_26
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 924
+        width: 137
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9179bc22763e32360800000000000000
+      internalID: 7143803466044643097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_27
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 919
+        width: 128
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81ccb8a8256d3e330800000000000000
+      internalID: 3739067765647723544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_28
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 924
+        width: 137
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e24a1f3358d956ae0800000000000000
+      internalID: -1556664900758952914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_29
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 918
+        width: 137
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bf17efe571bf5d90800000000000000
+      internalID: -7106766566873161803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_30
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 818
+        width: 133
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34039f833924f8f10800000000000000
+      internalID: 2274109536928870467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_31
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 811
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c6588c28720fc50800000000000000
+      internalID: 6696896088563346581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_32
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 815
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe1ff84d90ed5a5e0800000000000000
+      internalID: -1898867534064520721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_33
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 824
+        width: 132
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d107446b9b718800800000000000000
+      internalID: 612906931631620565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_34
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 807
+        width: 133
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5caf3c213fb21a570800000000000000
+      internalID: 8476104296679865029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_35
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 803
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d1ebc550bb0de980800000000000000
+      internalID: -8508131269051424295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_36
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 807
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b0880ac5f1e5bc0800000000000000
+      internalID: -3792559353508656335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_37
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 809
+        width: 133
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68e902af557160b00800000000000000
+      internalID: 794348042313571974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_38
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 707
+        width: 133
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2891b3246a47d4d0800000000000000
+      internalID: -3109935223720011734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_39
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 704
+        width: 132
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 726b3939f6c4f7fc0800000000000000
+      internalID: -3494990743715203545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_40
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 719
+        width: 133
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3761d77f5cbebc200800000000000000
+      internalID: 201513843841373811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_41
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 715
+        width: 132
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ccce593d9917a270800000000000000
+      internalID: 8261600204497538248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_42
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 693
+        width: 132
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7336d84a691068360800000000000000
+      internalID: 7171421203151545143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_43
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 693
+        width: 132
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2019410149baa8b0800000000000000
+      internalID: -5140092335844421590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_44
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 708
+        width: 133
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40535df39c957f490800000000000000
+      internalID: -7712597115954449148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_45
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 698
+        width: 133
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2416bda64114fa60800000000000000
+      internalID: 7706803857597535274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_46
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 597
+        width: 137
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7bdddd25b7df7ab0800000000000000
+      internalID: -5008047087454135429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_47
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 602
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5016548ac600d150800000000000000
+      internalID: 5895219379101372509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_48
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 601
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de04a41bdd604b930800000000000000
+      internalID: 4157955905201783021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_49
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 588
+        width: 137
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a4b0727d4b99e600800000000000000
+      internalID: 498099990735926432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_50
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 587
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7348b636510a1e110800000000000000
+      internalID: 1288486982127420471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_51
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 588
+        width: 132
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e126a2f3d68876940800000000000000
+      internalID: 5289346290162491934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_52
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 492
+        width: 137
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f571ea80ed7f4ef10800000000000000
+      internalID: 2298234242866222943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_53
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 485
+        width: 128
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee8783c1e0fd9baa0800000000000000
+      internalID: -6144634964874331922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_54
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 490
+        width: 137
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afe88d576eb6b7bb0800000000000000
+      internalID: -4937233928917840134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_55
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 489
+        width: 137
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d02cf2ed07fe1120800000000000000
+      internalID: 2386616491567751381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_56
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 481
+        width: 137
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9874adce5af23b930800000000000000
+      internalID: 4157719270682937225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_57
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 476
+        width: 128
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4327c86d713ce8740800000000000000
+      internalID: 5156273130536989236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_58
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 481
+        width: 137
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05d5c62a57bcb4540800000000000000
+      internalID: 4993308317966949712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_59
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 474
+        width: 137
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c0fa312e1313a0d0800000000000000
+      internalID: -3412863072489246521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_60
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 373
+        width: 133
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5254d7478c6555ae0800000000000000
+      internalID: -1561246276866194139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_61
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 369
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d14966ec2b98cc6c0800000000000000
+      internalID: -4121768157890833379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_62
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 373
+        width: 128
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad63d46cc06f30a0800000000000000
+      internalID: -6899689673127137875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_63
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 375
+        width: 132
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d535d736b179af010800000000000000
+      internalID: 1223456392673579869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_64
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 259
+        width: 133
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 106f29fef7ff1aca0800000000000000
+      internalID: -6007239502990215679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_65
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 259
+        width: 132
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2b37c22b2b337b40800000000000000
+      internalID: 5436754231619435309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_66
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 274
+        width: 133
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4db86c63812eb2670800000000000000
+      internalID: 8515148114100128724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_67
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 264
+        width: 132
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9880f0f4311d161a0800000000000000
+      internalID: -6817938480001251191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_68
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 154
+        width: 137
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad9f65e2ed7d3a760800000000000000
+      internalID: 7468049956370577882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_69
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 157
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 435d3fe22915d13c0800000000000000
+      internalID: -4387260773694188236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_70
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 154
+        width: 133
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d80eb60ee9abded20800000000000000
+      internalID: 3309506492719947917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_71
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 47
+        width: 137
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e47595a18e58bb8b0800000000000000
+      internalID: -5135363718164949170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_72
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 42
+        width: 128
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef7b20d1eb5739770800000000000000
+      internalID: 8616359971480844286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_73
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 47
+        width: 137
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20e1933370b555ab0800000000000000
+      internalID: -5020006123152269822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniMap_74
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 41
+        width: 137
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f61013f5de0af1f10800000000000000
+      internalID: 2242688080818536815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

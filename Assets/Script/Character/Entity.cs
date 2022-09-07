@@ -168,11 +168,8 @@ public class Entity : MonoBehaviour
             particle.Play();
             StateOff.SetActive(false);
             isDissolving = true;
-            yield return new WaitForSeconds(1f); 
-            if (fade <= 0)
-            {
-                EntityManager.Inst.CheckDieEveryEnemy();
-            }
+            yield return new WaitForSeconds(particle.main.duration + 0.4f);
+            EntityManager.Inst.CheckDieEveryEnemy();
         }
         yield return new WaitForSeconds(0.05f);
     }

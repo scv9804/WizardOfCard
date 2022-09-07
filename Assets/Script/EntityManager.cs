@@ -226,23 +226,31 @@ public class EntityManager : MonoBehaviour
 
     public void CheckDieEveryEnemy()
 	{
-		foreach (var enemy in enemyEntities)
-		{
-			if (enemy.is_die)
-			{
-                enemy.DestroyTest();
-                enemyEntities.Remove(enemy);
-                Debug.Log("하나죽었다.");
-            }
-            if (enemyEntities.Count == 0)
+		try 
+        {
+            foreach (var enemy in enemyEntities)
             {
-                Debug.Log("다음방으로");
-                UIManager.Inst.ButtonActivate();
-                RewordManager.Inst.GameClear();
-                CardManager.Inst.SetCardStateCannot();
+                if (enemy.is_die)
+                {
+                    enemy.DestroyTest();
+                    enemyEntities.Remove(enemy);
+                    Debug.Log("하나죽었다.");
+                }
+                if (enemyEntities.Count == 0)
+                {
+                    Debug.Log("다음방으로");
+                    UIManager.Inst.ButtonActivate();
+                    RewordManager.Inst.GameClear();
+                    CardManager.Inst.SetCardStateCannot();
+                }
             }
-        }
 
+        }
+        catch
+		{
+            Debug.Log("이미 Destroy됨");
+		}
+		
     }
 
 
