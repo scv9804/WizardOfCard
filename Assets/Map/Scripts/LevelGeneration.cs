@@ -12,7 +12,10 @@ public class LevelGeneration : MonoBehaviour {
 
 	List<Vector2> takenPositions = new List<Vector2>();
 
-	int gridSizeX, gridSizeY, numberOfRooms = 20;
+	int gridSizeX, gridSizeY;
+
+	[SerializeField]int numberOfRooms = 20;
+
 	int inPosX, inPosY;
 	public bool i_Room_L, i_Room_R, i_Room_U, i_Room_D;
 
@@ -20,9 +23,6 @@ public class LevelGeneration : MonoBehaviour {
 	public GameObject BossRoomIcon;
 	public GameObject roomWhiteObj;
 
-
-
-	// TYPE 4 없애고 IS_Bossroom으로 대체하기 (이와같은 방법으로 상점같은것들도 만들기 쉬울듯함.
 
 
 
@@ -51,8 +51,8 @@ public class LevelGeneration : MonoBehaviour {
 		rooms[gridSizeX, gridSizeY].Checked = true;
 		takenPositions.Insert(0,Vector2.zero);
 
-		//test Setup DrawObject
-		DrawMaps = new MapSpriteSelector[30];
+		//그릴 맵 총개수 테스트
+		DrawMaps = new MapSpriteSelector[40];
 
 		Vector2 checkPos = Vector2.zero;
 		//magic numbers
@@ -172,8 +172,8 @@ public class LevelGeneration : MonoBehaviour {
 			}
 			
 			Vector2 drawPos = room.gridPos;
-			drawPos.x *= 15;//aspect ratio of map sprite
-			drawPos.y *= 8;
+			drawPos.x *= 2.7f;//aspect ratio of map sprite
+			drawPos.y *= 1.5f;
 			//create map obj and assign its variables
 			MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
 			mapper.type = room.type;
@@ -288,6 +288,40 @@ public class LevelGeneration : MonoBehaviour {
 			}
 		}
 	}
+
+	void CreateEventRoom()
+	{
+			foreach (var room in rooms)
+			{
+				if (room == null)
+					continue;
+				if (room.doorBot == true && room.doorLeft == false && room.doorTop == false && room.doorRight == false)
+				{
+					room.type = 4;
+					room.isBossRoom = true;
+					break;
+				}
+				if (room.doorBot == false && room.doorLeft == true && room.doorTop == false && room.doorRight == false)
+				{
+					room.type = 4;
+					room.isBossRoom = true;
+					break;
+				}
+				if (room.doorBot == false && room.doorLeft == false && room.doorTop == true && room.doorRight == false)
+				{
+					room.type = 4;
+					room.isBossRoom = true;
+					break;
+				}
+				if (room.doorBot == false && room.doorLeft == false && room.doorTop == false && room.doorRight == true)
+				{
+					room.type = 4;
+					room.isBossRoom = true;
+					break;
+				}
+			}
+	}
+	
 
 	void RoomRefersh()
 	{
