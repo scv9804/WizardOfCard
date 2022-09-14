@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 06ebc753fff4d244cb3b89de871fee73
+guid: d56292786fb87a74f8ee2a0e219b542d
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -100,9 +100,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 1195
-      height: 1218
-    spriteID: 6e8ae31f4252bc848bf5a48130674434
+      width: 1180
+      height: 1252
+    spriteID: cd9b6a8e0e90c4d42b56b4653cae9657
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -224, y: -239}
+    uvTransform: {x: -239, y: -239}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
@@ -136,7 +136,7 @@ ScriptedImporter:
     spriteName: "\uC2AC\uB77C\uC784"
     isGroup: 0
     parentIndex: -1
-    spriteID: 6e8ae31f4252bc848bf5a48130674434
+    spriteID: cd9b6a8e0e90c4d42b56b4653cae9657
     layerID: 0
     mosaicPosition: {x: 4, y: 4}
   characterData:
@@ -145,7 +145,7 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
   generateGOHierarchy: 0
-  textureAssetName: "\uC2AC\uB77C\uC784 \uACF5\uACA9 Texture"
-  prefabAssetName: "\uC2AC\uB77C\uC784 \uACF5\uACA9 Prefab"
-  spriteLibAssetName: "\uC2AC\uB77C\uC784 \uACF5\uACA9 Sprite Lib"
+  textureAssetName: "\uC2AC\uB77C\uC784 \uD53C\uACA9 Texture"
+  prefabAssetName: "\uC2AC\uB77C\uC784 \uD53C\uACA9 Prefab"
+  spriteLibAssetName: "\uC2AC\uB77C\uC784 \uD53C\uACA9 Sprite Lib"
   secondarySpriteTextures: []

@@ -530,10 +530,6 @@ public class CardManager : MonoBehaviour
 		{
 			StartCoroutine(Shuffle());
 		}
-		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether <= 0 && TurnManager.Inst.myTurn)
-		{
-			TurnManager.Inst.EndTurn();
-		}
 	}
 
 	IEnumerator Shuffle()
@@ -549,11 +545,6 @@ public class CardManager : MonoBehaviour
 		{
 			CardManager.Inst.ShuffleCemetery();
 			EntityManager.Inst.playerEntity.Status_Aether -= 1;
-		}
-
-		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether <= 0)
-		{
-			TurnManager.Inst.EndTurn();
 		}
 	}
 

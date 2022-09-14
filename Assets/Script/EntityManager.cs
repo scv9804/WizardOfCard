@@ -12,6 +12,8 @@ public class EntityManager : MonoBehaviour
         Inst = this;
     }
 
+    [SerializeField] float enemyAttackDelay;
+
     [SerializeField] EnemySO enemySO;
     [SerializeField] EnemyBossSO enemyBossSO;
     [SerializeField] CharacterSO characterSO;
@@ -92,12 +94,9 @@ public class EntityManager : MonoBehaviour
 	{
 		foreach (var enemy in enemyEntities)
 		{
-            yield return new WaitForSeconds(0.1f);
             StartCoroutine(enemy.Attack(playerEntity, enemy));
+            yield return new WaitForSeconds(enemyAttackDelay);
         }
-
-        Debug.Log("Call EnemyEntityAttack");
-        yield return new WaitForSeconds(0.1f);
         TurnManager.Inst.EndTurn();
     }
 

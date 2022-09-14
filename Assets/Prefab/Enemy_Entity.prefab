@@ -5485,6 +5485,7 @@ MonoBehaviour:
     f_percentage: 0
     st_charName: 
     sp_sprite: {fileID: 0}
+    PlayerDamagedEffect: {fileID: 0}
   enemyBoss:
     i_CharCode: 0
     i_health: 0
@@ -5495,7 +5496,7 @@ MonoBehaviour:
     sp_sprite: {fileID: 0}
   charater: {fileID: 1125794580711498246}
   DamagedSpriteRenederer: {fileID: 5197956507779437772}
-  Particle: {fileID: 0}
+  playerDamagedEffect: {fileID: 0}
   particle: {fileID: 2171132626295761892}
   healthTMP: {fileID: 7799422697722552946}
   ShieldTMP: {fileID: 3865831354385728344}

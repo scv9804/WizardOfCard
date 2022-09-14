@@ -273,29 +273,28 @@ public class PlayerEntity : MonoBehaviour
 
 	#region DoTween
 
-    /**
-     * Å×½ºÆ®
-     */
+
 	public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
         charaterSprite.sprite = _character;
         AttackEffectSpriteRenderer.sprite = _effect;
         AttackWandEffect();
-        yield return new WaitForSeconds(0.15f);
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.25f);
         DoOrigin();
 	}
 
 
-    public IEnumerator DamagedSprite(Sprite _character)
+    public IEnumerator DamagedSprite(Sprite _damagedEffet)
     {
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0);
-        charaterSprite.sprite = _character;
+        charaterSprite.sprite = playerChar.damagedSprite;
+        damagedEffectSpriteRenderer.sprite = _damagedEffet;
+        DamagedEffect();
         this.transform.DOMove(this.originPos + new Vector3(- 0.15f, 0, 0), 0.15f);
         yield return new WaitForSeconds(0.15f);
         this.transform.DOMove(this.originPos, 0.05f);
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.2f);
         DoOrigin();
     }
 
@@ -305,6 +304,13 @@ public class PlayerEntity : MonoBehaviour
         Sequence sequence1 = DOTween.Sequence()
         .Append(AttackEffectSpriteRenderer.DOFade(1, 0.15f))
         .Append(AttackEffectSpriteRenderer.DOFade(0, 0.05f));
+    }
+
+    public void DamagedEffect()
+    {
+        Sequence sequence1 = DOTween.Sequence()
+        .Append(damagedEffectSpriteRenderer.DOFade(1, 0.15f))
+        .Append(damagedEffectSpriteRenderer.DOFade(0, 0.05f));
     }
 
 

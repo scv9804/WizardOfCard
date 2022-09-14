@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] SpriteRenderer charater;
     [SerializeField] SpriteRenderer DamagedSpriteRenederer;
-    [SerializeField] GameObject Particle;
+    [SerializeField] Sprite playerDamagedEffect;
     [SerializeField] ParticleSystem particle;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
@@ -58,6 +58,7 @@ public class Entity : MonoBehaviour
 
     public void SetupEnemy(EnemyBoss _enemy)
     {
+        enemyBoss = _enemy;
         i_health = _enemy.i_health;
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
@@ -72,6 +73,7 @@ public class Entity : MonoBehaviour
 
     public void SetupEnemy(Enemy _enemy)
     {
+        enemy = _enemy;
         i_health = _enemy.i_health;
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
@@ -141,17 +143,17 @@ public class Entity : MonoBehaviour
 
 
 
-    public IEnumerator Attack(PlayerEntity _player , Entity _enemy)
-	{
-		for (int i =0; i < _enemy.i_attackCount; i++)
-        {
-            _player.Damaged(_enemy.i_damage);
-            AttackDOTween(_enemy);
-            PlayerEntity.Inst.DamagedSprite(_player.playerChar.damagedSprite);
-            yield return new WaitForSeconds(0.1f);
-        }
+	#region Damage
 
+	public IEnumerator Attack(PlayerEntity _player , Entity _enemy)
+	{
+            _player.Damaged(_enemy.i_damage);
+            AttackDOTween(this);
+            StartCoroutine(_player.DamagedSprite(this.enemy.PlayerDamagedEffect));
+            yield return new WaitForSeconds(0.0f);
 	}
+
+
 
 
     public IEnumerator Damaged(Sprite _sprite)
@@ -159,10 +161,12 @@ public class Entity : MonoBehaviour
         DamagedSpriteRenederer.sprite = _sprite;
         SetDamagedOpacityTrue();
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
+        charater.sprite = enemy.EnemyDamagedSprite;
         yield return new WaitForSeconds(0.15f);
+
         this.transform.DOMove(this.originPos, 0.2f);
         Sequence sequence1 = DOTween.Sequence()
-    .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
+        .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
         if (i_health <= 0)
         {
             particle.Play();
@@ -171,7 +175,8 @@ public class Entity : MonoBehaviour
             yield return new WaitForSeconds(particle.main.duration + 0.4f);
             EntityManager.Inst.CheckDieEveryEnemy();
         }
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.15f);
+        charater.sprite = enemy.sp_sprite;
     }
 
 
@@ -189,13 +194,15 @@ public class Entity : MonoBehaviour
     }
 
 
+	#endregion
 
-
-
-    public void DestroyTest()
+	public void DestroyTest()
 	{
         Destroy(this.gameObject);
 	}
+
+
+
 
     private void OnMouseOver()
     {

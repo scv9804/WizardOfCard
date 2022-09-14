@@ -14,6 +14,8 @@ using UnityEngine;
 
 		public string st_charName;
 		public Sprite sp_sprite;
+		public Sprite PlayerDamagedEffect;
+		public Sprite EnemyDamagedSprite;
 	}
 
 	[CreateAssetMenu(fileName = "EnemySO", menuName = "Scriptalbe Object/EnemySO")]

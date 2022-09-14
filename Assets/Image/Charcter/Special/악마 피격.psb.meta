@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 43d1e21f8ebd0124eaaa456f9d4404c4
+guid: d421b5bba19b33b4d81decbd30032ef6
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,7 +46,7 @@ ScriptedImporter:
     flipbookRows: 0
     flipbookColumns: 0
     ignorePngGamma: 0
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 0
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: "\uC624\uB978\uD314\uBAA9"
+  - name: "\uB808\uC774\uC5B4 4"
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -100,9 +100,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 1196
-      height: 1567
-    spriteID: ce0f4a4c42d46d040b7d47e2ee6b28f8
+      width: 1316
+      height: 1640
+    spriteID: bbda1fa8516bddb4a920b061042916f5
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -112,48 +112,15 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -292, y: -159}
-  platformSettings:
-  - name: DefaultTexturePlatform
-    overridden: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
-  - name: Standalone
-    overridden: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
-  - name: Android
-    overridden: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
+    uvTransform: {x: -117, y: -159}
+  platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
   importedTextureWidth: 2048
   importedTextureHeight: 2048
-  documentSize: {x: 1751, y: 1903}
+  documentSize: {x: 1500, y: 1934}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
@@ -165,11 +132,11 @@ ScriptedImporter:
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: "\uC624\uB978\uD314\uBAA9"
-    spriteName: "\uC624\uB978\uD314\uBAA9"
+  - name: "\uB808\uC774\uC5B4 4"
+    spriteName: "\uB808\uC774\uC5B4 4"
     isGroup: 0
     parentIndex: -1
-    spriteID: ce0f4a4c42d46d040b7d47e2ee6b28f8
+    spriteID: bbda1fa8516bddb4a920b061042916f5
     layerID: 0
     mosaicPosition: {x: 4, y: 4}
   characterData:
@@ -178,7 +145,7 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
   generateGOHierarchy: 0
-  textureAssetName: "\uD50C\uB808\uC774\uC5B4 \uD53C\uACA9 Texture"
-  prefabAssetName: "\uD50C\uB808\uC774\uC5B4 \uD53C\uACA9 Prefab"
-  spriteLibAssetName: "\uD50C\uB808\uC774\uC5B4 \uD53C\uACA9 Sprite Lib"
+  textureAssetName: "\uC545\uB9C8 \uD53C\uACA9 Texture"
+  prefabAssetName: "\uC545\uB9C8 \uD53C\uACA9 Prefab"
+  spriteLibAssetName: "\uC545\uB9C8 \uD53C\uACA9 Sprite Lib"
   secondarySpriteTextures: []

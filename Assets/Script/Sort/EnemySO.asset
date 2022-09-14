@@ -20,6 +20,8 @@ MonoBehaviour:
     f_percentage: 10
     st_charName: Wooden
     sp_sprite: {fileID: 21300000, guid: 00c923be7ecf03e4d9305fce7522b8e5, type: 3}
+    PlayerDamagedEffect: {fileID: 0}
+    EnemyDamagedSprite: {fileID: 0}
   - i_CharCode: 1
     i_health: 2
     i_attackCount: 1
@@ -27,13 +29,17 @@ MonoBehaviour:
     f_percentage: 12
     st_charName: Slime
     sp_sprite: {fileID: 21300000, guid: 9c48a0dd23227834e8cdf7aea2192311, type: 3}
+    PlayerDamagedEffect: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+    EnemyDamagedSprite: {fileID: 411570139710519843, guid: d56292786fb87a74f8ee2a0e219b542d, type: 3}
   - i_CharCode: 2
     i_health: 2
     i_attackCount: 1
     i_damage: 1
     f_percentage: 12
     st_charName: Gobline
-    sp_sprite: {fileID: 21300000, guid: 9c48a0dd23227834e8cdf7aea2192311, type: 3}
+    sp_sprite: {fileID: 21300000, guid: ba695732d62ff89419571e5cf66fab74, type: 3}
+    PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+    EnemyDamagedSprite: {fileID: 8070957092376536509, guid: e995934d0100ee449b4d9f62d4c964ba, type: 3}
   - i_CharCode: 3
     i_health: 2
     i_attackCount: 1
@@ -41,6 +47,8 @@ MonoBehaviour:
     f_percentage: 12
     st_charName: robber_1
     sp_sprite: {fileID: 18698449243562082, guid: 49dcfee63b28ccc4388b20d88c191375, type: 3}
+    PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+    EnemyDamagedSprite: {fileID: -8284835195602328113, guid: 4d9834997056f1b449f81a01569466bf, type: 3}
   - i_CharCode: 4
     i_health: 2
     i_attackCount: 1
@@ -48,6 +56,8 @@ MonoBehaviour:
     f_percentage: 12
     st_charName: robber_2
     sp_sprite: {fileID: -1718276221466070167, guid: 99a04f01cb623b74c8139a8df6836d09, type: 3}
+    PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+    EnemyDamagedSprite: {fileID: -6253880447344999236, guid: bd81739bbffcde747a70ebce1a7c0e96, type: 3}
   - i_CharCode: 4
     i_health: 2
     i_attackCount: 1
@@ -55,3 +65,5 @@ MonoBehaviour:
     f_percentage: 12
     st_charName: Engle_1
     sp_sprite: {fileID: -5451645765383914804, guid: 8414061d686c9444b874765e10e3542e, type: 3}
+    PlayerDamagedEffect: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+    EnemyDamagedSprite: {fileID: -8836966457624885120, guid: 86a915388e70b394b9cb2d7e3a3538f1, type: 3}
