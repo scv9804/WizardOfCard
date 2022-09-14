@@ -14178,7 +14178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1413772971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22049,7 +22049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f288b11a4078a5040b0f6657b4b4e36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRooms: 40
+  numberOfRooms: 20
   i_Room_L: 0
   i_Room_R: 0
   i_Room_U: 0

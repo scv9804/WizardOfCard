@@ -7,6 +7,7 @@ public class LevelGeneration : MonoBehaviour {
 	Vector2 worldSize = new Vector2(4, 4);
 
 	Room[,] rooms;
+	
 
 	MapSpriteSelector[] DrawMaps;
 
@@ -41,6 +42,7 @@ public class LevelGeneration : MonoBehaviour {
 		DrawMap();
 		CreateBossRoom();
 		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
+		SetRoomsEventType();
 	}
 
 
@@ -190,7 +192,8 @@ public class LevelGeneration : MonoBehaviour {
 	void SetRoomDoors(){
 		for (int x = 0; x < ((gridSizeX * 2)); x++){
 			for (int y = 0; y < ((gridSizeY * 2)); y++){
-				if (rooms[x,y] == null){
+				if (rooms[x,y] == null)
+				{
 					continue;
 				}
 				Vector2 gridPosition = new Vector2(x,y);
@@ -232,8 +235,9 @@ public class LevelGeneration : MonoBehaviour {
 				continue; //skip where there is no room
 			}
 
+		
 			DrawMaps[add].type = room.type;
-			
+
 			add++;
 		}
 
@@ -248,12 +252,35 @@ public class LevelGeneration : MonoBehaviour {
 
 	}
 
+
+	void SetRoomsEventType()
+	{
+		int add = 0;
+
+		foreach (Room room in rooms)
+		{
+			if (room == null)
+			{
+				continue; //skip where there is no room
+			}
+
+			DrawMaps[add].RoomEventType = room.RoomEventType;
+
+			add++;
+		}
+
+	}
+
 	 IEnumerator RefreshTest()
 	{
 		yield return new WaitForEndOfFrame();
 		RoomRefersh();
 	}
 
+	#region RoomsType Set
+	// type 
+	// 0: normal, 1: enter 2: SetActiveFalse 3: SetActiveTrue And NotSerchedYet
+	// 0: normal 1: Boss 2: Shop 3: Event
 
 	// 보스룸 만들기. (모두고려하기)
 	void CreateBossRoom()
@@ -265,63 +292,92 @@ public class LevelGeneration : MonoBehaviour {
 			if (room.doorBot == true && room.doorLeft == false && room.doorTop == false && room.doorRight == false)
 			{
 				room.type = 4;
+				room.RoomEventType = 1;
 				room.isBossRoom = true;
 				break;
 			}
 			if (room.doorBot == false && room.doorLeft == true && room.doorTop == false && room.doorRight == false)
 			{
 				room.type = 4;
+				room.RoomEventType = 1;
 				room.isBossRoom = true;
 				break;
 			}
 			if (room.doorBot == false && room.doorLeft == false && room.doorTop == true && room.doorRight == false)
 			{
 				room.type = 4;
+				room.RoomEventType = 1;
 				room.isBossRoom = true;
 				break;
 			}
 			if (room.doorBot == false && room.doorLeft == false && room.doorTop == false && room.doorRight == true)
 			{	
 				room.type = 4;
+				room.RoomEventType = 1;
 				room.isBossRoom = true;
 				break;
 			}
 		}
 	}
 
+	//이벤트 룸
 	void CreateEventRoom()
 	{
 			foreach (var room in rooms)
 			{
-				if (room == null)
-					continue;
+			if (room == null)
+			{
 				if (room.doorBot == true && room.doorLeft == false && room.doorTop == false && room.doorRight == false)
 				{
-					room.type = 4;
+					room.RoomEventType = 3;
+					room.type = 5;
 					room.isBossRoom = true;
 					break;
 				}
 				if (room.doorBot == false && room.doorLeft == true && room.doorTop == false && room.doorRight == false)
 				{
-					room.type = 4;
+					room.RoomEventType = 3;
+					room.type = 5;
 					room.isBossRoom = true;
 					break;
 				}
 				if (room.doorBot == false && room.doorLeft == false && room.doorTop == true && room.doorRight == false)
 				{
-					room.type = 4;
+					room.RoomEventType = 3;
+					room.type = 5;
 					room.isBossRoom = true;
 					break;
 				}
 				if (room.doorBot == false && room.doorLeft == false && room.doorTop == false && room.doorRight == true)
 				{
-					room.type = 4;
+					room.RoomEventType = 3;
+					room.type = 5;
 					room.isBossRoom = true;
 					break;
 				}
+
 			}
+
+		}
 	}
-	
+
+/*	void CreateShopRoom()
+	{
+		Vector2 temptVec
+		foreach (var room in rooms)
+		{
+			if (room != null)
+				continue;
+			if (room == null)
+			{
+				room.
+
+			}
+		}
+	}*/
+
+
+	#endregion
 
 	void RoomRefersh()
 	{

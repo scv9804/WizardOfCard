@@ -23,9 +23,11 @@ public class MapSpriteSelector : MonoBehaviour {
 	public bool up, down, left, right;
 	public int type; // 0: normal, 1: enter 2: SetActiveFalse 3: SetActiveTrue And NotSerchedYet
 	enum DoorSide {L, R ,D ,U, UD, RL, UR, UL, DR, DL, ULD, RUL, DRU, LDR, UDRL };
-
 	DoorSide door;
-	public Color normalColor, enterColor , noSerchColor;
+
+
+	public int RoomEventType; // 0: normal 1: Boss 2: Shop 3: Event
+	public Color normalColor, enterColor , noSerchColor ;
 	Color mainColor;
 	SpriteRenderer rend;
 
@@ -122,14 +124,16 @@ public class MapSpriteSelector : MonoBehaviour {
 		if (type == 0)
 		{
 			this.gameObject.SetActive(true);
-			spawnedBossIcon?.SetActive(true);
+			//spawnedBossIcon?.SetActive(true);
+			SetRoom();
 			mainColor = normalColor;
 		}
 		else if (type == 1)
 		{
 			this.gameObject.SetActive(true);
-			spawnedBossIcon?.SetActive(true);
-			mainColor = enterColor;
+			//spawnedBossIcon?.SetActive(true);
+			SetNowPosRoomSprite();
+			mainColor = normalColor;
 		}
 		else if (type == 2)
 		{
@@ -138,21 +142,98 @@ public class MapSpriteSelector : MonoBehaviour {
 		else if (type == 3)
 		{
 			this.gameObject.SetActive(true);
-			spawnedBossIcon?.SetActive(true);
+	//		spawnedBossIcon?.SetActive(true);
 			mainColor = noSerchColor;
 		}
 		else if (type == 4)
 		{
 			this.gameObject.SetActive(false);
-			SetBoss();
+			SetBossRoomSprite();
+		}
+		else if (type == 5)
+		{
+		
 		}
 
 		rend.color = mainColor;
 	}
 
+	// 0: normal 1: Boss 2: Shop 3: Event
+	void SetRoom()
+	{
+		if (RoomEventType == 0)
+		{
+			SetDefultRoomSprite();
+			
+		}
+		if (RoomEventType == 1)
+		{
+			SetBossRoomSprite();
+		}
+		if (RoomEventType == 2)
+		{
+			SetShopRoomSprite();
+		}
+		if (RoomEventType == 3)
+		{
+			SetEventRoomSprite();
+		}
+	}
 
+	#region SetRoomDoorSprite
+	public void SetNowPosRoomSprite()
+	{
+		switch (door)
+		{
+			case DoorSide.D:
+				rend.sprite = nowPos_spD;
+				break;
+			case DoorSide.DL:
+				rend.sprite = nowPos_spDL;
+				break;
+			case DoorSide.DR:
+				rend.sprite = nowPos_spDR;
+				break;
+			case DoorSide.DRU:
+				rend.sprite = nowPos_spDRU;
+				break;
+			case DoorSide.L:
+				rend.sprite = nowPos_spL;
+				break;
+			case DoorSide.LDR:
+				rend.sprite = nowPos_spLDR;
+				break;
+			case DoorSide.R:
+				rend.sprite = nowPos_spR;
+				break;
+			case DoorSide.RL:
+				rend.sprite = nowPos_spRL;
+				break;
+			case DoorSide.RUL:
+				rend.sprite = nowPos_spRUL;
+				break;
+			case DoorSide.U:
+				rend.sprite = nowPos_spU;
+				break;
+			case DoorSide.UD:
+				rend.sprite = nowPos_spUD;
+				break;
+			case DoorSide.UDRL:
+				rend.sprite = nowPos_spUDRL;
+				break;
+			case DoorSide.UL:
+				rend.sprite = nowPos_spUL;
+				break;
+			case DoorSide.ULD:
+				rend.sprite = nowPos_spULD;
+				break;
+			case DoorSide.UR:
+				rend.sprite = nowPos_spUR;
+				break;
+		}
+	}
 
-	public void SetBoss()
+	public void SetBossRoomSprite()
 	{
 		switch (door)
 		{
@@ -202,13 +283,164 @@ public class MapSpriteSelector : MonoBehaviour {
 				rend.sprite = b_spUR;
 				break;
 		}
-
-
-
-		
 		
 	}
 
+	public void SetDefultRoomSprite()
+	{
+		switch (door)
+		{
+			case DoorSide.D:
+				rend.sprite = spD;
+				break;
+			case DoorSide.DL:
+				rend.sprite = spDL;
+				break;
+			case DoorSide.DR:
+				rend.sprite = spDR;
+				break;
+			case DoorSide.DRU:
+				rend.sprite = spDRU;
+				break;
+			case DoorSide.L:
+				rend.sprite = spL;
+				break;
+			case DoorSide.LDR:
+				rend.sprite = spLDR;
+				break;
+			case DoorSide.R:
+				rend.sprite = spR;
+				break;
+			case DoorSide.RL:
+				rend.sprite = spRL;
+				break;
+			case DoorSide.RUL:
+				rend.sprite = spRUL;
+				break;
+			case DoorSide.U:
+				rend.sprite = spU;
+				break;
+			case DoorSide.UD:
+				rend.sprite = spUD;
+				break;
+			case DoorSide.UDRL:
+				rend.sprite = spUDRL;
+				break;
+			case DoorSide.UL:
+				rend.sprite = spUL;
+				break;
+			case DoorSide.ULD:
+				rend.sprite = spULD;
+				break;
+			case DoorSide.UR:
+				rend.sprite = spUR;
+				break;
+		}
+	}
 
+	public void SetEventRoomSprite()
+	{
+		switch (door)
+		{
+			case DoorSide.D:
+				rend.sprite = even_spD;
+				break;
+			case DoorSide.DL:
+				rend.sprite = even_spDL;
+				break;
+			case DoorSide.DR:
+				rend.sprite = even_spDR;
+				break;
+			case DoorSide.DRU:
+				rend.sprite = even_spDRU;
+				break;
+			case DoorSide.L:
+				rend.sprite = even_spL;
+				break;
+			case DoorSide.LDR:
+				rend.sprite = even_spLDR;
+				break;
+			case DoorSide.R:
+				rend.sprite = even_spR;
+				break;
+			case DoorSide.RL:
+				rend.sprite = even_spRL;
+				break;
+			case DoorSide.RUL:
+				rend.sprite = even_spRUL;
+				break;
+			case DoorSide.U:
+				rend.sprite = even_spU;
+				break;
+			case DoorSide.UD:
+				rend.sprite = even_spUD;
+				break;
+			case DoorSide.UDRL:
+				rend.sprite = even_spUDRL;
+				break;
+			case DoorSide.UL:
+				rend.sprite = even_spUL;
+				break;
+			case DoorSide.ULD:
+				rend.sprite = even_spULD;
+				break;
+			case DoorSide.UR:
+				rend.sprite = even_spUR;
+				break;
+		}
+	}
 
+	public void SetShopRoomSprite()
+	{
+		switch (door)
+		{
+			case DoorSide.D:
+				rend.sprite = shop_spD;
+				break;
+			case DoorSide.DL:
+				rend.sprite = shop_spDL;
+				break;
+			case DoorSide.DR:
+				rend.sprite = shop_spDR;
+				break;
+			case DoorSide.DRU:
+				rend.sprite = shop_spDRU;
+				break;
+			case DoorSide.L:
+				rend.sprite = shop_spL;
+				break;
+			case DoorSide.LDR:
+				rend.sprite = shop_spLDR;
+				break;
+			case DoorSide.R:
+				rend.sprite = shop_spR;
+				break;
+			case DoorSide.RL:
+				rend.sprite = shop_spRL;
+				break;
+			case DoorSide.RUL:
+				rend.sprite = shop_spRUL;
+				break;
+			case DoorSide.U:
+				rend.sprite = shop_spU;
+				break;
+			case DoorSide.UD:
+				rend.sprite = shop_spUD;
+				break;
+			case DoorSide.UDRL:
+				rend.sprite = shop_spUDRL;
+				break;
+			case DoorSide.UL:
+				rend.sprite = shop_spUL;
+				break;
+			case DoorSide.ULD:
+				rend.sprite = shop_spULD;
+				break;
+			case DoorSide.UR:
+				rend.sprite = shop_spUR;
+				break;
+		}
+	}
+
+	#endregion
 }
