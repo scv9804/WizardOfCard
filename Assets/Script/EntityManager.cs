@@ -94,7 +94,7 @@ public class EntityManager : MonoBehaviour
 	{
 		foreach (var enemy in enemyEntities)
 		{
-            StartCoroutine(enemy.Attack(playerEntity, enemy));
+            enemy.Attack(playerEntity);
             yield return new WaitForSeconds(enemyAttackDelay);
         }
         TurnManager.Inst.EndTurn();

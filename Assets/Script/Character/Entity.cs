@@ -7,10 +7,11 @@ using DG.Tweening;
 
 public class Entity : MonoBehaviour
 {
-    [SerializeField] Item item;
-    [SerializeField] Enemy enemy;
+  
+
+    [SerializeField] EntityPattern entitiyPattern;
     [SerializeField] EnemyBoss enemyBoss;
-    [SerializeField] SpriteRenderer charater;
+    [SerializeField] public SpriteRenderer charater;
     [SerializeField] SpriteRenderer DamagedSpriteRenederer;
     [SerializeField] Sprite playerDamagedEffect;
     [SerializeField] ParticleSystem particle;
@@ -20,12 +21,14 @@ public class Entity : MonoBehaviour
     [SerializeField] Material dissolveMaterial;
     [SerializeField] GameObject StateOff;
 
+    Item item;
+    [HideInInspector] public Enemy enemy;
     [HideInInspector] public float i_health;
     [HideInInspector] public float HEALTHMAX;
     [HideInInspector] public int i_shield = 0;
     [HideInInspector] public int i_attackCount ;
     [HideInInspector] public int i_damage;
-
+    [HideInInspector] public int attackTime = 0;
 
     public bool is_mine;
     public bool attackable = true;
@@ -78,6 +81,7 @@ public class Entity : MonoBehaviour
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
 
+        entitiyPattern = _enemy.entityPattern;
         HEALTHMAX = i_health;
         healthImage.fillAmount = i_health / HEALTHMAX;
         ShieldTMP.gameObject.SetActive(false);
@@ -145,13 +149,10 @@ public class Entity : MonoBehaviour
 
 	#region Damage
 
-	public IEnumerator Attack(PlayerEntity _player , Entity _enemy)
+	public void Attack(PlayerEntity _player )
 	{
-            _player.Damaged(_enemy.i_damage);
-            AttackDOTween(this);
-            StartCoroutine(_player.DamagedSprite(this.enemy.PlayerDamagedEffect));
-            yield return new WaitForSeconds(0.0f);
-	}
+        entitiyPattern.ExcuteRole(this);
+    }
 
 
 
@@ -163,7 +164,6 @@ public class Entity : MonoBehaviour
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
         charater.sprite = enemy.EnemyDamagedSprite;
         yield return new WaitForSeconds(0.15f);
-
         this.transform.DOMove(this.originPos, 0.2f);
         Sequence sequence1 = DOTween.Sequence()
         .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
@@ -188,10 +188,7 @@ public class Entity : MonoBehaviour
     } 
 
 
-    void AttackDOTween(Entity _enemy)
-	{
-        _enemy.transform.DOLocalMoveX(_enemy.transform.localPosition.x - 0.5f , 0.2f ).SetEase(Ease.Linear).SetLoops(2, LoopType.Yoyo);
-    }
+
 
 
 	#endregion

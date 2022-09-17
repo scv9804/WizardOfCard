@@ -284,8 +284,12 @@ public class PlayerEntity : MonoBehaviour
         DoOrigin();
 	}
 
+    public void SetDamagedSprite(Sprite _damagedEffedt)
+	{
+        StartCoroutine(DamagedSprite(_damagedEffedt));
+	}
 
-    public IEnumerator DamagedSprite(Sprite _damagedEffet)
+    IEnumerator DamagedSprite(Sprite _damagedEffet)
     {
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0);
         charaterSprite.sprite = playerChar.damagedSprite;

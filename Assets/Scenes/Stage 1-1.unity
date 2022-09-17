@@ -16540,7 +16540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2066f67a0c9f4a9eebec2ecd6bc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAttackDelay: 1
+  enemyAttackDelay: 0.7
   enemySO: {fileID: 11400000, guid: 83361cd622dd5ab4cbc7abd3b4eda090, type: 2}
   enemyBossSO: {fileID: 11400000, guid: de72fc56023ba7a4a9edf70c8a0d8d53, type: 2}
   characterSO: {fileID: 11400000, guid: 84ac19ad0941ac640aa9224ee18adca9, type: 2}
