@@ -13,15 +13,19 @@ public class Entity : MonoBehaviour
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] public SpriteRenderer charater;
     [SerializeField] SpriteRenderer DamagedSpriteRenederer;
-    [SerializeField] Sprite playerDamagedEffect;
     [SerializeField] ParticleSystem particle;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
+    [SerializeField] GameObject ShieldObject;
+    [SerializeField] GameObject ShieldObjectBase;
+    [SerializeField] SpriteRenderer ShieldSpriteRenderer;
+    [SerializeField] GameObject StateOff;
     [SerializeField] Image healthImage;
     [SerializeField] Material dissolveMaterial;
-    [SerializeField] GameObject StateOff;
+
 
     Item item;
+    [HideInInspector] Sprite playerDamagedEffect;
     [HideInInspector] public Enemy enemy;
     [HideInInspector] public float i_health;
     [HideInInspector] public float HEALTHMAX;
@@ -29,13 +33,14 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_attackCount ;
     [HideInInspector] public int i_damage;
     [HideInInspector] public int attackTime = 0;
+    [HideInInspector] public int nextPattorn = 0;
 
     public bool is_mine;
     public bool attackable = true;
     public bool is_die = false;
 
     [HideInInspector] public Vector3 originPos;
-
+    [HideInInspector] public Vector3 originShieldScale = new Vector3(60,60,0);
 
     float fade = 1f;
     public bool isDissolving = false;
@@ -59,7 +64,8 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public void SetupEnemy(EnemyBoss _enemy)
+	#region Entity Base
+	public void SetupEnemy(EnemyBoss _enemy)
     {
         enemyBoss = _enemy;
         i_health = _enemy.i_health;
@@ -68,10 +74,10 @@ public class Entity : MonoBehaviour
 
         HEALTHMAX = i_health;
         healthImage.fillAmount = i_health / HEALTHMAX;
-        ShieldTMP.gameObject.SetActive(false);
-
+        
         charater.sprite = _enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
+        RefreshEntity();
     }
 
     public void SetupEnemy(Enemy _enemy)
@@ -84,7 +90,7 @@ public class Entity : MonoBehaviour
         entitiyPattern = _enemy.entityPattern;
         HEALTHMAX = i_health;
         healthImage.fillAmount = i_health / HEALTHMAX;
-        ShieldTMP.gameObject.SetActive(false);
+        RefreshEntity();
 
         charater.sprite = _enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
@@ -130,34 +136,48 @@ public class Entity : MonoBehaviour
         return false;
     }
 
+    public void Attack(PlayerEntity _player)
+    {
+        entitiyPattern.ExcuteRole(this);
+    }
+
+    public void ShieldEffect()
+	{
+        Sequence sequence1 = DOTween.Sequence()
+       .Append(this.ShieldObject.transform.DOScale(originShieldScale * 2, 0f))
+       .Append(this.ShieldObject.transform.DOScale(originShieldScale, 0.5f));
+        Sequence sequence2 = DOTween.Sequence()
+       .Append(ShieldSpriteRenderer.DOFade(0, 0.0f))
+       .Append(ShieldSpriteRenderer.DOFade(1, 0.3f));
+    }
+
     public void RefreshEntity()
     {
         if (0< i_shield)
         {
             ShieldTMP.gameObject.SetActive(true);
+            ShieldObject.SetActive(true);
+            ShieldObjectBase.SetActive(true);
+            ShieldEffect();
         }
         else
         {
             ShieldTMP.gameObject.SetActive(false);
+            ShieldObject.SetActive(false);
+            ShieldObjectBase.SetActive(false);
         }
         healthImage.fillAmount = i_health / HEALTHMAX;
         healthTMP.text = i_health.ToString();
         ShieldTMP.text = i_shield.ToString();
     }
 
-
+	#endregion
 
 	#region Damage
 
-	public void Attack(PlayerEntity _player )
-	{
-        entitiyPattern.ExcuteRole(this);
-    }
 
 
-
-
-    public IEnumerator Damaged(Sprite _sprite)
+    public IEnumerator DamagedEffectCorutin(Sprite _sprite)
     {
         DamagedSpriteRenederer.sprite = _sprite;
         SetDamagedOpacityTrue();
@@ -178,7 +198,6 @@ public class Entity : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         charater.sprite = enemy.sp_sprite;
     }
-
 
     void SetDamagedOpacityTrue()
     {

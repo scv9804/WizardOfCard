@@ -11,7 +11,7 @@ public class Cards_Magician : MonoBehaviour
 			case 0:
 				MagicBolt(_card , _target);
 				StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite ,_card.playerAttackEffectSpriteRenderer.sprite));
-				StartCoroutine(_target.Damaged(_card.enemyDamagedEffectSpriteRenderer.sprite));
+				StartCoroutine(_target.DamagedEffectCorutin(_card.enemyDamagedEffectSpriteRenderer.sprite));
 				break;
 			case 1:
 				Debug.Log("잘못된 선택입니다.");
