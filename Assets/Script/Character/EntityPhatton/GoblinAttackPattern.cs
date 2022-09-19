@@ -6,21 +6,23 @@ using DG.Tweening;
 [CreateAssetMenu(menuName = "EnemyAttackPattern/Stage1/Goblin")]
 public class GoblinAttackPattern : EntityPattern 
 {
-	public Sprite sp;
 
-	public override bool ExcuteRole(Entity _entity)
+	public override bool Pattern(Entity _entity)
 	{
 		switch (_entity.attackTime)
 		{
 			case 0:
+				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				_entity.attackTime++;
 				break;
 			case 1:
+				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.ShieldSprite);
 				EntityManager.Inst.StartCoroutine(Attack(_entity));
 				break;
 			case 2:
+				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				EntityManager.Inst.StartCoroutine(Shield(_entity));
-				_entity.attackTime = 0;
+				_entity.attackTime = 1;
 				break;
 
 		}

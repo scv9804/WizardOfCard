@@ -48,6 +48,7 @@ public class Entity : MonoBehaviour
     private void Start()
     {
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
+        entitiyPattern.Pattern(this);
     }
 
 
@@ -138,7 +139,7 @@ public class Entity : MonoBehaviour
 
     public void Attack(PlayerEntity _player)
     {
-        entitiyPattern.ExcuteRole(this);
+        entitiyPattern.Pattern(this);
     }
 
     public void ShieldEffect()
@@ -170,6 +171,11 @@ public class Entity : MonoBehaviour
         healthTMP.text = i_health.ToString();
         ShieldTMP.text = i_shield.ToString();
     }
+
+    public void ShowNextActionPattern(Sprite _NextActionSprite)
+	{
+        
+	}
 
 	#endregion
 

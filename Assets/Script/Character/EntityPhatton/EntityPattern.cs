@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class EntityPattern : ScriptableObject
 {
-	public abstract bool ExcuteRole(Entity _entity);
+	public abstract bool Pattern(Entity _entity);
 }

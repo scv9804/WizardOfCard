@@ -5595,6 +5595,7 @@ MonoBehaviour:
   i_attackCount: 0
   i_damage: 0
   attackTime: 0
+  nextPattorn: 0
   is_mine: 0
   attackable: 0
   is_die: 0

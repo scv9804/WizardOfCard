@@ -12,8 +12,8 @@ public class EntityManager : MonoBehaviour
         Inst = this;
     }
 
+    [Header("DefultSettings")]
     [SerializeField] float enemyAttackDelay;
-
     [SerializeField] EnemySO enemySO;
     [SerializeField] EnemyBossSO enemyBossSO;
     [SerializeField] CharacterSO characterSO;
@@ -37,6 +37,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] EnemyAttackList enemyAttackList;
     [SerializeField] List<Enemy> enemyBuffer;
     [SerializeField] short Length;
+    [SerializeField] private float f_targetSelectorUpPos;
 
     [HideInInspector] public PlayerEntity playerEntity;
 
@@ -44,15 +45,12 @@ public class EntityManager : MonoBehaviour
     PlayerChar playerChar;
 
 
-
-
-
     LevelGeneration levelGeneration;
 
-    [SerializeField] private float f_targetSelectorUpPos;
+
     const int MAX_ENEMY_COUNT = 3;
 
-  
+
 
 
 
