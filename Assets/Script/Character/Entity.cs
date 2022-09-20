@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 using DG.Tweening;
 
 public class Entity : MonoBehaviour
@@ -13,7 +14,6 @@ public class Entity : MonoBehaviour
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] public SpriteRenderer charater;
     [SerializeField] SpriteRenderer DamagedSpriteRenederer;
-    [SerializeField] ParticleSystem particle;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] GameObject ShieldObject;
@@ -42,13 +42,18 @@ public class Entity : MonoBehaviour
     [HideInInspector] public Vector3 originPos;
     [HideInInspector] public Vector3 originShieldScale = new Vector3(60,60,0);
 
+    [Header("Grapics")]
     float fade = 1f;
     public bool isDissolving = false;
+
+    public VisualEffect dissolveEffect;
+
 
     private void Start()
     {
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
         entitiyPattern.Pattern(this);
+        dissolveEffect.Stop();
     }
 
 
@@ -195,10 +200,15 @@ public class Entity : MonoBehaviour
         .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
         if (i_health <= 0)
         {
-            particle.Play();
+            //VFX
+            dissolveEffect.Play();
+            dissolveEffect.playRate = 2.5f ;
             StateOff.SetActive(false);
             isDissolving = true;
-            yield return new WaitForSeconds(particle.main.duration + 0.4f);
+            //수동조정 필요함
+            yield return new WaitForSeconds(0.4f);
+            dissolveEffect.Stop();
+            yield return new WaitForSeconds(0.8f);
             EntityManager.Inst.CheckDieEveryEnemy();
         }
         yield return new WaitForSeconds(0.15f);
