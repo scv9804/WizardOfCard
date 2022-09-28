@@ -212,7 +212,14 @@ public class Entity : MonoBehaviour
             EntityManager.Inst.CheckDieEveryEnemy();
         }
         yield return new WaitForSeconds(0.15f);
-        charater.sprite = enemy.sp_sprite;
+		try
+        {
+            charater.sprite = enemy.sp_sprite;
+        }
+		catch
+		{
+            Debug.Log("Entitiy Destroy");
+		}
     }
 
     void SetDamagedOpacityTrue()
