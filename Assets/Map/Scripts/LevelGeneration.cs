@@ -7,7 +7,8 @@ public class LevelGeneration : MonoBehaviour {
 	Vector2 worldSize = new Vector2(4, 4);
 
 	Room[,] rooms;
-	
+	List<Room> eventRoom;
+	List<Room> EdgeRooms;
 
 	MapSpriteSelector[] DrawMaps;
 
@@ -26,7 +27,6 @@ public class LevelGeneration : MonoBehaviour {
 
 
 
-
 	private void Start()
 	{
 		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
@@ -37,19 +37,69 @@ public class LevelGeneration : MonoBehaviour {
 		gridSizeY = Mathf.RoundToInt(worldSize.y);
 		inPosX = gridSizeX;
 		inPosY = gridSizeY;
-		CreateRooms(); 
-		SetRoomDoors(); 
-		DrawMap();
+		CreateRooms();
+
+		//보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
+
+		SetRoomDoors();
+
+
+		SetEventChangeRoom();
+		SetEdgeRooms();
+
 		CreateBossRoom();
+		CreateEventRoom();
+		CreateShopRoom();
+
+		DrawMap();
+
 		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
-		SetRoomsEventType();
 	}
 
+	void SetEdgeRooms()
+	{
+		EdgeRooms = new List<Room>();
+		int temt = 0;
+		for (int i =0; i < eventRoom.Count; i++)
+		{
+			if (eventRoom[i].doorTop)
+				temt++;
+			if (eventRoom[i].doorRight)
+				temt++;
+			if (eventRoom[i].doorLeft)
+				temt++;
+			if (eventRoom[i].doorBot)
+				temt++;
+
+			if (temt == 1)
+			{
+				EdgeRooms.Add(eventRoom[i]);
+				eventRoom.RemoveAt(i);
+			}
+
+		}
+	}
+
+	void SetEventChangeRoom()
+	{
+		eventRoom = new List<Room>();
+		int temp = 0;
+		foreach (var room in rooms)
+		{
+			if (room == null)
+				continue;
+			if (room.RoomEventType == 0)
+			{
+				eventRoom.Add(room);
+				temp++;
+			}
+		}
+	}
 
 	void CreateRooms(){
 		//setup
 		rooms = new Room[gridSizeX * 2,gridSizeY * 2];
-		rooms[gridSizeX,gridSizeY] = new Room(Vector2.zero, 1);
+		rooms[gridSizeX,gridSizeY] = new Room(Vector2.zero, 1 , 0);
 		rooms[gridSizeX, gridSizeY].Checked = true;
 		takenPositions.Insert(0,Vector2.zero);
 
@@ -59,6 +109,7 @@ public class LevelGeneration : MonoBehaviour {
 		Vector2 checkPos = Vector2.zero;
 		//magic numbers
 		float randomCompare = 0.2f, randomCompareStart = 0.2f, randomCompareEnd = 0.01f;
+
 		//add rooms
 		for (int i =0; i < numberOfRooms -1; i++){
 			float randomPerc = ((float) i) / (((float)numberOfRooms - 1));
@@ -73,13 +124,24 @@ public class LevelGeneration : MonoBehaviour {
 					checkPos = SelectiveNewPosition();
 					iterations++;
 				}while(NumberOfNeighbors(checkPos, takenPositions) > 1 && iterations < 100);
+
 				if (iterations >= 50)
 					print("error: could not create with fewer neighbors than : " + NumberOfNeighbors(checkPos, takenPositions));
 			}
+
 			//finalize position
-			rooms[(int) checkPos.x + gridSizeX, (int) checkPos.y + gridSizeY] = new Room(checkPos, 2);
+			rooms[(int) checkPos.x + gridSizeX, (int) checkPos.y + gridSizeY] = new Room(checkPos, 2, 0);
+			//방 번호 넘버링.
+			RoomNumberring((int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY);
+
 			takenPositions.Insert(0,checkPos);
-		}	
+		}
+	}
+
+	void RoomNumberring(int _x , int _y)
+	{
+		rooms[_x,_y ].roomNumX = _x;
+		rooms[_x,_y ].roomNumX = _y;
 	}
 
 	Vector2 NewPosition(){
@@ -183,6 +245,7 @@ public class LevelGeneration : MonoBehaviour {
 			mapper.down = room.doorBot;
 			mapper.right = room.doorRight;
 			mapper.left = room.doorLeft;
+			mapper.RoomEventType = room.RoomEventType;
 			DrawMaps[add] = mapper;
 			add++;
 		}
@@ -222,7 +285,7 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
-
+	
 	//전체를 리프레쉬해주는 방식으로 함. 방 한칸식 해주고 싶은데 안떠오름 ㅋㅋㅋㅋ;;;;
 	void RefreshSpriteColor()
 	{
@@ -253,24 +316,6 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 
-	void SetRoomsEventType()
-	{
-		int add = 0;
-
-		foreach (Room room in rooms)
-		{
-			if (room == null)
-			{
-				continue; //skip where there is no room
-			}
-
-			DrawMaps[add].RoomEventType = room.RoomEventType;
-
-			add++;
-		}
-
-	}
-
 	 IEnumerator RefreshTest()
 	{
 		yield return new WaitForEndOfFrame();
@@ -282,106 +327,77 @@ public class LevelGeneration : MonoBehaviour {
 	// 0: normal, 1: enter 2: SetActiveFalse 3: SetActiveTrue And NotSerchedYet
 	// 0: normal 1: Boss 2: Shop 3: Event
 
-	// 보스룸 만들기. (모두고려하기)
+	// 보스룸 만들기.
 	void CreateBossRoom()
 	{
-		foreach (var room in rooms)
+
+		for (int i = 0; i< EdgeRooms.Count; i++)
 		{
-			if (room == null)
-				continue;
-			if (room.doorBot == true && room.doorLeft == false && room.doorTop == false && room.doorRight == false)
+			try
 			{
-				room.type = 4;
-				room.RoomEventType = 1;
-				room.isBossRoom = true;
-				break;
+				int randomRoom;
+				randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
+				Debug.Log(randomRoom);
+
+				if (EdgeRooms[randomRoom].type != 1)
+				{
+					EdgeRooms[randomRoom].type = 4;
+					EdgeRooms[randomRoom].RoomEventType = 1;
+					EdgeRooms[randomRoom].isBossRoom = true;
+					EdgeRooms.RemoveAt(randomRoom);
+					break;
+				}
 			}
-			if (room.doorBot == false && room.doorLeft == true && room.doorTop == false && room.doorRight == false)
+			catch
 			{
-				room.type = 4;
-				room.RoomEventType = 1;
-				room.isBossRoom = true;
-				break;
-			}
-			if (room.doorBot == false && room.doorLeft == false && room.doorTop == true && room.doorRight == false)
-			{
-				room.type = 4;
-				room.RoomEventType = 1;
-				room.isBossRoom = true;
-				break;
-			}
-			if (room.doorBot == false && room.doorLeft == false && room.doorTop == false && room.doorRight == true)
-			{	
-				room.type = 4;
-				room.RoomEventType = 1;
-				room.isBossRoom = true;
-				break;
+				
+
 			}
 		}
 	}
 
-	//이벤트 룸
+
+	//이벤트 룸 일단 하나만 만들도록 해놓음
 	void CreateEventRoom()
 	{
-			foreach (var room in rooms)
+		do
+		{
+			int randomRoom;
+			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
+			if (eventRoom[randomRoom].type != 1)
 			{
-			if (room == null)
-			{
-				if (room.doorBot == true && room.doorLeft == false && room.doorTop == false && room.doorRight == false)
-				{
-					room.RoomEventType = 3;
-					room.type = 5;
-					room.isBossRoom = true;
-					break;
-				}
-				if (room.doorBot == false && room.doorLeft == true && room.doorTop == false && room.doorRight == false)
-				{
-					room.RoomEventType = 3;
-					room.type = 5;
-					room.isBossRoom = true;
-					break;
-				}
-				if (room.doorBot == false && room.doorLeft == false && room.doorTop == true && room.doorRight == false)
-				{
-					room.RoomEventType = 3;
-					room.type = 5;
-					room.isBossRoom = true;
-					break;
-				}
-				if (room.doorBot == false && room.doorLeft == false && room.doorTop == false && room.doorRight == true)
-				{
-					room.RoomEventType = 3;
-					room.type = 5;
-					room.isBossRoom = true;
-					break;
-				}
-
+				eventRoom[randomRoom].RoomEventType = 3;
+				eventRoom.RemoveAt(randomRoom);
+				break;
 			}
 
-		}
+		} while (true);
+
 	}
 
-/*	void CreateShopRoom()
-	{
-		Vector2 temptVec
-		foreach (var room in rooms)
-		{
-			if (room != null)
-				continue;
-			if (room == null)
-			{
-				room.
 
+	//상점은 남은방 중 
+	void CreateShopRoom()
+	{
+		do
+		{
+			int randomRoom;
+			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
+			if (eventRoom[randomRoom].type != 1)
+			{
+				eventRoom[randomRoom].RoomEventType = 2;
+				eventRoom.RemoveAt(randomRoom);
+				break;
 			}
-		}
-	}*/
+
+		} while (true);
+	}
 
 
 	#endregion
 
 	void RoomRefersh()
 	{
-		//세상에서 가장 미친 문구 ㅋㅋㅋㅋㅋㅋㅋ 나름 깔끔하게 고침.
 		try
 		{
 			if (rooms[inPosX, inPosY] != null)

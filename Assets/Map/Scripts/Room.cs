@@ -8,11 +8,13 @@ public class Room
 	public int type;
 	public int RoomEventType;
 	public bool doorTop, doorBot, doorLeft, doorRight, Checked = false, isBossRoom = false;
+	public int roomNumX , roomNumY;
 
 
-	public Room(Vector2 _gridPos, int _type)
+	public Room(Vector2 _gridPos, int _type, int _RoomEventType)
 	{
 		gridPos = _gridPos;
 		type = _type;
+		RoomEventType = _RoomEventType;
 	}
 }

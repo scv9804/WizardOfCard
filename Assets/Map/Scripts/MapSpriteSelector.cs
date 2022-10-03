@@ -138,6 +138,7 @@ public class MapSpriteSelector : MonoBehaviour {
 		else if (type == 2)
 		{
 			this.gameObject.SetActive(false);
+			SetRoom();
 		}
 		else if (type == 3)
 		{
@@ -148,18 +149,14 @@ public class MapSpriteSelector : MonoBehaviour {
 		else if (type == 4)
 		{
 			this.gameObject.SetActive(false);
-			SetBossRoomSprite();
-		}
-		else if (type == 5)
-		{
-		
+			SetRoom();
 		}
 
 		rend.color = mainColor;
 	}
 
 	// 0: normal 1: Boss 2: Shop 3: Event
-	void SetRoom()
+	public void SetRoom()
 	{
 		if (RoomEventType == 0)
 		{
