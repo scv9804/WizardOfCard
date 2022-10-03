@@ -5,89 +5,83 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-	public static Inventory Inst { get; set; }
+	public GameObject inventoryPanel;
+	public GameObject slotPanel;
+	ItemDataBase database;
+	public GameObject inventorySlot;
+	public GameObject inventoryItem;
 
-	public delegate void OnChangeItem();
-	public OnChangeItem onChangeItem;
+	private int slotAmount;
+	public List<Item> items = new List<Item>();
+	public List<GameObject> slots = new List<GameObject>();
 
-	
-
-	const int INVENMAX = 25;
-
-	private void Awake()
+	void Start()
 	{
-		Inst = this;
-	}
-
-	private void Start()
-	{
-		slotNumbering();
-		AcquireItem(ItemDataBase.inst.item_Invens[0]);
-		onChangeItem += ReDrowSlots;
-	}
-
-	public Slot [] quickSlot;
-	public Slot [] slots;
-	[SerializeField] Slot wandSlot;
-	[SerializeField] Slot bookSlot;
-	[SerializeField] Slot hatSlot;
-	[SerializeField] Slot suitSlot;
-	[SerializeField] Slot ringSlot;
-	[SerializeField] Slot posion_1;
-	[SerializeField] Slot posion_2;
-	[SerializeField] Slot posion_3;
-
-	#region inven
-	public void ReDrowSlots()
-	{
-		for (int i =0; slots.Length > i; i++)
+		database = GetComponent<ItemDataBase>();
+		slotAmount = 10;
+		//inventoryPanel = GameObject.Find("inventorys");
+		Debug.Log(inventoryPanel);
+		//slotPanel = inventoryPanel.transform.Find("Slots").gameObject;
+		Debug.Log(slotPanel);
+		for (int i = 0; i < slotAmount; i++)
 		{
-			slots[i].UpdateSlotUI();
+			items.Add(new Item());
+			slots.Add(Instantiate(inventorySlot));
+			slots[i].GetComponent<Slot>().id = i;
+			slots[i].transform.SetParent(slotPanel.transform);
 		}
-		
-		Debug.Log("슬롯 다시 그리기");
+
+		AddItem(0);
 	}
 
-	public void ReDrowEquiSlot()
+	public void AddItem(int id)
 	{
-		wandSlot.UpdateSlotUI();
-		bookSlot.UpdateSlotUI();
-		hatSlot.UpdateSlotUI();
-		suitSlot.UpdateSlotUI();
-		ringSlot.UpdateSlotUI();
-		posion_1.UpdateSlotUI();
-		posion_2.UpdateSlotUI();
-		posion_3.UpdateSlotUI();
-	}
-
-	void slotNumbering()
-	{
-		for (int i = 0; slots.Length > i; i++)
+		Item itemToAdd = database.FetchItemById(id);
+		if (itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))
 		{
-			slots[i].slotnum = i;
-		}
-	}
-
-	public void AcquireItem(Item_Inven _item)
-	{
-		for (int i = 0; i < slots.Length; i++)
-		{
-			if (slots[i].item.itemName == "")
+			for (int i = 0; i < items.Count; i++)
 			{
-				slots[i].item = _item;
-				slots[i].UpdateSlotUI();
-				return;
+				if (items[i].Id == id)
+				{
+					ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
+					data.amount++;
+					data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+					break;
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < items.Count; i++)
+			{
+				if (items[i].Id == -1)
+				{
+					items[i] = itemToAdd;
+					GameObject itemObj = Instantiate(inventoryItem);
+					itemObj.GetComponent<ItemData>().item = itemToAdd;
+					itemObj.GetComponent<ItemData>().slotId = i;
+					itemObj.transform.SetParent(slots[i].transform);
+					itemObj.transform.position = Vector2.zero;
+					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+					itemObj.name = "Item: " + itemToAdd.Title;
+					slots[i].name = "Slot: " + itemToAdd.Title;
+					break;
+				}
 			}
 		}
 	}
 
-	#endregion
-
-
-	public void Equiment()
+	bool CheckIfItemIsInInventory(Item item)
 	{
+		for (int i = 0; i < items.Count; i++)
+		{
+			if (items[i].Id == item.Id)
+			{
+				return true;
+			}
+		}
 
+		return false;
 	}
-
 
 }

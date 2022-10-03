@@ -1,0 +1,17 @@
+[
+	{
+		"id": 0,
+		"title": "Middle Potion",
+		"value": 1,
+		"Healing": 5,
+		"stats": {
+			"power": 0,
+			"defense": 0,
+			"vitality": 0
+		},
+		"description": "just postion?",
+		"stackable": false,
+		"rarity": 2,
+		"slug": "potion"
+	}
+]

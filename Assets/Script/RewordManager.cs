@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class RewordManager : MonoBehaviour
-{
+{/*
     public static RewordManager Inst { get; set; }
 
 	private void Awake()
@@ -44,5 +44,5 @@ public class RewordManager : MonoBehaviour
 		Inventory.Inst.AcquireItem(itemdata.item_Invens[0]);
 		Debug.Log("≈ª√‚");
 	}
-	
+	*/
 }

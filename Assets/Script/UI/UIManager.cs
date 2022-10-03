@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviour
 
 	public void MapClearUIAccpetButton()
 	{
-		RewordManager.Inst.AddClearReword();
+	//	RewordManager.Inst.AddClearReword();
 		gameClearBack_UI.SetActive(false);
 	}
 

@@ -237,7 +237,7 @@ public class EntityManager : MonoBehaviour
                 {
                     Debug.Log("다음방으로");
                     UIManager.Inst.ButtonActivate();
-                    RewordManager.Inst.GameClear();
+                //    RewordManager.Inst.GameClear();
                     CardManager.Inst.SetCardStateCannot();
                 }
             }
