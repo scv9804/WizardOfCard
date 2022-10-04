@@ -37,6 +37,7 @@ public class LevelGeneration : MonoBehaviour {
 		gridSizeY = Mathf.RoundToInt(worldSize.y);
 		inPosX = gridSizeX;
 		inPosY = gridSizeY;
+		
 		CreateRooms();
 
 		//보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
@@ -56,93 +57,6 @@ public class LevelGeneration : MonoBehaviour {
 		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
 	}
 
-	void SetEdgeRooms()
-	{
-		EdgeRooms = new List<Room>();
-		int temt = 0;
-		for (int i =0; i < eventRoom.Count; i++)
-		{
-			if (eventRoom[i].doorTop)
-				temt++;
-			if (eventRoom[i].doorRight)
-				temt++;
-			if (eventRoom[i].doorLeft)
-				temt++;
-			if (eventRoom[i].doorBot)
-				temt++;
-
-			if (temt == 1)
-			{
-				EdgeRooms.Add(eventRoom[i]);
-				eventRoom.RemoveAt(i);
-			}
-
-		}
-	}
-
-	void SetEventChangeRoom()
-	{
-		eventRoom = new List<Room>();
-		int temp = 0;
-		foreach (var room in rooms)
-		{
-			if (room == null)
-				continue;
-			if (room.RoomEventType == 0)
-			{
-				eventRoom.Add(room);
-				temp++;
-			}
-		}
-	}
-
-	void CreateRooms(){
-		//setup
-		rooms = new Room[gridSizeX * 2,gridSizeY * 2];
-		rooms[gridSizeX,gridSizeY] = new Room(Vector2.zero, 1 , 0);
-		rooms[gridSizeX, gridSizeY].Checked = true;
-		takenPositions.Insert(0,Vector2.zero);
-
-		//그릴 맵 총개수 테스트
-		DrawMaps = new MapSpriteSelector[40];
-
-		Vector2 checkPos = Vector2.zero;
-		//magic numbers
-		float randomCompare = 0.2f, randomCompareStart = 0.2f, randomCompareEnd = 0.01f;
-
-		//add rooms
-		for (int i =0; i < numberOfRooms -1; i++){
-			float randomPerc = ((float) i) / (((float)numberOfRooms - 1));
-			randomCompare = Mathf.Lerp(randomCompareStart, randomCompareEnd, randomPerc);
-			//grab new position
-			checkPos = NewPosition();
-			//test new position
-			if (NumberOfNeighbors(checkPos, takenPositions) > 1 && Random.value > randomCompare){
-				int iterations = 0;
-				do
-				{
-					checkPos = SelectiveNewPosition();
-					iterations++;
-				}while(NumberOfNeighbors(checkPos, takenPositions) > 1 && iterations < 100);
-
-				if (iterations >= 50)
-					print("error: could not create with fewer neighbors than : " + NumberOfNeighbors(checkPos, takenPositions));
-			}
-
-			//finalize position
-			rooms[(int) checkPos.x + gridSizeX, (int) checkPos.y + gridSizeY] = new Room(checkPos, 2, 0);
-			//방 번호 넘버링.
-			RoomNumberring((int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY);
-
-			takenPositions.Insert(0,checkPos);
-		}
-	}
-
-	void RoomNumberring(int _x , int _y)
-	{
-		rooms[_x,_y ].roomNumX = _x;
-		rooms[_x,_y ].roomNumX = _y;
-	}
 
 	Vector2 NewPosition(){
 		int x = 0, y = 0;
@@ -285,7 +199,13 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
-	
+	void RoomNumberring(int _x, int _y)
+	{
+		rooms[_x, _y].roomNumX = _x;
+		rooms[_x, _y].roomNumX = _y;
+	}
+
+
 	//전체를 리프레쉬해주는 방식으로 함. 방 한칸식 해주고 싶은데 안떠오름 ㅋㅋㅋㅋ;;;;
 	void RefreshSpriteColor()
 	{
@@ -337,7 +257,6 @@ public class LevelGeneration : MonoBehaviour {
 			{
 				int randomRoom;
 				randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
-				Debug.Log(randomRoom);
 
 				if (EdgeRooms[randomRoom].type != 1)
 				{
@@ -350,8 +269,7 @@ public class LevelGeneration : MonoBehaviour {
 			}
 			catch
 			{
-				
-
+				Debug.LogError("Error_Edge_Empty");
 			}
 		}
 	}
@@ -382,16 +300,160 @@ public class LevelGeneration : MonoBehaviour {
 		do
 		{
 			int randomRoom;
-			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
-			if (eventRoom[randomRoom].type != 1)
+			randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
+			if (EdgeRooms[randomRoom].type != 1)
 			{
-				eventRoom[randomRoom].RoomEventType = 2;
-				eventRoom.RemoveAt(randomRoom);
-				break;
+				int randomPos;
+				randomPos = UnityEngine.Random.Range(0, 3);
+				try
+				{
+					//0 --> left
+					//1 --> right
+					//2 --> above
+					//3 --> bellow
+					if (randomPos == 0)
+						if (RoomExpansion_Bug(-1, 0, randomPos)) { }
+					if (randomPos == 1)
+						if ( RoomExpansion_Bug(1, 0, randomPos)) { }			
+					if (randomPos == 2)
+						if (RoomExpansion_Bug(0, 1, randomPos)) { }
+					if (randomPos == 3)
+						if (RoomExpansion_Bug(0, -1, randomPos)) { }
+
+
+					Debug.Log("0"+ RoomExpansion_Bug(-1, 0, randomPos));
+					Debug.Log("1"+ RoomExpansion_Bug(1, 0, randomPos));
+					Debug.Log("2" +RoomExpansion_Bug(0, 1, randomPos));
+					Debug.Log("3"+RoomExpansion_Bug(0, -1, randomPos));
+
+					break;
+				}
+				catch
+				{
+					Debug.Log("상점 만들기 시도.");
+
+					if (randomPos == 0)
+						RoomExpansion(-1, 0, randomPos);
+/*					if (randomPos == 1)
+						RoomExpansion(1, 0, randomPos);
+					if (randomPos == 2)
+						RoomExpansion(0, 1, randomPos);
+					if (randomPos == 3)
+						RoomExpansion(0, -1, randomPos);*/
+					break;
+				}
+			}
+		} while (true);
+		SetRoomDoors();
+	}
+
+	bool RoomExpansion_Bug(int _x, int _y, int _random)
+	{
+		Debug.Log(rooms[EdgeRooms[_random].roomNumX , EdgeRooms[_random].roomNumY ]);
+		if (rooms[EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y] == null)
+		{
+			return true;
+		}
+		return false;
+	}
+	void RoomExpansion(int _x, int _y, int _random)
+	{
+		rooms[EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y] = new Room(new Vector2(EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y), 0, 2);
+		EdgeRooms.RemoveAt(_random);
+	}
+
+	void SetEdgeRooms()
+	{
+		EdgeRooms = new List<Room>();
+		int temt = 0;
+		int temt2 = eventRoom.Count;
+		for (int i = eventRoom.Count - 1; 0 <= i; i--)
+		{
+			if (eventRoom[i].doorTop)
+				temt++;
+			if (eventRoom[i].doorRight)
+				temt++;
+			if (eventRoom[i].doorLeft)
+				temt++;
+			if (eventRoom[i].doorBot)
+				temt++;
+
+			if (temt == 1)
+			{
+				EdgeRooms.Add(eventRoom[i]);
+				eventRoom.RemoveAt(i);
+			}
+			temt = 0;
+		}
+
+		if (eventRoom.Count == temt2)
+		{
+			Debug.Log("error_Room_NoEdge");
+		}
+	}
+
+	void SetEventChangeRoom()
+	{
+		eventRoom = new List<Room>();
+		int temp = 0;
+		foreach (var room in rooms)
+		{
+			if (room == null)
+				continue;
+			if (room.RoomEventType == 0)
+			{
+				eventRoom.Add(room);
+				temp++;
+			}
+		}
+	}
+
+	void CreateRooms()
+	{
+		//setup
+		rooms = new Room[gridSizeX * 2, gridSizeY * 2];
+		rooms[gridSizeX, gridSizeY] = new Room(Vector2.zero, 1, 0);
+		rooms[gridSizeX, gridSizeY].Checked = true;
+		takenPositions.Insert(0, Vector2.zero);
+
+		//그릴 맵 총개수 테스트
+		DrawMaps = new MapSpriteSelector[40];
+
+		Vector2 checkPos = Vector2.zero;
+		//magic numbers
+		float randomCompare = 0.2f, randomCompareStart = 0.2f, randomCompareEnd = 0.01f;
+
+		//add rooms
+		for (int i = 0; i < numberOfRooms - 1; i++)
+		{
+			float randomPerc = ((float)i) / (((float)numberOfRooms - 1));
+			randomCompare = Mathf.Lerp(randomCompareStart, randomCompareEnd, randomPerc);
+			//grab new position
+			checkPos = NewPosition();
+			//test new position
+			if (NumberOfNeighbors(checkPos, takenPositions) > 1 && Random.value > randomCompare)
+			{
+				int iterations = 0;
+				do
+				{
+					checkPos = SelectiveNewPosition();
+					iterations++;
+				} while (NumberOfNeighbors(checkPos, takenPositions) > 1 && iterations < 100);
+
+				if (iterations >= 50)
+					print("error: could not create with fewer neighbors than : " + NumberOfNeighbors(checkPos, takenPositions));
 			}
 
-		} while (true);
+			//finalize position
+			rooms[(int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY] = new Room(checkPos, 2, 0);
+			//방 번호 넘버링.
+			RoomNumberring((int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY);
+
+			takenPositions.Insert(0, checkPos);
+		}
 	}
+
+
 
 
 	#endregion
@@ -483,6 +545,7 @@ public class LevelGeneration : MonoBehaviour {
 	//1 --> right
 	//2 --> above
 	//3 --> bellow
+
 	void ChoiseRoom(int _moveDir)
 	{
 		LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
