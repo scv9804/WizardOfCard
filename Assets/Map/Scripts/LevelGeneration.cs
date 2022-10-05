@@ -25,6 +25,11 @@ public class LevelGeneration : MonoBehaviour {
 	public GameObject BossRoomIcon;
 	public GameObject roomWhiteObj;
 
+	LevelGeneration level;
+
+	[SerializeField]RoomEventListScript shopRoomScript;
+	[SerializeField]RoomEventListScript eventRoomScript;
+
 
 
 	private void Start()
@@ -37,7 +42,9 @@ public class LevelGeneration : MonoBehaviour {
 		gridSizeY = Mathf.RoundToInt(worldSize.y);
 		inPosX = gridSizeX;
 		inPosY = gridSizeY;
-		
+
+		level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+
 		CreateRooms();
 
 		//보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
@@ -438,6 +445,9 @@ public class LevelGeneration : MonoBehaviour {
 
 	#endregion
 
+
+
+	#region RoomCode
 	void RoomRefersh()
 	{
 		try
@@ -528,142 +538,91 @@ public class LevelGeneration : MonoBehaviour {
 
 	void ChoiseRoom(int _moveDir)
 	{
-		LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-
 		switch (_moveDir)
 		{
 			case 0:
 				{
 					if (rooms[inPosX - 1, inPosY] != null)
 					{
-						if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].isBossRoom == false)
-						{
-							EntityManager.Inst.SpawnEnemyEntity();
-						}
-						else if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].isBossRoom == true)
-						{
-							EntityManager.Inst.SpawnEnemyBossEntity();
-						}
-
-						rooms[inPosX - 1, inPosY].type = 1;
-						rooms[inPosX, inPosY].type = 0;
-
-						inPosX--;
+						SerchRoomEvent(-1, 0);
 					}
-					if (rooms[inPosX, inPosY].Checked != true)
-					{
-						UIManager.Inst.ButtonDeActivate();
-						TurnManager.Inst.SetMyTurn();
-						rooms[inPosX, inPosY].Checked = true;
-					}
-					else
-					{
-						level.existRoomCheck();
-						UIManager.Inst.ButtonDeActivate();
-						UIManager.Inst.ButtonActivate();
-					}
+					SetMoveRoomButton();
 					break;
 				}
 			case 1:
 				{
 					if (rooms[inPosX + 1, inPosY] != null)
 					{
-						if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].isBossRoom == false)
-						{
-							EntityManager.Inst.SpawnEnemyEntity();
-						}
-						else if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].isBossRoom == true)
-						{
-							Debug.Log("보스소환시도");
-							EntityManager.Inst.SpawnEnemyBossEntity();
-						}
-
-						rooms[inPosX + 1, inPosY].type = 1;
-						rooms[inPosX, inPosY].type = 0;
-
-						inPosX++;
+						SerchRoomEvent(1, 0);
 					}
-					if (rooms[inPosX, inPosY].Checked != true)
-					{
-						UIManager.Inst.ButtonDeActivate();
-						TurnManager.Inst.SetMyTurn();
-						rooms[inPosX, inPosY].Checked = true;
-					}
-					else
-					{
-						level.existRoomCheck();
-						UIManager.Inst.ButtonDeActivate();
-						UIManager.Inst.ButtonActivate();
-					}
+					SetMoveRoomButton();
 					break;
 				}
 			case 2:
 				{
 					if (rooms[inPosX, inPosY + 1] != null)
 					{
-						if (rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].isBossRoom == false)
-						{
-							EntityManager.Inst.SpawnEnemyEntity();
-						}
-						else if (rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].isBossRoom == true)
-						{
-							Debug.Log("보스소환시도");
-							EntityManager.Inst.SpawnEnemyBossEntity();
-						}
-
-						rooms[inPosX, inPosY + 1].type = 1;
-						rooms[inPosX, inPosY].type = 0;
-
-						inPosY++;
-
+						SerchRoomEvent(0, 1);
 					}
-					if (rooms[inPosX, inPosY].Checked != true)
-					{
-						UIManager.Inst.ButtonDeActivate();
-						TurnManager.Inst.SetMyTurn();
-						rooms[inPosX, inPosY].Checked = true;
-					}
-					else
-					{
-						level.existRoomCheck();
-						UIManager.Inst.ButtonDeActivate();
-						UIManager.Inst.ButtonActivate();
-					}
+					SetMoveRoomButton();
 					break;
 				}
 			case 3:
 				{
 					if (rooms[inPosX, inPosY - 1] != null)
 					{
-						if (rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].isBossRoom == false)
-						{
-							EntityManager.Inst.SpawnEnemyEntity();
-						}
-						else if (rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].isBossRoom == true)
-						{
-							Debug.Log("보스소환시도");
-							EntityManager.Inst.SpawnEnemyBossEntity();
-						}
-
-						rooms[inPosX, inPosY - 1].type = 1;
-						rooms[inPosX, inPosY].type = 0;
-
-						inPosY--;
+						SerchRoomEvent(0 , -1);
 					}
-					if (rooms[inPosX, inPosY].Checked != true)
-					{
-						UIManager.Inst.ButtonDeActivate();
-						TurnManager.Inst.SetMyTurn();
-						rooms[inPosX, inPosY].Checked = true;
-					}
-					else
-					{
-						level.existRoomCheck();
-						UIManager.Inst.ButtonDeActivate();
-						UIManager.Inst.ButtonActivate();
-					}
+					SetMoveRoomButton();
 					break;
 				}
+		}
+	}
+
+	void SerchRoomEvent(int _x, int _y)
+	{
+		if (rooms[inPosX + _x, inPosY + _y].Checked != true)
+		{
+			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
+			{
+				case 0:
+					EntityManager.Inst.SpawnEnemyEntity();
+					break;
+				case 1:
+					Debug.Log("보스소환시도");
+					EntityManager.Inst.SpawnEnemyBossEntity();
+					break;
+				case 2:
+					Debug.Log("상점이벤트");
+
+
+					break;
+				case 3:
+					Debug.Log("그냥 이벤트");
+					break;
+			}
+
+		}
+		rooms[inPosX + _x, inPosY + _y].type = 1;
+		rooms[inPosX, inPosY].type = 0;
+
+		inPosX += _x;
+		inPosY += _y;
+	}
+
+	void SetMoveRoomButton()
+	{
+		if (rooms[inPosX, inPosY].Checked != true)
+		{
+			UIManager.Inst.ButtonDeActivate();
+			TurnManager.Inst.SetMyTurn();
+			rooms[inPosX, inPosY].Checked = true;
+		}
+		else
+		{
+			level.existRoomCheck();
+			UIManager.Inst.ButtonDeActivate();
+			UIManager.Inst.ButtonActivate();
 		}
 	}
 
@@ -703,5 +662,5 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
-
+	#endregion
 }

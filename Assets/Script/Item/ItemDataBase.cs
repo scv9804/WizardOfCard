@@ -10,7 +10,7 @@ public class ItemDataBase : MonoBehaviour
 	private List<Item> database = new List<Item>();
 	private JsonData itemData;
 
-	void Start()
+	void Awake()
 	{
 		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/Script/Item/Items.json"));
 		ConstructItemDatabase();

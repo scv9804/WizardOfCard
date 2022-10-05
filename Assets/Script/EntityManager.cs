@@ -73,7 +73,6 @@ public class EntityManager : MonoBehaviour
     }
 
 
-    //내가 왜 이딴식으로 짯는지 나도모름 ㅋㅋㅋㅋㅋ 다시고침
     void EnemyEntityAlignment()
     {
         for (int i = 0; i < enemyEntities.Count; i++)
@@ -175,9 +174,6 @@ public class EntityManager : MonoBehaviour
         }
 
     }
-
-
-
 
 
 

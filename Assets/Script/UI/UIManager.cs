@@ -221,8 +221,6 @@ public class UIManager : MonoBehaviour
 		inventoryCancleArea.gameObject.SetActive(isInventoryUse);
 		minimapCancleArea.gameObject.SetActive(isMinimapUse);
 		CardCancleArea.gameObject.SetActive(isCardUse);
-
-		Debug.Log("??");
 	}
 
 	public void SetClose()

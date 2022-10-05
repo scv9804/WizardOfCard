@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(TurnManager.Inst.Co_StartGame());
-        EntityManager.Inst.SpawnEnemyEntity();
         EntityManager.Inst.SpawnPlayerEntity();
     }
 
