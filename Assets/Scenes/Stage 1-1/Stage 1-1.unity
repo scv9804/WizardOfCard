@@ -1601,10 +1601,10 @@ RectTransform:
   m_Father: {fileID: 845592662}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 274.85645, y: -50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &203134214
 MonoBehaviour:
@@ -2469,10 +2469,10 @@ RectTransform:
   m_Father: {fileID: 845592662}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 189.85645, y: -50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &296745626
 MonoBehaviour:
@@ -6509,10 +6509,10 @@ RectTransform:
   m_Father: {fileID: 845592662}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 104.856445, y: -50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &837439221
 MonoBehaviour:
@@ -13214,7 +13214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 198
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_LocalScale.x
@@ -13278,27 +13278,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 286
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 184
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
@@ -16320,6 +16320,8 @@ MonoBehaviour:
   i_Room_D: 0
   BossRoomIcon: {fileID: 1726589634442165223, guid: 7510d5e1e01b99741886b8fa282f0ba3, type: 3}
   roomWhiteObj: {fileID: 1975706786332780, guid: a1fe431a2bc4a2940b2503b8f131da18, type: 3}
+  shopRoomScript: {fileID: 11400000, guid: 3d30186b6e2e1514a9b1fa3f1018cfb9, type: 2}
+  eventRoomScript: {fileID: 0}
 --- !u!4 &2133263563
 Transform:
   m_ObjectHideFlags: 0
