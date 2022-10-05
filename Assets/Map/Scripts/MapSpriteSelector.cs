@@ -21,6 +21,7 @@ public class MapSpriteSelector : MonoBehaviour {
 		nowPos_spULD, nowPos_spRUL, nowPos_spDRU, nowPos_spLDR, nowPos_spUDRL;
 
 	public bool up, down, left, right;
+	public int roomNumX, roomNumY;
 	public int type; // 0: normal, 1: enter 2: SetActiveFalse 3: SetActiveTrue And NotSerchedYet
 	enum DoorSide {L, R ,D ,U, UD, RL, UR, UL, DR, DL, ULD, RUL, DRU, LDR, UDRL };
 	DoorSide door;

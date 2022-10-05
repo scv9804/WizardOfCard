@@ -2746,16 +2746,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 322670484}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &337854128
 GameObject:
   m_ObjectHideFlags: 0
@@ -2844,16 +2834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 337854130}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &345995838
 GameObject:
   m_ObjectHideFlags: 0
@@ -3406,16 +3386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 440529668}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &476230647
 GameObject:
   m_ObjectHideFlags: 0
@@ -5041,16 +5011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 602817668}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &627814695
 GameObject:
   m_ObjectHideFlags: 0
@@ -5215,16 +5175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 633630890}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &641423898
 GameObject:
   m_ObjectHideFlags: 0
@@ -6003,16 +5953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 730635550}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &741198484
 GameObject:
   m_ObjectHideFlags: 0
@@ -8454,16 +8394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 1028100315}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &1032628498
 GameObject:
   m_ObjectHideFlags: 0
@@ -8976,16 +8906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 1099399101}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &1104265912
 GameObject:
   m_ObjectHideFlags: 0
@@ -11546,16 +11466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 1565513879}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &1565842616
 GameObject:
   m_ObjectHideFlags: 0
@@ -12081,16 +11991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 1647063783}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &1647843352
 GameObject:
   m_ObjectHideFlags: 0
@@ -13278,7 +13178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015356, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_Pivot.x
@@ -13314,7 +13214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 195.5126
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_LocalScale.x
@@ -13338,7 +13238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13386,19 +13286,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 286
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 181.5126
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029813486982, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -97.7563
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
@@ -15702,16 +15602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: 
-    itemExplain: 
-    itemCode: 0
-    itemIcon: {fileID: 0}
-    itemType: 0
-    efts: []
-  itemIcon: {fileID: 2014451741}
-  slotnum: 0
-  slotState: 2
 --- !u!1 &2044244206
 GameObject:
   m_ObjectHideFlags: 0

@@ -160,6 +160,8 @@ public class LevelGeneration : MonoBehaviour {
 			mapper.right = room.doorRight;
 			mapper.left = room.doorLeft;
 			mapper.RoomEventType = room.RoomEventType;
+			mapper.roomNumX = room.roomNumX;
+			mapper.roomNumY = room.roomNumY;
 			DrawMaps[add] = mapper;
 			add++;
 		}
@@ -201,8 +203,8 @@ public class LevelGeneration : MonoBehaviour {
 
 	void RoomNumberring(int _x, int _y)
 	{
-		rooms[_x, _y].roomNumX = _x;
-		rooms[_x, _y].roomNumX = _y;
+		rooms[_x + gridSizeX , _y + gridSizeY].roomNumX = _x;
+		rooms[_x + gridSizeX, _y + gridSizeY].roomNumY = _y;
 	}
 
 
@@ -301,65 +303,43 @@ public class LevelGeneration : MonoBehaviour {
 		{
 			int randomRoom;
 			randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
-			if (EdgeRooms[randomRoom].type != 1)
+			try
 			{
-				int randomPos;
-				randomPos = UnityEngine.Random.Range(0, 3);
-				try
+				if (EdgeRooms[randomRoom].type != 1)
 				{
+					int randomPos;
+					randomPos = UnityEngine.Random.Range(0, 4);
 					//0 --> left
 					//1 --> right
 					//2 --> above
 					//3 --> bellow
 					if (randomPos == 0)
-						if (RoomExpansion_Bug(-1, 0, randomPos)) { }
+						if (RoomExpansion(-1, 0, randomRoom)) { break; }
 					if (randomPos == 1)
-						if ( RoomExpansion_Bug(1, 0, randomPos)) { }			
+						if (RoomExpansion(1, 0, randomRoom)) { break; }
 					if (randomPos == 2)
-						if (RoomExpansion_Bug(0, 1, randomPos)) { }
+						if (RoomExpansion(0, 1, randomRoom)) { break; }
 					if (randomPos == 3)
-						if (RoomExpansion_Bug(0, -1, randomPos)) { }
-
-
-					Debug.Log("0"+ RoomExpansion_Bug(-1, 0, randomPos));
-					Debug.Log("1"+ RoomExpansion_Bug(1, 0, randomPos));
-					Debug.Log("2" +RoomExpansion_Bug(0, 1, randomPos));
-					Debug.Log("3"+RoomExpansion_Bug(0, -1, randomPos));
-
-					break;
+						if (RoomExpansion(0, -1, randomRoom)) { break; }
 				}
-				catch
-				{
-					Debug.Log("상점 만들기 시도.");
+			}
+			catch
+			{
 
-					if (randomPos == 0)
-						RoomExpansion(-1, 0, randomPos);
-/*					if (randomPos == 1)
-						RoomExpansion(1, 0, randomPos);
-					if (randomPos == 2)
-						RoomExpansion(0, 1, randomPos);
-					if (randomPos == 3)
-						RoomExpansion(0, -1, randomPos);*/
-					break;
-				}
 			}
 		} while (true);
 		SetRoomDoors();
 	}
 
-	bool RoomExpansion_Bug(int _x, int _y, int _random)
+	bool RoomExpansion(int _x, int _y, int _random)
 	{
-		Debug.Log(rooms[EdgeRooms[_random].roomNumX , EdgeRooms[_random].roomNumY ]);
-		if (rooms[EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y] == null)
+		if (rooms[EdgeRooms[_random].roomNumX + _x + gridSizeX, EdgeRooms[_random].roomNumY + _y + gridSizeY] == null)
 		{
+			rooms[EdgeRooms[_random].roomNumX + _x + gridSizeX, EdgeRooms[_random].roomNumY + _y + gridSizeY] = new Room(new Vector2(EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y), 2, 2);
+			EdgeRooms.RemoveAt(_random);
 			return true;
 		}
 		return false;
-	}
-	void RoomExpansion(int _x, int _y, int _random)
-	{
-		rooms[EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y] = new Room(new Vector2(EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y), 0, 2);
-		EdgeRooms.RemoveAt(_random);
 	}
 
 	void SetEdgeRooms()
@@ -447,7 +427,7 @@ public class LevelGeneration : MonoBehaviour {
 			//finalize position
 			rooms[(int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY] = new Room(checkPos, 2, 0);
 			//방 번호 넘버링.
-			RoomNumberring((int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY);
+			RoomNumberring((int)checkPos.x , (int)checkPos.y );
 
 			takenPositions.Insert(0, checkPos);
 		}
