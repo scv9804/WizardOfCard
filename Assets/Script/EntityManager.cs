@@ -94,7 +94,7 @@ public class EntityManager : MonoBehaviour
             enemy.Attack(playerEntity);
             yield return new WaitForSeconds(enemyAttackDelay);
         }
-        TurnManager.Inst.EndTurn();
+        LevelGeneration.Inst.EndTurn();
     }
 
 

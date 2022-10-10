@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class LevelGeneration : MonoBehaviour {
 
+	static public LevelGeneration Inst;
+
+	private void Awake()
+	{
+		Inst = this;
+	}
+
 	Vector2 worldSize = new Vector2(4, 4);
 
 	Room[,] rooms;
@@ -271,7 +278,6 @@ public class LevelGeneration : MonoBehaviour {
 				{
 					EdgeRooms[randomRoom].type = 4;
 					EdgeRooms[randomRoom].RoomEventType = 1;
-					EdgeRooms[randomRoom].isBossRoom = true;
 					EdgeRooms.RemoveAt(randomRoom);
 					break;
 				}
@@ -401,6 +407,7 @@ public class LevelGeneration : MonoBehaviour {
 		rooms = new Room[gridSizeX * 2, gridSizeY * 2];
 		rooms[gridSizeX, gridSizeY] = new Room(Vector2.zero, 1, 0);
 		rooms[gridSizeX, gridSizeY].Checked = true;
+		rooms[gridSizeX, gridSizeY].isStartRoom = true;
 		takenPositions.Insert(0, Vector2.zero);
 
 		//그릴 맵 총개수 테스트
@@ -615,7 +622,11 @@ public class LevelGeneration : MonoBehaviour {
 		if (rooms[inPosX, inPosY].Checked != true)
 		{
 			UIManager.Inst.ButtonDeActivate();
-			TurnManager.Inst.SetMyTurn();
+			if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
+			{
+				LevelGeneration.Inst.SetMyTurn();
+			}
+
 			rooms[inPosX, inPosY].Checked = true;
 		}
 		else
@@ -663,4 +674,30 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 	#endregion
+
+	WaitForSeconds delay_01 = new WaitForSeconds(0.1f);
+
+	public void SetMyTurn()
+	{
+		TurnManager.Inst.myTurn = true;
+		StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
+	}
+
+	public void EndTurn()
+	{
+		TurnManager.Inst.myTurn = !TurnManager.Inst.myTurn;
+		StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
+	}
+
+	public IEnumerator Co_StartGame()
+	{
+		TurnManager.Inst.isLoding = true;
+
+		for (int i = 0; i < TurnManager.Inst.i_StartCardsCount; i++)
+		{
+			yield return delay_01;
+			TurnManager.Inst.OnAddCard();
+		}
+		StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX,inPosY]));
+	}
 }

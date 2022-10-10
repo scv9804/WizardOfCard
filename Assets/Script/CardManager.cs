@@ -410,7 +410,9 @@ public class CardManager : MonoBehaviour
 		}
 		else if (!TurnManager.Inst.myTurn)
 		{
-			e_CardStats = E_CardStats.CanMouseOver;
+
+				e_CardStats = E_CardStats.CanMouseOver;
+			
 		}
 		else if (TurnManager.Inst.myTurn)
 		{

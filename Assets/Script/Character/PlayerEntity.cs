@@ -25,6 +25,7 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] GameObject AttackEffect;
     [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
     [SerializeField] SpriteRenderer damagedEffectSpriteRenderer;
+    [SerializeField] Animator animatior;
     Image healthImage_UI;
 
 
@@ -45,6 +46,7 @@ public class PlayerEntity : MonoBehaviour
 	private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
+        animatior = GetComponent<Animator>();
         SetDefultPS();
 	}
 
@@ -277,10 +279,12 @@ public class PlayerEntity : MonoBehaviour
 	public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
-        charaterSprite.sprite = _character;
+        //   charaterSprite.sprite = _character;
+        animatior.SetBool("Attack", true);
         AttackEffectSpriteRenderer.sprite = _effect;
         AttackWandEffect();
         yield return new WaitForSeconds(0.25f);
+        animatior.SetBool("Attack", false);
         DoOrigin();
 	}
 

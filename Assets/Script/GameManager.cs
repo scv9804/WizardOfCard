@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            TurnManager.Inst.EndTurn();
+            LevelGeneration.Inst.EndTurn();
         }
 
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(TurnManager.Inst.Co_StartGame());
+        StartCoroutine(LevelGeneration.Inst.Co_StartGame());
         EntityManager.Inst.SpawnPlayerEntity();
     }
 

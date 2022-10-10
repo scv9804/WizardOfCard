@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
 	{
 		if (TurnManager.Inst.myTurn)
 		{
-			TurnManager.Inst.EndTurn();
+			LevelGeneration.Inst.EndTurn();
 		}
 	}
 

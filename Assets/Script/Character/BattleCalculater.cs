@@ -23,7 +23,7 @@ public class  BattleCalculater: MonoBehaviour
         if (_target.Status_Aether <= 0)
         {
             cards_Magician.CompareCard(_card, _target);
-            TurnManager.Inst.EndTurn();
+            LevelGeneration.Inst.EndTurn();
             return false;
         }
 		else
@@ -46,7 +46,7 @@ public class  BattleCalculater: MonoBehaviour
 
         if (EntityManager.Inst.playerEntity.Status_Aether < 0)
         {
-            TurnManager.Inst.EndTurn();
+            LevelGeneration.Inst.EndTurn();
 		}
 		else
 		{
