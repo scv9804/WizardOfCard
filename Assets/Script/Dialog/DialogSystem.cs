@@ -29,8 +29,9 @@ public class DialogSystem : MonoBehaviour
 		{
 			SetActiveObjects(speakers[i], false);
 			// 캐릭터 이미지는 보이도록 설정
-			speakers[i].spriteRenderer.gameObject.SetActive(true);
+			speakers[i].spriteRenderer.gameObject.SetActive(false);
 		}
+
 	}
 
 	public bool UpdateDialog()
@@ -53,12 +54,14 @@ public class DialogSystem : MonoBehaviour
 			if ( isTypingEffect == true )
 			{
 				isTypingEffect = false;
-				
+
 				// 타이핑 효과를 중지하고, 현재 대사 전체를 출력한다
 				StopCoroutine("OnTypingText");
 				speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue;
 				// 대사가 완료되었을 때 출력되는 커서 활성화
 				speakers[currentSpeakerIndex].objectArrow.SetActive(true);
+
+
 
 				return false;
 			}
@@ -97,6 +100,8 @@ public class DialogSystem : MonoBehaviour
 		// 현재 화자 순번 설정
 		currentSpeakerIndex = dialogs[currentDialogIndex].speakerIndex;
 
+		speakers[currentDialogIndex].spriteRenderer.sprite = dialogs[currentDialogIndex].Character;
+
 		// 현재 화자의 대화 관련 오브젝트 활성화
 		SetActiveObjects(speakers[currentSpeakerIndex], true);
 		// 현재 화자 이름 텍스트 설정
@@ -111,9 +116,19 @@ public class DialogSystem : MonoBehaviour
 		speaker.imageDialog.gameObject.SetActive(visible);
 		speaker.textName.gameObject.SetActive(visible);
 		speaker.textDialogue.gameObject.SetActive(visible);
+		speaker.backGround.gameObject.SetActive(visible);
 
 		// 화살표는 대사가 종료되었을 때만 활성화하기 때문에 항상 false
 		speaker.objectArrow.SetActive(false);
+
+		if (dialogs[currentSpeakerIndex].Character == null)
+		{
+			speaker.spriteRenderer.gameObject.SetActive(false);
+		}
+		else
+		{
+			speaker.spriteRenderer.gameObject.SetActive(true);
+		}
 
 		// 캐릭터 알파 값 변경
 		Color color = speaker.spriteRenderer.color;
@@ -147,6 +162,7 @@ public class DialogSystem : MonoBehaviour
 [System.Serializable]
 public struct Speaker
 {
+	public GameObject backGround;
 	public	Image	spriteRenderer;		// 캐릭터 이미지 (청자/화자 알파값 제어)
 	public	Image			imageDialog;		// 대화창 Image UI
 	public	TextMeshProUGUI	textName;			// 현재 대사중인 캐릭터 이름 출력 Text UI
@@ -157,6 +173,7 @@ public struct Speaker
 [System.Serializable]
 public struct DialogData
 {
+	public Sprite Character;
 	public	int		speakerIndex;	// 이름과 대사를 출력할 현재 DialogSystem의 speakers 배열 순번
 	public	string	name;			// 캐릭터 이름
 	[TextArea(3, 5)]

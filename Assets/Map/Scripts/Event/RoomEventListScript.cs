@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RoomEventListScript : ScriptableObject
+public abstract class RoomEventListScript : MonoBehaviour
 {
-	public abstract void Event();
-
+	public abstract GameObject Event();
 }
