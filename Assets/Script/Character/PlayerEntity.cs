@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Spine.Unity;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -26,14 +25,7 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] GameObject AttackEffect;
     [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
     [SerializeField] SpriteRenderer damagedEffectSpriteRenderer;
-    [SerializeField] SpriteRenderer thisSprite;
-    
-
-    public SkeletonAnimation skeletonAnimation;
-    public AnimationReferenceAsset[] animClip;
-
-
-   // [SerializeField] Animator animatior;
+    [SerializeField] Animator animatior;
     Image healthImage_UI;
 
 
@@ -54,7 +46,7 @@ public class PlayerEntity : MonoBehaviour
 	private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
-     //   animatior = GetComponent<Animator>();
+        animatior = GetComponent<Animator>();
         SetDefultPS();
 	}
 
@@ -287,14 +279,12 @@ public class PlayerEntity : MonoBehaviour
 	public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
-        thisSprite.gameObject.SetActive(true);
-        charaterSprite.sprite = _character;
-
-        //animatior.SetBool("Attack", true);
+        //   charaterSprite.sprite = _character;
+        animatior.SetBool("Attack", true);
         AttackEffectSpriteRenderer.sprite = _effect;
         AttackWandEffect();
         yield return new WaitForSeconds(0.25f);
-       // animatior.SetBool("Attack", false);
+        animatior.SetBool("Attack", false);
         DoOrigin();
 	}
 
