@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using TMPro;
 
@@ -14,15 +15,18 @@ public class UIManager : MonoBehaviour
 	}
 	private void Start()
 	{
+		mainCamera = mainCam.GetComponent<CameraData>();
+		mapCamera = mapCam.GetComponent<CameraData>();
 		SetClose();
 	}
 
-
+	[Header("방이동 버튼")]
 	public Button roomMoveButton_L;
 	public Button roomMoveButton_R;
 	public Button roomMoveButton_U;
 	public Button roomMoveButton_D;
 
+	[Header("메인 UI")]
 	public TMP_Text DeckCountTMP_UI;
 	public TMP_Text CemeteryCountTMP_UI;
 	public TMP_Text HealthTMP_UI;
@@ -34,26 +38,65 @@ public class UIManager : MonoBehaviour
 	public GameObject inventoryUI;
 	public GameObject deckUI;
 	public GameObject CemeteryUI;
-
 	public Image turnEndButtonSpriteImage;
+
+	[Header("온오프 UI")]
 	public GameObject CardCancleArea;
 	public GameObject optionCancleArea;
 	public GameObject minimapCancleArea;
 	public GameObject inventoryCancleArea;
 	public GameObject gameClearBack_UI;
 	public GameObject Reword_UI;
-	
+
+
+	[Header("옵션 UI")]
+	[SerializeField] GameObject postProcessing;
+
+	[SerializeField] Camera mainCam;
+	[SerializeField] Camera mapCam;
+
+	CameraData mainCamera;
+	CameraData mapCamera;
+
 	bool isDeckUse;
 	bool isCardUse;
 	bool isOptionUse;
 	bool isMinimapUse;
 	bool isCemeteryUse;
 	bool isInventoryUse;
+	bool ispostProcessing = true;
 	bool isUIUse;
 
 	[SerializeField] LevelGeneration levelGeneration;
 
-	
+
+	public void AntiAliasing_FXAA()
+	{
+		mainCamera.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
+		mapCamera.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
+	}
+	public void AntiAliasing_SMAA()
+	{
+		mainCamera.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+		mapCamera.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+	}
+
+	public void AntiAliasing_None()
+	{
+		mapCamera.antialiasing = AntialiasingMode.None;
+		mainCamera.antialiasing = AntialiasingMode.None;
+	}
+
+
+
+	public void PostProcessing()
+	{
+		ispostProcessing = !ispostProcessing;
+		postProcessing.SetActive(ispostProcessing);
+	}
+
+
+
 
 	private void FixedUpdate()
 	{
