@@ -79,3 +79,1164 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
+Assets/Editor.meta
+Assets/Spine Examples.meta
+Assets/Spine.meta
+Assets/Spine/CHANGELOG.md
+Assets/Spine/CHANGELOG.md.meta
+Assets/Spine/Editor.meta
+Assets/Spine/package.json
+Assets/Spine/package.json.meta
+Assets/Spine/Runtime.meta
+Assets/Spine/version.txt
+Assets/Spine/version.txt.meta
+Assets/Spine Examples/Getting Started.meta
+Assets/Spine Examples/Images.meta
+Assets/Spine Examples/Other Examples.meta
+Assets/Spine Examples/Scripts.meta
+Assets/Spine Examples/Sound.meta
+Assets/Spine Examples/Spine Skeletons.meta
+Assets/Spine Examples/spine-unity-examples.asmdef
+Assets/Spine Examples/spine-unity-examples.asmdef.meta
+Assets/Spine Examples/Getting Started/1 The Spine GameObject.unity
+Assets/Spine Examples/Getting Started/1 The Spine GameObject.unity.meta
+Assets/Spine Examples/Getting Started/2 Controlling Animation.unity
+Assets/Spine Examples/Getting Started/2 Controlling Animation.unity.meta
+Assets/Spine Examples/Getting Started/3 Controlling Animation Continued.unity
+Assets/Spine Examples/Getting Started/3 Controlling Animation Continued.unity.meta
+Assets/Spine Examples/Getting Started/4 Object Oriented Sample.unity
+Assets/Spine Examples/Getting Started/4 Object Oriented Sample.unity.meta
+Assets/Spine Examples/Getting Started/5 Basic Platformer.unity
+Assets/Spine Examples/Getting Started/5 Basic Platformer.unity.meta
+Assets/Spine Examples/Getting Started/6 SkeletonGraphic.unity
+Assets/Spine Examples/Getting Started/6 SkeletonGraphic.unity.meta
+Assets/Spine Examples/Images/outline-shaders-heading.png
+Assets/Spine Examples/Images/outline-shaders-heading.png.meta
+Assets/Spine Examples/Other Examples/Animation Tester.meta
+Assets/Spine Examples/Other Examples/AtlasRegionAttacher.unity
+Assets/Spine Examples/Other Examples/AtlasRegionAttacher.unity.meta
+Assets/Spine Examples/Other Examples/BlendModes.unity
+Assets/Spine Examples/Other Examples/BlendModes.unity.meta
+Assets/Spine Examples/Other Examples/Drunkboy.unity
+Assets/Spine Examples/Other Examples/Drunkboy.unity.meta
+Assets/Spine Examples/Other Examples/FixedTimestepUpdates.unity
+Assets/Spine Examples/Other Examples/FixedTimestepUpdates.unity.meta
+Assets/Spine Examples/Other Examples/Freezeboy.unity
+Assets/Spine Examples/Other Examples/Freezeboy.unity.meta
+Assets/Spine Examples/Other Examples/Goblins.unity
+Assets/Spine Examples/Other Examples/Goblins.unity.meta
+Assets/Spine Examples/Other Examples/Instantiate from Script.unity
+Assets/Spine Examples/Other Examples/Instantiate from Script.unity.meta
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets.meta
+Assets/Spine Examples/Other Examples/Mix and Match Equip.unity
+Assets/Spine Examples/Other Examples/Mix and Match Equip.unity.meta
+Assets/Spine Examples/Other Examples/Mix and Match Skins.unity
+Assets/Spine Examples/Other Examples/Mix and Match Skins.unity.meta
+Assets/Spine Examples/Other Examples/Mix and Match.unity
+Assets/Spine Examples/Other Examples/Mix and Match.unity.meta
+Assets/Spine Examples/Other Examples/Outline Shaders.unity
+Assets/Spine Examples/Other Examples/Outline Shaders.unity.meta
+Assets/Spine Examples/Other Examples/Per Instance Material Properties.unity
+Assets/Spine Examples/Other Examples/Per Instance Material Properties.unity.meta
+Assets/Spine Examples/Other Examples/SkeletonAnimationMulti.unity
+Assets/Spine Examples/Other Examples/SkeletonAnimationMulti.unity.meta
+Assets/Spine Examples/Other Examples/SkeletonRenderSeparator.unity
+Assets/Spine Examples/Other Examples/SkeletonRenderSeparator.unity.meta
+Assets/Spine Examples/Other Examples/SkeletonUtility Animated Physics.unity
+Assets/Spine Examples/Other Examples/SkeletonUtility Animated Physics.unity.meta
+Assets/Spine Examples/Other Examples/SkeletonUtility Eyes.unity
+Assets/Spine Examples/Other Examples/SkeletonUtility Eyes.unity.meta
+Assets/Spine Examples/Other Examples/SkeletonUtility GroundConstraint.unity
+Assets/Spine Examples/Other Examples/SkeletonUtility GroundConstraint.unity.meta
+Assets/Spine Examples/Other Examples/SkeletonUtility Platformer HingeChain Physics.unity
+Assets/Spine Examples/Other Examples/SkeletonUtility Platformer HingeChain Physics.unity.meta
+Assets/Spine Examples/Other Examples/SkeletonUtility Ragdoll.unity
+Assets/Spine Examples/Other Examples/SkeletonUtility Ragdoll.unity.meta
+Assets/Spine Examples/Other Examples/SpineGauge.unity
+Assets/Spine Examples/Other Examples/SpineGauge.unity.meta
+Assets/Spine Examples/Other Examples/Sprite Shaders.unity
+Assets/Spine Examples/Other Examples/Sprite Shaders.unity.meta
+Assets/Spine Examples/Other Examples/SpriteMask and RectMask2D.unity
+Assets/Spine Examples/Other Examples/SpriteMask and RectMask2D.unity.meta
+Assets/Spine Examples/Other Examples/StateMachine SkeletonAnimation.meta
+Assets/Spine Examples/Other Examples/VertexEffect.unity
+Assets/Spine Examples/Other Examples/VertexEffect.unity.meta
+Assets/Spine Examples/Other Examples/Animation Tester/Animation Tester.unity
+Assets/Spine Examples/Other Examples/Animation Tester/Animation Tester.unity.meta
+Assets/Spine Examples/Other Examples/Animation Tester/SpineAnimationTesterTool.cs
+Assets/Spine Examples/Other Examples/Animation Tester/SpineAnimationTesterTool.cs.meta
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Goggles Normal.asset
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Goggles Normal.asset.meta
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Goggles Tactical.asset
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Goggles Tactical.asset.meta
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Gun Freeze.asset
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Gun Freeze.asset.meta
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Gun Normal.asset
+Assets/Spine Examples/Other Examples/Mix and Match Equip Assets/Gun Normal.asset.meta
+Assets/Spine Examples/Other Examples/StateMachine SkeletonAnimation/Hero Logic StateMachine.controller
+Assets/Spine Examples/Other Examples/StateMachine SkeletonAnimation/Hero Logic StateMachine.controller.meta
+Assets/Spine Examples/Other Examples/StateMachine SkeletonAnimation/Mecanim Logic SkeletonAnimation View.unity
+Assets/Spine Examples/Other Examples/StateMachine SkeletonAnimation/Mecanim Logic SkeletonAnimation View.unity.meta
+Assets/Spine Examples/Scripts/AttackSpineboy.cs
+Assets/Spine Examples/Scripts/AttackSpineboy.cs.meta
+Assets/Spine Examples/Scripts/DataAssetsFromExportsExample.cs
+Assets/Spine Examples/Scripts/DataAssetsFromExportsExample.cs.meta
+Assets/Spine Examples/Scripts/DraggableTransform.cs
+Assets/Spine Examples/Scripts/DraggableTransform.cs.meta
+Assets/Spine Examples/Scripts/FootSoldierExample.cs
+Assets/Spine Examples/Scripts/FootSoldierExample.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts.meta
+Assets/Spine Examples/Scripts/Goblins.cs
+Assets/Spine Examples/Scripts/Goblins.cs.meta
+Assets/Spine Examples/Scripts/HandleEventWithAudioExample.cs
+Assets/Spine Examples/Scripts/HandleEventWithAudioExample.cs.meta
+Assets/Spine Examples/Scripts/HeroEffectsHandlerExample.cs
+Assets/Spine Examples/Scripts/HeroEffectsHandlerExample.cs.meta
+Assets/Spine Examples/Scripts/HurtFlashEffect.cs
+Assets/Spine Examples/Scripts/HurtFlashEffect.cs.meta
+Assets/Spine Examples/Scripts/MaterialPropertyBlockExample.cs
+Assets/Spine Examples/Scripts/MaterialPropertyBlockExample.cs.meta
+Assets/Spine Examples/Scripts/MaterialReplacementExample.cs
+Assets/Spine Examples/Scripts/MaterialReplacementExample.cs.meta
+Assets/Spine Examples/Scripts/Mecanim as Logic.meta
+Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier.meta
+Assets/Spine Examples/Scripts/Mix and Match Character Customize.meta
+Assets/Spine Examples/Scripts/MixAndMatch.cs
+Assets/Spine Examples/Scripts/MixAndMatch.cs.meta
+Assets/Spine Examples/Scripts/MixAndMatchGraphic.cs
+Assets/Spine Examples/Scripts/MixAndMatchGraphic.cs.meta
+Assets/Spine Examples/Scripts/RaggedySpineboy.cs
+Assets/Spine Examples/Scripts/RaggedySpineboy.cs.meta
+Assets/Spine Examples/Scripts/ReloadSceneOnKeyDown.cs
+Assets/Spine Examples/Scripts/ReloadSceneOnKeyDown.cs.meta
+Assets/Spine Examples/Scripts/Rotator.cs
+Assets/Spine Examples/Scripts/Rotator.cs.meta
+Assets/Spine Examples/Scripts/Sample Components.meta
+Assets/Spine Examples/Scripts/SpawnFromSkeletonDataExample.cs
+Assets/Spine Examples/Scripts/SpawnFromSkeletonDataExample.cs.meta
+Assets/Spine Examples/Scripts/SpawnSkeletonGraphicExample.cs
+Assets/Spine Examples/Scripts/SpawnSkeletonGraphicExample.cs.meta
+Assets/Spine Examples/Scripts/Spineboy.cs
+Assets/Spine Examples/Scripts/Spineboy.cs.meta
+Assets/Spine Examples/Scripts/SpineboyBodyTilt.cs
+Assets/Spine Examples/Scripts/SpineboyBodyTilt.cs.meta
+Assets/Spine Examples/Scripts/SpineboyFacialExpression.cs
+Assets/Spine Examples/Scripts/SpineboyFacialExpression.cs.meta
+Assets/Spine Examples/Scripts/SpineboyFootplanter.cs
+Assets/Spine Examples/Scripts/SpineboyFootplanter.cs.meta
+Assets/Spine Examples/Scripts/SpineboyFreeze.cs
+Assets/Spine Examples/Scripts/SpineboyFreeze.cs.meta
+Assets/Spine Examples/Scripts/SpineboyPole.cs
+Assets/Spine Examples/Scripts/SpineboyPole.cs.meta
+Assets/Spine Examples/Scripts/SpineboyPoleGraphic.cs
+Assets/Spine Examples/Scripts/SpineboyPoleGraphic.cs.meta
+Assets/Spine Examples/Scripts/SpineGauge.cs
+Assets/Spine Examples/Scripts/SpineGauge.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/BasicPlatformerController.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/BasicPlatformerController.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/ConstrainedCamera.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/ConstrainedCamera.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/Raptor.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/Raptor.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineBeginnerTwo.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineBeginnerTwo.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineBlinkPlayer.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineBlinkPlayer.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerInput.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerInput.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerModel.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerModel.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerView.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyBeginnerView.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyTargetController.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/SpineboyTargetController.cs.meta
+Assets/Spine Examples/Scripts/Getting Started Scripts/TransitionDictionaryExample.cs
+Assets/Spine Examples/Scripts/Getting Started Scripts/TransitionDictionaryExample.cs.meta
+Assets/Spine Examples/Scripts/Mecanim as Logic/DummyMecanimControllerExample.cs
+Assets/Spine Examples/Scripts/Mecanim as Logic/DummyMecanimControllerExample.cs.meta
+Assets/Spine Examples/Scripts/Mecanim as Logic/MecanimToAnimationHandleExample.cs
+Assets/Spine Examples/Scripts/Mecanim as Logic/MecanimToAnimationHandleExample.cs.meta
+Assets/Spine Examples/Scripts/Mecanim as Logic/SkeletonAnimationHandleExample.cs
+Assets/Spine Examples/Scripts/Mecanim as Logic/SkeletonAnimationHandleExample.cs.meta
+Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier/AnimationMatchModifierAsset.cs
+Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier/AnimationMatchModifierAsset.cs.meta
+Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier/AnimationMatchModifierAsset.txt
+Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier/AnimationMatchModifierAsset.txt.meta
+Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier/Default Match All Animations.asset
+Assets/Spine Examples/Scripts/MecanimAnimationMatchModifier/Default Match All Animations.asset.meta
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipAssetExample.cs
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipAssetExample.cs.meta
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipButtonExample.cs
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipButtonExample.cs.meta
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipsVisualsComponentExample.cs
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipsVisualsComponentExample.cs.meta
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipSystemExample.cs
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/EquipSystemExample.cs.meta
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/MixAndMatchSkinsButtonExample.cs
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/MixAndMatchSkinsButtonExample.cs.meta
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/MixAndMatchSkinsExample.cs
+Assets/Spine Examples/Scripts/Mix and Match Character Customize/MixAndMatchSkinsExample.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/BoneLocalOverride.cs
+Assets/Spine Examples/Scripts/Sample Components/BoneLocalOverride.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/CombinedSkin.cs
+Assets/Spine Examples/Scripts/Sample Components/CombinedSkin.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Ghost.meta
+Assets/Spine Examples/Scripts/Sample Components/Legacy.meta
+Assets/Spine Examples/Scripts/Sample Components/OutlineSkeletonGraphic.cs
+Assets/Spine Examples/Scripts/Sample Components/OutlineSkeletonGraphic.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/RenderExistingMesh.cs
+Assets/Spine Examples/Scripts/Sample Components/RenderExistingMesh.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/RootMotionDeltaCompensation.cs
+Assets/Spine Examples/Scripts/Sample Components/RootMotionDeltaCompensation.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects.meta
+Assets/Spine Examples/Scripts/Sample Components/SetRigidbodySolverIterations.cs
+Assets/Spine Examples/Scripts/Sample Components/SetRigidbodySolverIterations.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonAnimationFixedTimestep.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonAnimationFixedTimestep.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonAnimationMulti.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonColorInitialize.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonColorInitialize.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonGraphicMirror.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonGraphicMirror.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonGraphicPlayAnimationAtEvent.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonGraphicPlayAnimationAtEvent.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules.meta
+Assets/Spine Examples/Scripts/Sample Components/SlotTintBlackFollower.cs
+Assets/Spine Examples/Scripts/Sample Components/SlotTintBlackFollower.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SpineEventUnityHandler.cs
+Assets/Spine Examples/Scripts/Sample Components/SpineEventUnityHandler.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Ghost/Shaders.meta
+Assets/Spine Examples/Scripts/Sample Components/Ghost/SkeletonGhost.cs
+Assets/Spine Examples/Scripts/Sample Components/Ghost/SkeletonGhost.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Ghost/SkeletonGhostRenderer.cs
+Assets/Spine Examples/Scripts/Sample Components/Ghost/SkeletonGhostRenderer.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Ghost/Shaders/Spine-Special-Skeleton-Ghost.shader
+Assets/Spine Examples/Scripts/Sample Components/Ghost/Shaders/Spine-Special-Skeleton-Ghost.shader.meta
+Assets/Spine Examples/Scripts/Sample Components/Legacy/AtlasRegionAttacher.cs
+Assets/Spine Examples/Scripts/Sample Components/Legacy/AtlasRegionAttacher.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Legacy/CustomSkin.cs
+Assets/Spine Examples/Scripts/Sample Components/Legacy/CustomSkin.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Legacy/SpriteAttacher.cs
+Assets/Spine Examples/Scripts/Sample Components/Legacy/SpriteAttacher.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects/JitterEffectExample.cs
+Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects/JitterEffectExample.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects/TwoByTwoTransformEffectExample.cs
+Assets/Spine Examples/Scripts/Sample Components/Sample VertexEffects/TwoByTwoTransformEffectExample.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonAnimationMulti/SkeletonAnimationMulti.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonAnimationMulti/SkeletonAnimationMulti.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonRagdoll.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonRagdoll.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonRagdoll2D.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonRagdoll2D.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityEyeConstraint.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityEyeConstraint.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityGroundConstraint.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityGroundConstraint.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityKinematicShadow.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/SkeletonUtilityKinematicShadow.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/SkeletonRagdoll2DInspector.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/SkeletonRagdoll2DInspector.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/SkeletonRagdollInspector.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/SkeletonRagdollInspector.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/spine-unity-examples-editor.asmdef
+Assets/Spine Examples/Scripts/Sample Components/SkeletonUtility Modules/Editor/spine-unity-examples-editor.asmdef.meta
+Assets/Spine Examples/Sound/Footstep.ogg
+Assets/Spine Examples/Sound/Footstep.ogg.meta
+Assets/Spine Examples/Sound/Hardfall.ogg
+Assets/Spine Examples/Sound/Hardfall.ogg.meta
+Assets/Spine Examples/Sound/Jump.ogg
+Assets/Spine Examples/Sound/Jump.ogg.meta
+Assets/Spine Examples/Sound/Spineboygun.ogg
+Assets/Spine Examples/Sound/Spineboygun.ogg.meta
+Assets/Spine Examples/Spine Skeletons/Dragon.meta
+Assets/Spine Examples/Spine Skeletons/Eyes.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier.meta
+Assets/Spine Examples/Spine Skeletons/Gauge.meta
+Assets/Spine Examples/Spine Skeletons/Goblins.meta
+Assets/Spine Examples/Spine Skeletons/Hero.meta
+Assets/Spine Examples/Spine Skeletons/mix-and-match.meta
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy.meta
+Assets/Spine Examples/Spine Skeletons/Raptor.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask.meta
+Assets/Spine Examples/Spine Skeletons/Runtime Template Material.mat
+Assets/Spine Examples/Spine Skeletons/Runtime Template Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl.meta
+Assets/Spine Examples/Spine Skeletons/square32.png
+Assets/Spine Examples/Spine Skeletons/square32.png.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon.json
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon.json.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon.png
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon.png.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon.mat
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon.mat.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon2.mat
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon2.mat.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon2.png
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon2.png.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/license.txt
+Assets/Spine Examples/Spine Skeletons/Dragon/license.txt.meta
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes.json
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes.json.meta
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes.png
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes.png.meta
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes_Material.mat
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Eyes/eyes_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FootSoldier.json
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FootSoldier.json.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FootSoldier_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FootSoldier_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White.atlas.txt
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White.png
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White.png.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White_Material.mat
+Assets/Spine Examples/Spine Skeletons/FootSoldier/FS_White_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/license.txt
+Assets/Spine Examples/Spine Skeletons/FootSoldier/license.txt.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment.atlas.txt
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment.png
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment.png.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment_Material.mat
+Assets/Spine Examples/Spine Skeletons/FootSoldier/Equipment/Equipment_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge.json
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge.json.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge.png
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge.png.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge_Material.mat
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Gauge/Gauge_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/ReferenceAssets.meta
+Assets/Spine Examples/Spine Skeletons/Gauge/ReferenceAssets/Fill.asset
+Assets/Spine Examples/Spine Skeletons/Gauge/ReferenceAssets/Fill.asset.meta
+Assets/Spine Examples/Spine Skeletons/Goblins/dagger.png
+Assets/Spine Examples/Spine Skeletons/Goblins/dagger.png.meta
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins.json
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins.json.meta
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins.png
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins.png.meta
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins_Material.mat
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Goblins/goblins_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro.json
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro.json.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro.png
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro.png.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_Material.mat
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_MaterialOutline.mat
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_MaterialOutline.mat.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_MaterialOutlineOnly.mat
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_MaterialOutlineOnly.mat.meta
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Hero/hero-pro_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/license.txt
+Assets/Spine Examples/Spine Skeletons/Hero/license.txt.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/attack.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/attack.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/crouch.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/crouch.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/crouch-from fall.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/crouch-from fall.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/fall.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/fall.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/head-turn.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/head-turn.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/idle.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/idle.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/idle-from fall.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/idle-from fall.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/jump.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/jump.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/run.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/run.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/run-from fall.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/run-from fall.asset.meta
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/walk.asset
+Assets/Spine Examples/Spine Skeletons/Hero/ReferenceAssets/walk.asset.meta
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma.atlas.txt
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma.png
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma.png.meta
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma_Material.mat
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pma_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pro.json
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pro.json.meta
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pro_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/mix-and-match/mix-and-match-pro_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/raggedy spineboy.json
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/raggedy spineboy.json.meta
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy.png
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy.png.meta
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy_Material.mat
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Raggedy Spineboy/Raggedy Spineboy_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor.json
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor.json.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor.png
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor.png.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor_Material.mat
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Raptor/raptor_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/gungrab.asset
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/gungrab.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/gunkeep.asset
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/gunkeep.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/Jump.asset
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/Jump.asset.meta
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/walk.asset
+Assets/Spine Examples/Spine Skeletons/Raptor/ReferenceAssets/walk.asset.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma.atlas.txt
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma.png
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma.png.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Material.mat
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Material_InsideMask.mat
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Material_InsideMask.mat.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Material_OutsideMask.mat
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_Material_OutsideMask.mat.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_MaterialOutline.mat
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pma_MaterialOutline.mat.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pro.json
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pro.json.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pro_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/raptor-pro_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/SpriteMask_Mask.png
+Assets/Spine Examples/Spine Skeletons/raptor-pro-and-mask/SpriteMask_Mask.png.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy_spineboy.mat
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy_spineboy.mat.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro.atlas.txt
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro.json
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro.json.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro.png
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro.png.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro_Material.mat
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/spineboy-pro_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/aim.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/aim.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/death.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/death.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/footstep.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/footstep.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/hoverboard.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/hoverboard.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/idle.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/idle.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/idle-turn.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/idle-turn.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/jump.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/jump.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/portal.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/portal.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/run.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/run.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/run-to-idle.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/run-to-idle.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/shoot.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/shoot.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/walk.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-pro/ReferenceAssets/walk.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy.atlas.txt
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy.png
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy.png.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Material Fill.mat
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Material Fill.mat.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Material Grayscale.mat
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Material Grayscale.mat.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Material.mat
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy-unity.json
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy-unity.json.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy-unity_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/spineboy-unity_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/goggles-normal.png
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/goggles-normal.png.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/goggles-tactical.png
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/goggles-tactical.png.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/gun-freeze.png
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/gun-freeze.png.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/gun-normal.png
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/Equips/gun-normal.png.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/death.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/death.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/diagonal.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/diagonal.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/footstep.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/footstep.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/frozen.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/frozen.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/gun toss.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/gun toss.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/hit old.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/hit old.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/hit.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/hit.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/idle.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/idle.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/idlebag.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/idlebag.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/jump old.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/jump old.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/jump rm.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/jump rm.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/jump.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/jump.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/pole.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/pole.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/run rm.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/run rm.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/run.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/run.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/shoot.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/shoot.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/walk rm.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/walk rm.asset.meta
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/walk.asset
+Assets/Spine Examples/Spine Skeletons/spineboy-unity/ReferenceAssets/walk.asset.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi.json
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi.json.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi.png
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi.png.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi_Material.mat
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/Doi_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/ReferenceAssets.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/ReferenceAssets/blink.asset
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/ReferenceAssets/blink.asset.meta
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/ReferenceAssets/main.asset
+Assets/Spine Examples/Spine Skeletons/Spineunitygirl/ReferenceAssets/main.asset.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman.json
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman.json.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman_SkeletonData.asset.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma.atlas.txt
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma.png
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma.png.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma_Material.mat
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-diffuse-pma_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-emission.png
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-emission.png.meta
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-normals.png
+Assets/Spine Examples/Spine Skeletons/Stretchyman/stretchyman-normals.png.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes.atlas.txt
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes.atlas.txt.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes.json
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes.json.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes.png
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes.png.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Atlas.asset
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Atlas.asset.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material.mat
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material.mat.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material-Additive.mat
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material-Additive.mat.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material-Multiply.mat
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material-Multiply.mat.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material-Screen.mat
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_Material-Screen.mat.meta
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_SkeletonData.asset
+Assets/Spine Examples/Spine Skeletons/whirlyblendmodes/whirlyblendmodes_SkeletonData.asset.meta
+Assets/Spine/Editor/spine-unity.meta
+Assets/Spine/Editor/spine-unity-editor.asmdef
+Assets/Spine/Editor/spine-unity-editor.asmdef.meta
+Assets/Spine/Editor/spine-unity/Editor.meta
+Assets/Spine/Editor/spine-unity/Modules.meta
+Assets/Spine/Editor/spine-unity/Editor/Asset Types.meta
+Assets/Spine/Editor/spine-unity/Editor/Components.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI.meta
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets.meta
+Assets/Spine/Editor/spine-unity/Editor/Menus.cs
+Assets/Spine/Editor/spine-unity/Editor/Menus.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Resources.meta
+Assets/Spine/Editor/spine-unity/Editor/Shaders.meta
+Assets/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs
+Assets/Spine/Editor/spine-unity/Editor/SpineAttributeDrawers.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility.meta
+Assets/Spine/Editor/spine-unity/Editor/Windows.meta
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/AnimationReferenceAssetEditor.cs
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/AnimationReferenceAssetEditor.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/SkeletonDataAssetInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/SkeletonDataAssetInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/SpineAtlasAssetInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/SpineAtlasAssetInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/SpineSpriteAtlasAssetInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Asset Types/SpineSpriteAtlasAssetInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/BoneFollowerGraphicInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/BoneFollowerGraphicInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/BoneFollowerInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/BoneFollowerInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/BoundingBoxFollowerGraphicInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/BoundingBoxFollowerGraphicInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/BoundingBoxFollowerInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/BoundingBoxFollowerInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/PointFollowerInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/PointFollowerInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonAnimationInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonAnimationInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonGraphicCustomMaterialsInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonGraphicCustomMaterialsInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonGraphicInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonGraphicInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonMecanimInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonMecanimInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonMecanimRootMotionInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonMecanimRootMotionInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRendererCustomMaterialsInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRendererCustomMaterialsInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRendererInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRendererInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRootMotionBaseInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRootMotionBaseInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRootMotionInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonRootMotionInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonUtilityBoneInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonUtilityBoneInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonUtilityInspector.cs
+Assets/Spine/Editor/spine-unity/Editor/Components/SkeletonUtilityInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/AtlasAsset Icon.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/AtlasAsset Icon.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-animation.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-animation.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-animationRoot.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-animationRoot.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-attachment.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-attachment.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-bone.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-bone.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-boneNib.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-boneNib.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-boundingBox.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-boundingBox.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-clipping.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-clipping.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintIK.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintIK.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintNib.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintNib.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintPath.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintPath.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraints.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraints.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintTransform.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-constraintTransform.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-event.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-event.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-hingeChain.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-hingeChain.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-image.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-image.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-mesh.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-mesh.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-null.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-null.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-path.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-path.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-point.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-point.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-poseBones.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-poseBones.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skeleton.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skeleton.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skeletonUtility.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skeletonUtility.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skin.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skin.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skinPlaceholder.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skinPlaceholder.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skinsRoot.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-skinsRoot.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-slot.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-slot.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-slotRoot.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-slotRoot.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-spine.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-spine.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-subMeshRenderer.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-subMeshRenderer.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-warning.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-warning.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-weights.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/icon-weights.png.meta
+Assets/Spine/Editor/spine-unity/Editor/GUI/SkeletonDataAsset Icon.png
+Assets/Spine/Editor/spine-unity/Editor/GUI/SkeletonDataAsset Icon.png.meta
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/PMAPresetTemplate.png
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/PMAPresetTemplate.png.meta
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/PMATexturePreset.preset
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/PMATexturePreset.preset.meta
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/StraightAlphaPreset.preset
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/StraightAlphaPreset.preset.meta
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/StraightAlphaPresetTemplate.png
+Assets/Spine/Editor/spine-unity/Editor/ImporterPresets/StraightAlphaPresetTemplate.png.meta
+Assets/Spine/Editor/spine-unity/Editor/Resources/SpineAssetDatabaseMarker.txt
+Assets/Spine/Editor/spine-unity/Editor/Resources/SpineAssetDatabaseMarker.txt.meta
+Assets/Spine/Editor/spine-unity/Editor/Shaders/SpineShaderWithOutlineGUI.cs
+Assets/Spine/Editor/spine-unity/Editor/Shaders/SpineShaderWithOutlineGUI.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Shaders/SpineSpriteShaderGUI.cs
+Assets/Spine/Editor/spine-unity/Editor/Shaders/SpineSpriteShaderGUI.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/AssetDatabaseAvailabilityDetector.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/AssetDatabaseAvailabilityDetector.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/AssetUtility.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/AssetUtility.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/BlendModeMaterialsUtility.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/BlendModeMaterialsUtility.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/BuildSettings.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/BuildSettings.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/DataReloadHandler.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/DataReloadHandler.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/Icons.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/Icons.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/Instantiation.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/Instantiation.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/Preferences.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/Preferences.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineEditorUtilities.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineEditorUtilities.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineHandles.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineHandles.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineInspectorUtility.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineInspectorUtility.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineMaskUtilities.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineMaskUtilities.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Windows/SkeletonBaker.cs
+Assets/Spine/Editor/spine-unity/Editor/Windows/SkeletonBaker.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Windows/SkeletonBakingWindow.cs
+Assets/Spine/Editor/spine-unity/Editor/Windows/SkeletonBakingWindow.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Windows/SkeletonDebugWindow.cs
+Assets/Spine/Editor/spine-unity/Editor/Windows/SkeletonDebugWindow.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Windows/SpinePreferences.cs
+Assets/Spine/Editor/spine-unity/Editor/Windows/SpinePreferences.cs.meta
+Assets/Spine/Editor/spine-unity/Editor/Windows/SpriteAtlasImportWindow.cs
+Assets/Spine/Editor/spine-unity/Editor/Windows/SpriteAtlasImportWindow.cs.meta
+Assets/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator.meta
+Assets/Spine/Editor/spine-unity/Modules/SlotBlendModes.meta
+Assets/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator/Editor.meta
+Assets/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator/Editor/SkeletonPartsRendererInspector.cs
+Assets/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator/Editor/SkeletonPartsRendererInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator/Editor/SkeletonRenderSeparatorInspector.cs
+Assets/Spine/Editor/spine-unity/Modules/SkeletonRenderSeparator/Editor/SkeletonRenderSeparatorInspector.cs.meta
+Assets/Spine/Editor/spine-unity/Modules/SlotBlendModes/Editor.meta
+Assets/Spine/Editor/spine-unity/Modules/SlotBlendModes/Editor/SlotBlendModesEditor.cs
+Assets/Spine/Editor/spine-unity/Modules/SlotBlendModes/Editor/SlotBlendModesEditor.cs.meta
+Assets/Spine/Runtime/spine-csharp.meta
+Assets/Spine/Runtime/spine-unity.asmdef
+Assets/Spine/Runtime/spine-unity.asmdef.meta
+Assets/Spine/Runtime/spine-unity.meta
+Assets/Spine/Runtime/spine-csharp/Animation.cs
+Assets/Spine/Runtime/spine-csharp/Animation.cs.meta
+Assets/Spine/Runtime/spine-csharp/AnimationState.cs
+Assets/Spine/Runtime/spine-csharp/AnimationState.cs.meta
+Assets/Spine/Runtime/spine-csharp/AnimationStateData.cs
+Assets/Spine/Runtime/spine-csharp/AnimationStateData.cs.meta
+Assets/Spine/Runtime/spine-csharp/Atlas.cs
+Assets/Spine/Runtime/spine-csharp/Atlas.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments.meta
+Assets/Spine/Runtime/spine-csharp/BlendMode.cs
+Assets/Spine/Runtime/spine-csharp/BlendMode.cs.meta
+Assets/Spine/Runtime/spine-csharp/Bone.cs
+Assets/Spine/Runtime/spine-csharp/Bone.cs.meta
+Assets/Spine/Runtime/spine-csharp/BoneData.cs
+Assets/Spine/Runtime/spine-csharp/BoneData.cs.meta
+Assets/Spine/Runtime/spine-csharp/Collections.meta
+Assets/Spine/Runtime/spine-csharp/ConstraintData.cs
+Assets/Spine/Runtime/spine-csharp/ConstraintData.cs.meta
+Assets/Spine/Runtime/spine-csharp/Event.cs
+Assets/Spine/Runtime/spine-csharp/Event.cs.meta
+Assets/Spine/Runtime/spine-csharp/EventData.cs
+Assets/Spine/Runtime/spine-csharp/EventData.cs.meta
+Assets/Spine/Runtime/spine-csharp/ExposedList.cs
+Assets/Spine/Runtime/spine-csharp/ExposedList.cs.meta
+Assets/Spine/Runtime/spine-csharp/IkConstraint.cs
+Assets/Spine/Runtime/spine-csharp/IkConstraint.cs.meta
+Assets/Spine/Runtime/spine-csharp/IkConstraintData.cs
+Assets/Spine/Runtime/spine-csharp/IkConstraintData.cs.meta
+Assets/Spine/Runtime/spine-csharp/IUpdatable.cs
+Assets/Spine/Runtime/spine-csharp/IUpdatable.cs.meta
+Assets/Spine/Runtime/spine-csharp/Json.cs
+Assets/Spine/Runtime/spine-csharp/Json.cs.meta
+Assets/Spine/Runtime/spine-csharp/MathUtils.cs
+Assets/Spine/Runtime/spine-csharp/MathUtils.cs.meta
+Assets/Spine/Runtime/spine-csharp/PathConstraint.cs
+Assets/Spine/Runtime/spine-csharp/PathConstraint.cs.meta
+Assets/Spine/Runtime/spine-csharp/PathConstraintData.cs
+Assets/Spine/Runtime/spine-csharp/PathConstraintData.cs.meta
+Assets/Spine/Runtime/spine-csharp/Skeleton.cs
+Assets/Spine/Runtime/spine-csharp/Skeleton.cs.meta
+Assets/Spine/Runtime/spine-csharp/SkeletonBinary.cs
+Assets/Spine/Runtime/spine-csharp/SkeletonBinary.cs.meta
+Assets/Spine/Runtime/spine-csharp/SkeletonBounds.cs
+Assets/Spine/Runtime/spine-csharp/SkeletonBounds.cs.meta
+Assets/Spine/Runtime/spine-csharp/SkeletonClipping.cs
+Assets/Spine/Runtime/spine-csharp/SkeletonClipping.cs.meta
+Assets/Spine/Runtime/spine-csharp/SkeletonData.cs
+Assets/Spine/Runtime/spine-csharp/SkeletonData.cs.meta
+Assets/Spine/Runtime/spine-csharp/SkeletonJson.cs
+Assets/Spine/Runtime/spine-csharp/SkeletonJson.cs.meta
+Assets/Spine/Runtime/spine-csharp/Skin.cs
+Assets/Spine/Runtime/spine-csharp/Skin.cs.meta
+Assets/Spine/Runtime/spine-csharp/Slot.cs
+Assets/Spine/Runtime/spine-csharp/Slot.cs.meta
+Assets/Spine/Runtime/spine-csharp/SlotData.cs
+Assets/Spine/Runtime/spine-csharp/SlotData.cs.meta
+Assets/Spine/Runtime/spine-csharp/TransformConstraint.cs
+Assets/Spine/Runtime/spine-csharp/TransformConstraint.cs.meta
+Assets/Spine/Runtime/spine-csharp/TransformConstraintData.cs
+Assets/Spine/Runtime/spine-csharp/TransformConstraintData.cs.meta
+Assets/Spine/Runtime/spine-csharp/Triangulator.cs
+Assets/Spine/Runtime/spine-csharp/Triangulator.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/AtlasAttachmentLoader.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/AtlasAttachmentLoader.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/Attachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/Attachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/AttachmentLoader.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/AttachmentLoader.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/AttachmentType.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/AttachmentType.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/BoundingBoxAttachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/BoundingBoxAttachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/ClippingAttachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/ClippingAttachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/MeshAttachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/MeshAttachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/PathAttachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/PathAttachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/PointAttachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/PointAttachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/RegionAttachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/RegionAttachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/VertexAttachment.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/VertexAttachment.cs.meta
+Assets/Spine/Runtime/spine-csharp/Collections/OrderedDictionary.cs
+Assets/Spine/Runtime/spine-csharp/Collections/OrderedDictionary.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types.meta
+Assets/Spine/Runtime/spine-unity/Components.meta
+Assets/Spine/Runtime/spine-unity/Deprecated.meta
+Assets/Spine/Runtime/spine-unity/ISkeletonAnimation.cs
+Assets/Spine/Runtime/spine-unity/ISkeletonAnimation.cs.meta
+Assets/Spine/Runtime/spine-unity/Materials.meta
+Assets/Spine/Runtime/spine-unity/Mesh Generation.meta
+Assets/Spine/Runtime/spine-unity/Modules.meta
+Assets/Spine/Runtime/spine-unity/Shaders.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets.meta
+Assets/Spine/Runtime/spine-unity/SpineAttributes.cs
+Assets/Spine/Runtime/spine-unity/SpineAttributes.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/AnimationReferenceAsset.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/AnimationReferenceAsset.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/AtlasAssetBase.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/AtlasAssetBase.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/BlendModeMaterials.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/BlendModeMaterials.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/EventDataReferenceAsset.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/EventDataReferenceAsset.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/RegionlessAttachmentLoader.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/RegionlessAttachmentLoader.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/SkeletonDataAsset.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/SkeletonDataAsset.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/SkeletonDataCompatibility.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/SkeletonDataCompatibility.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/SkeletonDataModifierAsset.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/SkeletonDataModifierAsset.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/SpineAtlasAsset.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/SpineAtlasAsset.cs.meta
+Assets/Spine/Runtime/spine-unity/Asset Types/SpineSpriteAtlasAsset.cs
+Assets/Spine/Runtime/spine-unity/Asset Types/SpineSpriteAtlasAsset.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/Following.meta
+Assets/Spine/Runtime/spine-unity/Components/RootMotion.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonAnimation.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonAnimation.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonGraphic.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonGraphic.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonMecanim.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonMecanim.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRenderer.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRenderer.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRendererCustomMaterials.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRenderSeparator.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility.meta
+Assets/Spine/Runtime/spine-unity/Components/Following/BoneFollower.cs
+Assets/Spine/Runtime/spine-unity/Components/Following/BoneFollower.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/Following/BoneFollowerGraphic.cs
+Assets/Spine/Runtime/spine-unity/Components/Following/BoneFollowerGraphic.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/Following/BoundingBoxFollower.cs
+Assets/Spine/Runtime/spine-unity/Components/Following/BoundingBoxFollower.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/Following/BoundingBoxFollowerGraphic.cs
+Assets/Spine/Runtime/spine-unity/Components/Following/BoundingBoxFollowerGraphic.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/Following/PointFollower.cs
+Assets/Spine/Runtime/spine-unity/Components/Following/PointFollower.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonMecanimRootMotion.cs
+Assets/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonMecanimRootMotion.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonRootMotion.cs
+Assets/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonRootMotion.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonRootMotionBase.cs
+Assets/Spine/Runtime/spine-unity/Components/RootMotion/SkeletonRootMotionBase.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRendererCustomMaterials/SkeletonGraphicCustomMaterials.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRendererCustomMaterials/SkeletonGraphicCustomMaterials.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRendererCustomMaterials/SkeletonRendererCustomMaterials.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRendererCustomMaterials/SkeletonRendererCustomMaterials.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRenderSeparator/SkeletonPartsRenderer.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRenderSeparator/SkeletonPartsRenderer.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRenderSeparator/SkeletonRenderSeparator.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonRenderSeparator/SkeletonRenderSeparator.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/ActivateBasedOnFlipDirection.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/ActivateBasedOnFlipDirection.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowLocationRigidbody.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowLocationRigidbody.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowLocationRigidbody2D.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowLocationRigidbody2D.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowSkeletonUtilityRootRotation.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/FollowSkeletonUtilityRootRotation.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtility.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtility.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtilityBone.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtilityBone.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtilityConstraint.cs
+Assets/Spine/Runtime/spine-unity/Components/SkeletonUtility/SkeletonUtilityConstraint.cs.meta
+Assets/Spine/Runtime/spine-unity/Deprecated/SlotBlendModes.meta
+Assets/Spine/Runtime/spine-unity/Deprecated/SlotBlendModes/SlotBlendModes.cs
+Assets/Spine/Runtime/spine-unity/Deprecated/SlotBlendModes/SlotBlendModes.cs.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicDefault.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicDefault.mat.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicDefaultOutline.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicDefaultOutline.mat.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicTintBlack.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicTintBlack.mat.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicTintBlackOutline.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicTintBlackOutline.mat.meta
+Assets/Spine/Runtime/spine-unity/Mesh Generation/DoubleBuffered.cs
+Assets/Spine/Runtime/spine-unity/Mesh Generation/DoubleBuffered.cs.meta
+Assets/Spine/Runtime/spine-unity/Mesh Generation/MeshGenerator.cs
+Assets/Spine/Runtime/spine-unity/Mesh Generation/MeshGenerator.cs.meta
+Assets/Spine/Runtime/spine-unity/Mesh Generation/MeshRendererBuffers.cs
+Assets/Spine/Runtime/spine-unity/Mesh Generation/MeshRendererBuffers.cs.meta
+Assets/Spine/Runtime/spine-unity/Mesh Generation/SkeletonRendererInstruction.cs
+Assets/Spine/Runtime/spine-unity/Mesh Generation/SkeletonRendererInstruction.cs.meta
+Assets/Spine/Runtime/spine-unity/Mesh Generation/SpineMesh.cs
+Assets/Spine/Runtime/spine-unity/Mesh Generation/SpineMesh.cs.meta
+Assets/Spine/Runtime/spine-unity/Modules/TK2D.meta
+Assets/Spine/Runtime/spine-unity/Modules/TK2D/SpriteCollectionAttachmentLoader.cs
+Assets/Spine/Runtime/spine-unity/Modules/TK2D/SpriteCollectionAttachmentLoader.cs.meta
+Assets/Spine/Runtime/spine-unity/Shaders/BlendModes.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Fill.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Fill.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Lit.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Lit.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Lit-ZWrite.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Lit-ZWrite.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Tint.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-Tint.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-TintBlack.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton-TintBlack.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Special-Skeleton-Grayscale.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Spine-Special-Skeleton-Grayscale.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Utility.meta
+Assets/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Additive.shader
+Assets/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Additive.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Multiply.shader
+Assets/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Multiply.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Screen.shader
+Assets/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Screen.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-DepthOnlyPass.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-DepthOnlyPass.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Outline-Common.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Outline-Common.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Skeleton-Lit-Common.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Skeleton-Lit-Common.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Skeleton-Lit-Common-Shadow.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Skeleton-Lit-Common-Shadow.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Skeleton-Tint-Common.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Skeleton-Tint-Common.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/CGIncludes.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/SkeletonGraphic.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Fill-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Fill-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Lit-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Lit-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Lit-ZWrite-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Lit-ZWrite-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-OutlineOnly-ZWrite.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-OutlineOnly-ZWrite.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-TintBlack-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-TintBlack-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Tint-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Skeleton-Tint-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Special-Skeleton-Grayscale-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Spine-Special-Skeleton-Grayscale-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Sprite.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Additive-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Additive-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Multiply-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Multiply-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Screen-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/BlendModes/Spine-Skeleton-PMA-Screen-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/CGIncludes/Spine-Outline-Pass.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/CGIncludes/Spine-Outline-Pass.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/SkeletonGraphic/Spine-SkeletonGraphic-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/SkeletonGraphic/Spine-SkeletonGraphic-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/SkeletonGraphic/Spine-SkeletonGraphic-TintBlack-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/SkeletonGraphic/Spine-SkeletonGraphic-TintBlack-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesPixelLit-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesPixelLit-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesUnlit-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesUnlit-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesVertexLit-Outline.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Outline/Sprite/SpritesVertexLit-Outline.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic.shader
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-TintBlack.shader
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-TintBlack.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CameraDepthNormalsTexture.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CameraDepthNormalsTexture.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CameraDepthTexture.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CameraDepthTexture.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CameraNormalsTexture.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CameraNormalsTexture.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/README.md
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/README.md.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpriteDepthNormalsTexture.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpriteDepthNormalsTexture.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesPixelLit.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesPixelLit.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesUnlit.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesUnlit.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesVertexLit.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/SpritesVertexLit.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/ShaderMaths.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/ShaderMaths.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/ShaderShared.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/ShaderShared.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteLighting.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteLighting.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpritePixelLighting.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpritePixelLighting.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteShadows.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteShadows.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteSpecular.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteSpecular.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteUnlit.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteUnlit.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteVertexLighting.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/Sprite/CGIncludes/SpriteVertexLighting.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Utility/HiddenPass.mat
+Assets/Spine/Runtime/spine-unity/Shaders/Utility/HiddenPass.mat.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Utility/HiddenPass.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Utility/HiddenPass.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/Utility/Hidden-Spine-Bones.shader
+Assets/Spine/Runtime/spine-unity/Shaders/Utility/Hidden-Spine-Bones.shader.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/BlendModeMaterialsAsset.cs
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/BlendModeMaterialsAsset.cs.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/Default BlendModeMaterials.asset
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/Default BlendModeMaterials.asset.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonPMAAdditive.mat
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonPMAAdditive.mat.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonPMAMultiply.mat
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonPMAMultiply.mat.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonPMAScreen.mat
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonPMAScreen.mat.meta
+Assets/Spine/Runtime/spine-unity/Utility/AtlasUtilities.cs
+Assets/Spine/Runtime/spine-unity/Utility/AtlasUtilities.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/AttachmentCloneExtensions.cs
+Assets/Spine/Runtime/spine-unity/Utility/AttachmentCloneExtensions.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/AttachmentRegionExtensions.cs
+Assets/Spine/Runtime/spine-unity/Utility/AttachmentRegionExtensions.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/MaterialChecks.cs
+Assets/Spine/Runtime/spine-unity/Utility/MaterialChecks.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/SkeletonExtensions.cs
+Assets/Spine/Runtime/spine-unity/Utility/SkeletonExtensions.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/SkinUtilities.cs
+Assets/Spine/Runtime/spine-unity/Utility/SkinUtilities.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/TimelineExtensions.cs
+Assets/Spine/Runtime/spine-unity/Utility/TimelineExtensions.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions.meta
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimation.cs
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimation.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimationComplete.cs
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimationComplete.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimationEnd.cs
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineAnimationEnd.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineEvent.cs
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineEvent.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineTrackEntryEnd.cs
+Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineTrackEntryEnd.cs.meta

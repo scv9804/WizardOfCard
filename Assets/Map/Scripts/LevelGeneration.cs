@@ -34,8 +34,11 @@ public class LevelGeneration : MonoBehaviour {
 
 	LevelGeneration level;
 
-	[SerializeField]RoomEventListScript shopRoomScript;
-	[SerializeField]RoomEventListScript eventRoomScript;
+	GameObject mustDisableObject;
+
+
+	[SerializeField]RoomEventListScript[] shopRoomScript;
+	[SerializeField]RoomEventListScript[] eventRoomScript;
 
 
 
@@ -266,7 +269,6 @@ public class LevelGeneration : MonoBehaviour {
 	// 보스룸 만들기.
 	void CreateBossRoom()
 	{
-
 		for (int i = 0; i< EdgeRooms.Count; i++)
 		{
 			try
@@ -588,6 +590,10 @@ public class LevelGeneration : MonoBehaviour {
 
 	void SerchRoomEvent(int _x, int _y)
 	{
+		if (mustDisableObject != null)
+			mustDisableObject.SetActive(false);
+		// 순서상 어쩔수 없음
+
 		if (rooms[inPosX + _x, inPosY + _y].Checked != true)
 		{
 			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
@@ -602,14 +608,21 @@ public class LevelGeneration : MonoBehaviour {
 				case 2:
 					Debug.Log("상점이벤트");
 
-
 					break;
 				case 3:
 					Debug.Log("그냥 이벤트");
+					mustDisableObject = eventRoomScript[0].Event();
 					break;
 			}
 
 		}
+		else if(rooms[inPosX + _x, inPosY + _y].RoomEventType == 2)
+		{
+			// 상점 구현
+
+		}
+
+
 		rooms[inPosX + _x, inPosY + _y].type = 1;
 		rooms[inPosX, inPosY].type = 0;
 
