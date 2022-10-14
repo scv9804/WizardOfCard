@@ -1,0 +1,10 @@
+diff a/Assets/Editor.meta b/Assets/Editor.meta	(rejected hunks)
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 91c57da89efc320478f47c8d714603d6
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 

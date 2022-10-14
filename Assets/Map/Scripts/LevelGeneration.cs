@@ -31,6 +31,7 @@ public class LevelGeneration : MonoBehaviour {
 
 	public GameObject BossRoomIcon;
 	public GameObject roomWhiteObj;
+	[SerializeField] bool tutorial = true;
 
 	LevelGeneration level;
 
@@ -39,7 +40,7 @@ public class LevelGeneration : MonoBehaviour {
 
 	[SerializeField]RoomEventListScript[] shopRoomScript;
 	[SerializeField]RoomEventListScript[] eventRoomScript;
-
+	[SerializeField]RoomEventListScript tutorialRoomScript;
 
 
 	private void Start()
@@ -72,6 +73,17 @@ public class LevelGeneration : MonoBehaviour {
 		DrawMap();
 
 		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
+
+
+
+		if (tutorial && rooms[inPosX , inPosY].isStartRoom == true)
+		{
+			tutorialRoomScript.Event();
+
+
+			tutorial = false;
+
+		}
 	}
 
 
@@ -593,6 +605,8 @@ public class LevelGeneration : MonoBehaviour {
 		if (mustDisableObject != null)
 			mustDisableObject.SetActive(false);
 		// 순서상 어쩔수 없음
+
+
 
 		if (rooms[inPosX + _x, inPosY + _y].Checked != true)
 		{

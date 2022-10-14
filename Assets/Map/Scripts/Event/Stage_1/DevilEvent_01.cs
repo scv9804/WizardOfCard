@@ -9,6 +9,8 @@ public class DevilEvent_01 : RoomEventListScript
 	[SerializeField] SpriteRenderer changedSpriteRenderer;
 	[SerializeField] GameObject changeObject;
 	[SerializeField] DialogSystem dialogSystem01;
+
+
 	public override GameObject Event()
 	{
 		SpawnDevilstatue();

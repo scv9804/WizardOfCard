@@ -503,7 +503,7 @@ SpriteRenderer:
   m_SortingLayerID: -1517120497
   m_SortingLayer: 2
   m_SortingOrder: 50
-  m_Sprite: {fileID: 416812731473756612, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2ec98a3a3f98c245a3c5d5eaeb2baa5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -534,7 +534,9 @@ MonoBehaviour:
   f_percentage: 10
   st_explainCard: "\uBAA8\uB4E0 \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C 2\uBC30 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
   type: 1
-  sp_CardSprite: {fileID: 416812731473756612, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
+  sp_CardSprite: {fileID: 21300000, guid: a2ec98a3a3f98c245a3c5d5eaeb2baa5, type: 3}
+  enemyDamageSprite: {fileID: 0}
+  playerAttackSprite: {fileID: 0}
 --- !u!114 &7395019933593546575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,6 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 7395019933593546574}
   itemSO: {fileID: 0}
+  charater: {fileID: 0}
   sp_card: {fileID: 7395019933593546572}
   nameTMP: {fileID: 7395019933344051563}
   healthTMP: {fileID: 7395019933629544956}
@@ -556,14 +559,16 @@ MonoBehaviour:
   explainTMP: {fileID: 7395019932878968509}
   v_cardSize: {x: 0.1, y: 0.1, z: 0.1}
   card_info: {fileID: 6545059049570564087}
+  i_itemCode: 0
+  i_damage: 2
+  enemyDamagedEffectSpriteRenderer: {fileID: 0}
+  playerAttackEffectSpriteRenderer: {fileID: 0}
   originPRS:
     pos: {x: 3.2499995, y: -4.6200004, z: 0}
     rot: {x: 0, y: 0, z: -0.13052624, w: 0.9914449}
     scale: {x: 0.1, y: 0.1, z: 0.1}
-  i_itemCode: 0
   i_CardNum: 2
   i_manaCost: 2
-  i_damage: 2
   i_cardType: 1
   i_explainDamage: 0
   st_explain: 2
@@ -607,18 +612,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.12032986, y: -5.595381}
+  m_Offset: {x: 0.10258126, y: -1.0747051}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 14.56, y: 20.277967}
+    oldSize: {x: 6.37, y: 9.02}
     newSize: {x: 14.614902, y: 20.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15.9236355, y: 31.608852}
+  m_Size: {x: 8.033211, y: 13.233274}
   m_EdgeRadius: 0
 --- !u!96 &3868276957188333554
 TrailRenderer:

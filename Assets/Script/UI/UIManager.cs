@@ -55,8 +55,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] Camera mainCam;
 	[SerializeField] Camera mapCam;
 
-	CameraData mainCamera;
-	CameraData mapCamera;
+	[SerializeField]CameraData mainCamera;
+	[SerializeField]CameraData mapCamera;
 
 	bool isDeckUse;
 	bool isCardUse;

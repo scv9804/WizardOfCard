@@ -180,7 +180,7 @@ public class CardManager : MonoBehaviour
 	{
 		List<Pos_Rot_Scale> originCardPRSs = new List<Pos_Rot_Scale>();
 		//카드 오리지날 크기와 위치 조정.
-		originCardPRSs = RoundAlignment(LeftCard_Tf, RightCard_Tf, myCards.Count, 0.5f, Vector3.one /10);
+		originCardPRSs = RoundAlignment(LeftCard_Tf, RightCard_Tf, myCards.Count, 0.5f, Vector3.one / 4);
 
 		for (int i = 0; i < myCards.Count; i++)
 		{

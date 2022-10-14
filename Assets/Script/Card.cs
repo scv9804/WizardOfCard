@@ -13,7 +13,6 @@ public class Card : MonoBehaviour
 	[SerializeField] SpriteRenderer charater;
 	[SerializeField] SpriteRenderer sp_card;
 	[SerializeField] TMP_Text nameTMP;
-	[SerializeField] TMP_Text healthTMP;
 	[SerializeField] TMP_Text manaCostTMP;
 	[SerializeField] TMP_Text explainTMP;
 	[SerializeField] Vector3 v_cardSize;
