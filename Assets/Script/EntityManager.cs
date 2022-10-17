@@ -25,7 +25,7 @@ public class EntityManager : MonoBehaviour
 
 
     //[SerializeField] List<Entity> myEntities;
-    [SerializeField] List<Entity> enemyEntities;
+    public List<Entity> enemyEntities;
     [SerializeField] Entity bossEntity;
 
     [SerializeField] Transform spawnPlayerChar_Tf;
@@ -297,7 +297,7 @@ public class EntityManager : MonoBehaviour
 
     public void PlayerEntityMouseUp()
     {
-        UseCard_Singel();
+        UseCard();
     }
 
 
@@ -346,7 +346,7 @@ public class EntityManager : MonoBehaviour
 
     public void EntityMouseUp()
     {
-        UseCard_Singel();
+        UseCard();
     }
     #endregion
 
@@ -354,96 +354,58 @@ public class EntityManager : MonoBehaviour
     #region CardUseSet
     //적 클릭후 마우스 업 시 적용됨.
 
-
-    void UseCard_Singel()
+    public void UseCard()
     {
-        if (!is_canMouseInput || (selectEntity == null && selectPlayerEntity == null))
-		{
+        if (!is_canMouseInput && !CardManager.Inst.selectCard)
+        {
             return;
         }
 
-        if (CardManager.Inst.is_cardUsing)
+        if (CardManager.Inst.selectCard.attackRange == Utility_enum.AttackRange.Target_Single && selectEntity == null && selectPlayerEntity == null)
         {
-            CardManager.Inst.is_cardUsing = false;
+            return;
         }
 
-        targetSelector.SetActive(false);
-        Debug.Log("Single");
+        CardManager.Inst.is_cardUsing = false;
 
-        //카드 사용 직후 SelectCard를 비워줌 으로써 이문구가 실행 되지 않도록 함.
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-			if (selectPlayerEntity == null)
-			{
-                BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectEntity);
-            }
-            if (selectEntity == null)
+
+            for (int i = 0; i < enemyEntities.Count + 1; i++) // enemyEntities + playerEntity
             {
-                BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectPlayerEntity);
+                if (isTargetEnemy(i))
+                {
+                    Debug.Log(i + "번 적에게 " + CardManager.Inst.selectCard.card_info.st_cardName + " 효과 발동"); // <<그냥 해둠 나중에 스트링빌더로 바꾸던가 함>>
+                    CardManager.Inst.selectCard.UseCard(i);
+                }
+                else if (isTargetSelf(i))
+                {
+                    Debug.Log("자신에게 카드 효과 발동");
+
+                    CardManager.Inst.selectCard.UseCard(i);
+                }
             }
         }
         catch
         {
             Debug.Log("SelectCard가 비었습니다.");
         }
-        SetSelectedCardNull();
-    }
 
-
-    void SetSelectedCardNull()
-    {
         CardManager.Inst.selectCard = null;
     }
 
-
-    public void UseCard_AllEnemy()
+    bool isTargetEnemy(int index)
     {
-        if (!is_canMouseInput)
-        {
-            return;
-        }
-
-
-        Debug.Log("AllEnemy");
-
-        try
-        {
-            CardManager.Inst.UseCardSetmyCemetery();
-			for (int i = 0; i < enemyEntities.Count; i++)
-            {
-                BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, enemyEntities[i]);
-            }
-        }
-        catch
-        {
-            Debug.Log("SelectCard가 비었습니다.");
-        }
+        return (CardManager.Inst.selectCard.attackRange == Utility_enum.AttackRange.Target_Single && selectEntity == enemyEntities[index]) // 단일 대상 카드
+            || (CardManager.Inst.selectCard.attackRange == Utility_enum.AttackRange.Target_AllEnemy && index < enemyEntities.Count); // 적 전체 대상 카드
     }
 
-    public void UseCard_Self()
+    bool isTargetSelf(int index)
     {
-        if (!is_canMouseInput)
-        {
-            return;
-        }
-
-        Debug.Log("self");
-
-        try
-        {
-            CardManager.Inst.UseCardSetmyCemetery();
-            BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, playerEntity);
-
-        }
-        catch
-        {
-            Debug.Log("SelectCard가 비었습니다.");
-        }
+        return (CardManager.Inst.selectCard.attackRange == Utility_enum.AttackRange.Target_Single && selectPlayerEntity != null) // 단일 대상 카드
+            || (CardManager.Inst.selectCard.attackRange == Utility_enum.AttackRange.Target_Self && index == enemyEntities.Count); // 자신 대상 카드
     }
-
-
-
 
 
     //턴 넘어갈때 공격 가능 여부 변경.

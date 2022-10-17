@@ -16,6 +16,8 @@ public class Card_Info : MonoBehaviour
 	public float f_percentage;
 	public string st_explainCard;
 
+	public bool b_isExile;
+
 	public CardType type;
 	public Sprite sp_CardSprite;
 	public SpriteRenderer enemyDamageSprite;

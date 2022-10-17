@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 
@@ -14,12 +15,14 @@ public class Card : MonoBehaviour
 	[SerializeField] SpriteRenderer sp_card;
 	[SerializeField] TMP_Text nameTMP;
 	[SerializeField] TMP_Text manaCostTMP;
-	[SerializeField] TMP_Text explainTMP;
+	[SerializeField] protected TMP_Text explainTMP;
 	[SerializeField] Vector3 v_cardSize;
 
 	public Card_Info card_info;
 	public int i_itemCode;
 	public int i_damage;
+
+	public bool b_isExile;
 
 	[HideInInspector] public SpriteRenderer enemyDamagedEffectSpriteRenderer;
 	[HideInInspector] public SpriteRenderer playerAttackEffectSpriteRenderer;
@@ -27,20 +30,25 @@ public class Card : MonoBehaviour
 	[HideInInspector] public int i_CardNum;
 	[HideInInspector] public int i_manaCost;
 	[HideInInspector] public int i_cardType;
-	[HideInInspector] public int i_explainDamage;
 	[HideInInspector] public string st_explain;
 	[HideInInspector] public string[] st_splitExplain;
 	[HideInInspector] public int i_explainDamageOrigin;
 
+	[HideInInspector] public int i_increaseDamage; // 더미
+	
 	public Utility_enum.AttackRange attackRange;
 
 	public bool is_Useable_Card = true;
 
+	protected StringBuilder sb = new StringBuilder();
 
+	protected Entity targetEntity;
 
 	private void FixedUpdate()
-	{	
-		ExplainRefresh();
+	{
+		//ExplainRefresh();
+		ExplainUpdate();
+		CostUpdate();
 	}
 
 	private void Start()
@@ -48,12 +56,6 @@ public class Card : MonoBehaviour
 		
 		Setup();
 	}
-
-	public void SetItemSO(Card_Info _card_info)
-	{
-		card_info = _card_info;
-	}
-
 
 	public void Setup()
 	{
@@ -65,37 +67,35 @@ public class Card : MonoBehaviour
 		card.transform.localScale = v_cardSize;
 		attackRange = card_info.attackRange;
 		enemyDamagedEffectSpriteRenderer = card_info.enemyDamageSprite;
-		playerAttackEffectSpriteRenderer = card_info.playerAttackSprite;	
+		playerAttackEffectSpriteRenderer = card_info.playerAttackSprite;
 
-		splitString();
-		ExplainRefresh();
-	
+		i_damage = card_info.i_attack;
+		ExplainUpdate();
+		CostUpdate();
 
 		manaCostTMP.text = i_manaCost.ToString() ;
 		nameTMP.text = card_info.st_cardName;
 	}
 
-	//OutPut Srting 문자열 
-    void splitString()
+
+	public virtual void ExplainUpdate()
     {
-		string tempt = Regex.Replace(st_explain, @"[^0-9]", "");
-		Regex regex = new Regex(tempt);
-		i_damage = int.Parse(tempt);
-		i_explainDamageOrigin = int.Parse(tempt);
-		st_splitExplain = regex.Split(st_explain);
+		sb.Clear();
+
+		sb.Append(st_explain);
+		sb.Replace("{0}", CulcEnchaneValue().ToString());
+
+		explainTMP.text = sb.ToString();
 	}
 
+	protected void CostUpdate()
+    {
+		sb.Clear();
 
-	public void ExplainRefresh()
-	{
-		if (st_splitExplain[1] !=  null)
-		{
-			string dumy = st_splitExplain[0] + (i_damage * PlayerEntity.Inst.Status_EnchaneValue) + st_splitExplain[1];
-			explainTMP.text = dumy;
-		}
-		
+		sb.Append(i_manaCost);
+
+		manaCostTMP.text = sb.ToString();
 	}
-
 
 	//카드 드로우 움직임 추가 해야할 요소들 많음.
 	public void MoveTransform(Pos_Rot_Scale _prs, bool _isUseDotween, float _DotweenTime = 0)
@@ -158,4 +158,47 @@ public class Card : MonoBehaviour
 		}
 	}
 
+	public virtual void UseCard(int index)
+	{
+		if (i_manaCost > PlayerEntity.Inst.Status_Aether)
+		{
+			return;
+		}
+		else
+		{
+			PlayerEntity.Inst.Status_Aether -= i_manaCost;
+
+			if(index < EntityManager.Inst.enemyEntities.Count)
+            {
+				targetEntity = EntityManager.Inst.enemyEntities[index];
+			}
+		}
+
+		if (PlayerEntity.Inst.Status_Aether == 0)
+		{
+			LevelGeneration.Inst.EndTurn();
+		}
+    }
+
+	protected int CulcEnchaneValue() // 흐음;;;
+	{
+		int value = i_damage;
+
+		for (int i = 0; i < 3; i++)
+        {
+			value += PlayerEntity.Inst.dummy_i_everlasting[i];
+		}
+
+		return ApplyEnchantValue(value);
+	}
+
+	protected int ApplyEnchantValue(int value)
+    {
+		return value * PlayerEntity.Inst.Status_EnchaneValue;
+	}
+
+	protected void SpellEnchaneReset()
+	{
+		PlayerEntity.Inst.Status_EnchaneValue = 1;
+	}
 }

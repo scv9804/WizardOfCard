@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.Events;
+
 public class LevelGeneration : MonoBehaviour {
 
 	static public LevelGeneration Inst;
@@ -42,6 +44,8 @@ public class LevelGeneration : MonoBehaviour {
 	[SerializeField]RoomEventListScript[] eventRoomScript;
 	[SerializeField]RoomEventListScript tutorialRoomScript;
 
+	public UnityEvent OnBattleStart; // 더 깔끔...할지도?
+	public UnityEvent OnEndTurn; // 더 깔끔...할지도?
 
 	private void Start()
 	{
@@ -84,6 +88,13 @@ public class LevelGeneration : MonoBehaviour {
 			tutorial = false;
 
 		}
+
+		OnBattleStart.AddListener(PlayerEntity.Inst.SetValueDummy_Everlasting_Battle);
+		OnBattleStart.AddListener(PlayerEntity.Inst.SetValueDummy_Everlasting_Turn);
+		OnBattleStart.AddListener(PlayerEntity.Inst.SetValueShield);
+
+		OnEndTurn.AddListener(PlayerEntity.Inst.SetValueDummy_Everlasting_Turn);
+		OnEndTurn.AddListener(PlayerEntity.Inst.SetValueShield);
 	}
 
 
@@ -652,6 +663,8 @@ public class LevelGeneration : MonoBehaviour {
 			if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
 			{
 				LevelGeneration.Inst.SetMyTurn();
+
+				OnBattleStart.Invoke(); 
 			}
 
 			rooms[inPosX, inPosY].Checked = true;
@@ -712,6 +725,11 @@ public class LevelGeneration : MonoBehaviour {
 
 	public void EndTurn()
 	{
+		if(!TurnManager.Inst.myTurn) // 턴 종료 시 발동 함수 나중에 수정해야 하긴 함
+        {
+			OnEndTurn.Invoke();
+        }
+
 		TurnManager.Inst.myTurn = !TurnManager.Inst.myTurn;
 		StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
 	}
