@@ -73,7 +73,7 @@ public class DialogSystem : MonoBehaviour
 					SetActiveObjects_tutroial(speakers[i], false);
 					// SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
 					speakers[i].spriteRenderer.gameObject.SetActive(false);
-					speakers[i].highlight.SetActive(false);
+					speakers[i].highlight.gameObject.SetActive(false);
 				}
 
 				return true;
@@ -96,18 +96,28 @@ public class DialogSystem : MonoBehaviour
 		// 현재 화자 순번 설정
 		currentSpeakerIndex = dialogs[currentDialogIndex].speakerIndex;
 
-		speakers[currentDialogIndex].spriteRenderer.sprite = dialogs[currentDialogIndex].Character;
+		
 
 		if (dialogs[currentDialogIndex].highlight != null)
 		{
 			speakers[currentSpeakerIndex].highlight.gameObject.SetActive(true);
-			speakers[currentDialogIndex].highlight = dialogs[currentSpeakerIndex].highlight;
+			speakers[currentDialogIndex].highlight.sprite = dialogs[currentDialogIndex].highlight;
 		}
 		else
 		{
 			speakers[currentSpeakerIndex].highlight.gameObject.SetActive(false);
 		}
 
+		if (dialogs[currentDialogIndex].Character != null)
+		{
+			speakers[currentSpeakerIndex].spriteRenderer.enabled = true;
+			speakers[currentDialogIndex].spriteRenderer.sprite = dialogs[currentDialogIndex].Character;
+		}
+		else
+		{
+			speakers[currentSpeakerIndex].spriteRenderer.enabled = false;
+
+		}
 
 
 		// 현재 화자의 대화 관련 오브젝트 활성화
@@ -136,9 +146,9 @@ public class DialogSystem : MonoBehaviour
 			speaker.spriteRenderer.gameObject.SetActive(true);
 
 		if (dialogs[currentDialogIndex].highlight == null)
-			speaker.highlight.SetActive(false);
+			speaker.highlight.gameObject.SetActive(false);
 		else
-			speaker.highlight.SetActive(true);
+			speaker.highlight.gameObject.SetActive(true);
 
 
 		// 캐릭터 알파 값 변경
@@ -279,7 +289,7 @@ public class DialogSystem : MonoBehaviour
 public struct Speaker
 {
 	public GameObject backGround;
-	public GameObject highlight;
+	public Image highlight;
 	public	Image	spriteRenderer;		// 캐릭터 이미지 (청자/화자 알파값 제어)
 	public	Image			imageDialog;		// 대화창 Image UI
 	public	TextMeshProUGUI	textName;			// 현재 대사중인 캐릭터 이름 출력 Text UI
@@ -290,7 +300,7 @@ public struct Speaker
 [System.Serializable]
 public struct DialogData
 {
-	public GameObject highlight;
+	public Sprite highlight;
 	public Sprite Character;
 	public	int		speakerIndex;	// 이름과 대사를 출력할 현재 DialogSystem의 speakers 배열 순번
 	public	string	name;			// 캐릭터 이름

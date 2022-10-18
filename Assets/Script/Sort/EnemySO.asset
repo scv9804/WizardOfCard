@@ -19,11 +19,11 @@ MonoBehaviour:
     i_damage: 1
     f_percentage: 10
     st_charName: Wooden
-    sp_sprite: {fileID: 21300000, guid: 00c923be7ecf03e4d9305fce7522b8e5, type: 3}
-    PlayerDamagedEffect: {fileID: 0}
-    EnemyDamagedSprite: {fileID: 0}
-    EnemyAttackSprite: {fileID: 0}
-    entityPattern: {fileID: 0}
+    sp_sprite: {fileID: -5418961748632290587, guid: 36e94eac7606a574a8fedf0e362935d1, type: 3}
+    PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+    EnemyDamagedSprite: {fileID: -3921712367018614986, guid: 458baa83d831a3549b58b268ca9769b3, type: 3}
+    EnemyAttackSprite: {fileID: -5418961748632290587, guid: 36e94eac7606a574a8fedf0e362935d1, type: 3}
+    entityPattern: {fileID: 11400000, guid: 115de6aef811b474fb4599a85a6ae804, type: 2}
   - i_CharCode: 1
     i_health: 2
     i_attackCount: 1
@@ -31,7 +31,7 @@ MonoBehaviour:
     f_percentage: 12
     st_charName: Slime
     sp_sprite: {fileID: 21300000, guid: 9c48a0dd23227834e8cdf7aea2192311, type: 3}
-    PlayerDamagedEffect: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+    PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
     EnemyDamagedSprite: {fileID: 411570139710519843, guid: d56292786fb87a74f8ee2a0e219b542d, type: 3}
     EnemyAttackSprite: {fileID: 6863150725665878605, guid: 6b9162efc5ada6b46a91a1b88bc7bbeb, type: 3}
     entityPattern: {fileID: 11400000, guid: 115de6aef811b474fb4599a85a6ae804, type: 2}

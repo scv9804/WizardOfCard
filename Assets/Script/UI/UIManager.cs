@@ -15,8 +15,8 @@ public class UIManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		mainCamera = mainCam.GetComponent<CameraData>();
-		mapCamera = mapCam.GetComponent<CameraData>();
+		//mainCamera = mainCam.GetComponent<CameraData>();
+		//mapCamera = mapCam.GetComponent<CameraData>();
 		SetClose();
 	}
 

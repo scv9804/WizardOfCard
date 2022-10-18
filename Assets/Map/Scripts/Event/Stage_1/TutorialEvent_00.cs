@@ -38,10 +38,10 @@ public class TutorialEvent_00 : RoomEventListScript
 		while (i < 2)
 		{
 			i++;
-			yield return new WaitForSeconds (0.5f);
+			yield return new WaitForSeconds (0.3f);
 			cardArea.SetActive(false);
 
-			yield return new WaitForSeconds (0.5f);
+			yield return new WaitForSeconds (0.3f);
 			cardArea.SetActive(true);
 		}
 	}
