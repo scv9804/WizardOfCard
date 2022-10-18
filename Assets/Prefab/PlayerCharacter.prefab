@@ -200,8 +200,6 @@ MonoBehaviour:
   damagedEffectSpriteRenderer: {fileID: 3309542439751420591}
   animatior: {fileID: 196928618286985978}
   attackable: 0
-  dummy_i_everlasting: 000000000000000000000000
-  i_burn: 0
 --- !u!61 &6157782240726249842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -446,7 +444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2077760302755530906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -506,7 +504,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 25
+  m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2077760302755530901
 MonoBehaviour:
@@ -753,7 +751,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: NaN
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

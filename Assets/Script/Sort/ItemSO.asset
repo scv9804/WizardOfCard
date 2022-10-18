@@ -13,23 +13,9 @@ MonoBehaviour:
   m_Name: ItemSO
   m_EditorClassIdentifier: 
   items:
-  - itemName: "\uB9C8\uBC95\uAD6C"
-    itemCode: 0
-    card: {fileID: 3206151389572487828, guid: dd901e7a68067da48a8a25dedc095ba9, type: 3}
-    card_object: {fileID: 7395019933593546574, guid: dd901e7a68067da48a8a25dedc095ba9, type: 3}
-  - itemName: "\uBCF4\uD638\uB9C9"
-    itemCode: 1
-    card: {fileID: 8187620568061075460, guid: a1ed268946aadf14081510c226e1646d, type: 3}
-    card_object: {fileID: 7395019933593546574, guid: a1ed268946aadf14081510c226e1646d, type: 3}
-  - itemName: "\uD654\uC5FC\uAD6C"
-    itemCode: 2
-    card: {fileID: 3190529087822670497, guid: 93cbbc99a191cf340bc160a05d62203c, type: 3}
-    card_object: {fileID: 7395019933593546574, guid: 93cbbc99a191cf340bc160a05d62203c, type: 3}
-  - itemName: "\uBD88\uC548\uC815\uD55C \uACE0\uC11C"
-    itemCode: 3
-    card: {fileID: 4272696741510259889, guid: 146c3521d438e0c4998bab0865d72069, type: 3}
-    card_object: {fileID: 7395019933593546574, guid: 146c3521d438e0c4998bab0865d72069, type: 3}
-  - itemName: "\uC9C0\uD61C"
-    itemCode: 4
-    card: {fileID: -5231063672267061733, guid: d8a59c8618644254797c1c5a4f18bf59, type: 3}
-    card_object: {fileID: 7395019933593546574, guid: d8a59c8618644254797c1c5a4f18bf59, type: 3}
+  - itemCode: 0
+    card: {fileID: 7395019933593546575, guid: 4d5561ac243f15140891c88b1c765497, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 4d5561ac243f15140891c88b1c765497, type: 3}
+  - itemCode: 1
+    card: {fileID: 7395019933593546575, guid: c56486f628d93084cba6c1ae53396da0, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: c56486f628d93084cba6c1ae53396da0, type: 3}

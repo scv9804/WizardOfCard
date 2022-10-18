@@ -42,13 +42,8 @@ public class PlayerEntity : MonoBehaviour
     int i_calcDamage;
     int i_everlasting = 0;  //고정 마법 증폭 (수정여지있음)
 
-    public int[] dummy_i_everlasting = new int[3] { 0, 0, 0 }; // 마나 친화력 0: 장비 등으로 인한 영구 지속, 1: 한 전투 동안 지속, 2: 한 턴 동안 지속
-    // 퍼블릭 임시로 해둠
 
-    public int i_burn;
-
-
-    private void Start()
+	private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
         animatior = GetComponent<Animator>();
@@ -224,9 +219,22 @@ public class PlayerEntity : MonoBehaviour
 
     public void Damaged(int _damage)
     {
-        i_health = i_shield > _damage ? i_health : i_health + i_shield - _damage;
-        i_shield = i_shield >  _damage? i_shield - _damage : 0;
+        if (0 < i_shield)
+        {
+            i_shield -= _damage;
+            if (0 >= i_shield)
+            {
+                i_health -= _damage;
+                i_shield = 0;
 
+            }
+
+        }
+        else
+        {
+            i_health -= _damage;
+
+        }
         if (i_health <= 0)
         {
             i_health = 0;
@@ -237,32 +245,7 @@ public class PlayerEntity : MonoBehaviour
             return ;
         }
         RefreshPlayer();
-
-        Burning();
-
-        return;
-    }
-
-    public void Burning()
-    {
-        i_health = i_shield > i_burn ? i_health : i_health + i_shield - i_burn;
-        i_shield = i_shield > i_burn ? i_shield - i_burn : 0;
-
-        if (i_health <= 0)
-        {
-            i_health = 0;
-            is_die = true;
-            RefreshPlayer();
-
-            StartCoroutine(GameManager.Inst.GameOverScene());
-            return;
-        }
-
-        RefreshPlayer();
-
-        i_burn--;
-
-        return;
+        return ;
     }
 
     public void RefreshPlayer()
@@ -288,30 +271,12 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
-    public void SetValueDummy_Everlasting_Turn()
-    {
-        Debug.Log("1번 마나 초기화");
-        dummy_i_everlasting[2] = 0;
-    }
-
-    public void SetValueDummy_Everlasting_Battle()
-    {
-        Debug.Log("2번 마나 초기화");
-        dummy_i_everlasting[1] = 0;
-    }
-
-    public void SetValueShield()
-    {
-        Debug.Log("쉴드 초기화");
-        i_shield = 0;
-
-        RefreshPlayer();
-    }
-
-    #region DoTween
 
 
-    public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
+	#region DoTween
+
+
+	public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
         //   charaterSprite.sprite = _character;

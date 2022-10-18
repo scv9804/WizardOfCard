@@ -14,8 +14,49 @@ public class  BattleCalculater: MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    [SerializeField] Cards_Magician cards_Magician;
+
+    public bool BattleCalc(Card _card, PlayerEntity _target)
+    {
+        _target.Status_Aether -= _card.i_manaCost;
+
+        if (_target.Status_Aether <= 0)
+        {
+            cards_Magician.CompareCard(_card, _target);
+            LevelGeneration.Inst.EndTurn();
+            return false;
+        }
+		else
+		{
+            cards_Magician.CompareCard(_card, _target);
+            return true;
+        }
+    }
+
+    public void BattleCalc(Card _card, Entity _target)
+    {
+        if ((EntityManager.Inst.playerEntity.Status_Aether - _card.i_manaCost) >= 0)
+        {
+            EntityManager.Inst.playerEntity.Status_Aether -= _card.i_manaCost;
+        }
+        else 
+        {
+            return;
+        }
+
+        if (EntityManager.Inst.playerEntity.Status_Aether < 0)
+        {
+            LevelGeneration.Inst.EndTurn();
+		}
+		else
+		{
+            cards_Magician.CompareCard(_card, _target); 
+        }
+    }
+
+
     // 강화중인가?
-    public void SpellEnchaneReset() // 삭제 예정
+    public void SpellEnchaneReset()
     { 
         PlayerEntity.Inst.Status_EnchaneValue = 1;
     }

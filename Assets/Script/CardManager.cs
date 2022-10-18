@@ -14,9 +14,10 @@ public class CardManager : MonoBehaviour
 
 
 	[SerializeField] ItemSO itemSO;
+	[SerializeField] GameObject cardPrefab;
 
 
-	/*[HideInInspector] */public List<Card> myCards;
+	[SerializeField] List<Card> myCards;
 	[HideInInspector] public List<Card> myCemetery;
 	List<Card> itemBuffer;
 	[HideInInspector] public List<Card> myDeck;
@@ -149,8 +150,9 @@ public class CardManager : MonoBehaviour
 		}
 		else
 		{
-			var cardObject = Instantiate(itemSO.items[tempt.i_itemCode].card_object, cardSpawnPos.position, Quaternion.identity);
+			var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 			var card = cardObject.GetComponent<Card>();
+			card.SetItemSO(tempt.card_info);
 			card.Setup();
 			myCards.Add(card);
 			setOriginOrder();
@@ -312,13 +314,15 @@ public class CardManager : MonoBehaviour
 			{
 				UseCardInArea(_card);
 				EntityManager.Inst.SetUseCard(_card);
-				EntityManager.Inst.UseCard();
+				EntityManager.Inst.UseCard_Self();
+				UseCardSetmyCemetery();
 			}
 			else if (AttackRange_AllEnemy(_card))
 			{
 				UseCardInArea(_card);
 				EntityManager.Inst.SetUseCard(_card);
-				EntityManager.Inst.UseCard();
+				EntityManager.Inst.UseCard_AllEnemy();
+				UseCardSetmyCemetery();
 			}
 			// 카드 사용
 			else if (AttackRange_Single(_card))

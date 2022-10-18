@@ -9723,6 +9723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4d8d3e342d95948ac1b03b7b48da7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cards_Magician: {fileID: 1908275031}
 --- !u!4 &1048236539
 Transform:
   m_ObjectHideFlags: 0
@@ -17778,6 +17779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
+  cardPrefab: {fileID: 7395019933593546574, guid: dd901e7a68067da48a8a25dedc095ba9, type: 3}
   myCards: []
   myCemetery: []
   myDeck: []
@@ -18239,9 +18241,6 @@ MonoBehaviour:
   eventRoomScript:
   - {fileID: 677075415}
   tutorialRoomScript: {fileID: 681962358}
-  OnEndTurn:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &2133263563
 Transform:
   m_ObjectHideFlags: 0

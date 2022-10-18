@@ -35,8 +35,6 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
 
-    [HideInInspector] public int i_burn = 0;
-
     public bool is_mine;
     public bool attackable = true;
     public bool is_die = false;
@@ -118,9 +116,21 @@ public class Entity : MonoBehaviour
 
     public bool Damaged(int _damage) 
     {
-        i_health = i_shield > _damage ? i_health : i_health + i_shield - _damage;
-        i_shield = i_shield > _damage ? i_shield - _damage : 0;
+        if (0 <i_shield )
+        {
+            i_shield -= _damage;
+            if (0 >= i_shield )
+            {
+                i_health -= _damage;
+                i_shield = 0;
+            }
 
+        }
+        else
+        {
+            i_health -= _damage;
+   
+        }
         if (i_health <= 0)
         {
             i_health = 0;
@@ -129,30 +139,7 @@ public class Entity : MonoBehaviour
             return true;
         }
         RefreshEntity();
-        Burning();
         return false;
-    }
-
-    public void Burning()
-    {
-        i_health = i_shield > i_burn ? i_health : i_health + i_shield - i_burn;
-        i_shield = i_shield > i_burn ? i_shield - i_burn : 0;
-
-        if (i_health <= 0)
-        {
-            i_health = 0;
-            is_die = true;
-            RefreshEntity();
-
-            StartCoroutine(GameManager.Inst.GameOverScene());
-            return;
-        }
-
-        RefreshEntity();
-
-        i_burn--;
-
-        return;
     }
 
     public void Attack(PlayerEntity _player)
@@ -203,12 +190,11 @@ public class Entity : MonoBehaviour
 
     public IEnumerator DamagedEffectCorutin(Sprite _sprite)
     {
-        WaitForSeconds times = new WaitForSeconds(0.15f);
         DamagedSpriteRenederer.sprite = _sprite;
         SetDamagedOpacityTrue();
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
         charater.sprite = enemy.EnemyDamagedSprite;
-        yield return times;
+        yield return new WaitForSeconds(0.15f);
         this.transform.DOMove(this.originPos, 0.2f);
         Sequence sequence1 = DOTween.Sequence()
         .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
@@ -220,12 +206,12 @@ public class Entity : MonoBehaviour
             StateOff.SetActive(false);
             isDissolving = true;
             //수동조정 필요함
-            yield return times;
+            yield return new WaitForSeconds(0.4f);
             dissolveEffect.Stop();
-            //yield return new WaitForSeconds(0.8f); // 일단 임시 제거
+            yield return new WaitForSeconds(0.8f);
             EntityManager.Inst.CheckDieEveryEnemy();
         }
-        yield return times;
+        yield return new WaitForSeconds(0.15f);
 		try
         {
             charater.sprite = enemy.sp_sprite;
