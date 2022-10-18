@@ -7,37 +7,38 @@ public class Inventory : MonoBehaviour
 {
 	public GameObject inventoryPanel;
 	public GameObject slotPanel;
-	ItemDataBase database;
+	[SerializeField]ItemDataBase database;
 	public GameObject inventorySlot;
 	public GameObject inventoryItem;
 
 	private int slotAmount;
-	public List<Item> items = new List<Item>();
+	public List<Item_inven> items = new List<Item_inven>();
 	public List<GameObject> slots = new List<GameObject>();
 
 	void Start()
-	{
-		database = GetComponent<ItemDataBase>();
+	{	
 		slotAmount = 10;
 		//inventoryPanel = GameObject.Find("inventorys");
-		Debug.Log(inventoryPanel);
 		//slotPanel = inventoryPanel.transform.Find("Slots").gameObject;
-		Debug.Log(slotPanel);
+
+		//슬롯생성하기
 		for (int i = 0; i < slotAmount; i++)
 		{
-			items.Add(new Item());
+			items.Add(new Item_inven());
 			slots.Add(Instantiate(inventorySlot));
 			slots[i].GetComponent<Slot>().id = i;
 			slots[i].transform.SetParent(slotPanel.transform);
 		}
-
+		//테스트용 아이템 추가
 		AddItem(0);
+		AddItem(1);
+
 	}
 
 	public void AddItem(int id)
 	{
-		Item itemToAdd = database.FetchItemById(id);
-		if (itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))
+		Item_inven itemToAdd = database.FetchItemById(id);
+		/*if (itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))           //아이템 스택 안씀
 		{
 			for (int i = 0; i < items.Count; i++)
 			{
@@ -51,7 +52,7 @@ public class Inventory : MonoBehaviour
 			}
 		}
 		else
-		{
+		{*/
 			for (int i = 0; i < items.Count; i++)
 			{
 				if (items[i].Id == -1)
@@ -68,10 +69,18 @@ public class Inventory : MonoBehaviour
 					break;
 				}
 			}
-		}
+		//}
+		Debug.Log(itemToAdd.Title + "Added");
 	}
 
-	bool CheckIfItemIsInInventory(Item item)
+	public void RemoveItem(Item_inven item)
+    {
+		Debug.Log(item);
+		//items.Remove(item);
+		AddItem(0);  //테스트용 아이템 추가.
+	}
+
+	bool CheckIfItemIsInInventory(Item_inven item)
 	{
 		for (int i = 0; i < items.Count; i++)
 		{

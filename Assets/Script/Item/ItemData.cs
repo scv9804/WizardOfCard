@@ -2,29 +2,39 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-	public Item item;
+	public Item_inven item;
 	public int amount;
 	public int slotId;
 
 	private Inventory inv;
 	private Tooltip tooltip;
+	private UseAccept useAccept;
 	private Vector2 offset;
 
 	void Start()
 	{
 		inv = GameObject.Find("InventorySystem").GetComponent<Inventory>();
 		tooltip = inv.GetComponent<Tooltip>();
+		useAccept = inv.GetComponent<UseAccept>();
 	}
 
 	public void OnPointerClick(PointerEventData eventData)
     {
-		if (item != null)
+		Debug.Log("Clicked");
+		if (item != null && item.Equipable == false) //소모품일시
         {
+			useAccept.itemData = this;
+			useAccept.Activate(item);
+			tooltip.Deactivate();
+			//HealItemUsed();
+		}
+		else if(item != null && item.Equipable == true)
+        {
+			EquipItem();
 
-        }
-
+		}
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
@@ -41,10 +51,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	{
 		if (item != null)
 		{
-			this.transform.position = Input.mousePosition;
-			Debug.Log("로컬" + this.transform.localPosition);
-			Debug.Log(eventData.position);
-		}
+			this.transform.position = Input.mousePosition;		}
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
@@ -68,4 +75,30 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	{
 		tooltip.Deactivate();
 	}
+	public void ItemUse(Item_inven item)
+	{
+		if (item != null && item.Equipable == false)
+		{
+			HealItemUsed();
+			useAccept.gameObject.SetActive(false);
+		}
+
+	}
+	public void HealItemUsed()
+    {
+		PlayerEntity.Inst.Status_Health += item.Healing;
+
+		if (PlayerEntity.Inst.Status_Health > PlayerEntity.Inst.Status_MaxHealth)
+		{
+			PlayerEntity.Inst.Status_Health = PlayerEntity.Inst.Status_MaxHealth;
+		}
+		//inv.RemoveItem(item);
+		Destroy(gameObject);
+		Debug.Log(item.Title);
+		useAccept.Deactivate();
+	}
+	public void EquipItem()
+    {
+
+    }
 }

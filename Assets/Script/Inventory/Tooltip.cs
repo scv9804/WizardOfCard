@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour
 {
-	private Item item;
+	private Item_inven item;
 	private string data;
 	[SerializeField]
 	private GameObject tooltip;
@@ -24,7 +24,7 @@ public class Tooltip : MonoBehaviour
 		}
 	}
 
-	public void Activate(Item item)
+	public void Activate(Item_inven item)
 	{
 		this.item = item;
 		ConstructDataString();

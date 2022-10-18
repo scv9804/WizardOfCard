@@ -7,7 +7,8 @@ using System.IO;
 
 public class ItemDataBase : MonoBehaviour
 {
-	private List<Item> database = new List<Item>();
+
+	public List<Item_inven> database = new List<Item_inven>();
 	private JsonData itemData;
 
 	void Awake()
@@ -16,13 +17,13 @@ public class ItemDataBase : MonoBehaviour
 		ConstructItemDatabase();
 	}
 
-	public Item FetchItemById(int id)
+	public Item_inven FetchItemById(int id)
 	{
+
 		for (int i = 0; i < database.Count; i++)
 		{
 			if (database[i].Id == id)
 			{
-				Debug.Log(id);
 				return database[i];
 			}
 		}
@@ -30,11 +31,11 @@ public class ItemDataBase : MonoBehaviour
 		return null;
 	}
 
-	void ConstructItemDatabase()
+	 void ConstructItemDatabase()
 	{
 		for (int i = 0; i < itemData.Count; i++)
 		{
-			Item newItem = new Item();
+			Item_inven newItem = new Item_inven();
 			newItem.Id = (int)itemData[i]["id"];
 			newItem.Title = itemData[i]["title"].ToString();
 			newItem.Value = (int)itemData[i]["value"];
@@ -43,7 +44,7 @@ public class ItemDataBase : MonoBehaviour
 			newItem.Vitality = (int)itemData[i]["stats"]["vitality"];
 			newItem.Healing = (int)itemData[i]["Healing"];
 			newItem.Description = itemData[i]["description"].ToString();
-			newItem.Stackable = (bool)itemData[i]["stackable"];
+			newItem.Equipable = (bool)itemData[i]["equipable"];
 			newItem.Rarity = (int)itemData[i]["rarity"];
 			newItem.Slug = itemData[i]["slug"].ToString();
 			newItem.Sprite = Resources.Load<Sprite>("potion/" + newItem.Slug);
@@ -53,7 +54,7 @@ public class ItemDataBase : MonoBehaviour
 	}
 }
 
-public class Item
+public class Item_inven
 {
 	public int Id { get; set; }
 	public string Title { get; set; }
@@ -63,12 +64,12 @@ public class Item
 	public int Vitality { get; set; }
 	public int Healing { get; set; }
 	public string Description { get; set; }
-	public bool Stackable { get; set; }
+	public bool Equipable { get; set; }
 	public int Rarity { get; set; }
 	public string Slug { get; set; }
 	public Sprite Sprite { get; set; }
 
-	public Item()
+	public Item_inven()
 	{
 		this.Id = -1;
 	}

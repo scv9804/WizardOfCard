@@ -1,0 +1,10 @@
+diff a/Assets/Script/Item/ItemDataBase.cs b/Assets/Script/Item/ItemDataBase.cs	(rejected hunks)
+@@ -10,7 +10,7 @@
+ 	private List<Item> database = new List<Item>();
+ 	private JsonData itemData;
+ 
+-	void Start()
++	void Awake()
+ 	{
+ 		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/Script/Item/Items.json"));
+ 		ConstructItemDatabase();

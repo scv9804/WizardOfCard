@@ -24,7 +24,6 @@ public class Entity : MonoBehaviour
     [SerializeField] Material dissolveMaterial;
 
 
-    Item item;
     [HideInInspector] Sprite playerDamagedEffect;
     [HideInInspector] public Enemy enemy;
     [HideInInspector] public float i_health;
