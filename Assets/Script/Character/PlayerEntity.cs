@@ -48,7 +48,15 @@ public class PlayerEntity : MonoBehaviour
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
         animatior = GetComponent<Animator>();
         SetDefultPS();
-	}
+
+        // <<22-10-21 장형용 :: 추가>>
+
+        TurnManager.onStartTurn -= ResetValue_Shield;
+        TurnManager.onStartTurn += ResetValue_Shield;
+
+        TurnManager.onStartTurn -= ResetMagicAffinity_Turn;
+        TurnManager.onStartTurn += ResetMagicAffinity_Turn;
+    }
 
 
 	#region status
@@ -60,13 +68,20 @@ public class PlayerEntity : MonoBehaviour
     float maxHealth;
      int i_shield = 0;
 
+    [HideInInspector] public int i_burning = 0;
+
     //마법 친화성  타입별 친화성으로 방어, 힐 효과 증폭... defult = 0
     [HideInInspector] int i_magicAffinity_fire = 0;
     [HideInInspector] int i_magicAffinity_earth = 0;
     [HideInInspector] int i_magicAffinity_water = 0;
     [HideInInspector] int i_magicAffinity_air = 0;
 
-    [HideInInspector] int i_magicResistance = 0; //대략 4에 1감소
+    [HideInInspector] int i_magicResistance = 0;
+
+    // <<22-10-21 장형용 :: 추가>>
+    [HideInInspector] int i_magicAffinity_permanent = 0; // 장비(나 이벤트) 등으로 얻는 계속 유지되는 마나 친화성
+    [HideInInspector] int i_magicAffinity_battle = 0; // 1번의 전투 동안 유지되는 마나 친화성
+    [HideInInspector] int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성
 
     #endregion
 
@@ -180,6 +195,58 @@ public class PlayerEntity : MonoBehaviour
         }
 	}
 
+    // <<22-10-21 장형용 :: 추가>>
+    public int Status_MagicAffinity_Permanent
+    {
+        get
+        {
+            return i_magicAffinity_permanent;
+        }
+
+        set
+        {
+            i_magicAffinity_permanent = value;
+        }
+    }
+
+    public int Status_MagicAffinity_Battle
+    {
+        get
+        {
+            return i_magicAffinity_battle;
+        }
+
+        set
+        {
+            i_magicAffinity_battle = value;
+        }
+    }
+
+    public int Status_MagicAffinity_Turn
+    {
+        get
+        {
+            return i_magicAffinity_turn;
+        }
+
+        set
+        {
+            i_magicAffinity_turn = value;
+        }
+    }
+
+    public int Status_MagicResistance
+    {
+        get
+        {
+            return i_magicResistance;
+        }
+
+        set
+        {
+            i_magicResistance = value;
+        }
+    }
 
     #endregion
 
@@ -219,22 +286,33 @@ public class PlayerEntity : MonoBehaviour
 
     public void Damaged(int _damage)
     {
-        if (0 < i_shield)
+        //if (0 < i_shield) <<22-10-21 장형용 :: 쉴드 계산 식 수정>>
+        //{
+        //    i_shield -= _damage;
+        //    if (0 >= i_shield)
+        //    {
+        //        i_health -= _damage;
+        //        i_shield = 0;
+
+        //    }
+
+        //}
+        //else
+        //{
+        //    i_health -= _damage;
+
+        //}
+
+        if (i_shield > _damage)
         {
             i_shield -= _damage;
-            if (0 >= i_shield)
-            {
-                i_health -= _damage;
-                i_shield = 0;
-
-            }
-
         }
         else
         {
-            i_health -= _damage;
-
+            i_health -= (_damage - i_shield);
+            i_shield = 0;
         }
+
         if (i_health <= 0)
         {
             i_health = 0;
@@ -244,8 +322,42 @@ public class PlayerEntity : MonoBehaviour
             StartCoroutine(GameManager.Inst.GameOverScene());
             return ;
         }
+
+        if(i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
+        {
+            Burning();
+        }
+
         RefreshPlayer();
         return ;
+    }
+
+    public void Burning() //  <<22-10-21 장형용 :: 화상 추가>>
+    {
+        if (i_shield > i_burning)
+        {
+            i_shield -= i_burning;
+        }
+        else
+        {
+            i_health -= (i_burning - i_shield);
+            i_shield = 0;
+        }
+
+        i_burning--;
+
+        if (i_health <= 0)
+        {
+            i_health = 0;
+            is_die = true;
+            RefreshPlayer();
+
+            StartCoroutine(GameManager.Inst.GameOverScene());
+            return;
+        }
+
+        RefreshPlayer();
+        return;
     }
 
     public void RefreshPlayer()
@@ -271,12 +383,39 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    void ResetValue_Shield(bool isMyTurn)
+    {
+        if(isMyTurn)
+        {
+            i_shield = 0;
+
+            RefreshPlayer();
+        }
+    }
+
+    void ResetMagicAffinity_Battle()
+    {
+        i_magicAffinity_battle = 0;
+
+        BattleCalculater.Inst.RefreshMyHands();
+    }
+
+    void ResetMagicAffinity_Turn(bool isMyTurn)
+    {
+        if (isMyTurn)
+        {
+            i_magicAffinity_turn = 0;
+
+            BattleCalculater.Inst.RefreshMyHands();
+        }
+    }
 
 
-	#region DoTween
+
+    #region DoTween
 
 
-	public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
+    public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
         //   charaterSprite.sprite = _character;

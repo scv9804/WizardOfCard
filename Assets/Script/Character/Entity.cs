@@ -34,6 +34,8 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
 
+    [HideInInspector] public int i_burning = 0;
+
     public bool is_mine;
     public bool attackable = true;
     public bool is_die = false;
@@ -115,21 +117,33 @@ public class Entity : MonoBehaviour
 
     public bool Damaged(int _damage) 
     {
-        if (0 <i_shield )
+        Debug.Log("일단 한대 맞아");
+        //if (0 <i_shield ) <<22-10-21 장형용 :: 쉴드 계산 식 수정>>
+        //{
+        //    i_shield -= _damage;
+        //    if (0 >= i_shield )
+        //    {
+        //        i_health -= _damage;
+        //        i_shield = 0;
+        //    }
+
+        //}
+        //else
+        //{
+        //    i_health -= _damage;
+
+        //}
+
+        if (i_shield > _damage)
         {
             i_shield -= _damage;
-            if (0 >= i_shield )
-            {
-                i_health -= _damage;
-                i_shield = 0;
-            }
-
         }
         else
         {
-            i_health -= _damage;
-   
+            i_health -= (_damage - i_shield);
+            i_shield = 0;
         }
+
         if (i_health <= 0)
         {
             i_health = 0;
@@ -137,8 +151,42 @@ public class Entity : MonoBehaviour
             RefreshEntity();
             return true;
         }
+
+        if (i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
+        {
+            Burning();
+        }
+
         RefreshEntity();
         return false;
+    }
+
+    public void Burning() //  <<22-10-21 장형용 :: 화상 추가>>
+    {
+        if (i_shield > i_burning)
+        {
+            i_shield -= i_burning;
+        }
+        else
+        {
+            i_health -= (i_burning - i_shield);
+            i_shield = 0;
+        }
+
+        i_burning--;
+
+        if (i_health <= 0)
+        {
+            i_health = 0;
+            is_die = true;
+            RefreshEntity();
+
+            StartCoroutine(GameManager.Inst.GameOverScene());
+            return;
+        }
+
+        RefreshEntity();
+        return;
     }
 
     public void Attack(PlayerEntity _player)
@@ -207,7 +255,7 @@ public class Entity : MonoBehaviour
             //수동조정 필요함
             yield return new WaitForSeconds(0.4f);
             dissolveEffect.Stop();
-            yield return new WaitForSeconds(0.8f);
+            //yield return new WaitForSeconds(0.8f); <<장형용 :: 후딜레이 때문에 엔티티 제거가 안 되는 문제 발생해 삭제>>
             EntityManager.Inst.CheckDieEveryEnemy();
         }
         yield return new WaitForSeconds(0.15f);

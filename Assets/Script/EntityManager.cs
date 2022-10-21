@@ -25,7 +25,7 @@ public class EntityManager : MonoBehaviour
 
 
     //[SerializeField] List<Entity> myEntities;
-    [SerializeField] List<Entity> enemyEntities;
+    [SerializeField] public List<Entity> enemyEntities; // << 22-10-21 장형용 :: 접근 제한 public으로 변경>>
     [SerializeField] Entity bossEntity;
 
     [SerializeField] Transform spawnPlayerChar_Tf;
@@ -374,13 +374,15 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-			if (selectPlayerEntity == null)
-			{
-                BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectEntity);
+            if (selectPlayerEntity == null)
+            {
+                //BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectEntity);
+                CardManager.Inst.selectCard.UseCard(selectEntity); // <<22-10-21 장형용 :: 변경>>
             }
             if (selectEntity == null)
             {
-                BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectPlayerEntity);
+                //BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectPlayerEntity);
+                CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity); // <<22-10-21 장형용 :: 변경>>
             }
         }
         catch
@@ -410,10 +412,11 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-			for (int i = 0; i < enemyEntities.Count; i++)
-            {
-                BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, enemyEntities[i]);
-            }
+            //for (int i = 0; i < enemyEntities.Count; i++)
+            //         {
+            //             BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, enemyEntities[i]);
+            //         }
+            CardManager.Inst.selectCard.UseCard(null); // <<22-10-21 장형용 :: 변경>>
         }
         catch
         {
@@ -433,7 +436,8 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-            BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, playerEntity);
+            //BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, playerEntity);
+            CardManager.Inst.selectCard.UseCard(null, playerEntity); // <<22-10-21 장형용 :: 변경>>
 
         }
         catch

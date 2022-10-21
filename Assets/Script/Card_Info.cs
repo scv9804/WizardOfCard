@@ -14,7 +14,9 @@ public class Card_Info : MonoBehaviour
 	public Utility_enum.AttackRange attackRange;
 
 	public float f_percentage;
-	public string st_explainCard;
+	[TextArea] public string st_explainCard;
+
+	public bool b_isExile;
 
 	public CardType type;
 	public Sprite sp_CardSprite;

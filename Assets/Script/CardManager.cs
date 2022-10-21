@@ -17,7 +17,7 @@ public class CardManager : MonoBehaviour
 	[SerializeField] GameObject cardPrefab;
 
 
-	[SerializeField] List<Card> myCards;
+	public List<Card> myCards; // << 22-10-21 장형용 :: 접근 제한 public으로 변경>>
 	[HideInInspector] public List<Card> myCemetery;
 	List<Card> itemBuffer;
 	[HideInInspector] public List<Card> myDeck;
@@ -150,7 +150,8 @@ public class CardManager : MonoBehaviour
 		}
 		else
 		{
-			var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
+			//var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
+			var cardObject = Instantiate(itemSO.items[tempt.i_itemCode].card_object, cardSpawnPos.position, Quaternion.identity);
 			var card = cardObject.GetComponent<Card>();
 			card.SetItemSO(tempt.card_info);
 			card.Setup();
@@ -262,7 +263,7 @@ public class CardManager : MonoBehaviour
 
 	public void CardMouseOver(Card _card)
 	{
-		if (e_CardStats == E_CardStats.Cannot || is_cardUsing)
+		if (e_CardStats == E_CardStats.Cannot || is_cardUsing || is_myCardDrag) // <<22-10-21 장형용 :: 카드 드래그 여부 확인 추가>>
 		{
 			return;
 		}

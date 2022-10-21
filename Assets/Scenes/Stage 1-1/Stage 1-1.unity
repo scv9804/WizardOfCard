@@ -16186,6 +16186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e6a8048d5172e469b33096cae3f46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
   useAccept: {fileID: 961651610}
 --- !u!1 &1940144891
 GameObject:
@@ -17671,7 +17672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  cardPrefab: {fileID: 7395019933593546574, guid: dd901e7a68067da48a8a25dedc095ba9, type: 3}
+  cardPrefab: {fileID: 7395019933593546574, guid: e87115681f440494493557df6f3ccf7e, type: 3}
   myCards: []
   myCemetery: []
   myDeck: []
@@ -17681,9 +17682,9 @@ MonoBehaviour:
   UseCard_Tf: {fileID: 793746676}
   cardGarbage_Tf: {fileID: 1687293410}
   e_CardStats: 2
-  f_useCardSize: 0.15
+  f_useCardSize: 0.3
   f_garbageCardSize: 0.05
-  f_arrangementSize: 0.15
+  f_arrangementSize: 0.4
   useCardPath_OnHand_Tf:
   - {fileID: 827964578}
   - {fileID: 1528485075}

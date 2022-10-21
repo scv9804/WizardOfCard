@@ -59,6 +59,16 @@ public class  BattleCalculater: MonoBehaviour
     public void SpellEnchaneReset()
     { 
         PlayerEntity.Inst.Status_EnchaneValue = 1;
+
+        RefreshMyHands();
+    }
+
+    public void RefreshMyHands() // <<22-10-21 장형용 :: 추가>>
+    {
+        for (int i = 0; i < CardManager.Inst.myCards.Count; i++)
+        {
+            CardManager.Inst.myCards[i].ExplainRefresh();
+        }
     }
 
 
