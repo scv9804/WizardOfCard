@@ -235,6 +235,8 @@ public class EntityManager : MonoBehaviour
                     UIManager.Inst.ButtonActivate();
                 //    RewordManager.Inst.GameClear();
                     CardManager.Inst.SetCardStateCannot();
+
+                    TurnManager.Inst.myTurn = false; // <<22-10-21 장형용 :: UI 못 쓰게 myTurn으로 걸어버림 다른 방법이 있나>>
                 }
             }
 

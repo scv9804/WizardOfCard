@@ -18,9 +18,11 @@ public class CardManager : MonoBehaviour
 
 
 	public List<Card> myCards; // << 22-10-21 장형용 :: 접근 제한 public으로 변경>>
-	[HideInInspector] public List<Card> myCemetery;
+	/*[HideInInspector] */public List<Card> myCemetery;
 	List<Card> itemBuffer;
 	[HideInInspector] public List<Card> myDeck;
+
+	/*[HideInInspector] */public List<Card> myExiledCards;
 
 	[SerializeField] Transform cardSpawnPos;
 	[SerializeField] Transform LeftCard_Tf;
@@ -64,6 +66,11 @@ public class CardManager : MonoBehaviour
 			AddDeck();
 		}
 		TurnManager.onAddCard += AddCard;
+
+		// <<22-10-21 장형용 :: 추가>>
+		Utility.onBattleStart += ShuffleCemetery;
+		Utility.onBattleStart += ShuffleExiledCard;
+		Utility.onBattleStart += RefreshMyHand;
 	}
 
 	void Update()
@@ -84,6 +91,12 @@ public class CardManager : MonoBehaviour
 	private void OnDestroy()
 	{
 		TurnManager.onAddCard -= AddCard;
+
+		// <<22-10-21 장형용 :: 추가>>
+		Utility.onBattleStart -= ShuffleCemetery;
+		Utility.onBattleStart -= ShuffleExiledCard;
+		Utility.onBattleStart -= RefreshMyHand;
+		
 	}
 
 
@@ -316,14 +329,14 @@ public class CardManager : MonoBehaviour
 				UseCardInArea(_card);
 				EntityManager.Inst.SetUseCard(_card);
 				EntityManager.Inst.UseCard_Self();
-				UseCardSetmyCemetery();
+				//UseCardSetmyCemetery(); <<22-10-21 장형용 :: 중복 삭제>>
 			}
 			else if (AttackRange_AllEnemy(_card))
 			{
 				UseCardInArea(_card);
 				EntityManager.Inst.SetUseCard(_card);
 				EntityManager.Inst.UseCard_AllEnemy();
-				UseCardSetmyCemetery();
+				//UseCardSetmyCemetery(); <<22-10-21 장형용 :: 중복 삭제>>
 			}
 			// 카드 사용
 			else if (AttackRange_Single(_card))
@@ -471,7 +484,7 @@ public class CardManager : MonoBehaviour
 	}
 
 
-	public void UseCardSetmyCemetery()
+	public void UseCardSetmyCemetery() 
     {
 		//따로 만들려다가 말았음	
 		int ran = UnityEngine.Random.Range(0, useCardPath_OnHand_Tf.Length);
@@ -480,7 +493,16 @@ public class CardManager : MonoBehaviour
 
 
 		selectCard.MoveTransformGarbage(v3_cardPaths_onHand, f_garbageCardSize, 0.5f);
-		myCemetery.Add(selectCard);
+
+		if(selectCard.b_isExile)
+		{
+			myExiledCards.Add(selectCard);
+		}
+        else
+        {
+			myCemetery.Add(selectCard);
+		}
+
 		myCards.Remove(selectCard);
 		CardAlignment();
 	}
@@ -522,6 +544,40 @@ public class CardManager : MonoBehaviour
 		}
 	}
 
+	public void ShuffleExiledCard() // <<22-10-21 장형용 :: 추가>>
+	{
+		int tempt = myExiledCards.Count;
+
+		if (tempt == 0)
+		{
+			Debug.Log("제외된 카드가 없습니다!");
+			return;
+		}
+
+		for (int i = 0; tempt > i; i++)
+		{
+			myDeck.Add(myExiledCards[0]);
+			myExiledCards.RemoveAt(0);
+		}
+
+		DeckShuffle();
+	}
+
+	public void RefreshMyHand() // <<22-10-21 장형용 :: 추가, 초기화하는 과정에서 카드가 잠시 줄어들었다 확대되는 버그?가 생기는데 뭔가 그럴듯하니 걍 두기로>>
+	{
+		int tempt = myCards.Count;
+
+		if (tempt == 0)
+		{
+			Debug.Log("패에 카드가 없습니다!");
+			return;
+		}
+
+		for (int i = 0; tempt > i; i++)
+		{
+			myCards[i].Setup();
+		}
+	}
 
 	#endregion
 
@@ -540,6 +596,11 @@ public class CardManager : MonoBehaviour
 		StartCoroutine(ShuffleHand());
 		EntityManager.Inst.playerEntity.Status_Aether -= 1;
 		yield return new WaitForSeconds(0.3f);
+
+		//if (PlayerEntity.Inst.Status_Aether == 0) // <<22-10-21 장형용 :: 추가>>
+		//{
+		//	LevelGeneration.Inst.EndTurn();
+		//}
 	}
 
 	public void CemeteryRefesh()
@@ -548,6 +609,11 @@ public class CardManager : MonoBehaviour
 		{
 			CardManager.Inst.ShuffleCemetery();
 			EntityManager.Inst.playerEntity.Status_Aether -= 1;
+
+			//if (PlayerEntity.Inst.Status_Aether == 0) // <<22-10-21 장형용 :: 추가>>
+			//{
+			//	LevelGeneration.Inst.EndTurn();
+			//}
 		}
 	}
 

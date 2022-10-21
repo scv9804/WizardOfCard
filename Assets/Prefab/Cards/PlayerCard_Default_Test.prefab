@@ -711,12 +711,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_itemNum: 5
+  i_itemNum: 7
   st_cardName: "\uB9C8\uBC95\uC9C4"
   i_attack: 2
   i_Cost: 2
   attackRange: 1
   f_percentage: 10
+  st_explainCard_UI: 
   st_explainCard: "\uB2E4\uC74C \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C <color=#ff00ff>{5}</color>\uBC30
     \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
   b_isExile: 0
@@ -745,7 +746,7 @@ MonoBehaviour:
   explainTMP: {fileID: 7395019932878968509}
   v_cardSize: {x: 0, y: 0, z: 0}
   card_info: {fileID: 4998888831836804041}
-  i_itemCode: 5
+  i_itemCode: 7
   i_damage: 2
   enemyDamagedEffectSpriteRenderer: {fileID: 0}
   playerAttackEffectSpriteRenderer: {fileID: 0}

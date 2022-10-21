@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 [System.Serializable]
 public class Pos_Rot_Scale
@@ -38,5 +38,5 @@ public class Utility : MonoBehaviour
         }
     }
 
-
+    public static Action onBattleStart;
 }

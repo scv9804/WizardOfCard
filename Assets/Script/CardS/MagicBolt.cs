@@ -10,17 +10,17 @@ public class MagicBolt : Card
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
-			Attack_Defalut(_target_enemy, i_damage);
+			Attack_Defalut(_target_enemy, ApplyManaAffinity(i_damage));
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
-			Attack_PlayerSelf(_target_player, i_damage);
+			Attack_PlayerSelf(_target_player, ApplyManaAffinity(i_damage));
 		}
 		else // 광역 또는 무작위 대상 (?)
 		{
             for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
             {
-                Attack_Defalut(EntityManager.Inst.enemyEntities[i], i_damage);
+                Attack_Defalut(EntityManager.Inst.enemyEntities[i], ApplyManaAffinity(i_damage));
             }
         }
 

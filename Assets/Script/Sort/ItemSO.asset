@@ -29,5 +29,11 @@ MonoBehaviour:
     card: {fileID: 2986212588026597534, guid: f7041149f65c2c64c94f2b2fc353176c, type: 3}
     card_object: {fileID: 7395019933593546574, guid: f7041149f65c2c64c94f2b2fc353176c, type: 3}
   - itemCode: 5
+    card: {fileID: 6175402106577999441, guid: c846d3b0b2322df4daf6ccb6837cace4, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: c846d3b0b2322df4daf6ccb6837cace4, type: 3}
+  - itemCode: 6
+    card: {fileID: 3837261346033852980, guid: 5b8c1c8e56cfc824db2942f83e03c86a, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 5b8c1c8e56cfc824db2942f83e03c86a, type: 3}
+  - itemCode: 7
     card: {fileID: 5251858741531333875, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
     card_object: {fileID: 7395019933593546574, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}

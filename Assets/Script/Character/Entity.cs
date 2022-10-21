@@ -117,7 +117,6 @@ public class Entity : MonoBehaviour
 
     public bool Damaged(int _damage) 
     {
-        Debug.Log("일단 한대 맞아");
         //if (0 <i_shield ) <<22-10-21 장형용 :: 쉴드 계산 식 수정>>
         //{
         //    i_shield -= _damage;

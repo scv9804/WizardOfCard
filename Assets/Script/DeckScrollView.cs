@@ -27,6 +27,7 @@ public class DeckScrollView : MonoBehaviour
     public void SetCards()
 	{
         var newUI = Instantiate(uiPrefab, scrollRect.content).GetComponent<RectTransform>();
+
         uiobjects.Add(newUI);
 
         float y = 0f;

@@ -10,13 +10,16 @@ public class UnstableTome : Card
 
 		for (int i = 0; i < i_damage; i++)
 		{
-			CardManager.Inst.AddCard();
+			if(CardManager.Inst.myDeck.Count > 0)
+            {
+				CardManager.Inst.AddCard();
 
-			CardManager.Inst.myCards.Last().i_manaCost = 0;
-			CardManager.Inst.myCards.Last().b_isExile = true;
+				CardManager.Inst.myCards.Last().i_manaCost = 0;
+				CardManager.Inst.myCards.Last().b_isExile = true;
 
-			CardManager.Inst.myCards.Last().ManaCostRefresh();
-			CardManager.Inst.myCards.Last().ExplainRefresh();
+				CardManager.Inst.myCards.Last().ManaCostRefresh();
+				CardManager.Inst.myCards.Last().ExplainRefresh();
+			}
 		}
 	}
 }

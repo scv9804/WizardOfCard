@@ -15,6 +15,16 @@ public class Wisdom : Card
         }
         sb.Append(st_explain);
 
+        if (i_damage != 0)
+        {
+            sb.Replace("{5}", ApplyEnhanceValue(i_damage).ToString());
+        }
+        else
+        {
+            sb.Replace("1턴간 추가로", "");
+            sb.Replace("마나 친화성을 <color=#ff00ff>{5}</color> 얻습니다.", ""); // 왜 유니티는 줄 바꿈 못 읽음? 다른 방법이 있나?
+        }
+
         if (i_applyMagicAffinity_Battle > 0)
         {
             sb.Replace("{4}", ApplyEnhanceValue(i_applyMagicAffinity_Battle).ToString());
@@ -22,18 +32,7 @@ public class Wisdom : Card
         else
         {
             sb.Replace("마나 친화성을 <color=#ff00ff>{4}</color> 얻습니다.", "");
-            sb.Replace("추가로", "");
-        }
-
-        if (i_damage != 0)
-        {
-            sb.Replace("{5}", ApplyEnhanceValue(i_damage).ToString());
-        }
-        else
-        {
-            sb.Replace("1턴간", "");
-            sb.Replace("추가로", ""); // 더 좋은 방식이 있을텐데 일단 이렇게 해둠...
-            sb.Replace("마나 친화성을 <color=#ff00ff>{5}</color> 얻습니다.", ""); // 왜 유니티는 줄 바꿈 못 읽음? 다른 방법이 있나?
+            sb.Replace(" 추가로", "");
         }
 
         explainTMP.text = sb.ToString();

@@ -48,19 +48,29 @@ public class PlayerEntity : MonoBehaviour
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
         animatior = GetComponent<Animator>();
         SetDefultPS();
+    }
 
-        // <<22-10-21 장형용 :: 추가>>
+    // <<22-10-21 장형용 :: 추가>>
+    void OnEnable()
+    {
+        Utility.onBattleStart += ResetMagicAffinity_Battle;
 
-        TurnManager.onStartTurn -= ResetValue_Shield;
         TurnManager.onStartTurn += ResetValue_Shield;
-
-        TurnManager.onStartTurn -= ResetMagicAffinity_Turn;
         TurnManager.onStartTurn += ResetMagicAffinity_Turn;
     }
 
+    // <<22-10-21 장형용 :: 추가>>
+    void OnDisable()
+    {
+        Utility.onBattleStart -= ResetMagicAffinity_Battle;
 
-	#region status
-	int maxAether = 5; // 최대 코스트
+        TurnManager.onStartTurn -= ResetValue_Shield;
+        TurnManager.onStartTurn -= ResetMagicAffinity_Turn;
+    }
+
+
+    #region status
+    int maxAether = 5; // 최대 코스트
     int i_aether; // 코스트
 
 

@@ -151,10 +151,10 @@ public class Card : MonoBehaviour
 	{
 		PlayerEntity.Inst.Status_Aether -= i_manaCost;
 
-		if (PlayerEntity.Inst.Status_Aether == 0)
-		{
-			LevelGeneration.Inst.EndTurn();
-		}
+		//if (PlayerEntity.Inst.Status_Aether == 0)
+		//{
+		//	LevelGeneration.Inst.EndTurn();
+		//}
 	}
 
 	// <<22-10-21 장형용 :: 추가>>
@@ -198,6 +198,14 @@ public class Card : MonoBehaviour
 		_target?.Damaged(ApplyManaAffinity(_value));
 		//OnDamagedEntity.Invoke();
 	}
+
+	public void RepeatAttack_AllEnemy(int _count, int _value)
+    {
+		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count * _count; i++)
+		{
+			Attack_Defalut(EntityManager.Inst.enemyEntities[i % EntityManager.Inst.enemyEntities.Count], _value);	
+		}
+    }
 
 	#endregion
 

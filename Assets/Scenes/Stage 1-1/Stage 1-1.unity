@@ -6984,7 +6984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   space: 60
-  uiPrefab: {fileID: 6746977845649661969, guid: 5b2e0dfa34493374d81a1d1ba789f0a1, type: 3}
+  uiPrefab: {fileID: 6746977845649661969, guid: 6558c981c593554428751351f7d32a98, type: 3}
   uiobjects: []
 --- !u!114 &811881677
 MonoBehaviour:
@@ -7967,7 +7967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   space: 60
-  uiPrefab: {fileID: 6746977845649661969, guid: 5b2e0dfa34493374d81a1d1ba789f0a1, type: 3}
+  uiPrefab: {fileID: 6746977845649661969, guid: 6558c981c593554428751351f7d32a98, type: 3}
   uiobjects: []
 --- !u!1 &910738706
 GameObject:
@@ -11850,6 +11850,7 @@ GameObject:
   - component: {fileID: 1413940480}
   - component: {fileID: 1413940479}
   - component: {fileID: 1413940478}
+  - component: {fileID: 1413940481}
   m_Layer: 5
   m_Name: TurnEndButton
   m_TagString: Untagged
@@ -11970,6 +11971,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413940476}
   m_CullTransparentMesh: 1
+--- !u!114 &1413940481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413940476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d54bf096e097054b9190053f0b27376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1417348711
 GameObject:
   m_ObjectHideFlags: 0
@@ -17676,6 +17689,7 @@ MonoBehaviour:
   myCards: []
   myCemetery: []
   myDeck: []
+  myExiledCards: []
   cardSpawnPos: {fileID: 1742877490}
   LeftCard_Tf: {fileID: 64101179}
   RightCard_Tf: {fileID: 877174403}
