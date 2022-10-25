@@ -235,8 +235,6 @@ public class EntityManager : MonoBehaviour
                     UIManager.Inst.ButtonActivate();
                 //    RewordManager.Inst.GameClear();
                     CardManager.Inst.SetCardStateCannot();
-
-                    TurnManager.Inst.myTurn = false; // <<22-10-21 장형용 :: UI 못 쓰게 myTurn으로 걸어버림 다른 방법이 있나>>
                 }
             }
 
@@ -378,13 +376,11 @@ public class EntityManager : MonoBehaviour
             CardManager.Inst.UseCardSetmyCemetery();
             if (selectPlayerEntity == null)
             {
-                //BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectEntity);
                 CardManager.Inst.selectCard.UseCard(selectEntity); // <<22-10-21 장형용 :: 변경>>
             }
             if (selectEntity == null)
             {
-                //BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, selectPlayerEntity);
-                CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity); // <<22-10-21 장형용 :: 변경>>
+                CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity); // <<22-10-21 장형용 :: 변경>>  굳
             }
         }
         catch
@@ -414,10 +410,6 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-            //for (int i = 0; i < enemyEntities.Count; i++)
-            //         {
-            //             BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, enemyEntities[i]);
-            //         }
             CardManager.Inst.selectCard.UseCard(null); // <<22-10-21 장형용 :: 변경>>
         }
         catch
@@ -438,7 +430,6 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-            //BattleCalculater.Inst.BattleCalc(CardManager.Inst.selectCard, playerEntity);
             CardManager.Inst.selectCard.UseCard(null, playerEntity); // <<22-10-21 장형용 :: 변경>>
 
         }

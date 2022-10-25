@@ -146,7 +146,6 @@ public class Entity : MonoBehaviour
         if (i_health <= 0)
         {
             i_health = 0;
-            is_die = true;
             RefreshEntity();
             return true;
         }
@@ -177,7 +176,6 @@ public class Entity : MonoBehaviour
         if (i_health <= 0)
         {
             i_health = 0;
-            is_die = true;
             RefreshEntity();
 
             StartCoroutine(GameManager.Inst.GameOverScene());
@@ -251,10 +249,11 @@ public class Entity : MonoBehaviour
             dissolveEffect.playRate = 2.5f ;
             StateOff.SetActive(false);
             isDissolving = true;
+            is_die = true;
             //수동조정 필요함
             yield return new WaitForSeconds(0.4f);
             dissolveEffect.Stop();
-            //yield return new WaitForSeconds(0.8f); <<장형용 :: 후딜레이 때문에 엔티티 제거가 안 되는 문제 발생해 삭제>>
+            //yield return new WaitForSeconds(1f); //<<장형용 :: 후딜레이 때문에 엔티티 제거가 안 되는 문제 발생해 삭제>> 이동화 :: 이새끼 진짜 왜안됨?
             EntityManager.Inst.CheckDieEveryEnemy();
         }
         yield return new WaitForSeconds(0.15f);

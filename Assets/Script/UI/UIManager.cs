@@ -122,8 +122,8 @@ public class UIManager : MonoBehaviour
 
 	public void TurnEndButtonActivae()
 	{
-		
-		if (TurnManager.Inst.myTurn)
+
+		if (TurnManager.Inst.myTurn && CardManager.Inst.myDeck.Count != 0)
 		{
 			Color color = Color.white;
 			turnEndButtonSpriteImage.color = color;

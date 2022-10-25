@@ -17,7 +17,7 @@ public class CardManager : MonoBehaviour
 	[SerializeField] GameObject cardPrefab;
 
 
-	public List<Card> myCards; // << 22-10-21 장형용 :: 접근 제한 public으로 변경>>
+	public List<Card> myCards;
 	/*[HideInInspector] */public List<Card> myCemetery;
 	List<Card> itemBuffer;
 	[HideInInspector] public List<Card> myDeck;
@@ -67,10 +67,11 @@ public class CardManager : MonoBehaviour
 		}
 		TurnManager.onAddCard += AddCard;
 
-		// <<22-10-21 장형용 :: 추가>>
-		Utility.onBattleStart += ShuffleCemetery;
+		// <<22-10-21 장형용 :: 추가>>		
 		Utility.onBattleStart += ShuffleExiledCard;
-		Utility.onBattleStart += RefreshMyHand;
+		// 22-10-24 이동화 :: 이건 장비로 넣자
+		//Utility.onBattleStart += ShuffleCemetery;
+		//Utility.onBattleStart += RefreshMyHand;
 	}
 
 	void Update()
@@ -93,9 +94,11 @@ public class CardManager : MonoBehaviour
 		TurnManager.onAddCard -= AddCard;
 
 		// <<22-10-21 장형용 :: 추가>>
-		Utility.onBattleStart -= ShuffleCemetery;
 		Utility.onBattleStart -= ShuffleExiledCard;
-		Utility.onBattleStart -= RefreshMyHand;
+
+		// 22-10-24 이동화 :: 얘들도 장비에 넣자 (장착 시)
+	//	Utility.onBattleStart -= ShuffleCemetery;
+	//	Utility.onBattleStart -= RefreshMyHand;
 		
 	}
 
@@ -195,6 +198,7 @@ public class CardManager : MonoBehaviour
 		List<Pos_Rot_Scale> originCardPRSs = new List<Pos_Rot_Scale>();
 		//카드 오리지날 크기와 위치 조정.
 		originCardPRSs = RoundAlignment(LeftCard_Tf, RightCard_Tf, myCards.Count, 0.5f, Vector3.one / 4);
+
 
 		for (int i = 0; i < myCards.Count; i++)
 		{
@@ -329,14 +333,13 @@ public class CardManager : MonoBehaviour
 				UseCardInArea(_card);
 				EntityManager.Inst.SetUseCard(_card);
 				EntityManager.Inst.UseCard_Self();
-				//UseCardSetmyCemetery(); <<22-10-21 장형용 :: 중복 삭제>>
 			}
 			else if (AttackRange_AllEnemy(_card))
 			{
 				UseCardInArea(_card);
 				EntityManager.Inst.SetUseCard(_card);
 				EntityManager.Inst.UseCard_AllEnemy();
-				//UseCardSetmyCemetery(); <<22-10-21 장형용 :: 중복 삭제>>
+
 			}
 			// 카드 사용
 			else if (AttackRange_Single(_card))
@@ -596,11 +599,6 @@ public class CardManager : MonoBehaviour
 		StartCoroutine(ShuffleHand());
 		EntityManager.Inst.playerEntity.Status_Aether -= 1;
 		yield return new WaitForSeconds(0.3f);
-
-		//if (PlayerEntity.Inst.Status_Aether == 0) // <<22-10-21 장형용 :: 추가>>
-		//{
-		//	LevelGeneration.Inst.EndTurn();
-		//}
 	}
 
 	public void CemeteryRefesh()
@@ -609,11 +607,6 @@ public class CardManager : MonoBehaviour
 		{
 			CardManager.Inst.ShuffleCemetery();
 			EntityManager.Inst.playerEntity.Status_Aether -= 1;
-
-			//if (PlayerEntity.Inst.Status_Aether == 0) // <<22-10-21 장형용 :: 추가>>
-			//{
-			//	LevelGeneration.Inst.EndTurn();
-			//}
 		}
 	}
 

@@ -14,7 +14,7 @@ public class Card : MonoBehaviour
 	[SerializeField] SpriteRenderer sp_card;
 	[SerializeField] TMP_Text nameTMP;
 	[SerializeField] TMP_Text manaCostTMP;
-	[SerializeField] protected TMP_Text explainTMP; // << 22-10-21 장형용 :: 접근 제한 protected로 변경>>
+	[SerializeField] protected TMP_Text explainTMP;
 	[SerializeField] Vector3 v_cardSize;
 
 	public Card_Info card_info;
@@ -38,11 +38,6 @@ public class Card : MonoBehaviour
 	public bool is_Useable_Card = true;
 
 	protected StringBuilder sb = new StringBuilder();
-
-	//private void FixedUpdate() <<22-10-21 장형용 :: 제거>>
-	//{	
-	//	ExplainRefresh();
-	//}
 
 	private void Awake()
 	{
@@ -70,31 +65,14 @@ public class Card : MonoBehaviour
 		i_damage = card_info.i_attack; // <<22-10-21 장형용 :: 추가>>
 		this.b_isExile = card_info.b_isExile;
 
-		//splitString(); <<22-10-21 장형용 :: 제거>>
 		ExplainRefresh();
 
 		ManaCostRefresh(); // <<22-10-21 장형용 :: 함수로 변경>>
 		nameTMP.text = card_info.st_cardName;
 	}
 
-	//OutPut Srting 문자열 
-	//   void splitString() <<22-10-21 장형용 :: 제거>>
-	//   {
-	//	string tempt = Regex.Replace(st_explain, @"[^0-9]", "");
-	//	Regex regex = new Regex(tempt);
-	//	i_damage = int.Parse(tempt);
-	//	i_explainDamageOrigin = int.Parse(tempt);
-	//	st_splitExplain = regex.Split(st_explain);
-	//}
-
 	public virtual void ExplainRefresh()
 	{
-		//if (st_splitExplain[1] !=  null) <<22-10-21 장형용 :: 변경>>
-		//{
-		//	string dumy = st_splitExplain[0] + (i_damage * PlayerEntity.Inst.Status_EnchaneValue) + st_splitExplain[1];
-		//	explainTMP.text = dumy;
-		//}
-
 		sb.Clear();
 		if(b_isExile)
         {
@@ -150,11 +128,6 @@ public class Card : MonoBehaviour
 	public virtual void UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		PlayerEntity.Inst.Status_Aether -= i_manaCost;
-
-		//if (PlayerEntity.Inst.Status_Aether == 0)
-		//{
-		//	LevelGeneration.Inst.EndTurn();
-		//}
 	}
 
 	// <<22-10-21 장형용 :: 추가>>
@@ -187,7 +160,6 @@ public class Card : MonoBehaviour
 		StartCoroutine(_target.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
 
 		_target?.Damaged(ApplyManaAffinity(_value));
-		//OnDamagedEntity.Invoke();
 	}
 
 	public void Attack_PlayerSelf(PlayerEntity _target, int _value) // 자해
@@ -196,7 +168,6 @@ public class Card : MonoBehaviour
 		_target.SetDamagedSprite(enemyDamagedEffectSpriteRenderer.sprite);
 
 		_target?.Damaged(ApplyManaAffinity(_value));
-		//OnDamagedEntity.Invoke();
 	}
 
 	public void RepeatAttack_AllEnemy(int _count, int _value)
