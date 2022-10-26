@@ -16,10 +16,6 @@ public class UseAccept : MonoBehaviour
 		useAccept.SetActive(false);
 	}
 
-	void Update()
-	{
-	}
-
 	public void Activate(Item_inven item)
 	{
 		this.item = item;

@@ -24,9 +24,24 @@
 			"defense": 0,
 			"vitality": 0
 		},
-		"description": "just postion?",
+		"description": "체력이 10 회복되어요",
 		"equipable": false,
 		"rarity": 2,
-		"slug": "potion"
+		"slug": "힐엘릭서"
+	},
+	{
+		"id": 2,
+		"title": "마나엘릭서(무?기)",
+		"value": 1,
+		"Healing": 10,
+		"stats": {
+			"power": 0,
+			"defense": 10,
+			"vitality": 0
+		},
+		"description": "어...최대체력 +10?",
+		"equipable": true,
+		"rarity": 2,
+		"slug": "마나엘릭서"
 	}
 ]

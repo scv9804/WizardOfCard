@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
 	public Item_inven item;
+	public int id;
 	public int amount;
 	public int slotId;
 
@@ -13,7 +14,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	private UseAccept useAccept;
 	private Vector2 offset;
 
-	void Start()
+	void Awake()
 	{
 		inv = GameObject.Find("InventorySystem").GetComponent<Inventory>();
 		tooltip = inv.GetComponent<Tooltip>();
@@ -22,13 +23,12 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
 	public void OnPointerClick(PointerEventData eventData)
     {
-		Debug.Log("Clicked");
-		if (item != null && item.Equipable == false) //소모품일시
+		Debug.Log(this.item.Id+"Clicked");
+		if (item != null && item.Equipable == false) //장비가 아닐시 == 소모품일시
         {
 			useAccept.itemData = this;
 			useAccept.Activate(item);
 			tooltip.Deactivate();
-			//HealItemUsed();
 		}
 		else if(item != null && item.Equipable == true)
         {
@@ -80,7 +80,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		if (item != null && item.Equipable == false)
 		{
 			HealItemUsed();
-			useAccept.gameObject.SetActive(false);
+			useAccept.Deactivate();
 		}
 
 	}
@@ -92,10 +92,12 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		{
 			PlayerEntity.Inst.Status_Health = PlayerEntity.Inst.Status_MaxHealth;
 		}
-		//inv.RemoveItem(item);
+
 		Destroy(gameObject);
-		Debug.Log(item.Title);
+		inv.items[slotId] = null;
+		inv.items[slotId] = new Item_inven();
 		useAccept.Deactivate();
+		inv.AddItem(0);
 	}
 	public void EquipItem()
     {

@@ -19,15 +19,19 @@ public class Slot : MonoBehaviour, IDropHandler
 	public void OnDrop(PointerEventData eventData)
 	{
 		ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();
+		Debug.Log(id);
 		if (inv.items[id].Id == -1)
 		{
+			Debug.Log(inv.items[id].Id);
 			inv.items[droppedItem.slotId] = new Item_inven();
 			inv.items[id] = droppedItem.item;
 			droppedItem.slotId = id;
 		}
 		else if (droppedItem.slotId != id)
 		{
+			Debug.Log(inv.items[id].Id);
 			Transform item = this.transform.GetChild(0);
+			Debug.Log(item);
 			item.GetComponent<ItemData>().slotId = droppedItem.slotId;
 			item.transform.SetParent(inv.slots[droppedItem.slotId].transform);
 			item.transform.position = inv.slots[droppedItem.slotId].transform.position;

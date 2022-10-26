@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
 	public List<GameObject> slots = new List<GameObject>();
 
 	void Start()
-	{	
+	{
 		slotAmount = 10;
 		//inventoryPanel = GameObject.Find("inventorys");
 		//slotPanel = inventoryPanel.transform.Find("Slots").gameObject;
@@ -24,17 +24,26 @@ public class Inventory : MonoBehaviour
 		//슬롯생성하기
 		for (int i = 0; i < slotAmount; i++)
 		{
-			items.Add(new Item_inven());
-			slots.Add(Instantiate(inventorySlot));
-			slots[i].GetComponent<Slot>().id = i;
-			slots[i].transform.SetParent(slotPanel.transform);
+			MakeSlot(i);
 		}
 		//테스트용 아이템 추가
 		AddItem(0);
 		AddItem(1);
+		AddItem(2);
+		AddItem(0);
+		AddItem(1);
+		AddItem(2);
 
+		Debug.Log(items[7].Title);
 	}
 
+	public void MakeSlot(int i)
+    {
+		items.Add(new Item_inven());
+		slots.Add(Instantiate(inventorySlot));
+		slots[i].GetComponent<Slot>().id = i;
+		slots[i].transform.SetParent(slotPanel.transform);
+	}
 	public void AddItem(int id)
 	{
 		Item_inven itemToAdd = database.FetchItemById(id);
@@ -71,13 +80,6 @@ public class Inventory : MonoBehaviour
 			}
 		//}
 		Debug.Log(itemToAdd.Title + "Added");
-	}
-
-	public void RemoveItem(Item_inven item)
-    {
-		Debug.Log(item);
-		//items.Remove(item);
-		AddItem(0);  //테스트용 아이템 추가.
 	}
 
 	bool CheckIfItemIsInInventory(Item_inven item)
