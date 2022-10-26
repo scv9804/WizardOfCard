@@ -56,7 +56,6 @@ public class CardManager : MonoBehaviour
 	[HideInInspector] public bool is_cardUsing;
 	[HideInInspector] public bool is_useEnhance;
 
-
 	private void Start()
 	{
 		SetupMyDeck();
@@ -533,6 +532,8 @@ public class CardManager : MonoBehaviour
 
 	public IEnumerator ShuffleHand()
 	{
+		UIManager.Inst.canHandRefresh = false; // <<22-10-26 장형용 :: 추가>>
+
 		int tempt = myCards.Count; 
 		for(int i =0;tempt > i ; i++ )
 		{
@@ -545,6 +546,8 @@ public class CardManager : MonoBehaviour
 			AddCard();
 			yield return new WaitForSeconds(0.1f);
 		}
+
+		UIManager.Inst.canHandRefresh = true; // <<22-10-26 장형용 :: 추가>>
 	}
 
 	public void ShuffleExiledCard() // <<22-10-21 장형용 :: 추가>>
@@ -588,7 +591,7 @@ public class CardManager : MonoBehaviour
 	#region UIManager
 	public void HandRefresh()
 	{
-		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether > 0 && TurnManager.Inst.myTurn)
+		if (e_CardStats == E_CardStats.CanAll && EntityManager.Inst.playerEntity.Status_Aether > 0)
 		{
 			StartCoroutine(Shuffle());
 		}

@@ -10,7 +10,7 @@ public class MagicBolt : Card
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
-			Attack_Defalut(_target_enemy, ApplyManaAffinity(i_damage));
+			Attack_SingleEnemy(_target_enemy, ApplyManaAffinity(i_damage));
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
@@ -18,10 +18,7 @@ public class MagicBolt : Card
 		}
 		else // 광역 또는 무작위 대상 (?)
 		{
-            for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
-            {
-                Attack_Defalut(EntityManager.Inst.enemyEntities[i], ApplyManaAffinity(i_damage));
-            }
+			Attack_AllEnemy(ApplyManaAffinity(i_damage));
         }
 
 		BattleCalculater.Inst.SpellEnchaneReset();

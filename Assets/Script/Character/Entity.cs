@@ -244,17 +244,18 @@ public class Entity : MonoBehaviour
         .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
         if (i_health <= 0)
         {
-            //VFX
-            dissolveEffect.Play();
-            dissolveEffect.playRate = 2.5f ;
-            StateOff.SetActive(false);
-            isDissolving = true;
-            is_die = true;
-            //수동조정 필요함
-            yield return new WaitForSeconds(0.4f);
-            dissolveEffect.Stop();
-            //yield return new WaitForSeconds(1f); //<<장형용 :: 후딜레이 때문에 엔티티 제거가 안 되는 문제 발생해 삭제>> 이동화 :: 이새끼 진짜 왜안됨?
-            EntityManager.Inst.CheckDieEveryEnemy();
+            StartCoroutine(StartDestroyEffect());
+            ////VFX
+            //dissolveEffect.Play();
+            //dissolveEffect.playRate = 2.5f ;
+            //StateOff.SetActive(false);
+            //isDissolving = true;
+            //is_die = true;
+            ////수동조정 필요함
+            //yield return new WaitForSeconds(0.4f);
+            //dissolveEffect.Stop();
+            ////yield return new WaitForSeconds(1f); //<<장형용 :: 후딜레이 때문에 엔티티 제거가 안 되는 문제 발생해 삭제>> 이동화 :: 이새끼 진짜 왜안됨?
+            //EntityManager.Inst.CheckDieEveryEnemy();
         }
         yield return new WaitForSeconds(0.15f);
 		try
@@ -265,6 +266,20 @@ public class Entity : MonoBehaviour
 		{
             Debug.Log("Entitiy Destroy");
 		}
+    }
+
+    IEnumerator StartDestroyEffect() // <<22-10-26 장형용 :: 해결했다>>
+    {
+        dissolveEffect.Play();
+        dissolveEffect.playRate = 2.5f;
+        StateOff.SetActive(false);
+        isDissolving = true;
+        is_die = true;
+        //수동조정 필요함
+        yield return new WaitForSeconds(0.4f);
+        dissolveEffect.Stop();
+        yield return new WaitForSeconds(0.8f); //<<장형용 :: 후딜레이 때문에 엔티티 제거가 안 되는 문제 발생해 삭제>> 이동화 :: 이새끼 진짜 왜안됨?
+        EntityManager.Inst.CheckDieEveryEnemy();
     }
 
     void SetDamagedOpacityTrue()

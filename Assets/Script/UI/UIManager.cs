@@ -67,6 +67,8 @@ public class UIManager : MonoBehaviour
 	bool ispostProcessing = true;
 	bool isUIUse;
 
+	public bool canHandRefresh; //<<22-10-26 장형용 :: 리롤 버튼 사용 중 추가 사용 못 하게 추가>>
+
 	[SerializeField] LevelGeneration levelGeneration;
 
 
@@ -114,7 +116,7 @@ public class UIManager : MonoBehaviour
 
 	public void TurnEndButton()
 	{
-		if (TurnManager.Inst.myTurn)
+		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == CardManager.E_CardStats.CanAll)
 		{
 			LevelGeneration.Inst.EndTurn();
 		}
@@ -161,8 +163,12 @@ public class UIManager : MonoBehaviour
 
 	public void HandRefresh()
 	{
-		if (TurnManager.Inst.myTurn && CardManager.Inst.myDeck.Count != 0)
+		if (TurnManager.Inst.myTurn 
+			&& CardManager.Inst.myDeck.Count != 0
+			&& canHandRefresh) // <<22-10-26 장형용 :: 추가>>
+		{
 			CardManager.Inst.HandRefresh();
+		}
 	}
 
 	

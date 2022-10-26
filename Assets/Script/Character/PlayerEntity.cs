@@ -139,7 +139,15 @@ public class PlayerEntity : MonoBehaviour
 		}
 		set
 		{
-            i_health = value;
+            if(value > maxHealth) // <<22-10-26 장형용 :: 별도의 초과회복 처리를 하지 않아도 되도록 수정>>
+            {
+                i_health = maxHealth;
+            }
+            else
+            {
+                i_health = value;
+            }
+
             RefreshPlayer();
         }
     }

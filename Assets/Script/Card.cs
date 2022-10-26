@@ -5,9 +5,10 @@ using TMPro;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using System.Text;
+using System;
+
 public class Card : MonoBehaviour
 {
-
 	[SerializeField] GameObject card;
 	[SerializeField] ItemSO itemSO;
 	[SerializeField] SpriteRenderer charater;
@@ -38,6 +39,8 @@ public class Card : MonoBehaviour
 	public bool is_Useable_Card = true;
 
 	protected StringBuilder sb = new StringBuilder();
+
+	WaitForSeconds waits = new WaitForSeconds(0.5f);
 
 	private void Awake()
 	{
@@ -74,19 +77,32 @@ public class Card : MonoBehaviour
 	public virtual void ExplainRefresh()
 	{
 		sb.Clear();
-		if(b_isExile)
-        {
-			sb.Append("<color=#ff00ff>망각</color>\n");
+		if (b_isExile)
+		{
+			sb.Append("망각\n");
 		}
 		sb.Append(st_explain);
 
+		#region 각 변수 별 텍스트 갱신 처리
 
-		sb.Replace("{0}", i_damage.ToString());                       // 0번: 고정 수치
-		sb.Replace("{1}", ApplyManaAffinity(i_damage).ToString());    // 1번: 강화 수치와 마나 친화성이 적용되는 수치
-		sb.Replace("{2}", ApplyMagicResistance(i_damage).ToString()); // 2번: 강화 수치와 마나 저항력이 적용되는 수치
+		sb.Replace("{0}", i_damage.ToString());                       // 0번: 고정 수치, 색은 변하지 않음
+
+		sb.Replace("{1}", "<color=#ff0000>{1}</color>");              // 1번: 강화 수치와 마나 친화성이 적용되는 수치
+		sb.Replace("{1}", ApplyManaAffinity(i_damage).ToString());
+
+		sb.Replace("{2}", "<color=#0000ff>{2}</color>");              // 2번: 강화 수치와 마나 저항력이 적용되는 수치
+		sb.Replace("{2}", ApplyMagicResistance(i_damage).ToString());
+
 																	  // 3번: 카드 별 별도로 사용하는 수치, 이 경우는 override해서 다룸
-																	  // 4번: 강화 수치가 적용되는 카드 별 별도로 사용하는 수치, 이 경우는 override해서 다룸
-		sb.Replace("{5}", ApplyEnhanceValue(i_damage).ToString());    // 5번: 강화수치만 적용되는 수치
+
+																	  // 4번: 강화 수치가 적용되는 카드 별 별도로 사용하는 수치, 이 경우도 override해서 다룸
+
+		sb.Replace("{5}", "<color=#ff00ff>{5}</color>");              // 5번: 강화수치만 적용되는 수치
+		sb.Replace("{5}", ApplyEnhanceValue(i_damage).ToString());
+
+		sb.Replace("망각", "<color=#ff00ff>망각</color>");
+
+		#endregion
 
 		explainTMP.text = sb.ToString();
 	}
@@ -154,15 +170,17 @@ public class Card : MonoBehaviour
 	#region 카드 능력 모듈
 
 	// <<22-10-21 장형용 :: 추가>>
-	public void Attack_Defalut(Entity _target, int _value) // 적 공격
+	protected bool Attack_SingleEnemy(Entity _target, int _value) // 적 공격
 	{
 		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
 		StartCoroutine(_target.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
 
 		_target?.Damaged(ApplyManaAffinity(_value));
+
+		return true;
 	}
 
-	public void Attack_PlayerSelf(PlayerEntity _target, int _value) // 자해
+	protected void Attack_PlayerSelf(PlayerEntity _target, int _value) // 자해
 	{
 		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
 		_target.SetDamagedSprite(enemyDamagedEffectSpriteRenderer.sprite);
@@ -170,13 +188,49 @@ public class Card : MonoBehaviour
 		_target?.Damaged(ApplyManaAffinity(_value));
 	}
 
-	public void RepeatAttack_AllEnemy(int _count, int _value)
+	protected void Attack_AllEnemy(int _value)
     {
-		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count * _count; i++)
-		{
-			Attack_Defalut(EntityManager.Inst.enemyEntities[i % EntityManager.Inst.enemyEntities.Count], _value);	
-		}
+		for(int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+        {
+			if(!EntityManager.Inst.enemyEntities[i].is_die)
+            {
+				Attack_SingleEnemy(EntityManager.Inst.enemyEntities[i], _value);
+			}
+        }
     }
+
+	protected void Attack_RandomEnemy(int _value)
+    {
+		Entity _target = EntityManager.Inst.enemyEntities[TargetEnemyIndex()];
+
+    }
+
+	int TargetEnemyIndex()
+    {
+		int _index = 0;
+
+		return _index;
+    }
+
+	protected IEnumerator Repeat(Action myMethodName, int _count) // <<22-10-26 장형용 :: 메소드를 반복 시켜주는 메소드>>
+	{
+		for (int i = 0; i < _count; i++)
+		{
+			myMethodName();
+			yield return waits;
+		}
+	}
+
+	//protected IEnumerator RepeatC_AAE(int _count) // <<22-10-26 장형용 :: 메소드를 반복 시켜주는 메소드>>
+	//   {
+	//	WaitForSeconds waits = new WaitForSeconds(0.25f);
+
+	//	for (int i = 0; i < _count; i++)
+	//	{
+	//		Attack_AllEnemy(ApplyManaAffinity(i_damage));
+	//		yield return waits;
+	//	}
+	//}
 
 	#endregion
 

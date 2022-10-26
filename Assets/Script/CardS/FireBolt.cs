@@ -23,7 +23,7 @@ public class FireBolt : Card
 		{
 			_target_enemy.i_burning += ApplyEnhanceValue(i_applyBurning);
 
-			Attack_Defalut(_target_enemy, ApplyManaAffinity(i_damage));
+			Attack_SingleEnemy(_target_enemy, ApplyManaAffinity(i_damage));
 
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
@@ -38,7 +38,7 @@ public class FireBolt : Card
 			{
 				_target_enemy.i_burning += ApplyEnhanceValue(i_applyBurning);
 
-				Attack_Defalut(EntityManager.Inst.enemyEntities[i], ApplyManaAffinity(i_damage));
+				Attack_SingleEnemy(EntityManager.Inst.enemyEntities[i], ApplyManaAffinity(i_damage));
 			}
 		}
 

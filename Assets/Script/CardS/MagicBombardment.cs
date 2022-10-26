@@ -30,11 +30,12 @@ public class MagicBombardment : Card
 	{
 		base.UseCard(_target_enemy, _target_player);
 
-		RepeatAttack_AllEnemy(i_attackCount, ApplyManaAffinity(i_damage));
+		StartCoroutine(Repeat(() => Attack_AllEnemy(ApplyManaAffinity(i_damage)), i_attackCount));
+		//StartCoroutine(RepeatC_AAE(i_attackCount));
 
 		if (b_canExtraAttack)
 		{
-			Attack_Defalut(EntityManager.Inst.enemyEntities[Random.Range(0, EntityManager.Inst.enemyEntities.Count)], ApplyManaAffinity(i_damage));
+			Attack_SingleEnemy(EntityManager.Inst.enemyEntities[Random.Range(0, EntityManager.Inst.enemyEntities.Count)], ApplyManaAffinity(i_damage));
 		}
 
 		BattleCalculater.Inst.SpellEnchaneReset();
