@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using DG.Tweening;
 using System.Text;
 using System;
+using System.Linq;
 
 public class Card : MonoBehaviour
 {
@@ -40,12 +41,22 @@ public class Card : MonoBehaviour
 
 	protected StringBuilder sb = new StringBuilder();
 
-	WaitForSeconds waits = new WaitForSeconds(0.5f);
+	// ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	protected int i_enhenceValue_inst = 0;
+	protected int i_magicAffinity_turn_inst = 0;
+	protected int i_magicAffinity_battle_inst = 0;
+	protected int i_magicAffinity_permanent_inst = 0;
+	protected int T_magicResistance_inst = 0;
 
 	private void Awake()
 	{
 		Setup();
 	}
+
+	protected virtual void Start()
+    {
+
+    }
 
 	public void SetItemSO(Card_Info _card_info)
 	{
@@ -66,7 +77,7 @@ public class Card : MonoBehaviour
 		playerAttackEffectSpriteRenderer = card_info.playerAttackSprite;
 
 		i_damage = card_info.i_attack; // <<22-10-21 장형용 :: 추가>>
-		this.b_isExile = card_info.b_isExile;
+		b_isExile = card_info.b_isExile;
 
 		ExplainRefresh();
 
@@ -144,6 +155,8 @@ public class Card : MonoBehaviour
 	public virtual void UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		PlayerEntity.Inst.Status_Aether -= i_manaCost;
+
+		StartCoroutine(T_UseCard(_target_enemy, _target_player));
 	}
 
 	// <<22-10-21 장형용 :: 추가>>
@@ -170,15 +183,13 @@ public class Card : MonoBehaviour
 	#region 카드 능력 모듈
 
 	// <<22-10-21 장형용 :: 추가>>
-	protected bool Attack_SingleEnemy(Entity _target, int _value) // 적 공격
-	{
-		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
-		StartCoroutine(_target.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
+	protected void Attack_SingleEnemy(Entity _target, int _value) // 적 공격
+    {
+        StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
+        StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
 
-		_target?.Damaged(ApplyManaAffinity(_value));
-
-		return true;
-	}
+        _target?.Damaged(ApplyManaAffinity(_value));
+    }
 
 	protected void Attack_PlayerSelf(PlayerEntity _target, int _value) // 자해
 	{
@@ -201,36 +212,184 @@ public class Card : MonoBehaviour
 
 	protected void Attack_RandomEnemy(int _value)
     {
-		Entity _target = EntityManager.Inst.enemyEntities[TargetEnemyIndex()];
+		Entity _target = EntityManager.Inst.TargetRandomEnemy();
 
-    }
-
-	int TargetEnemyIndex()
-    {
-		int _index = 0;
-
-		return _index;
-    }
+		Attack_SingleEnemy(_target, _value);
+	}
 
 	protected IEnumerator Repeat(Action myMethodName, int _count) // <<22-10-26 장형용 :: 메소드를 반복 시켜주는 메소드>>
 	{
 		for (int i = 0; i < _count; i++)
 		{
-			myMethodName();
-			yield return waits;
+			myMethodName(); // 아니 카드 루프 돌다 퇴근하는데?
+			yield return new WaitForSeconds(0.1f);
+		}
+
+		yield return null;
+	}
+
+	public virtual IEnumerator T_UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		//PlayerEntity.Inst.Status_Aether -= i_manaCost;
+
+		T_SetStatusInstance();
+
+		UIManager.i_UsingCardCount++;
+
+		Utility.onCardUsed?.Invoke();
+
+		yield return null;
+    }
+
+	protected void T_SetStatusInstance() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		i_enhenceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
+		i_magicAffinity_turn_inst = PlayerEntity.Inst.Status_MagicAffinity_Turn;
+		i_magicAffinity_battle_inst = PlayerEntity.Inst.Status_MagicAffinity_Battle;
+		i_magicAffinity_permanent_inst = PlayerEntity.Inst.Status_MagicAffinity_Permanent;
+		T_magicResistance_inst = PlayerEntity.Inst.Status_MagicResistance;
+	}
+
+	protected void T_Attack(Entity _target, int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
+		StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
+
+		_target?.Damaged(T_ApplyManaAffinity(_value), this);
+    }
+
+	protected void T_Attack(PlayerEntity _target, int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
+		_target.SetDamagedSprite(enemyDamagedEffectSpriteRenderer.sprite);
+
+		_target?.Damaged(T_ApplyManaAffinity(_value), this);
+	}
+
+	protected void T_Attack_AllEnemy(Entity _target, int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+		{
+			_target = EntityManager.Inst.enemyEntities[i];
+
+			if (!_target.is_die)
+            {
+				T_Attack(EntityManager.Inst.enemyEntities[i], i_damage);
+			}
 		}
 	}
 
-	//protected IEnumerator RepeatC_AAE(int _count) // <<22-10-26 장형용 :: 메소드를 반복 시켜주는 메소드>>
-	//   {
-	//	WaitForSeconds waits = new WaitForSeconds(0.25f);
+	protected IEnumerator T_EndUsingCard() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		UIManager.i_UsingCardCount--;
 
-	//	for (int i = 0; i < _count; i++)
-	//	{
-	//		Attack_AllEnemy(ApplyManaAffinity(i_damage));
-	//		yield return waits;
-	//	}
-	//}
+		yield return null;
+	}
+
+	protected void T_Attack_RandomEnemy(Entity _target, int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		_target = EntityManager.Inst.TargetRandomEnemy();
+
+		if (_target != null)
+		{
+			T_Attack(_target, _value);
+		}
+	}
+
+	protected void T_Shield(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		PlayerEntity.Inst.Status_Shiled += T_ApplyMagicResistance(i_damage);
+	}
+
+	protected void T_Apply_Burning(Entity _target, int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		_target.i_burning += T_ApplyEnhanceValue(_value);
+	}
+
+	protected void T_Apply_Burning(PlayerEntity _target, int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		_target.i_burning += T_ApplyEnhanceValue(_value);
+	}
+
+	protected void T_Apply_Burning_AllEnemy(Entity _target, int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+		{
+			_target = EntityManager.Inst.enemyEntities[i];
+
+			T_Apply_Burning(_target, _value);
+		}
+	}
+
+	protected void T_Apply_MagicAffinity_Turn(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		PlayerEntity.Inst.Status_MagicAffinity_Turn += T_ApplyEnhanceValue(_value);
+
+		CardManager.Inst.RefreshMyHand();
+	}
+
+	protected void T_Apply_MagicAffinity_Battle(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		PlayerEntity.Inst.Status_MagicAffinity_Battle += T_ApplyEnhanceValue(_value);
+
+		CardManager.Inst.RefreshMyHand();
+	}
+
+	protected void T_EnhanceValue() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		PlayerEntity.Inst.Status_EnchaneValue *= i_damage;
+
+		CardManager.Inst.RefreshMyHand();
+	}
+
+	protected void T_ResotreAether(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		PlayerEntity.Inst.Status_Aether += _value;
+	}
+
+	protected void T_ResotreHealth(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		PlayerEntity.Inst.Status_Health += T_ApplyEnhanceValue(_value);
+	}
+
+	protected void T_AddCardAndCostDescrease() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		if (CardManager.Inst.myDeck.Count > 0)
+		{
+			CardManager.Inst.AddCard();
+
+			CardManager.Inst.myCards.Last().i_manaCost = 0;
+			CardManager.Inst.myCards.Last().b_isExile = true;
+
+			CardManager.Inst.myCards.Last().ManaCostRefresh();
+			CardManager.Inst.myCards.Last().ExplainRefresh();
+		}
+	}
+
+
+
+	protected int T_ApplyManaAffinity(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		int total = _value 
+			+ i_magicAffinity_permanent_inst						
+			+ i_magicAffinity_battle_inst					
+			+ i_magicAffinity_turn_inst;
+
+		return T_ApplyEnhanceValue(total);
+
+	}
+
+	protected int T_ApplyEnhanceValue(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		return _value *= i_enhenceValue_inst;
+	}
+
+	protected int T_ApplyMagicResistance(int _value) // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		int total = _value += T_magicResistance_inst;
+
+		return _value *= i_enhenceValue_inst;
+	}
 
 	#endregion
 

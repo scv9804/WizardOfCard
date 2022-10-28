@@ -35,5 +35,23 @@ MonoBehaviour:
     card: {fileID: 3837261346033852980, guid: 5b8c1c8e56cfc824db2942f83e03c86a, type: 3}
     card_object: {fileID: 7395019933593546574, guid: 5b8c1c8e56cfc824db2942f83e03c86a, type: 3}
   - itemCode: 7
+    card: {fileID: 5730747856063684451, guid: 0a342f2156d041940a6959a4394721a3, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 0a342f2156d041940a6959a4394721a3, type: 3}
+  - itemCode: 8
+    card: {fileID: -4810641639977641128, guid: 3a5aff066f2cf694e8604ad6e4f48247, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 3a5aff066f2cf694e8604ad6e4f48247, type: 3}
+  - itemCode: 9
+    card: {fileID: 1439859016149703183, guid: 4268e0e9f67083a43a4d41c628db22a8, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 4268e0e9f67083a43a4d41c628db22a8, type: 3}
+  - itemCode: 10
+    card: {fileID: -1602002505651001504, guid: 1ed675b908cc4ca4884ddc4a5a2d4f3c, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 1ed675b908cc4ca4884ddc4a5a2d4f3c, type: 3}
+  - itemCode: 11
+    card: {fileID: 7150842848999623381, guid: 1faf8cfd015ab724c8c89fa3c632e858, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 1faf8cfd015ab724c8c89fa3c632e858, type: 3}
+  - itemCode: 12
+    card: {fileID: 1590612864075145717, guid: 5459a47eaa6c083449aa37ff647b9fa6, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 5459a47eaa6c083449aa37ff647b9fa6, type: 3}
+  - itemCode: 13
     card: {fileID: 5251858741531333875, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
     card_object: {fileID: 7395019933593546574, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}

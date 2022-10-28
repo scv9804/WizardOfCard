@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class CardManager : MonoBehaviour
 {
@@ -41,9 +42,6 @@ public class CardManager : MonoBehaviour
 	[SerializeField] Transform[] useCardPath_OnHand_Tf;
 	public Vector3[] v3_cardPaths_onHand;
 
-
-
-	
 
 	public enum E_CardStats { Cannot, CanMouseOver, CanAll };
 
@@ -484,7 +482,6 @@ public class CardManager : MonoBehaviour
 		selectCard.GetComponent<OrderLayer>().SetMostFrontOrder(false);
 		selectCard.is_Useable_Card = true;
 	}
-
 
 	public void UseCardSetmyCemetery() 
     {

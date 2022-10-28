@@ -71,6 +71,10 @@ public class UIManager : MonoBehaviour
 
 	[SerializeField] LevelGeneration levelGeneration;
 
+	public static int i_UsingCardCount = 0; // ***실험(기능이 불안정할 수 있음)*** <<22-10-28 장형용 :: 추가>>
+	public static int i_isChecking = 0; // ***실험(기능이 불안정할 수 있음)*** <<22-10-28 장형용 :: 추가>>
+
+	Coroutine tryEndTurnCoroutine;
 
 	public void AntiAliasing_FXAA()
 	{
@@ -118,8 +122,24 @@ public class UIManager : MonoBehaviour
 	{
 		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == CardManager.E_CardStats.CanAll)
 		{
+			//LevelGeneration.Inst.EndTurn();
+
+			tryEndTurnCoroutine = StartCoroutine(TryEndTurn());  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+		}
+	}
+
+	public IEnumerator TryEndTurn()  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	{
+		CardManager.Inst.e_CardStats = CardManager.E_CardStats.Cannot;
+
+		yield return new WaitAllCardUsingDone();
+
+		if(!EntityManager.Inst.isAlreadyDead())
+        {
 			LevelGeneration.Inst.EndTurn();
 		}
+
+		yield return null;
 	}
 
 	public void TurnEndButtonActivae()
@@ -472,4 +492,15 @@ public class UIManager : MonoBehaviour
 
 
 
+}
+
+public class WaitAllCardUsingDone : CustomYieldInstruction  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+{
+    public override bool keepWaiting
+    {
+        get
+        {
+			return UIManager.i_UsingCardCount > 0 || UIManager.i_isChecking > 0;
+        }
+    }
 }

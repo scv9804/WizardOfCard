@@ -39,4 +39,8 @@ public class Utility : MonoBehaviour
     }
 
     public static Action onBattleStart;
+
+    public static Action onCardUsed;
+
+    public static Action<Card, int> onDamaged;
 }

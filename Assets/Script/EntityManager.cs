@@ -97,11 +97,42 @@ public class EntityManager : MonoBehaviour
         LevelGeneration.Inst.EndTurn();
     }
 
+    public bool isAlreadyDead() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+    {
+        bool _value = true;
 
+        for(int i = 0; i < enemyEntities.Count; i++)
+        {
+            if(!enemyEntities[i].is_die)
+            {
+                _value = false;
 
+                break;
+            }
+        }
 
-	#region enemySpaw
-	public void SetEnemyEntity(Enemy _enemy)
+        return _value;
+    }
+
+    public Entity TargetRandomEnemy() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+    {
+        if(isAlreadyDead())
+        {
+            return null;
+        }
+
+        int _index = Random.Range(0, enemyEntities.Count);
+
+        while(enemyEntities[_index].is_die)
+        {
+            _index = Random.Range(0, enemyEntities.Count);
+        }
+
+        return enemyEntities[_index];
+    }
+
+    #region enemySpaw
+    public void SetEnemyEntity(Enemy _enemy)
     {
         var entityObject = Instantiate(entitiyPrefab, spawnEnemy_Tf.position, Quaternion.identity);
         var entity = entityObject.GetComponent<Entity>();
@@ -237,13 +268,13 @@ public class EntityManager : MonoBehaviour
                     CardManager.Inst.SetCardStateCannot();
                 }
             }
-
         }
         catch
 		{
             Debug.Log("이미 Destroy됨");
 		}
-		
+
+        UIManager.i_isChecking--;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
     }
 
 

@@ -302,24 +302,9 @@ public class PlayerEntity : MonoBehaviour
     }
 
 
-    public void Damaged(int _damage)
+    public void Damaged(int _damage, Card _card = null)
     {
-        //if (0 < i_shield) <<22-10-21 장형용 :: 쉴드 계산 식 수정>>
-        //{
-        //    i_shield -= _damage;
-        //    if (0 >= i_shield)
-        //    {
-        //        i_health -= _damage;
-        //        i_shield = 0;
-
-        //    }
-
-        //}
-        //else
-        //{
-        //    i_health -= _damage;
-
-        //}
+        int totalDamage = _damage - i_shield;
 
         if (i_shield > _damage)
         {
@@ -327,8 +312,13 @@ public class PlayerEntity : MonoBehaviour
         }
         else
         {
-            i_health -= (_damage - i_shield);
+            i_health -= totalDamage;
             i_shield = 0;
+        }
+
+        if (totalDamage > 0)
+        {
+            Utility.onDamaged?.Invoke(_card, totalDamage);
         }
 
         if (i_health <= 0)

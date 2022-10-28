@@ -35,8 +35,6 @@ public class TurnManager : MonoBehaviour
     public static Action onAddCard;
     public static Action <bool> onStartTurn;
 
-
-
     // ≈œΩ√¿€
     public IEnumerator Co_StartTurn(Room room)
     {
@@ -95,5 +93,4 @@ public class TurnManager : MonoBehaviour
     {
         notificationPanel.Show(_myTurn);
     }
-
 }

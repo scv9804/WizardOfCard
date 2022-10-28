@@ -115,23 +115,9 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public bool Damaged(int _damage) 
+    public bool Damaged(int _damage, Card _card = null) 
     {
-        //if (0 <i_shield ) <<22-10-21 장형용 :: 쉴드 계산 식 수정>>
-        //{
-        //    i_shield -= _damage;
-        //    if (0 >= i_shield )
-        //    {
-        //        i_health -= _damage;
-        //        i_shield = 0;
-        //    }
-
-        //}
-        //else
-        //{
-        //    i_health -= _damage;
-
-        //}
+        int totalDamage = _damage - i_shield;
 
         if (i_shield > _damage)
         {
@@ -139,8 +125,13 @@ public class Entity : MonoBehaviour
         }
         else
         {
-            i_health -= (_damage - i_shield);
+            i_health -= totalDamage;
             i_shield = 0;
+        }
+
+        if (totalDamage > 0)
+        {
+            Utility.onDamaged?.Invoke(_card, totalDamage);
         }
 
         if (i_health <= 0)
@@ -177,8 +168,6 @@ public class Entity : MonoBehaviour
         {
             i_health = 0;
             RefreshEntity();
-
-            StartCoroutine(GameManager.Inst.GameOverScene());
             return;
         }
 
@@ -234,6 +223,8 @@ public class Entity : MonoBehaviour
 
     public IEnumerator DamagedEffectCorutin(Sprite _sprite)
     {
+        UIManager.i_isChecking++;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+
         DamagedSpriteRenederer.sprite = _sprite;
         SetDamagedOpacityTrue();
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
@@ -261,6 +252,8 @@ public class Entity : MonoBehaviour
 		try
         {
             charater.sprite = enemy.sp_sprite;
+
+            UIManager.i_isChecking--;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
         }
 		catch
 		{
