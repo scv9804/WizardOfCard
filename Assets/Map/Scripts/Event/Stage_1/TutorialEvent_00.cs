@@ -5,17 +5,9 @@ using UnityEngine.UI;
 
 public class TutorialEvent_00 : RoomEventListScript
 {
-	[SerializeField] Sprite devilStatueSprite;
-	[SerializeField] SpriteRenderer changedSpriteRenderer;
-	[SerializeField] GameObject changeObject;
-
-
 	[SerializeField] DialogSystem dialogSystem01;
 	[SerializeField] DialogSystem dialogSystem02;
 	[SerializeField] DialogSystem dialogSystem03;
-
-
-
 
 	int fadeTime;
 	[Header("오브젝트")]
@@ -60,9 +52,6 @@ public class TutorialEvent_00 : RoomEventListScript
 		cardArea.SetActive(false);
 
 		yield return new WaitUntil(() => dialogSystem02.Update_CardTutorial());
-
-
-		
 	}
 
 	public void tutorial()
