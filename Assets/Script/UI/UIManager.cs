@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
 	private void Awake()
 	{
 		Inst = this;
+
+		i_UsingCardCount = 0;
+		i_isChecking = 0;
 	}
 	private void Start()
 	{
@@ -134,7 +137,7 @@ public class UIManager : MonoBehaviour
 
 		yield return new WaitAllCardUsingDone();
 
-		if(!EntityManager.Inst.isAlreadyDead())
+		if(!EntityManager.Inst.IsAlreadyAllDead())
         {
 			LevelGeneration.Inst.EndTurn();
 		}

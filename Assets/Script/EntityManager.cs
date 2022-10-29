@@ -72,7 +72,6 @@ public class EntityManager : MonoBehaviour
         TurnManager.onStartTurn += OnTurnStarted;
     }
 
-
     void EnemyEntityAlignment()
     {
         for (int i = 0; i < enemyEntities.Count; i++)
@@ -86,7 +85,6 @@ public class EntityManager : MonoBehaviour
         }
     }
 
-
     public IEnumerator EnemyEntityAttack()
 	{
 		foreach (var enemy in enemyEntities)
@@ -97,7 +95,10 @@ public class EntityManager : MonoBehaviour
         LevelGeneration.Inst.EndTurn();
     }
 
-    public bool isAlreadyDead() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+    // <<22-10-28 장형용 :: 추가>>
+    #region 타겟 랜덤 지정 / 살아있는 개체 확인
+
+    public bool IsAlreadyAllDead()
     {
         bool _value = true;
 
@@ -114,22 +115,31 @@ public class EntityManager : MonoBehaviour
         return _value;
     }
 
-    public Entity TargetRandomEnemy() // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+    public Entity SelectRandomTarget()
     {
-        if(isAlreadyDead())
+        if(IsAlreadyAllDead())
         {
             return null;
         }
 
         int _index = Random.Range(0, enemyEntities.Count);
 
-        while(enemyEntities[_index].is_die)
-        {
-            _index = Random.Range(0, enemyEntities.Count);
-        }
+        //while(enemyEntities[_index].is_die)
+        //{
+        //    _index = Random.Range(0, enemyEntities.Count);
+        //}
 
-        return enemyEntities[_index];
+        if(enemyEntities[_index].is_die)
+        {
+            return SelectRandomTarget();
+        }
+        else
+        {
+            return enemyEntities[_index];
+        }
     }
+
+    #endregion
 
     #region enemySpaw
     public void SetEnemyEntity(Enemy _enemy)
@@ -241,14 +251,13 @@ public class EntityManager : MonoBehaviour
 
     #endregion
 
-
     #region TurnManger
     void OnTurnStarted(bool _myTurn)
     {
         SetAttackable(_myTurn);
     }
 
-    public void CheckDieEveryEnemy()
+    public void CheckDieEveryEnemy() // <<22-10-29 장형용 :: foreach 때문인지 뭐 때문인지 뭐 하나가 진입하면 Lock 걸려서 못 들어가니 안 씁니다>>
 	{
 		try 
         {
@@ -273,19 +282,30 @@ public class EntityManager : MonoBehaviour
 		{
             Debug.Log("이미 Destroy됨");
 		}
+    }
 
-        UIManager.i_isChecking--;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+    public void CheckDieEnemy(Entity _entity)
+    {
+        if (_entity.is_die)
+        {
+            _entity.DestroyTest();
+            enemyEntities.Remove(_entity);
+            Debug.Log("하나죽었다.");
+        }
+
+        if (enemyEntities.Count == 0)
+        {
+            Debug.Log("다음방으로");
+            UIManager.Inst.ButtonActivate();
+            //    RewordManager.Inst.GameClear();
+            CardManager.Inst.SetCardStateCannot();
+        }
     }
 
 
 
 
-
-
 	#endregion
-
-
-
 
 	#region PlayerEntity
 
@@ -334,7 +354,6 @@ public class EntityManager : MonoBehaviour
 
     #endregion
 
-
     #region Entity
 
     public void EntityMouseOver(Entity _entity)
@@ -381,7 +400,6 @@ public class EntityManager : MonoBehaviour
     }
     #endregion
 
-
     #region CardUseSet
     //적 클릭후 마우스 업 시 적용됨.
 
@@ -407,11 +425,13 @@ public class EntityManager : MonoBehaviour
             CardManager.Inst.UseCardSetmyCemetery();
             if (selectPlayerEntity == null)
             {
-                CardManager.Inst.selectCard.UseCard(selectEntity); // <<22-10-21 장형용 :: 변경>>
+                //CardManager.Inst.selectCard.UseCard(selectEntity); // <<22-10-21 장형용 :: 변경>>
+                StartCoroutine(CardManager.Inst.selectCard.UseCard(selectEntity, null));
             }
             if (selectEntity == null)
             {
-                CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity); // <<22-10-21 장형용 :: 변경>>  굳
+                //CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity); // <<22-10-21 장형용 :: 변경>>  굳
+                StartCoroutine(CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity));
             }
         }
         catch
@@ -441,7 +461,8 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-            CardManager.Inst.selectCard.UseCard(null); // <<22-10-21 장형용 :: 변경>>
+            //CardManager.Inst.selectCard.UseCard(null); // <<22-10-21 장형용 :: 변경>>
+            StartCoroutine(CardManager.Inst.selectCard.UseCard(null, null));
         }
         catch
         {
@@ -461,7 +482,8 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-            CardManager.Inst.selectCard.UseCard(null, playerEntity); // <<22-10-21 장형용 :: 변경>>
+            //CardManager.Inst.selectCard.UseCard(null, playerEntity); // <<22-10-21 장형용 :: 변경>>
+            StartCoroutine(CardManager.Inst.selectCard.UseCard(null, playerEntity));
 
         }
         catch
@@ -500,7 +522,6 @@ public class EntityManager : MonoBehaviour
 
     }
 	#endregion
-
 
 	#region Card
 

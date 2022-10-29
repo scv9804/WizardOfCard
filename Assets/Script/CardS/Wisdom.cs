@@ -40,25 +40,15 @@ public class Wisdom : Card
         explainTMP.text = sb.ToString();
     }
 
-    public override void UseCard(Entity _target_enemy = null, PlayerEntity _target_player = null)
-	{
-		base.UseCard(_target_enemy, _target_player);
-
-		//PlayerEntity.Inst.Status_MagicAffinity_Battle += ApplyEnhanceValue(i_applyMagicAffinity_Battle);
-		//PlayerEntity.Inst.Status_MagicAffinity_Turn += ApplyEnhanceValue(i_damage);
-
-  //      BattleCalculater.Inst.SpellEnchaneReset();
-    }
-
-    public override IEnumerator T_UseCard(Entity _target_enemy, PlayerEntity _target_player = null)  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
     {
-        yield return StartCoroutine(base.T_UseCard(_target_enemy, _target_player));
+        yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
         BattleCalculater.Inst.SpellEnchaneReset();
 
-        T_Apply_MagicAffinity_Turn(i_damage);
-        T_Apply_MagicAffinity_Battle(i_applyMagicAffinity_Battle);
+        Add_MagicAffinity_Turn(i_damage);
+        Add_MagicAffinity_Battle(i_applyMagicAffinity_Battle);
 
-        yield return StartCoroutine(T_EndUsingCard());
+        yield return StartCoroutine(EndUsingCard());
     }
 }

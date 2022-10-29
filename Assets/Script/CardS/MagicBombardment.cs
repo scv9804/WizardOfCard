@@ -26,36 +26,19 @@ public class MagicBombardment : Card
 		explainTMP.text = sb.ToString();
 	}
 
-	public override void UseCard(Entity _target_enemy = null, PlayerEntity _target_player = null)
+	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
 	{
-		base.UseCard(_target_enemy, _target_player);
-
-		//StartCoroutine(Repeat(() => Attack_AllEnemy(ApplyManaAffinity(i_damage)), i_attackCount));
-		////StartCoroutine(RepeatC_AAE(i_attackCount));
-
-		//if (b_canExtraAttack)
-		//{
-		//	Attack_SingleEnemy(EntityManager.Inst.enemyEntities[Random.Range(0, EntityManager.Inst.enemyEntities.Count)], ApplyManaAffinity(i_damage));
-		//}
-
-		//BattleCalculater.Inst.SpellEnchaneReset();
-	}
-
-	public override IEnumerator T_UseCard(Entity _target_enemy, PlayerEntity _target_player = null)  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-	{
-		yield return StartCoroutine(base.T_UseCard(_target_enemy, _target_player));
+		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
 		BattleCalculater.Inst.SpellEnchaneReset();
 
-        yield return StartCoroutine(Repeat(() => T_Attack_AllEnemy(_target_enemy, i_damage), i_attackCount));
+        yield return StartCoroutine(Repeat(() => Attack_AllEnemy(_target_enemy, i_damage), i_attackCount));
 
         if (b_canExtraAttack)
 		{
-			T_Attack_RandomEnemy(_target_enemy, i_damage);
+			Attack_RandomEnemy(_target_enemy, i_damage);
 		}
 
-		Debug.Log("아니 카드가 먼저 퇴근한다니까?");
-
-		yield return StartCoroutine(T_EndUsingCard());
+		yield return StartCoroutine(EndUsingCard());
 	}
 }

@@ -15,49 +15,14 @@ public class Collapse : Card
 		explainTMP.text = sb.ToString();
     }
 
-	public override void UseCard(Entity _target_enemy = null, PlayerEntity _target_player = null)
-	{
-		base.UseCard(_target_enemy, _target_player);
-	}
-
-	public override IEnumerator T_UseCard(Entity _target_enemy, PlayerEntity _target_player = null)  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-	{
-		yield return StartCoroutine(base.T_UseCard(_target_enemy, _target_player));
-
-		BattleCalculater.Inst.SpellEnchaneReset();
-
-		if (_target_enemy != null && _target_player == null) // 단일 대상
-		{
-			T_Attack(_target_enemy, ShieldBreak(_target_enemy, i_damage));
-		}
-		else if (_target_enemy == null && _target_player != null) // 자신 대상
-		{
-			T_Attack(_target_player, ShieldBreak(_target_player, i_damage));
-		}
-		else // 광역 또는 무작위 대상 (?) + 이 카드는 특성상 모듈 못씀;;;
-		{
-			for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
-			{
-				_target_enemy = EntityManager.Inst.enemyEntities[i];
-
-				if (!_target_enemy.is_die)
-				{
-					T_Attack(_target_enemy, ShieldBreak(_target_enemy, i_damage));
-				}
-			}
-		}
-
-		yield return StartCoroutine(T_EndUsingCard());
-	}
-
 	int ShieldBreak(Entity _target, int _value)
-    {
-		if(_target.i_shield > 0)
-        {
+	{
+		if (_target.i_shield > 0)
+		{
 			return _value * i_DamageEnhanceValue;
 		}
-        else
-        {
+		else
+		{
 			return _value;
 		}
 	}
@@ -72,5 +37,34 @@ public class Collapse : Card
 		{
 			return _value;
 		}
+	}
+	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
+	{
+		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
+
+		BattleCalculater.Inst.SpellEnchaneReset();
+
+		if (_target_enemy != null && _target_player == null) // 단일 대상
+		{
+			Attack(_target_enemy, ShieldBreak(_target_enemy, i_damage));
+		}
+		else if (_target_enemy == null && _target_player != null) // 자신 대상
+		{
+			Attack(_target_player, ShieldBreak(_target_player, i_damage));
+		}
+		else // 광역 또는 무작위 대상 (?) + 이 카드는 특성상 모듈 못씀;;;
+		{
+			for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+			{
+				_target_enemy = EntityManager.Inst.enemyEntities[i];
+
+				if (!_target_enemy.is_die)
+				{
+					Attack(_target_enemy, ShieldBreak(_target_enemy, i_damage));
+				}
+			}
+		}
+
+		yield return StartCoroutine(EndUsingCard());
 	}
 }

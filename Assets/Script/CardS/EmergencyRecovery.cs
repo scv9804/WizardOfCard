@@ -18,24 +18,19 @@ public class EmergencyRecovery : Card
         explainTMP.text = sb.ToString();
     }
 
-    public override void UseCard(Entity _target_enemy = null, PlayerEntity _target_player = null)
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
     {
-        base.UseCard(_target_enemy, _target_player);
-    }
-
-    public override IEnumerator T_UseCard(Entity _target_enemy, PlayerEntity _target_player = null)  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-    {
-        yield return StartCoroutine(base.T_UseCard(_target_enemy, _target_player));
+        yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
         BattleCalculater.Inst.SpellEnchaneReset();
 
-        T_ResotreHealth(i_damage);
+        RestoreHealth(i_damage);
 
         if(b_canDraw)
         {
             CardManager.Inst.AddCard();
         }
 
-        yield return StartCoroutine(T_EndUsingCard());
+        yield return StartCoroutine(EndUsingCard());
     }
 }

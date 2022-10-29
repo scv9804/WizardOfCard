@@ -40,7 +40,6 @@ public class Utility : MonoBehaviour
 
     public static Action onBattleStart;
 
-    public static Action onCardUsed;
-
-    public static Action<Card, int> onDamaged;
+    public static Action<Card> onCardUsed; // 카드 사용 시 호출
+    public static Action<Card, int> onDamaged; // 카드로 데미지를 입힐 시 호출
 }

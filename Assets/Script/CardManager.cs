@@ -75,8 +75,8 @@ public class CardManager : MonoBehaviour
 	{
 		if (is_myCardDrag)
 		{
-			CardDrag();
-		}
+            CardDrag();
+        }
 		DetectCardArea();
 		SetCardEnable();
 	}
@@ -384,15 +384,15 @@ public class CardManager : MonoBehaviour
 		}
 		return false;
 	}
-	#endregion
+    #endregion
 
-	void CardDrag()
-	{
-		selectCard.MoveTransform(new Pos_Rot_Scale(Utility.MousePos, Quaternion.identity, Vector3.one * 0.1f), false);
-	}
+    void CardDrag()
+    {
+        selectCard.MoveTransform(new Pos_Rot_Scale(Utility.MousePos, Quaternion.identity, Vector3.one * 0.1f), false);
+    }
 
-	//카드 배치 컬라이더 확인
-	void DetectCardArea()
+    //카드 배치 컬라이더 확인
+    void DetectCardArea()
 	{
 		RaycastHit2D[] hits = Physics2D.RaycastAll(Utility.MousePos, Vector3.forward);
 		int layer = LayerMask.NameToLayer("UseCardArea");

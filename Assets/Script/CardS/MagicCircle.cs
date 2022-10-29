@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class MagicCircle : Card
 {
-	public override void UseCard(Entity _target_enemy = null, PlayerEntity _target_player = null)
+	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
 	{
-		base.UseCard(_target_enemy, _target_player);
+		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		//PlayerEntity.Inst.Status_EnchaneValue *= i_damage;
+		EnhanceValue();
 
-		//for(int i = 0; i < CardManager.Inst.myCards.Count; i++)
-  //      {
-		//	CardManager.Inst.myCards[i].ExplainRefresh();
-  //      }
-	}
-
-	public override IEnumerator T_UseCard(Entity _target_enemy, PlayerEntity _target_player = null)  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-	{
-		yield return StartCoroutine(base.T_UseCard(_target_enemy, _target_player));
-
-		T_EnhanceValue();
-
-		yield return StartCoroutine(T_EndUsingCard());
+		yield return StartCoroutine(EndUsingCard());
 	}
 }

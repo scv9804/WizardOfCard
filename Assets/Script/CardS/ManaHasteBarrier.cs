@@ -10,24 +10,18 @@ public class ManaHasteBarrier : Card
     {
         base.ExplainRefresh();
 
-        sb.Replace("{3}", "<color=#ff00ff>{3}</color>");
         sb.Replace("{3}", i_drawCount.ToString());
 
         explainTMP.text = sb.ToString();
     }
 
-    public override void UseCard(Entity _target_enemy = null, PlayerEntity _target_player = null)
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
     {
-        base.UseCard(_target_enemy, _target_player);
-    }
-
-    public override IEnumerator T_UseCard(Entity _target_enemy, PlayerEntity _target_player = null)  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-    {
-        yield return StartCoroutine(base.T_UseCard(_target_enemy, _target_player));
+        yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
         BattleCalculater.Inst.SpellEnchaneReset();
 
-        T_Shield(i_damage);
+        Shield(i_damage);
 
         for(int i = 0; i < i_drawCount; i++)
         {
@@ -36,6 +30,6 @@ public class ManaHasteBarrier : Card
             yield return new WaitForSeconds(0.15f);
         }
 
-        yield return StartCoroutine(T_EndUsingCard());
+        yield return StartCoroutine(EndUsingCard());
     }
 }
