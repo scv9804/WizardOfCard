@@ -715,7 +715,7 @@ MonoBehaviour:
   st_cardName: "\uBD95\uAD34"
   i_attack: 3
   i_Cost: 2
-  attackRange: 2
+  attackRange: 0
   f_percentage: 10
   st_explainCard_UI: 
   st_explainCard: "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4.\n\uC274\uB4DC\uB97C

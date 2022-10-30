@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 7395019933593546574}
-  itemSO: {fileID: 0}
+  itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
   charater: {fileID: 7395019932707519519}
   sp_card: {fileID: 7395019933593546572}
   nameTMP: {fileID: 7395019933344051563}

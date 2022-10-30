@@ -10,7 +10,7 @@ public class Barrier : Card
 
 		BattleCalculater.Inst.SpellEnchaneReset();
 
-		Shield(i_damage);
+		Shield(ApplyMagicResistance_Instance(i_damage));
 
 		yield return StartCoroutine(EndUsingCard());
 	}

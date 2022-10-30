@@ -21,7 +21,7 @@ public class ManaHasteBarrier : Card
 
         BattleCalculater.Inst.SpellEnchaneReset();
 
-        Shield(i_damage);
+        Shield(ApplyMagicResistance_Instance(i_damage));
 
         for(int i = 0; i < i_drawCount; i++)
         {

@@ -46,23 +46,15 @@ public class Collapse : Card
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
-			Attack(_target_enemy, ShieldBreak(_target_enemy, i_damage));
+			Attack(_target_enemy, ApplyManaAffinity_Instance(ShieldBreak(_target_enemy, i_damage)));
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
-			Attack(_target_player, ShieldBreak(_target_player, i_damage));
+			Attack(_target_player, ApplyManaAffinity_Instance(ShieldBreak(_target_enemy, i_damage)));
 		}
 		else // 광역 또는 무작위 대상 (?) + 이 카드는 특성상 모듈 못씀;;;
 		{
-			for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
-			{
-				_target_enemy = EntityManager.Inst.enemyEntities[i];
-
-				if (!_target_enemy.is_die)
-				{
-					Attack(_target_enemy, ShieldBreak(_target_enemy, i_damage));
-				}
-			}
+			TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(ShieldBreak(_target_enemy, i_damage))), ref _target_enemy);
 		}
 
 		yield return StartCoroutine(EndUsingCard());

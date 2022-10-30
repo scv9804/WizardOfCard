@@ -152,8 +152,8 @@ public class Card : MonoBehaviour
 
 		//람다식(시퀀스) 사용해서 모션 끝나면 사라지게함.
 		Sequence sequence1 = DOTween.Sequence()
-		.Append(transform.DORotate(new Vector3(0, 0, -120), 0.3f).SetEase(Ease.OutCirc))
-		.Append(transform.DOPath(_prs , 0.4f , PathType.CubicBezier, PathMode.Sidescroller2D, 5).SetLookAt(new Vector3(0,0,-120), new Vector3(0, 0 ,-120)).SetEase(Ease.InQuad))
+		.Append(transform.DORotate(new Vector3(0, 0, -120), 0.45f).SetEase(Ease.OutCirc))
+		.Append(transform.DOPath(_prs, 0.6f, PathType.CubicBezier, PathMode.Sidescroller2D, 5).SetLookAt(new Vector3(0,0,-120), new Vector3(0, 0 ,-120)).SetEase(Ease.InQuad))
 		.AppendCallback(() => { this.gameObject.SetActive(false); });
     }
 
@@ -210,15 +210,42 @@ public class Card : MonoBehaviour
 
 	#endregion
 
-	protected IEnumerator Repeat(Action myMethodName, int _count) // <<22-10-26 장형용 :: 메소드를 반복 시켜주는 메소드>>
+	protected IEnumerator Repeat(Action myMethodName, int _count) // <<22-10-26 장형용 :: 횟수만큼 메소드를 반복, 논리 상으론 문제가 없는데 비용이 비싼 듯>>
 	{
 		for (int i = 0; i < _count; i++)
 		{
 			myMethodName(); // 아니 카드 루프 돌다 퇴근하는데?
-			yield return new WaitForSeconds(0.15f);
+			yield return new WaitForSeconds( FindMin( 1.0f / (float)_count)); // 바로 위 DoTween 대기시간 인지하면서 작업할 것
 		}
 
 		yield return null;
+	}
+
+	float FindMin(float _time)
+    {
+		if(_time > 0.15f)
+        {
+			return 0.15f;
+
+		}
+        else
+        {
+			return _time;
+
+		}
+    }
+
+	protected void TargetAll(Action myMethodName, ref Entity _target) // <<22-10-26 장형용 :: 적 전체에게 메소드 반복>>
+	{
+		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+		{
+			_target = EntityManager.Inst.enemyEntities[i];
+
+            if (!_target.is_die)
+            {
+				myMethodName();
+			}
+        }
 	}
 
 	// <<22-10-28 장형용 :: 수정>>
@@ -228,7 +255,7 @@ public class Card : MonoBehaviour
 
 		SetStatusInstance();
 
-		UIManager.i_UsingCardCount++;
+		CardManager.i_usingCardCount++;
 
 		Utility.onCardUsed?.Invoke(this);
 
@@ -248,7 +275,7 @@ public class Card : MonoBehaviour
 
 	protected IEnumerator EndUsingCard()
 	{
-		UIManager.i_UsingCardCount--;
+		CardManager.i_usingCardCount--;
 
 		yield return null;
 	}
@@ -259,9 +286,7 @@ public class Card : MonoBehaviour
 
     protected void Attack(Entity _target, int _value)
 	{
-		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
-
-		_target?.Damaged(ApplyManaAffinity_Instance(_value), this);
+		_target?.Damaged(_value, this);
 
 		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
 		StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
@@ -269,24 +294,24 @@ public class Card : MonoBehaviour
 
 	protected void Attack(PlayerEntity _target, int _value)
 	{
-		_target?.Damaged(ApplyManaAffinity_Instance(_value), this);
+		_target?.Damaged(_value, this);
 
 		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
 		_target.SetDamagedSprite(enemyDamagedEffectSpriteRenderer.sprite);
 	}
 
-	protected void Attack_AllEnemy(Entity _target, int _value)
-	{
-		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
-		{
-			_target = EntityManager.Inst.enemyEntities[i];
+	//protected void Attack_AllEnemy(Entity _target, int _value)
+	//{
+	//	for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+	//	{
+	//		_target = EntityManager.Inst.enemyEntities[i];
 
-			if (!_target.is_die)
-			{
-				Attack(EntityManager.Inst.enemyEntities[i], i_damage);
-			}
-		}
-	}
+	//		if (!_target.is_die)
+	//		{
+	//			Attack(EntityManager.Inst.enemyEntities[i], i_damage);
+	//		}
+	//	}
+	//}
 
 	protected void Attack_RandomEnemy(Entity _target, int _value)
 	{
@@ -312,15 +337,15 @@ public class Card : MonoBehaviour
 		_target.i_burning += ApplyEnhanceValue_Instance(_value);
 	}
 
-	protected void Add_Burning_AllEnemy(Entity _target, int _value)
-	{
-		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
-		{
-			_target = EntityManager.Inst.enemyEntities[i];
+	//protected void Add_Burning_AllEnemy(Entity _target, int _value)
+	//{
+	//	for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+	//	{
+	//		_target = EntityManager.Inst.enemyEntities[i];
 
-			Add_Burning(_target, _value);
-		}
-	}
+	//		Add_Burning(_target, _value);
+	//	}
+	//}
 
 	#endregion
 
@@ -343,7 +368,7 @@ public class Card : MonoBehaviour
 
 	protected void Shield(int _value)
 	{
-		PlayerEntity.Inst.Status_Shiled += ApplyMagicResistance_Instance(i_damage);
+		PlayerEntity.Inst.Status_Shiled += _value;
 	}
 
 	protected void EnhanceValue()
@@ -360,7 +385,7 @@ public class Card : MonoBehaviour
 
 	protected void RestoreHealth(int _value)
 	{
-		PlayerEntity.Inst.Status_Health += ApplyEnhanceValue_Instance(_value);
+		PlayerEntity.Inst.Status_Health += _value;
 	}
 
 	protected void AddCardAndCostDescrease()

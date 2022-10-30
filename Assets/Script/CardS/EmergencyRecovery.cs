@@ -24,7 +24,7 @@ public class EmergencyRecovery : Card
 
         BattleCalculater.Inst.SpellEnchaneReset();
 
-        RestoreHealth(i_damage);
+        RestoreHealth(ApplyEnhanceValue_Instance(i_damage));
 
         if(b_canDraw)
         {

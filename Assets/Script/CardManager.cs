@@ -54,6 +54,8 @@ public class CardManager : MonoBehaviour
 	[HideInInspector] public bool is_cardUsing;
 	[HideInInspector] public bool is_useEnhance;
 
+	public static int i_usingCardCount = 0; // <<22-10-30 장형용 :: 실행 중인 카드 사용 수>>
+
 	private void Start()
 	{
 		SetupMyDeck();
@@ -164,17 +166,20 @@ public class CardManager : MonoBehaviour
 		else
 		{
 			//var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
-			var cardObject = Instantiate(itemSO.items[tempt.i_itemCode].card_object, cardSpawnPos.position, Quaternion.identity);
-			var card = cardObject.GetComponent<Card>();
-			card.SetItemSO(tempt.card_info);
-			card.Setup();
-			myCards.Add(card);
-			setOriginOrder();
-			CardAlignment();
+			InstantinateCard(tempt);
 		}
 	}
 
-
+	public void InstantinateCard(Card tempt) // <<22-10-30 장형용 :: 좋은 기능 있길래 쓰려고 분리했읍니다 ㅎㅎ;;;>>
+    {
+		var cardObject = Instantiate(itemSO.items[tempt.i_itemCode].card_object, cardSpawnPos.position, Quaternion.identity);
+		var card = cardObject.GetComponent<Card>();
+		card.SetItemSO(tempt.card_info);
+		card.Setup();
+		myCards.Add(card);
+		setOriginOrder();
+		CardAlignment();
+	}
 
 
 	// 기본 레이어 배치

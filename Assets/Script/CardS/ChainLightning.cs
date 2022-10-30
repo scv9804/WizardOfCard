@@ -21,7 +21,7 @@ public class ChainLightning : Card
 
 		BattleCalculater.Inst.SpellEnchaneReset();
 
-		yield return StartCoroutine(Repeat(() => Attack_RandomEnemy(_target_enemy, i_damage), i_attackCount));
+		yield return StartCoroutine(Repeat(() => Attack_RandomEnemy(_target_enemy, ApplyManaAffinity_Instance(i_damage)), i_attackCount));
 
 		yield return StartCoroutine(EndUsingCard());
 	}

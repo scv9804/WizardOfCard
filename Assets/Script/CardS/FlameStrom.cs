@@ -21,9 +21,9 @@ public class FlameStrom : Card
 
         BattleCalculater.Inst.SpellEnchaneReset();
 
-		Add_Burning_AllEnemy(_target_enemy, i_applyBurning);
-		Attack_AllEnemy(_target_enemy, i_damage);
+        TargetAll(() => Add_Burning(_target_enemy, i_applyBurning), ref _target_enemy);
+        TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), ref _target_enemy);
 
-		yield return StartCoroutine(EndUsingCard());
+        yield return StartCoroutine(EndUsingCard());
 	}
 }

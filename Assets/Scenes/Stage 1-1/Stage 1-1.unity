@@ -17230,6 +17230,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   "\uB514\uBC84\uADF8_\uCD08\uAE30\uD654_\uAE30\uB2A5": 1
+  "\uB370\uBBF8\uC9C0_\uB514\uBC84\uADF8_\uAE30\uB2A5": 1
+  itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
+  selectCard: 0
 --- !u!4 &1984387567
 Transform:
   m_ObjectHideFlags: 0

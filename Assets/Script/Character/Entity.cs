@@ -49,6 +49,8 @@ public class Entity : MonoBehaviour
 
     public VisualEffect dissolveEffect;
 
+    public int i_entityMotionRunning;
+
     private void Start()
     {
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
@@ -224,8 +226,9 @@ public class Entity : MonoBehaviour
 
     public IEnumerator DamagedEffectCorutin(Sprite _sprite)
     {
-        UIManager.i_isChecking++;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-        Debug.Log("카운트 증가 :: " + UIManager.i_isChecking);
+        EntityManager.i_entityMotionRunning++;  // <<22-10-30 장형용 :: 추가>>
+        Debug.Log("카운트 증가 :: " + EntityManager.i_entityMotionRunning);
+        i_entityMotionRunning++;
 
         DamagedSpriteRenederer.sprite = _sprite;
         SetDamagedOpacityTrue();
@@ -246,7 +249,10 @@ public class Entity : MonoBehaviour
         {
             Debug.Log("피격후 생존"); // <<22-10-29 장형용 :: 어차피 뒤지면 이 뒤에 작업은 필요 없으니 else 부로 넣음>>
             EndCheckingEntity();
+            i_entityMotionRunning--;
+
             yield return new WaitForSeconds(0.15f);
+            yield return new WaitForAllMotionDone(this); // <<22-10-30 장형용 :: 대기 중 사망 시 그대로 코루틴 정지>>
 
             charater.sprite = enemy.sp_sprite;
             //try
@@ -288,8 +294,8 @@ public class Entity : MonoBehaviour
 
     public void EndCheckingEntity()
     {
-        UIManager.i_isChecking--;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-        Debug.Log("카운트 감소 :: " + UIManager.i_isChecking);
+        EntityManager.i_entityMotionRunning--;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+        Debug.Log("카운트 감소 :: " + EntityManager.i_entityMotionRunning);
     }
 
     void SetDamagedOpacityTrue()

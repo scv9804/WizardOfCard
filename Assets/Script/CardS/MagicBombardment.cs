@@ -32,11 +32,11 @@ public class MagicBombardment : Card
 
 		BattleCalculater.Inst.SpellEnchaneReset();
 
-        yield return StartCoroutine(Repeat(() => Attack_AllEnemy(_target_enemy, i_damage), i_attackCount));
+        yield return StartCoroutine(Repeat(() => TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), ref _target_enemy), i_attackCount)); // °¡µ¶¼º;;;
 
         if (b_canExtraAttack)
 		{
-			Attack_RandomEnemy(_target_enemy, i_damage);
+			Attack_RandomEnemy(_target_enemy, ApplyManaAffinity_Instance(i_damage));
 		}
 
 		yield return StartCoroutine(EndUsingCard());

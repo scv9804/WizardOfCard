@@ -12,9 +12,6 @@ public class UIManager : MonoBehaviour
 	private void Awake()
 	{
 		Inst = this;
-
-		i_UsingCardCount = 0;
-		i_isChecking = 0;
 	}
 	private void Start()
 	{
@@ -73,9 +70,6 @@ public class UIManager : MonoBehaviour
 	public bool canHandRefresh; //<<22-10-26 장형용 :: 리롤 버튼 사용 중 추가 사용 못 하게 추가>>
 
 	[SerializeField] LevelGeneration levelGeneration;
-
-	public static int i_UsingCardCount = 0; // ***실험(기능이 불안정할 수 있음)*** <<22-10-28 장형용 :: 추가>>
-	public static int i_isChecking = 0; // ***실험(기능이 불안정할 수 있음)*** <<22-10-28 장형용 :: 추가>>
 
 	Coroutine tryEndTurnCoroutine;
 
@@ -495,15 +489,4 @@ public class UIManager : MonoBehaviour
 
 
 
-}
-
-public class WaitAllCardUsingDone : CustomYieldInstruction  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-{
-    public override bool keepWaiting
-    {
-        get
-        {
-			return UIManager.i_UsingCardCount > 0 || UIManager.i_isChecking > 0;
-        }
-    }
 }

@@ -55,15 +55,15 @@ public class ArcaneRay : Card
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
-			Attack(_target_enemy, i_damage + (int) (i_usedCardCount / i_damagePerCard));
+			Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage + (int) (i_usedCardCount / i_damagePerCard)));
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
-			Attack(_target_player, i_damage + (int) (i_usedCardCount / i_damagePerCard));
+			Attack(_target_player, ApplyManaAffinity_Instance(i_damage + (int)(i_usedCardCount / i_damagePerCard)));
 		}
 		else // 광역 또는 무작위 대상 (?)
 		{
-			Attack_AllEnemy(_target_enemy, i_damage + (int) (i_usedCardCount / i_damagePerCard));
+			TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage + (int)(i_usedCardCount / i_damagePerCard))), ref _target_enemy);
 		}
 
 		yield return StartCoroutine(EndUsingCard());

@@ -12,15 +12,15 @@ public class MagicBolt : Card
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
-			Attack(_target_enemy, i_damage);
+			Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage));
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
-			Attack(_target_player, i_damage);
+			Attack(_target_player, ApplyManaAffinity_Instance(i_damage));
 		}
 		else // 광역 또는 무작위 대상 (?)
 		{
-			Attack_AllEnemy(_target_enemy, i_damage);
+			TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), ref _target_enemy);
 		}
 
 		yield return StartCoroutine(EndUsingCard());

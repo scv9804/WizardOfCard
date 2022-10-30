@@ -50,7 +50,7 @@ public class EntityManager : MonoBehaviour
 
     const int MAX_ENEMY_COUNT = 3;
 
-
+    public static int i_entityMotionRunning = 0; // <<22-10-30 장형용 :: 실행 중인 전체 피격 모션 수>>
 
 
 
