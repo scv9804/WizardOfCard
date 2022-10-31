@@ -371,8 +371,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -598,11 +598,11 @@ GameObject:
   - component: {fileID: 7395019933593546572}
   - component: {fileID: -2801819417619063475}
   - component: {fileID: 4998888831836804041}
-  - component: {fileID: 5251858741531333875}
+  - component: {fileID: 1468972516995107159}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
-  m_Name: PlayerCard_Default_Test
+  m_Name: PlayerCard_Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,20 +711,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_itemNum: 13
-  st_cardName: "\uB9C8\uBC95\uC9C4"
-  i_attack: 2
-  i_Cost: 2
-  attackRange: 1
+  i_itemNum: 14
+  st_cardName: "\uD3ED\uBC1C"
+  i_attack: 0
+  i_Cost: 1
+  attackRange: 2
   f_percentage: 10
   st_explainCard_UI: 
-  st_explainCard: "\uB2E4\uC74C \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C {5}\uBC30 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+  st_explainCard: "\uB300\uC0C1\uC758 \uD654\uC0C1 \uC218\uCE58\uAC00 0\uC774 \uB420
+    \uB54C\uAE4C\uC9C0\n\uD654\uC0C1 \uD6A8\uACFC\uB97C \uBC1C\uB3D9\uC2DC\uD0B5\uB2C8\uB2E4."
   b_isExile: 0
-  type: 1
+  type: 0
   sp_CardSprite: {fileID: 21300000, guid: a2ec98a3a3f98c245a3c5d5eaeb2baa5, type: 3}
   enemyDamageSprite: {fileID: 7924227003371571853}
   playerAttackSprite: {fileID: 2684296111631034952}
---- !u!114 &5251858741531333875
+--- !u!114 &1468972516995107159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -733,7 +734,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7395019933593546574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79c7060fd7041e34ea3996b509ed5e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: f68a76cfb827ed94cb651db3cf527b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 7395019933593546574}
@@ -745,8 +746,8 @@ MonoBehaviour:
   explainTMP: {fileID: 7395019932878968509}
   v_cardSize: {x: 0, y: 0, z: 0}
   card_info: {fileID: 4998888831836804041}
-  i_itemCode: 13
-  i_damage: 2
+  i_itemCode: 14
+  i_damage: 0
   enemyDamagedEffectSpriteRenderer: {fileID: 0}
   playerAttackEffectSpriteRenderer: {fileID: 0}
   originPRS:
@@ -761,7 +762,7 @@ MonoBehaviour:
   st_splitExplain: []
   i_explainDamageOrigin: 0
   b_isExile: 0
-  attackRange: 1
+  attackRange: 2
   is_Useable_Card: 1
 --- !u!61 &2036147294181241873
 BoxCollider2D:

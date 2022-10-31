@@ -286,10 +286,13 @@ public class Card : MonoBehaviour
 
     protected void Attack(Entity _target, int _value)
 	{
-		_target?.Damaged(_value, this);
+		if(!_target.is_die)
+        {
+			_target?.Damaged(_value, this);
 
-		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
-		StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
+			StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
+			StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
+		}
     }
 
 	protected void Attack(PlayerEntity _target, int _value)
