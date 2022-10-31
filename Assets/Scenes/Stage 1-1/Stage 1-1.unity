@@ -7557,7 +7557,6 @@ GameObject:
   - component: {fileID: 863816443}
   - component: {fileID: 863816447}
   - component: {fileID: 863816444}
-  - component: {fileID: 863816446}
   - component: {fileID: 863816445}
   m_Layer: 0
   m_Name: Tutorial_00
@@ -7645,22 +7644,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 863816442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb1dcc541deb2140973f2b48af7f6db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speakers: []
-  dialogs: []
-  isAutoStart: 0
---- !u!114 &863816446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863816442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb1dcc541deb2140973f2b48af7f6db, type: 3}
+  m_Script: {fileID: 11500000, guid: 86875c8dbf754664ca56bf590f448c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speakers:
@@ -7768,13 +7752,13 @@ MonoBehaviour:
     dialogue: "\uC5EC\uAE30\uB294 \uC8FC\uBB38\uC758 \uC124\uBA85\uC774 \uC801\uD600\uC788\uC5B4."
   - highlight: {fileID: 21300000, guid: 847ae4a46c4ffc54fac32ab9ee17335d, type: 3}
     Character: {fileID: -3431627570496334211, guid: 43a0489cb58f4c94ba4a9d94146c33ee, type: 3}
-    speakerIndex: 5
+    speakerIndex: 7
     name: "\uD50C\uB808\uC774\uC5B4 \uC774\uB984"
     dialogue: "\uC124\uBA85\uC744 \uC798 \uC77D\uACE0 \uC801\uC758 \uCCB4\uB825\uACFC
       \uD589\uB3D9\uC744 \uBCF4\uACE0 \uC798 \uB300\uCC98\uD574\uC57C\uACA0\uC5B4"
   - highlight: {fileID: 0}
     Character: {fileID: 0}
-    speakerIndex: 5
+    speakerIndex: 8
     name: "\uD50C\uB808\uC774\uC5B4 \uC774\uB984"
     dialogue: "\uC774\uC820 \uB0B4\uAC00 \uBB58 \uD560\uC218 \uC788\uC744\uC9C0 \uC810\uAC80\uD574\uBCF4\uC790."
   isAutoStart: 1
@@ -7791,8 +7775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogSystem01: {fileID: 863816444}
-  dialogSystem02: {fileID: 863816446}
-  dialogSystem03: {fileID: 863816445}
+  dialogSystem02: {fileID: 863816445}
+  dialogSystem03: {fileID: 0}
   cardArea: {fileID: 673521303}
 --- !u!1 &877174402
 GameObject:

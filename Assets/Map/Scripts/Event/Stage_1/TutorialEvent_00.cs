@@ -23,18 +23,18 @@ public class TutorialEvent_00 : RoomEventListScript
 		return null;
 	}
 
-	 IEnumerator FadeInOut()
+	 IEnumerator FadeInOut(GameObject obj)
 	{
 		int i = 0;
-		cardArea.SetActive(true);
+		obj.SetActive(true);
 		while (i < 2)
 		{
-			i++;
-			yield return new WaitForSeconds (0.3f);
-			cardArea.SetActive(false);
+				i++;
+				yield return new WaitForSeconds(0.3f);
+				obj.SetActive(false);
 
-			yield return new WaitForSeconds (0.3f);
-			cardArea.SetActive(true);
+				yield return new WaitForSeconds(0.3f);
+				obj.SetActive(true);
 		}
 	}
 
@@ -45,13 +45,15 @@ public class TutorialEvent_00 : RoomEventListScript
 
 		yield return new WaitUntil(() => dialogSystem01.UpdateDialog());
 
-		yield return StartCoroutine(FadeInOut());
+		yield return StartCoroutine(FadeInOut(cardArea));
 
 		yield return new WaitForSeconds(0.5f);
 
 		cardArea.SetActive(false);
 
-		yield return new WaitUntil(() => dialogSystem02.Update_CardTutorial());
+		yield return new WaitUntil(() => dialogSystem02.UpdateDialog());
+
+		
 	}
 
 	public void tutorial()
