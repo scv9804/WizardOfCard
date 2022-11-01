@@ -327,37 +327,96 @@ public class LevelGeneration : MonoBehaviour {
 
 
 	//상점은 남은방 중 
-	void CreateShopRoom()
+	void CreateShopRoom() // <<22-11-01 장형용 :: 프리즈 최적화 버전, 상점이 가끔 나오지 않는 버그는 일단 고치지 않음>>
 	{
-		do
+		//do // 언제든 복원할 수 있게 주석처리만 해둠
+		//{
+		//	int randomRoom;
+		//	randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
+		//	try
+		//	{
+		//		if (EdgeRooms[randomRoom].type != 1)
+		//		{
+		//			int randomPos;
+		//			randomPos = UnityEngine.Random.Range(0, 4);
+		//			//0 --> left
+		//			//1 --> right
+		//			//2 --> above
+		//			//3 --> bellow
+		//			if (randomPos == 0)
+		//				if (RoomExpansion(-1, 0, randomRoom)) { break; }
+		//			if (randomPos == 1)
+		//				if (RoomExpansion(1, 0, randomRoom)) { break; }
+		//			if (randomPos == 2)
+		//				if (RoomExpansion(0, 1, randomRoom)) { break; }
+		//			if (randomPos == 3)
+		//				if (RoomExpansion(0, -1, randomRoom)) { break; }
+		//		}
+		//	}
+		//	catch
+		//	{
+
+		//	}
+		//} while (true);
+		//SetRoomDoors();
+
+		int randomRoom;
+		int randomPos;
+
+		int count = 0;
+
+		do // EdgeRooms 원소 유무 확인 작업
 		{
-			int randomRoom;
-			randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
+			if (count == EdgeRooms.Count)
+			{
+				Debug.Log(":: 적합한 대상을 찾을 수 없음 ::");
+				return;
+			}
+			else if (EdgeRooms[count].type != 1)
+				break;
+
+			count++;
+		}
+		while (true);
+
+		do // type이 1인 방 검색 작업
+		{
+			randomRoom = Random.Range(0, EdgeRooms.Count);
+
+			if (EdgeRooms[randomRoom].type != 1)
+				break;
+		}
+		while (true);
+
+		do // 새로운 방을 생성 가능한 방향 검색 작업
+		{
+			randomPos = Random.Range(0, 4);
+
 			try
 			{
-				if (EdgeRooms[randomRoom].type != 1)
-				{
-					int randomPos;
-					randomPos = UnityEngine.Random.Range(0, 4);
-					//0 --> left
-					//1 --> right
-					//2 --> above
-					//3 --> bellow
-					if (randomPos == 0)
-						if (RoomExpansion(-1, 0, randomRoom)) { break; }
-					if (randomPos == 1)
-						if (RoomExpansion(1, 0, randomRoom)) { break; }
-					if (randomPos == 2)
-						if (RoomExpansion(0, 1, randomRoom)) { break; }
-					if (randomPos == 3)
-						if (RoomExpansion(0, -1, randomRoom)) { break; }
-				}
+				if (randomPos == 0) //0 --> left
+					if (RoomExpansion(-1, 0, randomRoom))
+						break;
+
+				if (randomPos == 1) //1 --> right
+					if (RoomExpansion(1, 0, randomRoom))
+						break;
+
+				if (randomPos == 2) //2 --> above
+					if (RoomExpansion(0, 1, randomRoom))
+						break;
+
+				if (randomPos == 3) //3 --> bellow
+					if (RoomExpansion(0, -1, randomRoom))
+						break;
 			}
 			catch
 			{
-
+				Debug.Log(":: 최대 월드 크기 밖 방 생성 시도 ::");
 			}
-		} while (true);
+		}
+		while (true);
+
 		SetRoomDoors();
 	}
 
