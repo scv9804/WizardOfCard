@@ -7,7 +7,6 @@ using System.IO;
 
 public class ItemDataBase : MonoBehaviour
 {
-
 	public List<Item_inven> database = new List<Item_inven>();
 	private JsonData itemData;
 
@@ -55,20 +54,21 @@ public class ItemDataBase : MonoBehaviour
 	}
 }
 
+[System.Serializable]
 public class Item_inven
 {
-	public int Id { get; set; }
-	public string Title { get; set; }
-	public int Value { get; set; }
-	public int Power { get; set; }
-	public int Defense { get; set; }
-	public int Vitality { get; set; }
-	public int Healing { get; set; }
-	public string Description { get; set; }
-	public bool Equipable { get; set; }
-	public int Rarity { get; set; }
-	public string Slug { get; set; }
-	public Sprite Sprite { get; set; }
+	public int Id;
+	public string Title;
+	public int Value;
+	public int Power;
+	public int Defense;
+	public int Vitality;
+	public int Healing;
+	public string Description;
+	public bool Equipable;
+	public int Rarity;
+	public string Slug;
+	public Sprite Sprite;
 
 	public Item_inven()
 	{

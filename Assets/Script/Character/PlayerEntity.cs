@@ -38,6 +38,7 @@ public class PlayerEntity : MonoBehaviour
     bool is_die = false;
     bool is_canUseSelf;
 
+    public int karma = 0;
     int i_enhacneVal = 1;
     int i_calcDamage;
     int i_everlasting = 0;  //고정 마법 증폭 (수정여지있음)

@@ -13,6 +13,7 @@ public class TutorialEvent_00 : RoomEventListScript
 	bool canClick = true;
 	bool active = true;
 	bool isStart = false;
+	bool corutinBreak = false;
 	int i = 0;
 	[Header("오브젝트")]
 	[SerializeField] GameObject cardArea;
@@ -30,6 +31,7 @@ public class TutorialEvent_00 : RoomEventListScript
 	[SerializeField] GameObject mapArea;
 	[SerializeField] GameObject invenArea;
 	[SerializeField] GameObject optionArea;
+	[SerializeField] GameObject moveArrow;
 
 
 	public override GameObject Event()
@@ -43,6 +45,7 @@ public class TutorialEvent_00 : RoomEventListScript
 	 IEnumerator FadeInOut(GameObject obj)
 	{
 		isStart = true;
+		
 		i = 0;
 		obj.SetActive(true);
 		isfade = false;
@@ -50,13 +53,14 @@ public class TutorialEvent_00 : RoomEventListScript
 		while (i < 5)
 		{
 			i++;
-			if (isfade)	yield break;
+			if (isfade) { corutinBreak = true;  yield break; }
 			obj.SetActive(active);
 			active = !active;
 			Debug.Log(2);
 			yield return new WaitForSeconds(0.6f);
 		}
 		yield return new WaitForSeconds(0.3f);
+		corutinBreak = true;  
 		active = true;
 		isfade = true;
 		
@@ -113,24 +117,30 @@ public class TutorialEvent_00 : RoomEventListScript
 		yield return new WaitUntil(() => Fade(QuickSlotArea));
 		ResetBool(QuickSlotArea);
 
-		yield return new WaitUntil(() => dialogList[10].UpdateDialog());
+		yield return new WaitUntil(() => dialogList[11].UpdateDialog());
 		yield return new WaitUntil(() => Fade(stageArea));
 		ResetBool(stageArea);
 
 
-		yield return new WaitUntil(() => dialogList[10].UpdateDialog());
+		yield return new WaitUntil(() => dialogList[12].UpdateDialog());
 		yield return new WaitUntil(() => Fade(mapArea));
 		ResetBool(mapArea);
 
 
-		yield return new WaitUntil(() => dialogList[10].UpdateDialog());
+		yield return new WaitUntil(() => dialogList[13].UpdateDialog());
 		yield return new WaitUntil(() => Fade(invenArea));
 		ResetBool(invenArea);
 
 
-		yield return new WaitUntil(() => dialogList[10].UpdateDialog());
+		yield return new WaitUntil(() => dialogList[14].UpdateDialog());
 		yield return new WaitUntil(() => Fade(optionArea));
 		ResetBool(optionArea);
+
+
+		yield return new WaitUntil(() => dialogList[15].UpdateDialog());
+
+
+		yield return new WaitUntil(() => dialogList[16].UpdateDialog());
 
 		Destroy(this);
 
@@ -141,9 +151,9 @@ public class TutorialEvent_00 : RoomEventListScript
 	{
 		Destroy(obj);
 		isStart = false;
-		obj = null;
 		active = true;
 		isfade = false;
+		corutinBreak = false;
 	}
 
 	bool Fade(GameObject obj)
@@ -164,7 +174,7 @@ public class TutorialEvent_00 : RoomEventListScript
 			}
 		}
 
-		if (isfade)
+		if (corutinBreak)
 		{
 			return true;
 		}

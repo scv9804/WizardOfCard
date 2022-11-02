@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeckScrollView : MonoBehaviour
+public class RewardScrollView : MonoBehaviour
 {
     private ScrollRect scrollRect;
 
@@ -18,29 +18,21 @@ public class DeckScrollView : MonoBehaviour
         scrollRect = GetComponent<ScrollRect>();
     }
 
-    // Update is called once per frame
-    void Update()
+    
+    public void SetReward(Item_inven item)
     {
-        
-    }
-
-    public void SetCards()
-	{
         var newUI = Instantiate(uiPrefab, scrollRect.content).GetComponent<RectTransform>();
+
+        newUI.GetChild(0).GetComponent<Image> =;
 
         uiobjects.Add(newUI);
 
         float y = 0f;
-        Debug.Log("??");
-
-        for (int i = 0 ; i <= uiobjects.Count ; i++)
-		{
-			if (i % 5 == 0)
-			{
-                y += uiobjects[0].sizeDelta.y + space;
-                Debug.Log(i);
-            }
-		}
+        
+        for (int i = 0; i <= uiobjects.Count; i++)
+        {
+            y += uiobjects[0].sizeDelta.y + space;
+        }
         scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
     }
 
