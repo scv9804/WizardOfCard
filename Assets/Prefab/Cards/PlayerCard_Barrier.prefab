@@ -598,11 +598,11 @@ GameObject:
   - component: {fileID: 7395019933593546572}
   - component: {fileID: -2801819417619063475}
   - component: {fileID: 4998888831836804041}
-  - component: {fileID: -2918807217507532017}
+  - component: {fileID: 1009102557321847843}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
-  m_Name: PlayerCard_Default_2
+  m_Name: PlayerCard_Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,21 +711,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_itemNum: 2
-  st_cardName: "\uD654\uC5FC\uAD6C"
+  i_itemNum: 1
+  st_cardName: "\uBCF4\uD638\uB9C9"
   i_attack: 2
-  i_Cost: 2
-  attackRange: 2
+  i_Cost: 1
+  attackRange: 1
   f_percentage: 10
   st_explainCard_UI: 
-  st_explainCard: "\uD654\uC0C1\uC744 {4} \uBD80\uC5EC\uD569\uB2C8\uB2E4.\n\uB370\uBBF8\uC9C0\uB97C
-    {1} \uC90D\uB2C8\uB2E4."
+  st_explainCard: "\uC274\uB4DC\uB97C {2} \uC5BB\uC2B5\uB2C8\uB2E4."
   b_isExile: 0
-  type: 0
+  type: 2
   sp_CardSprite: {fileID: 21300000, guid: a2ec98a3a3f98c245a3c5d5eaeb2baa5, type: 3}
   enemyDamageSprite: {fileID: 7924227003371571853}
   playerAttackSprite: {fileID: 2684296111631034952}
---- !u!114 &-2918807217507532017
+--- !u!114 &1009102557321847843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -734,7 +733,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7395019933593546574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a412c2903c245e24eb7f69f4ac6aa199, type: 3}
+  m_Script: {fileID: 11500000, guid: 293206fc74e965b4ba06a5504816b527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 7395019933593546574}
@@ -746,7 +745,7 @@ MonoBehaviour:
   explainTMP: {fileID: 7395019932878968509}
   v_cardSize: {x: 0, y: 0, z: 0}
   card_info: {fileID: 4998888831836804041}
-  i_itemCode: 2
+  i_itemCode: 1
   i_damage: 2
   enemyDamagedEffectSpriteRenderer: {fileID: 0}
   playerAttackEffectSpriteRenderer: {fileID: 0}
@@ -762,9 +761,8 @@ MonoBehaviour:
   st_splitExplain: []
   i_explainDamageOrigin: 0
   b_isExile: 0
-  attackRange: 2
+  attackRange: 1
   is_Useable_Card: 1
-  i_applyBurning: 3
 --- !u!61 &2036147294181241873
 BoxCollider2D:
   m_ObjectHideFlags: 0

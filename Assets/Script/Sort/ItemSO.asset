@@ -53,5 +53,20 @@ MonoBehaviour:
     card: {fileID: 1590612864075145717, guid: 5459a47eaa6c083449aa37ff647b9fa6, type: 3}
     card_object: {fileID: 7395019933593546574, guid: 5459a47eaa6c083449aa37ff647b9fa6, type: 3}
   - itemCode: 13
+    card: {fileID: 3019776578482814916, guid: b4687d134ee3b2f4aba690b34a8b74b4, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: b4687d134ee3b2f4aba690b34a8b74b4, type: 3}
+  - itemCode: 14
+    card: {fileID: 1468972516995107159, guid: f5f96139fb02bb5448b442dd0b4bcdb3, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: f5f96139fb02bb5448b442dd0b4bcdb3, type: 3}
+  - itemCode: 15
+    card: {fileID: 7090123234911159775, guid: efd25581714a20a47ac1adaa8513d18a, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: efd25581714a20a47ac1adaa8513d18a, type: 3}
+  - itemCode: 16
+    card: {fileID: -6350779738699052301, guid: a04bec0e54ca4544b80d1f2802a60e10, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: a04bec0e54ca4544b80d1f2802a60e10, type: 3}
+  - itemCode: 17
+    card: {fileID: 8623296433942024127, guid: c6bc3f76705821245bfc3cb271a155b0, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: c6bc3f76705821245bfc3cb271a155b0, type: 3}
+  - itemCode: 18
     card: {fileID: 5251858741531333875, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
     card_object: {fileID: 7395019933593546574, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}

@@ -294,6 +294,7 @@ public class Entity : MonoBehaviour
 
     public void EndCheckingEntity()
     {
+
         EntityManager.i_entityMotionRunning--;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
         Debug.Log("카운트 감소 :: " + EntityManager.i_entityMotionRunning);
     }

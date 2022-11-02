@@ -358,7 +358,7 @@ public class EntityManager : MonoBehaviour
 
     public void EntityMouseOver(Entity _entity)
     {
-        if (!is_canMouseInput)
+        if (!is_canMouseInput || _entity.is_die) // <<22-11-01 장형용 :: 사망 판정 원래 진작에 수정했던 건데 리셋하는 과정에서 누락된 듯 ㅎㅎ;; ㅈㅅ;;;>>
             return;
 
         targetPickEntity = _entity;
