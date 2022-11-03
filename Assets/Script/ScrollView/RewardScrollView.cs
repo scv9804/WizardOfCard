@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class RewardScrollView : MonoBehaviour
@@ -18,14 +19,22 @@ public class RewardScrollView : MonoBehaviour
         scrollRect = GetComponent<ScrollRect>();
     }
 
-    
-    public void SetReward(Item_inven item)
+    public void ClearViewList()
+	{
+        uiobjects.Clear();
+	}
+
+    public GameObject SetReward(Item_inven item)
     {
-        var newUI = Instantiate(uiPrefab, scrollRect.content).GetComponent<RectTransform>();
+        var newUI = Instantiate(uiPrefab, scrollRect.content);
 
-        newUI.GetChild(0).GetComponent<Image> =;
+        //프리팹 내용 설정
+        Image itemimage = newUI.GetComponentInChildren<Image>();
+        itemimage.sprite = item.Sprite;
+        TMP_Text tmptext = newUI.GetComponentInChildren<TMP_Text>();
+        tmptext.text = item.Title;
 
-        uiobjects.Add(newUI);
+        uiobjects.Add(newUI.GetComponent<RectTransform>());
 
         float y = 0f;
         
@@ -34,6 +43,8 @@ public class RewardScrollView : MonoBehaviour
             y += uiobjects[0].sizeDelta.y + space;
         }
         scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
+
+        return newUI;
     }
 
 

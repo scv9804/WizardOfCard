@@ -14,11 +14,15 @@ public class RewordManager : MonoBehaviour
 	}
 
 	public List<Item_inven> itemList = new List<Item_inven>();
+	public List<GameObject> rewardObjectList = new List<GameObject>();
+	public List<Item_inven> rewardList = new List<Item_inven>();
 
 	[SerializeField] ItemDataBase database;
 	[SerializeField] GameObject rewardWindow;
 	[SerializeField] Button acceptButton;
 	[SerializeField] RewardScrollView rewardSpawn;
+	[SerializeField] Inventory inven;
+
 	private void Start()
 	{
 		GameClear();
@@ -29,17 +33,18 @@ public class RewordManager : MonoBehaviour
 		Debug.Log("보상");
 		UIManager.Inst.MapClearUI();
 		acceptButton.onClick.AddListener(AddClearReword);
-		SetRewordTable();
-		SetReward();
+		SetRewardTable();
+		SetRandomReward();
 	}
 
-	void SetReward()
+	void SetRandomReward()
 	{
-		rewardSpawn.SetReward(itemList[0]) ;
+		rewardObjectList.Add(rewardSpawn.SetReward(itemList[0]));
+		rewardList.Add(itemList[0]);
 		itemList.RemoveAt(0);
 	}
 
-	void SetRewordTable()
+	void SetRewardTable()
 	{
 		for (int indexCount = 0; indexCount < database.database.Count; indexCount++)
 		{
@@ -56,6 +61,22 @@ public class RewordManager : MonoBehaviour
 			itemList[i] = itemList[rand];
 			itemList[rand] = temp;
 		}
+	}
+	public void GiveReward()
+	{
+		for (int i = 0; i<rewardObjectList.Count; i++)
+		{
+			Toggle temptoggle = rewardObjectList[i].GetComponentInChildren<Toggle>();
+			if (temptoggle.isOn)
+			{
+				inven.AddItem(rewardList[i].Id);
+				Debug.Log("잘들어갔어요!");
+			}
+		}
+
+		rewardList.Clear();
+		rewardObjectList.Clear();
+		rewardSpawn.ClearViewList();
 	}
 
 	public void AddClearReword() 
