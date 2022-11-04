@@ -15,7 +15,7 @@ public class EmergencyRecovery : Card
     {
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        BattleCalculater.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.SpellEnchaneReset();
 
         RestoreHealth(ApplyEnhanceValue_Instance(i_damage));
 

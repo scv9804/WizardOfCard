@@ -37,7 +37,7 @@ public class Wisdom : Card
     {
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        BattleCalculater.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.SpellEnchaneReset();
 
         Add_MagicAffinity_Turn(i_damage);
         Add_MagicAffinity_Battle(i_applyMagicAffinity_Battle);

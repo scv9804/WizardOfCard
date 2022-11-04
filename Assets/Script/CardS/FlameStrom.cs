@@ -37,7 +37,7 @@ public class FlameStrom : Card
     {
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        BattleCalculater.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.SpellEnchaneReset();
 
         TargetAll(() => Add_Burning(_target_enemy, i_applyBurning), ref _target_enemy);
         TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), ref _target_enemy);

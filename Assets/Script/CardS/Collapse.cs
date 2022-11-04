@@ -59,7 +59,7 @@ public class Collapse : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{

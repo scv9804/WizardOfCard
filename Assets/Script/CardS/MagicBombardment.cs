@@ -34,7 +34,7 @@ public class MagicBombardment : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 
         yield return StartCoroutine(Repeat(() => TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), ref _target_enemy), i_attackCount)); // °¡µ¶¼º;;;
 

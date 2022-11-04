@@ -15,6 +15,8 @@ public class UnstableTome : Card
 			yield return new WaitForSeconds(0.1f);
 		}
 
+		CardManager.Inst.RefreshMyHands();
+
 		yield return StartCoroutine(EndUsingCard());
 	}
 }

@@ -115,13 +115,13 @@ public class Cards_Magician : MonoBehaviour
 	public void MagicBolt(Card _card, Entity _target)
 	{
 		_target?.Damaged(CulcEnchaneDamage(_card));
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 		_target.RefreshEntity();
 	}
 	public void MagicBolt(Card _card, PlayerEntity _target)
 	{
 		_target?.Damaged(_card.i_damage);
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 		_target.RefreshPlayer();
 	}
 	#endregion 

@@ -597,7 +597,6 @@ GameObject:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
   - component: {fileID: -2801819417619063475}
-  - component: {fileID: 4998888831836804041}
   - component: {fileID: -2607504812309240826}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
@@ -699,36 +698,6 @@ MonoBehaviour:
   - {fileID: 7395019933671154982}
   - {fileID: 7395019932878968506}
   sortingLayerName: Card
---- !u!114 &4998888831836804041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395019933593546574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  st_cardName: "\uBD88\uC548\uC815\uD55C \uACE0\uC11C"
-  i_itemNum: 3
-  type: 0
-  f_percentage: 2
-  i_upgraded: 0
-  cost: 010000000100000000000000
-  attack: 010000000200000002000000
-  isExile: 000000
-  AR_attackRange: 010000000100000001000000
-  explainCard:
-  - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uADF8 \uCE74\uB4DC\uC758
-    \uBE44\uC6A9\uC774 0\uC774 \uB418\uACE0,\n\uB9DD\uAC01 \uD6A8\uACFC\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
-  - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uADF8 \uCE74\uB4DC\uC758
-    \uBE44\uC6A9\uC774 0\uC774 \uB418\uACE0,\n\uB9DD\uAC01 \uD6A8\uACFC\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
-  - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uADF8 \uCE74\uB4DC\uC758
-    \uBE44\uC6A9\uC774 0\uC774 \uB418\uACE0,\n\uB9DD\uAC01 \uD6A8\uACFC\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
-  enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
-  playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
 --- !u!114 &-2607504812309240826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,12 +711,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  card_info: {fileID: 4998888831836804041}
   nameTMP: {fileID: 7395019933344051563}
   manaCostTMP: {fileID: 7395019933671154985}
   explainTMP: {fileID: 7395019932878968509}
-  enemyDamagedEffectSprite: {fileID: 0}
-  playerAttackEffectSprite: {fileID: 0}
+  enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+  playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+  st_cardName: "\uBD88\uC548\uC815\uD55C \uACE0\uC11C"
+  i_itemNum: 3
+  type: 0
+  f_percentage: 3
+  i_upgraded: 0
+  cost: 010000000100000000000000
+  attack: 010000000200000002000000
+  isExile: 000000
+  AR_attackRange: 010000000100000001000000
+  explainCard:
+  - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uADF8 \uCE74\uB4DC\uC758
+    \uBE44\uC6A9\uC774 0\uC774 \uB418\uACE0,\n\uB9DD\uAC01 \uD6A8\uACFC\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uADF8 \uCE74\uB4DC\uC758
+    \uBE44\uC6A9\uC774 0\uC774 \uB418\uACE0,\n\uB9DD\uAC01 \uD6A8\uACFC\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uADF8 \uCE74\uB4DC\uC758
+    \uBE44\uC6A9\uC774 0\uC774 \uB418\uACE0,\n\uB9DD\uAC01 \uD6A8\uACFC\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}

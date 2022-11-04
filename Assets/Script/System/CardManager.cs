@@ -122,14 +122,14 @@ public class CardManager : MonoBehaviour
 	{
 		i_usedCardCount++;
 
-		BattleCalculater.Inst.RefreshMyHands();
+		RefreshMyHands();
 	}
 
 	void ResetCardCount(bool isMyTurn)
 	{
 		i_usedCardCount = 0;
 
-		BattleCalculater.Inst.RefreshMyHands();
+		RefreshMyHands();
 	}
 
 
@@ -177,7 +177,7 @@ public class CardManager : MonoBehaviour
 		for (int i = 0; i < itemSO.items.Length; i++)
 		{
 			Card card = itemSO.items[i].card;
-			for (int j = 0; j < card.card_info.f_percentage; j++)
+			for (int j = 0; j < card.f_percentage; j++)
 			{
 				myDeck.Add(card);
 			}
@@ -203,7 +203,7 @@ public class CardManager : MonoBehaviour
 
 	public void InstantinateCard(Card tempt) // <<22-10-30 장형용 :: 좋은 기능 있길래 쓰려고 분리했읍니다 ㅎㅎ;;;>>
     {
-		var cardObject = Instantiate(itemSO.items[tempt.i_CardNum].card_object, cardSpawnPos.position, Quaternion.identity);
+		var cardObject = Instantiate(itemSO.items[tempt.i_itemNum].card_object, cardSpawnPos.position, Quaternion.identity);
 		var card = cardObject.GetComponent<Card>();
 		//card.SetItemSO(tempt.card_info); // <<22-11-04 장형용 :: 현재 카드 정보를 대부분 Card_Info로 옮기기 위해 분리>>
 		card.Setup();
@@ -398,7 +398,7 @@ public class CardManager : MonoBehaviour
 	#region AttackRange Bool
 	bool AttackRange_Self(Card _card)
 	{
-		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.card_info.attackRange == AttackRange.Target_Self)
+		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.attackRange == AttackRange.Target_Self)
 		{
 			return true;
 		}
@@ -406,7 +406,7 @@ public class CardManager : MonoBehaviour
 	}
 	bool AttackRange_AllEnemy(Card _card)
 	{
-		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.card_info.attackRange == AttackRange.Target_AllEnemy)
+		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.attackRange == AttackRange.Target_AllEnemy)
 		{
 			return true;
 		}
@@ -414,7 +414,7 @@ public class CardManager : MonoBehaviour
 	}
 	bool AttackRange_Single(Card _card)
 	{
-		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.card_info.attackRange == AttackRange.Target_Single)
+		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.attackRange == AttackRange.Target_Single)
 		{
 			return true;
 		}
@@ -601,6 +601,15 @@ public class CardManager : MonoBehaviour
 
 		DeckShuffle();
 	}
+
+	public void RefreshMyHands()
+	{
+		for (int i = 0; i < myCards.Count; i++)
+		{
+			myCards[i].ExplainRefresh();
+		}
+	}
+
 
 	//public void RefreshMyHand() // <<22-10-21 장형용 :: 추가, 초기화하는 과정에서 카드가 잠시 줄어들었다 확대되는 버그?가 생기는데 뭔가 그럴듯하니 걍 두기로>>
 	//{

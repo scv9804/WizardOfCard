@@ -596,9 +596,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
-  - component: {fileID: -2801819417619063475}
-  - component: {fileID: 4998888831836804041}
   - component: {fileID: -8150516374246844532}
+  - component: {fileID: -2801819417619063475}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
@@ -679,6 +678,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8150516374246844532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395019933593546574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d72670dab3ea042a893c9cd7676305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
+  nameTMP: {fileID: 7395019933344051563}
+  manaCostTMP: {fileID: 7395019933671154985}
+  explainTMP: {fileID: 7395019932878968509}
+  enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+  playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+  st_cardName: "\uB9C8\uBC95\uAD6C"
+  i_itemNum: 0
+  type: 0
+  f_percentage: 2
+  i_upgraded: 0
+  cost: 010000000100000001000000
+  attack: 020000000400000005000000
+  isExile: 000000
+  AR_attackRange: 020000000200000002000000
+  explainCard:
+  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4."
+  originPRS:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0, w: 0}
+    scale: {x: 0, y: 0, z: 0}
+  is_Useable_Card: 1
+  bonus: 0
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,58 +735,6 @@ MonoBehaviour:
   - {fileID: 7395019933671154982}
   - {fileID: 7395019932878968506}
   sortingLayerName: Card
---- !u!114 &4998888831836804041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395019933593546574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  st_cardName: "\uB9C8\uBC95\uAD6C"
-  i_itemNum: 0
-  type: 0
-  f_percentage: 2
-  i_upgraded: 0
-  cost: 010000000100000001000000
-  attack: 020000000400000005000000
-  isExile: 000000
-  AR_attackRange: 020000000200000002000000
-  explainCard:
-  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4."
-  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4."
-  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4."
-  enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
-  playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
---- !u!114 &-8150516374246844532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395019933593546574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d72670dab3ea042a893c9cd7676305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  card_info: {fileID: 4998888831836804041}
-  nameTMP: {fileID: 7395019933344051563}
-  manaCostTMP: {fileID: 7395019933671154985}
-  explainTMP: {fileID: 7395019932878968509}
-  enemyDamagedEffectSprite: {fileID: 0}
-  playerAttackEffectSprite: {fileID: 0}
-  originPRS:
-    pos: {x: 0, y: 0, z: 0}
-    rot: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 0, y: 0, z: 0}
-  is_Useable_Card: 1
-  bonus: 0
 --- !u!61 &2036147294181241873
 BoxCollider2D:
   m_ObjectHideFlags: 0

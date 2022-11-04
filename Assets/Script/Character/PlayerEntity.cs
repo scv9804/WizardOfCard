@@ -406,7 +406,7 @@ public class PlayerEntity : MonoBehaviour
     {
         i_magicAffinity_battle = 0;
 
-        BattleCalculater.Inst.RefreshMyHands();
+        CardManager.Inst.RefreshMyHands();
     }
 
     void ResetMagicAffinity_Turn(bool isMyTurn)
@@ -415,10 +415,16 @@ public class PlayerEntity : MonoBehaviour
         {
             i_magicAffinity_turn = 0;
 
-            BattleCalculater.Inst.RefreshMyHands();
+            CardManager.Inst.RefreshMyHands();
         }
     }
 
+    public void SpellEnchaneReset()
+    {
+        Status_EnchaneValue = 1;
+
+        CardManager.Inst.RefreshMyHands();
+    }
 
 
     #region DoTween

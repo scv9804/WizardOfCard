@@ -37,7 +37,7 @@ public class ThunderBolt : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 
 		int totalDamage = ApplyManaAffinity_Instance(Random.Range(i_damage, i_maxDamage + 1));
 
