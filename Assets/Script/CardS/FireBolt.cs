@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class FireBolt : Card
 {
-	[Header("화상"), SerializeField] int i_applyBurning;
+	[Header("화상"), SerializeField] int[] applyBurning = new int[3];
+
+	#region 프로퍼티
+
+	public int i_applyBurning
+	{
+		get
+		{
+			return applyBurning[i_upgraded];
+		}
+
+        set
+        {
+			applyBurning[i_upgraded] = value;
+        }
+    }
+
+	#endregion
 
 	public override void ExplainRefresh()
     {

@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class Collapse : Card
 {
-	[Header("쉴드 소지 시 데미지 배율"), SerializeField] int i_DamageEnhanceValue;
+	[Header("쉴드 소지 시 데미지 배율"), SerializeField] int[] damageEnhanceValue = new int[3];
+
+	#region 프로퍼티
+
+	public int i_damageEnhanceValue
+	{
+		get
+		{
+			return damageEnhanceValue[i_upgraded];
+		}
+
+		//set
+		//{
+		//	damageEnhanceValue[i_upgraded] = value;
+		//}
+	}
+
+	#endregion
 
 	public override void ExplainRefresh()
     {
         base.ExplainRefresh();
 
-		sb.Replace("{3}", i_DamageEnhanceValue.ToString());
+		sb.Replace("{3}", i_damageEnhanceValue.ToString());
 
 		explainTMP.text = sb.ToString();
     }
@@ -19,7 +36,7 @@ public class Collapse : Card
 	{
 		if (_target.i_shield > 0)
 		{
-			return _value * i_DamageEnhanceValue;
+			return _value * i_damageEnhanceValue;
 		}
 		else
 		{
@@ -31,7 +48,7 @@ public class Collapse : Card
 	{
 		if (_target.Status_Shiled > 0)
 		{
-			return _value * i_DamageEnhanceValue;
+			return _value * i_damageEnhanceValue;
 		}
 		else
 		{

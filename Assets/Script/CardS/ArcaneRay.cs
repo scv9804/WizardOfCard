@@ -4,24 +4,39 @@ using UnityEngine;
 
 public class ArcaneRay : Card
 {
-    public static int i_usedCardCount;
-	[Header("데미지 증가에 필요한 카드"), SerializeField] int i_damagePerCard;
+	[Header("데미지 증가에 필요한 카드"), SerializeField] int[] damagePerCard = new int[3];
 
-	protected override void Start()
-	{
-		Utility.onCardUsed += IncreaseCardCount;
+    #region 프로퍼티
 
-		TurnManager.onStartTurn += ResetCardCount;
-	}
-
-	protected void OnDisable()
+    public int i_damagePerCard
     {
-		Utility.onCardUsed -= IncreaseCardCount;
+		get
+        {
+			return damagePerCard[i_upgraded];
+		}
 
-		TurnManager.onStartTurn -= ResetCardCount;
-	}
+        //set
+        //{
+		//	damagePerCard[i_upgraded] = value;
+		//}
+    }
 
-	public override void ExplainRefresh()
+	public int i_usedCardCount
+	{
+		get
+		{
+			return CardManager.i_usedCardCount;
+		}
+
+        //set
+        //{
+        //    damagePerCard[i_upgraded] = value;
+        //}
+    }
+
+    #endregion
+
+    public override void ExplainRefresh()
 	{
 		base.ExplainRefresh();
 
@@ -31,20 +46,6 @@ public class ArcaneRay : Card
 		sb.Replace("{4}", ApplyManaAffinity(i_damage + (int)(i_usedCardCount / i_damagePerCard)).ToString());
 
 		explainTMP.text = sb.ToString();
-	}
-
-	void IncreaseCardCount(Card _card)
-    {
-		i_usedCardCount++;
-
-		ExplainRefresh();
-	}
-
-	void ResetCardCount(bool isMyTurn)
-    {
-		i_usedCardCount = 0;
-
-		ExplainRefresh();
 	}
 
     public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>

@@ -4,38 +4,31 @@ using UnityEngine;
 
 public class Wisdom : Card
 {
-    [Header("마나 친화성"), SerializeField] int i_applyMagicAffinity_Battle;
+    [Header("마나 친화성"), SerializeField] int[] applyMagicAffinity_Battle = new int[3];
 
-    public override void ExplainRefresh() // 코드 맘에 안들어...
+    #region 프로퍼티
+
+    public int i_applyMagicAffinity_Battle
     {
-        sb.Clear();
-        if (b_isExile)
+        get
         {
-            sb.Append("<color=#ff00ff>망각</color>\n");
-        }
-        sb.Append(st_explain);
-
-        if (i_damage != 0)
-        {
-            sb.Replace("{5}", "<color=#ff00ff>{5}</color>");
-            sb.Replace("{5}", ApplyEnhanceValue(i_damage).ToString());
-        }
-        else
-        {
-            sb.Replace("1턴간 추가로", "");
-            sb.Replace("마나 친화성을 <color=#ff00ff>{5}</color> 얻습니다.", "");
+            return applyMagicAffinity_Battle[i_upgraded];
         }
 
-        if (i_applyMagicAffinity_Battle > 0)
-        {
-            sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
-            sb.Replace("{4}", ApplyEnhanceValue(i_applyMagicAffinity_Battle).ToString());
-        }
-        else
-        {
-            sb.Replace("마나 친화성을 <color=#ff00ff>{4}</color> 얻습니다.", "");
-            sb.Replace(" 추가로", "");
-        }
+        //set
+        //{
+        //	applyMagicAffinity_Battle[i_upgraded] = value;
+        //}
+    }
+
+    #endregion
+
+    public override void ExplainRefresh()
+    {
+        base.ExplainRefresh();
+
+        sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
+        sb.Replace("{4}", ApplyEnhanceValue(i_applyMagicAffinity_Battle).ToString());
 
         explainTMP.text = sb.ToString();
     }

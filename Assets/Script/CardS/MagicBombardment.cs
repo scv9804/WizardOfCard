@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class MagicBombardment : Card
 {
-	[Header("공격 횟수"), SerializeField] int i_attackCount;
-	[Header("무작위 적 추가공격 여부"), SerializeField] bool b_canExtraAttack;
+	[Header("공격 횟수"), SerializeField] int[] attackCount = new int[3];
+
+	#region 프로퍼티
+
+	public int i_attackCount
+	{
+		get
+		{
+			return attackCount[i_upgraded];
+		}
+
+		//set
+		//{
+		//	attackCount[i_upgraded] = value;
+		//}
+	}
+
+	#endregion
 
 	public override void ExplainRefresh()
 	{
 		base.ExplainRefresh();
-
-		if (i_attackCount > 1)
-		{
-			sb.Append("\n{3}번 더 반복합니다.\n");
-			sb.Replace("{3}", (i_attackCount - 1).ToString());
-		}
-
-		if (b_canExtraAttack)
-        {
-			sb.Append("그 후 무작위 적에게\n 데미지를 <color=#ff0000>{1}</color> 줍니다.");
-			sb.Replace("{1}", ApplyManaAffinity(i_damage).ToString());
-		}
 
 		explainTMP.text = sb.ToString();
 	}
@@ -34,7 +38,7 @@ public class MagicBombardment : Card
 
         yield return StartCoroutine(Repeat(() => TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), ref _target_enemy), i_attackCount)); // 가독성;;;
 
-        if (b_canExtraAttack)
+        if (i_upgraded == 2)
 		{
 			Attack_RandomEnemy(_target_enemy, ApplyManaAffinity_Instance(i_damage));
 		}

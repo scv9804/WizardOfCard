@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class ThunderBolt : Card
 {
-    [Header("최댓값"), SerializeField] int i_maxDamage;
+    [Header("최댓값"), SerializeField] int[] maxDamage = new int[3];
+
+	#region 프로퍼티
+
+	public int i_maxDamage
+	{
+		get
+		{
+			return maxDamage[i_upgraded];
+		}
+
+		//set
+		//{
+		//	maxDamage[i_upgraded] = value;
+		//}
+	}
+
+	#endregion
 
 	public override void ExplainRefresh()
 	{

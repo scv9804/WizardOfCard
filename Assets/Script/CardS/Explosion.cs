@@ -30,8 +30,8 @@ public class Explosion : Card
         {
 			_target?.Burning();
 
-			StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
-			StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
+			StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSprite));
+			StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSprite));
 		}
 	}
 
@@ -39,7 +39,7 @@ public class Explosion : Card
 	{
 		_target?.Burning();
 
-		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
-		_target?.SetDamagedSprite(enemyDamagedEffectSpriteRenderer.sprite);
+		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSprite));
+		_target?.SetDamagedSprite(enemyDamagedEffectSprite);
 	}
 }

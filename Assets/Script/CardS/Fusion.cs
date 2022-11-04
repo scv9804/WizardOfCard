@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class Fusion : Card
 {
-	[Header("카드 드로우 여부"), SerializeField] bool b_canDraw;
-
 	public override void ExplainRefresh()
 	{
 		base.ExplainRefresh();
 
 		sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
 		sb.Replace("{4}", ApplyEnhanceValue(i_damage).ToString());
-
-		if(b_canDraw)
-        {
-			sb.Append("\n카드를 1장 드로우합니다.");
-		}
 
 		explainTMP.text = sb.ToString();
 	}
@@ -41,7 +34,7 @@ public class Fusion : Card
 			TargetAll(() => Add_Burning(_target_enemy, i_damage), ref _target_enemy);
 		}
 
-		if(b_canDraw)
+		if(i_upgraded == 2)
         {
 			CardManager.Inst.AddCard();
 		}

@@ -360,60 +360,118 @@ public class LevelGeneration : MonoBehaviour {
 		//} while (true);
 		//SetRoomDoors();
 
+		////////////////////////////////////////////////////////////////
+
+		//int count = 0;
+
+		//do // EdgeRooms 원소 유무 확인 작업
+		//{
+		//	if (count == EdgeRooms.Count)
+		//	{
+		//		Debug.Log(":: 적합한 대상을 찾을 수 없음 ::");
+		//		return;
+		//	}
+		//	else if (EdgeRooms[count].type != 1)
+		//		break;
+
+		//	count++;
+		//}
+		//while (true);
+
+		//do // type이 1인 방 검색 작업
+		//{
+		//	randomRoom = Random.Range(0, EdgeRooms.Count);
+
+		//	if (EdgeRooms[randomRoom].type != 1)
+		//		break;
+		//}
+		//while (true);
+
+		//do // 새로운 방을 생성 가능한 방향 검색 작업
+		//{
+		//	randomPos = Random.Range(0, 4);
+
+		//	try
+		//	{
+		//		if (randomPos == 0) //0 --> left
+		//			if (RoomExpansion(-1, 0, randomRoom))
+		//				break;
+
+		//		if (randomPos == 1) //1 --> right
+		//			if (RoomExpansion(1, 0, randomRoom))
+		//				break;
+
+		//		if (randomPos == 2) //2 --> above
+		//			if (RoomExpansion(0, 1, randomRoom))
+		//				break;
+
+		//		if (randomPos == 3) //3 --> bellow
+		//			if (RoomExpansion(0, -1, randomRoom))
+		//				break;
+		//	}
+		//	catch
+		//	{
+		//		Debug.Log(":: 최대 월드 크기 밖 방 생성 시도 ::");
+		//	}
+		//}
+		//while (true);
+ 
+		// <<22-11-04 장형용 :: 그냥 메모리 먹이고 최대 연산 수를 줄임, 가끔 while 루프 픽뚫 억까 계속 당할때마다 울화통이 터짐>>
+
 		int randomRoom;
 		int randomPos;
 
-		int count = 0;
+		List<Room> list_edgeRoom_temp = EdgeRooms;
+
+		List<int> list_direction_temp = new List<int>()
+		{
+			0, 1, 2, 3
+        };
+
+		do // EdgeRooms 원소 유무 확인 작업
+        {
+            if (list_edgeRoom_temp.Count == 0)
+            {
+                Debug.Log(":: 적합한 대상을 찾을 수 없음 ::");
+                return;
+            }
+
+			randomRoom = Random.Range(0, list_edgeRoom_temp.Count);
+
+			if (list_edgeRoom_temp[randomRoom].type != 1)
+				break;
+			list_edgeRoom_temp.Remove(list_edgeRoom_temp[randomRoom]);
+		}
+        while (true);
 
 		do // EdgeRooms 원소 유무 확인 작업
 		{
-			if (count == EdgeRooms.Count)
-			{
-				Debug.Log(":: 적합한 대상을 찾을 수 없음 ::");
-				return;
-			}
-			else if (EdgeRooms[count].type != 1)
-				break;
+			randomPos = list_direction_temp[Random.Range(0, list_direction_temp.Count)];
 
-			count++;
-		}
-		while (true);
+            try
+            {
+                if (randomPos == 0) //0 --> left
+                    if (RoomExpansion(-1, 0, randomRoom))
+                        break;
 
-		do // type이 1인 방 검색 작업
-		{
-			randomRoom = Random.Range(0, EdgeRooms.Count);
+                if (randomPos == 1) //1 --> right
+                    if (RoomExpansion(1, 0, randomRoom))
+                        break;
 
-			if (EdgeRooms[randomRoom].type != 1)
-				break;
-		}
-		while (true);
+                if (randomPos == 2) //2 --> above
+                    if (RoomExpansion(0, 1, randomRoom))
+                        break;
 
-		do // 새로운 방을 생성 가능한 방향 검색 작업
-		{
-			randomPos = Random.Range(0, 4);
+                if (randomPos == 3) //3 --> bellow
+                    if (RoomExpansion(0, -1, randomRoom))
+                        break;
+            }
+            catch
+            {
+                Debug.Log(":: 최대 월드 크기 밖 방 생성 시도 ::");
+            }
 
-			try
-			{
-				if (randomPos == 0) //0 --> left
-					if (RoomExpansion(-1, 0, randomRoom))
-						break;
-
-				if (randomPos == 1) //1 --> right
-					if (RoomExpansion(1, 0, randomRoom))
-						break;
-
-				if (randomPos == 2) //2 --> above
-					if (RoomExpansion(0, 1, randomRoom))
-						break;
-
-				if (randomPos == 3) //3 --> bellow
-					if (RoomExpansion(0, -1, randomRoom))
-						break;
-			}
-			catch
-			{
-				Debug.Log(":: 최대 월드 크기 밖 방 생성 시도 ::");
-			}
+			list_direction_temp.Remove(randomPos);
 		}
 		while (true);
 

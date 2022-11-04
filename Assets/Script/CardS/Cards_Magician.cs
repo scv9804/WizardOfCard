@@ -6,102 +6,102 @@ public class Cards_Magician : MonoBehaviour
 {
 	public void CompareCard(Card _card, Entity _target)
 	{
-		switch (_card.i_CardNum)
-		{
-			case 0:
-				MagicBolt(_card , _target);
-				StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite ,_card.playerAttackEffectSpriteRenderer.sprite));
-				StartCoroutine(_target.DamagedEffectCorutin(_card.enemyDamagedEffectSpriteRenderer.sprite));
-				break;
-			case 1:
-				Debug.Log("잘못된 선택입니다.");
-				break;
-			case 2:
+		//switch (_card.i_CardNum)
+		//{
+		//	case 0:
+		//		MagicBolt(_card , _target);
+		//		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite ,_card.playerAttackEffectSprite));
+		//		StartCoroutine(_target.DamagedEffectCorutin(_card.enemyDamagedEffectSprite));
+		//		break;
+		//	case 1:
+		//		Debug.Log("잘못된 선택입니다.");
+		//		break;
+		//	case 2:
 
 
-				break;
-			case 3:
+		//		break;
+		//	case 3:
 
 
-				break;
-			case 4:
+		//		break;
+		//	case 4:
 
 
-				break;
-			case 5:
+		//		break;
+		//	case 5:
 
 
-				break;
-			case 6:
+		//		break;
+		//	case 6:
 
 
-				break;
-			case 7:
+		//		break;
+		//	case 7:
 
 
-				break;
-			case 8:
+		//		break;
+		//	case 8:
 
 
-				break;
-			case 9:
+		//		break;
+		//	case 9:
 
 
-				break;
+		//		break;
 
-		}
+		//}
 
-		GameManager.Inst.GameTick();
+		//GameManager.Inst.GameTick();
 	}
 
 	public void CompareCard(Card _card, PlayerEntity _target)
 	{
-		switch (_card.i_CardNum)
-		{
-			case 0:
-				MagicBolt(_card, _target);
-				break;
-			case 1:
-				N_TimeSpellDamage(_card);
-				break;
-			case 2:
+		//switch (_card.i_CardNum)
+		//{
+		//	case 0:
+		//		MagicBolt(_card, _target);
+		//		break;
+		//	case 1:
+		//		N_TimeSpellDamage(_card);
+		//		break;
+		//	case 2:
 
 
-				break;
-			case 3:
+		//		break;
+		//	case 3:
 
 
-				break;
-			case 4:
+		//		break;
+		//	case 4:
 
 
-				break;
-			case 5:
+		//		break;
+		//	case 5:
 
 
-				break;
-			case 6:
+		//		break;
+		//	case 6:
 
 
-				break;
-			case 7:
+		//		break;
+		//	case 7:
 
 
-				break;
-			case 8:
+		//		break;
+		//	case 8:
 
 
-				break;
-			case 9:
+		//		break;
+		//	case 9:
 
 
-				break;
+		//		break;
 
-		}
+		//}
 
 
 		
-		GameManager.Inst.GameTick();
+		//GameManager.Inst.GameTick();
 	}
 
 	int CulcEnchaneDamage(Card _card)

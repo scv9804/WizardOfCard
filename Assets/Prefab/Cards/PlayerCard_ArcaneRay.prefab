@@ -711,21 +711,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49eb04cc4e3f7e419edca03679a57b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_itemNum: 11
   st_cardName: "\uBE44\uC804 \uAD11\uC120"
-  i_attack: 1
-  i_Cost: 1
-  attackRange: 2
-  f_percentage: 10
-  st_explainCard_UI: 
-  st_explainCard: "\uB370\uBBF8\uC9C0\uB97C {4} \uC90D\uB2C8\uB2E4.\n\uC774 \uCE74\uB4DC\uAC00
-    \uC190\uC5D0 \uC788\uC744 \uB54C\n\uC774\uBC88 \uD134\uC5D0 \uC0AC\uC6A9\uD55C
-    \uCE74\uB4DC {3}\uC7A5\uB9C8\uB2E4\n\uB370\uBBF8\uC9C0\uAC00 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  b_isExile: 0
+  i_itemNum: 11
   type: 0
-  sp_CardSprite: {fileID: 21300000, guid: a2ec98a3a3f98c245a3c5d5eaeb2baa5, type: 3}
-  enemyDamageSprite: {fileID: 7924227003371571853}
-  playerAttackSprite: {fileID: 2684296111631034952}
+  f_percentage: 2
+  i_upgraded: 0
+  cost: 010000000100000001000000
+  attack: 010000000100000002000000
+  isExile: 000000
+  AR_attackRange: 020000000200000002000000
+  explainCard:
+  - "\uB370\uBBF8\uC9C0\uB97C {4} \uC90D\uB2C8\uB2E4.\n\uC774\uBC88 \uD134\uC5D0
+    \uC0AC\uC6A9\uD55C \n\uCE74\uB4DC {3}\uC7A5\uB9C8\uB2E4 \n\uB370\uBBF8\uC9C0\uAC00
+    1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C {4} \uC90D\uB2C8\uB2E4.\n\uC774\uBC88 \uD134\uC5D0
+    \uC0AC\uC6A9\uD55C \n\uCE74\uB4DC {3}\uC7A5\uB9C8\uB2E4 \n\uB370\uBBF8\uC9C0\uAC00
+    1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C {4} \uC90D\uB2C8\uB2E4.\n\uC774\uBC88 \uD134\uC5D0
+    \uC0AC\uC6A9\uD55C \n\uCE74\uB4DC {3}\uC7A5\uB9C8\uB2E4 \n\uB370\uBBF8\uC9C0\uAC00
+    1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+  playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
 --- !u!114 &7150842848999623381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,34 +744,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae22d38c834df954f816b4841175f427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 7395019933593546574}
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  charater: {fileID: 7395019932707519519}
-  sp_card: {fileID: 7395019933593546572}
+  card_info: {fileID: 4998888831836804041}
   nameTMP: {fileID: 7395019933344051563}
   manaCostTMP: {fileID: 7395019933671154985}
   explainTMP: {fileID: 7395019932878968509}
-  v_cardSize: {x: 0, y: 0, z: 0}
-  card_info: {fileID: 4998888831836804041}
-  i_itemCode: 11
-  i_damage: 1
-  enemyDamagedEffectSpriteRenderer: {fileID: 0}
-  playerAttackEffectSpriteRenderer: {fileID: 0}
+  enemyDamagedEffectSprite: {fileID: 0}
+  playerAttackEffectSprite: {fileID: 0}
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
-  i_CardNum: 0
-  i_manaCost: 0
-  i_cardType: 0
-  i_explainDamage: 0
-  st_explain: 
-  st_splitExplain: []
-  i_explainDamageOrigin: 0
-  b_isExile: 0
-  attackRange: 2
   is_Useable_Card: 1
-  i_damagePerCard: 2
+  bonus: 0
+  damagePerCard: 020000000100000001000000
 --- !u!61 &2036147294181241873
 BoxCollider2D:
   m_ObjectHideFlags: 0
