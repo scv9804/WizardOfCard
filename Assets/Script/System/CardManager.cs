@@ -58,9 +58,6 @@ public class CardManager : MonoBehaviour
 
 	public static int i_usedCardCount; // ºñÀü ±¤¼±²¨ ¿Å°Ü¿È
 
-	[SerializeField] int[] test = new int[5];
-
-
 	private void Start()
 	{
 		SetupMyDeck();
@@ -529,14 +526,14 @@ public class CardManager : MonoBehaviour
 
 		selectCard.MoveTransformGarbage(v3_cardPaths_onHand, f_garbageCardSize, 0.5f);
 
-		if(selectCard.b_isExile)
-		{
-			myExiledCards.Add(selectCard);
-		}
-        else
-        {
-			myCemetery.Add(selectCard);
-		}
+		//if(selectCard.b_isExile)
+		//{
+		//	myExiledCards.Add(selectCard);
+		//}
+  //      else
+  //      {
+		//	myCemetery.Add(selectCard);
+		//}
 
 		myCards.Remove(selectCard);
 		CardAlignment();

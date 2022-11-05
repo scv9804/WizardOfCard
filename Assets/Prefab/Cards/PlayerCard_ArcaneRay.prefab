@@ -699,7 +699,7 @@ MonoBehaviour:
   st_cardName: "\uBE44\uC804 \uAD11\uC120"
   i_itemNum: 11
   type: 0
-  f_percentage: 2
+  f_percentage: 1
   i_upgraded: 0
   cost: 010000000100000001000000
   attack: 010000000100000002000000

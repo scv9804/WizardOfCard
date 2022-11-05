@@ -133,7 +133,7 @@ public class Card : MonoBehaviour
 
 	#endregion
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		sp_card = gameObject.GetComponent<SpriteRenderer>(); // 이거 스크립트 상에서 색 안 바뀌는데?
 
@@ -145,7 +145,21 @@ public class Card : MonoBehaviour
 
 	}
 
-    private void Update() // 실시간으로 레벨 변화시켜서 테스트하기 위해 임시로 다시 추가
+	protected virtual void OnDisable()
+    {
+        if(b_isExile)
+        {
+			CardManager.Inst.myExiledCards.Add(DeepCopyCard());
+        }
+        else
+        {
+			CardManager.Inst.myCemetery.Add(DeepCopyCard());
+		}
+
+
+    }
+
+    void Update() // 실시간으로 레벨 변화시켜서 테스트하기 위해 임시로 다시 추가
     {
 		ExplainRefresh();
 		ManaCostRefresh();
@@ -162,6 +176,16 @@ public class Card : MonoBehaviour
 		ExplainRefresh();
 		ManaCostRefresh(); // <<22-10-21 장형용 :: 함수로 변경>>
 		NameRefresh(); // <<22-11-04 장형용 :: 함수로 변경>>
+	}
+
+	public Card DeepCopyCard()
+    {
+		Card _card = itemSO.items[i_itemNum].card;
+
+		i_upgraded = _card.i_upgraded;
+		bonus = _card.bonus;
+
+		return _card;
 	}
 
     #region 카드 UI 갱신
@@ -254,15 +278,16 @@ public class Card : MonoBehaviour
 		Sequence sequence1 = DOTween.Sequence()
 		.Append(transform.DORotate(new Vector3(0, 0, -120), 0.45f).SetEase(Ease.OutCirc))
 		.Append(transform.DOPath(_prs, 0.6f, PathType.CubicBezier, PathMode.Sidescroller2D, 5).SetLookAt(new Vector3(0,0,-120), new Vector3(0, 0 ,-120)).SetEase(Ease.InQuad))
-		.AppendCallback(() => { this.gameObject.SetActive(false); });
+        //.AppendCallback(() => { this.gameObject.SetActive(false); });
+        .AppendCallback(() => { Destroy( this.gameObject); }); // 굳이 제거할 이유는 없지만 그냥 제거
     }
 
-    #endregion
+	#endregion
 
-    // <<22-10-21 장형용 :: 추가>>
-    #region 수치 계산 (원본값)
+	// <<22-10-21 장형용 :: 추가>>
+	#region 수치 계산 (원본값)
 
-    public int ApplyManaAffinity(int _value)
+	public int ApplyManaAffinity(int _value)
 	{
 		int value = _value
 			+ PlayerEntity.Inst.Status_MagicAffinity_Permanent

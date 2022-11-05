@@ -699,9 +699,9 @@ MonoBehaviour:
   st_cardName: "\uC9C0\uD61C"
   i_itemNum: 4
   type: 4
-  f_percentage: 2
+  f_percentage: 1
   i_upgraded: 0
-  cost: 010000000100000001000000
+  cost: 000000000000000000000000
   attack: 010000000000000001000000
   isExile: 000000
   AR_attackRange: 010000000100000001000000

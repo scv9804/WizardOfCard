@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ArcaneRay : Card
 {
-	[Header("데미지 증가에 필요한 카드"), SerializeField] int[] damagePerCard = new int[3];
+	[Header("데미지 증가에 필요한 카드 수"), SerializeField] int[] damagePerCard = new int[3];
 
-    #region 프로퍼티
+	#region 프로퍼티
 
-    public int i_damagePerCard
+	public int i_damagePerCard
     {
 		get
         {
@@ -21,12 +21,12 @@ public class ArcaneRay : Card
 		//}
     }
 
-	public int i_usedCardCount
-	{
-		get
-		{
-			return CardManager.i_usedCardCount;
-		}
+    public int i_usedCardCount
+    {
+        get
+        {
+            return CardManager.i_usedCardCount;
+        }
 
         //set
         //{
@@ -42,7 +42,7 @@ public class ArcaneRay : Card
 
 		sb.Replace("{3}", i_damagePerCard.ToString());
 
-		sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
+		sb.Replace("{4}", "<color=#ff0000>{4}</color>");
 		sb.Replace("{4}", ApplyManaAffinity(i_damage + (int)(i_usedCardCount / i_damagePerCard)).ToString());
 
 		explainTMP.text = sb.ToString();

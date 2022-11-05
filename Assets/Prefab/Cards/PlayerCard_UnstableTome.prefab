@@ -596,8 +596,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
-  - component: {fileID: -2801819417619063475}
   - component: {fileID: -2607504812309240826}
+  - component: {fileID: -2801819417619063475}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
@@ -678,26 +678,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-2801819417619063475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395019933593546574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b8e8c71ba270b4f95f7e1e6aa95661, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backRenderers:
-  - {fileID: 7395019933593546572}
-  middleRenderers:
-  - {fileID: 7395019933344051560}
-  - {fileID: 7395019932707519519}
-  - {fileID: 7395019933671154982}
-  - {fileID: 7395019932878968506}
-  sortingLayerName: Card
 --- !u!114 &-2607504812309240826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,7 +699,7 @@ MonoBehaviour:
   st_cardName: "\uBD88\uC548\uC815\uD55C \uACE0\uC11C"
   i_itemNum: 3
   type: 0
-  f_percentage: 3
+  f_percentage: 1
   i_upgraded: 0
   cost: 010000000100000000000000
   attack: 010000000200000002000000
@@ -738,6 +718,26 @@ MonoBehaviour:
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
   bonus: 0
+--- !u!114 &-2801819417619063475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395019933593546574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b8e8c71ba270b4f95f7e1e6aa95661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backRenderers:
+  - {fileID: 7395019933593546572}
+  middleRenderers:
+  - {fileID: 7395019933344051560}
+  - {fileID: 7395019932707519519}
+  - {fileID: 7395019933671154982}
+  - {fileID: 7395019932878968506}
+  sortingLayerName: Card
 --- !u!61 &2036147294181241873
 BoxCollider2D:
   m_ObjectHideFlags: 0
