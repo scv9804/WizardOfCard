@@ -135,7 +135,7 @@ public class Card : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		sp_card = gameObject.GetComponent<SpriteRenderer>(); // 이거 스크립트 상에서 색 안 바뀌는데?
+		sp_card = /*gameObject.*/GetComponent<SpriteRenderer>(); // 이거 스크립트 상에서 색 안 바뀌는데?
 
 		Setup();
 	}
@@ -155,8 +155,6 @@ public class Card : MonoBehaviour
         {
 			CardManager.Inst.myCemetery.Add(DeepCopyCard());
 		}
-
-
     }
 
     void Update() // 실시간으로 레벨 변화시켜서 테스트하기 위해 임시로 다시 추가
@@ -217,6 +215,7 @@ public class Card : MonoBehaviour
 		sb.Replace("{5}", ApplyEnhanceValue(i_damage).ToString());
 
 		sb.Replace("망각", "<color=#ff00ff>망각</color>");
+		sb.Replace("보호", "<color=#0000ff>보호</color>");
 
 		#endregion
 
@@ -506,6 +505,11 @@ public class Card : MonoBehaviour
 			CardManager.Inst.myCards.Last().i_manaCost = 0;
 			CardManager.Inst.myCards.Last().b_isExile = true;
 		}
+	}
+
+	protected void Protection(int _value)
+    {
+		PlayerEntity.Inst.Status_Protection += ApplyEnhanceValue_Instance(_value);
 	}
 
     #endregion

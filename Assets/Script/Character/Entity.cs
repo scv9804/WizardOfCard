@@ -146,7 +146,7 @@ public class Entity : MonoBehaviour
             return true;
         }
 
-        if (i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
+        if (i_burning > 0 && _card != null) //  <<22-10-21 장형용 :: 화상 추가>>
         {
             Burning();
         }

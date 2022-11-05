@@ -68,5 +68,29 @@ MonoBehaviour:
     card: {fileID: 8623296433942024127, guid: c6bc3f76705821245bfc3cb271a155b0, type: 3}
     card_object: {fileID: 7395019933593546574, guid: c6bc3f76705821245bfc3cb271a155b0, type: 3}
   - itemCode: 18
+    card: {fileID: -7591075208385413331, guid: 8e0b8857d37d44c48ac97084a98a9683, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 8e0b8857d37d44c48ac97084a98a9683, type: 3}
+  - itemCode: 19
+    card: {fileID: -5821498611904698519, guid: 8714eee87bd654d498ec7add7e658d2d, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 8714eee87bd654d498ec7add7e658d2d, type: 3}
+  - itemCode: 20
+    card: {fileID: 6128140062401689212, guid: 2230bcac3ef178e4ebc9997b385dfb8d, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 2230bcac3ef178e4ebc9997b385dfb8d, type: 3}
+  - itemCode: 21
+    card: {fileID: 1945833580905089631, guid: 64ae63de864d66647bb5ac1cbfb5de3b, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 64ae63de864d66647bb5ac1cbfb5de3b, type: 3}
+  - itemCode: 22
+    card: {fileID: 5842620042234717737, guid: 9689ce567eb068d40ba4129efea71997, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 9689ce567eb068d40ba4129efea71997, type: 3}
+  - itemCode: 23
+    card: {fileID: -5623121842132738698, guid: ed1b7a0700059454388191657ae1d23a, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: ed1b7a0700059454388191657ae1d23a, type: 3}
+  - itemCode: 24
+    card: {fileID: 3148710705410026946, guid: 2c8da1af6467a79459ca0bf8eee69d80, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 2c8da1af6467a79459ca0bf8eee69d80, type: 3}
+  - itemCode: 25
+    card: {fileID: -829170969718360272, guid: ece480ea5ed5cb341872c96d076d48ad, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: ece480ea5ed5cb341872c96d076d48ad, type: 3}
+  - itemCode: 26
     card: {fileID: 5251858741531333875, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
     card_object: {fileID: 7395019933593546574, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}

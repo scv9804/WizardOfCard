@@ -596,12 +596,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
-  - component: {fileID: 2986212588026597534}
+  - component: {fileID: -5821498611904698519}
   - component: {fileID: -2801819417619063475}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
-  m_Name: PlayerCard_Wisdom
+  m_Name: PlayerCard_WaterRune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,7 +678,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2986212588026597534
+--- !u!114 &-5821498611904698519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7395019933593546574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3db2e78b5298d043a413325e6af87d2, type: 3}
+  m_Script: {fileID: 11500000, guid: fc2e84f227e3d4e43aa541da95b6f9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
@@ -696,27 +696,28 @@ MonoBehaviour:
   explainTMP: {fileID: 7395019932878968509}
   enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
   playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
-  st_cardName: "\uC9C0\uD61C"
-  i_itemNum: 4
-  type: 4
+  st_cardName: "\uBB3C\uC758 \uB8EC"
+  i_itemNum: 19
+  type: 0
   f_percentage: 1
   i_upgraded: 0
-  cost: 010000000100000001000000
-  attack: 010000000000000001000000
-  isExile: 000000
+  cost: 020000000200000002000000
+  attack: 020000000400000005000000
+  isExile: 010101
   AR_attackRange: 010000000100000001000000
   explainCard:
-  - "1\uD134\uAC04 \uB9C8\uB098 \uCE5C\uD654\uC131\uC774\n{5} \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  - "\uB9C8\uB098 \uCE5C\uD654\uC131\uC774\n{4} \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  - "\uB9C8\uB098 \uCE5C\uD654\uC131\uC774\n{4} \uC99D\uAC00\uD569\uB2C8\uB2E4.\n\uCD94\uAC00\uB85C
-    1\uD134\uAC04\n\uB9C8\uB098 \uCE5C\uD654\uC131\uC774\n{4} \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - "\uC801 \uD558\uB098 \uB2F9\n\uCCB4\uB825\uC744 {5} \uD68C\uBCF5\uD558\uACE0,
+    \r\n\uCE74\uB4DC\uB97C 1\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\r\n"
+  - "\uC801 \uD558\uB098 \uB2F9\n\uCCB4\uB825\uC744 {5} \uD68C\uBCF5\uD558\uACE0,
+    \r\n\uCE74\uB4DC\uB97C 1\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\r\n"
+  - "\uC801 \uD558\uB098 \uB2F9\n\uCCB4\uB825\uC744 {5} \uD68C\uBCF5\uD558\uACE0,
+    \r\n\uCE74\uB4DC\uB97C 1\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\r\n"
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
   bonus: 0
-  applyMagicAffinity_Battle: 000000000100000001000000
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

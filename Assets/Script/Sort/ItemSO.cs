@@ -7,7 +7,7 @@ using UnityEngine;
 [System.Serializable]
 public class Item_Card
 {
-	public int itemCode;
+	//public int itemCode; //<<22-11-05 장형용 :: 제거>>
 	public Card card;
 	public GameObject card_object;
 }
