@@ -35,6 +35,7 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_damage;
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
+    [HideInInspector] public int debuffValue = 1;
 
     [HideInInspector] public int i_burning = 0;
 
@@ -57,8 +58,8 @@ public class Entity : MonoBehaviour
 
     private void Start()
     {
+        entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
-        entitiyPattern.Pattern(this);
         dissolveEffect.Stop();
     }
 
@@ -84,6 +85,7 @@ public class Entity : MonoBehaviour
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
 
+
         HEALTHMAX = i_health;
         healthImage.fillAmount = i_health / HEALTHMAX;
         
@@ -99,6 +101,7 @@ public class Entity : MonoBehaviour
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
         increaseShield = _enemy.increaseShield;
+        debuffValue = _enemy.debuffValue;
 
         entitiyPattern = _enemy.entityPattern;
         HEALTHMAX = i_health;
@@ -183,9 +186,10 @@ public class Entity : MonoBehaviour
         return;
     }
 
-    public void Attack(PlayerEntity _player)
+    public void Attack()
     {
         entitiyPattern.Pattern(this);
+        entitiyPattern.ShowNextPattern(this);
     }
 
     public void ShieldEffect()

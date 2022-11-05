@@ -12,9 +12,11 @@ public class EntityManager : MonoBehaviour
         Inst = this;
     }
 
-    [Header("DefultSettings")]
+	#region 변수등등
+	[Header("DefultSettings")]
     [SerializeField] float enemyAttackDelay;
     [SerializeField] EnemySO enemySO;
+    [SerializeField] EnemySpawnPatternSO enemySpawnPatternSO;
     [SerializeField] EnemyBossSO enemyBossSO;
     [SerializeField] CharacterSO characterSO;
     [SerializeField] GameObject entitiyPrefab;
@@ -65,9 +67,10 @@ public class EntityManager : MonoBehaviour
 
     WaitForSeconds delay10 = new WaitForSeconds(1.0f);
 
-    private void Start()
+	#endregion
+
+	private void Start()
     {
-      
         levelGeneration = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
         TurnManager.onStartTurn += OnTurnStarted;
     }
@@ -92,7 +95,7 @@ public class EntityManager : MonoBehaviour
 		{
             if (enemyEntities[i].attackable)
             {
-                enemyEntities[i].Attack(playerEntity);
+                enemyEntities[i].Attack();
                 yield return new WaitForSeconds(enemyAttackDelay);
             }
         }
@@ -150,7 +153,7 @@ public class EntityManager : MonoBehaviour
     {
         var entityObject = Instantiate(entitiyPrefab, spawnEnemy_Tf.position, Quaternion.identity);
         var entity = entityObject.GetComponent<Entity>();
-        entity.attackable = true;
+        entity.attackable = false;
 
         enemyEntities.Insert(UnityEngine.Random.Range(0, enemyEntities.Count), entity);
         entity.SetupEnemy(_enemy);
@@ -171,23 +174,24 @@ public class EntityManager : MonoBehaviour
     // 이거 호출하면 다 호출
     public void SpawnEnemyEntity()
     {
-        int rand = UnityEngine.Random.Range(0, MAX_ENEMY_COUNT)+1;
+        //int rand = UnityEngine.Random.Range(0, MAX_ENEMY_COUNT)+1;
 
-        if (enemyBuffer.Count == 0)
-            SetupEnemyBuffer();
+        //if (enemyBuffer.Count == 0)
+        //    SetupEnemyBuffer();
 
-        for (int i =0; i<rand; i++)
-        {
-			if (enemyBuffer.Count != 0)
-			{
-                SetEnemyEntity(enemyBuffer[i]);
-			}
-			else
-			{
-                SetupEnemyBuffer();
-			}
-        }
 
+        //if (enemyBuffer.Count != 0)
+        //{
+        //    SetEnemyEntity(enemyBuffer[0]);
+        //    enemyBuffer.RemoveAt(0);
+        //}
+        int randomPattern = UnityEngine.Random.Range(0, enemySpawnPatternSO.spawnPattern.Length);
+
+		for (int i = 0; enemySpawnPatternSO.spawnPattern[randomPattern].enemy.Length > i; i++)
+		{
+            Debug.Log("??");
+            SetEnemyEntity(enemySpawnPatternSO.spawnPattern[randomPattern].enemy[i]);
+		}
     }
 
     public void SpawnEnemyBossEntity()
@@ -210,11 +214,12 @@ public class EntityManager : MonoBehaviour
     void SetupEnemyBuffer()
     {
         enemyBuffer = new List<Enemy>(100);
+        int rand = UnityEngine.Random.Range(0, enemySpawnPatternSO.spawnPattern.Length);
 
         // 아이템 버퍼에 추가
-        for (int i = 0; i < enemySO.enemy.Length; i++)
+        for (int i = 0; i < enemySpawnPatternSO.spawnPattern[rand].enemy.Length; i++)
         {
-            Enemy enemy = enemySO.enemy[i];
+            Enemy enemy = enemySpawnPatternSO.spawnPattern[rand].enemy[i];
             for (int j = 0; j < enemy.f_percentage; j++)
             {
                 enemyBuffer.Add(enemy);
@@ -223,7 +228,7 @@ public class EntityManager : MonoBehaviour
 
         for (int i = 0; i < enemyBuffer.Count; i++)
         {
-            int rand = UnityEngine.Random.Range(i, enemyBuffer.Count);
+            rand = UnityEngine.Random.Range(i, enemyBuffer.Count);
             Enemy temp = enemyBuffer[i];
             enemyBuffer[i] = enemyBuffer[rand];
             enemyBuffer[rand] = temp;

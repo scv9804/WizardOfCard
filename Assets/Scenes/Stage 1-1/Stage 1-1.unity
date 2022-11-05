@@ -10090,7 +10090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4d8d3e342d95948ac1b03b7b48da7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cards_Magician: {fileID: 1908275031}
 --- !u!4 &1048236539
 Transform:
   m_ObjectHideFlags: 0
@@ -13971,6 +13970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackDelay: 0.7
   enemySO: {fileID: 11400000, guid: 83361cd622dd5ab4cbc7abd3b4eda090, type: 2}
+  enemySpawnPatternSO: {fileID: 11400000, guid: 51b2d8d678773da4b967063aca1d5903, type: 2}
   enemyBossSO: {fileID: 11400000, guid: de72fc56023ba7a4a9edf70c8a0d8d53, type: 2}
   characterSO: {fileID: 11400000, guid: 84ac19ad0941ac640aa9224ee18adca9, type: 2}
   entitiyPrefab: {fileID: 7799422697148875826, guid: 38d2167c9bd27114bbf3966e5dbb4534, type: 3}
@@ -17749,7 +17749,6 @@ MonoBehaviour:
   is_canUseCard: 0
   is_cardUsing: 0
   is_useEnhance: 0
-  test: 050000000f00000019000000230000002d000000
 --- !u!4 &2082127921
 Transform:
   m_ObjectHideFlags: 0
@@ -17963,6 +17962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRooms: 7
+  create: 0
   i_Room_L: 0
   i_Room_R: 0
   i_Room_U: 0

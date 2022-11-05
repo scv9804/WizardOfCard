@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56740046b38552743b4f7a9d6de13e4f, type: 3}
+  m_Name: EnemySpawnPatternSO
+  m_EditorClassIdentifier: 
+  spawnPattern:
+  - enemy:
+    - {fileID: 11400000, guid: c58e16b61f1af6b43a398556b79607e1, type: 2}
+    - {fileID: 11400000, guid: c58e16b61f1af6b43a398556b79607e1, type: 2}
+    Reward_item: 0
+    Reward_Money: 0
+    Reward_Card: 
+  - enemy:
+    - {fileID: 11400000, guid: 0b3722501f229c34a8cf5f676f761960, type: 2}
+    - {fileID: 11400000, guid: c58e16b61f1af6b43a398556b79607e1, type: 2}
+    - {fileID: 11400000, guid: 0b3722501f229c34a8cf5f676f761960, type: 2}
+    Reward_item: 0
+    Reward_Money: 0
+    Reward_Card: 
+  - enemy:
+    - {fileID: 11400000, guid: 01afddf32dfda6746a4a861501e6ea26, type: 2}
+    - {fileID: 11400000, guid: 5db64655860d61243a23d19942937593, type: 2}
+    Reward_item: 0
+    Reward_Money: 0
+    Reward_Card: 
+  - enemy:
+    - {fileID: 11400000, guid: 5db64655860d61243a23d19942937593, type: 2}
+    - {fileID: 11400000, guid: 5db64655860d61243a23d19942937593, type: 2}
+    Reward_item: 0
+    Reward_Money: 0
+    Reward_Card: 

@@ -6,12 +6,12 @@ using UnityEngine.Events;
 public class LevelGeneration : MonoBehaviour {
 
 	static public LevelGeneration Inst;
-
 	private void Awake()
 	{
 		Inst = this;
 	}
 
+	#region 변수 등등
 	Vector2 worldSize = new Vector2(4, 4);
 
 	Room[,] rooms;
@@ -27,6 +27,9 @@ public class LevelGeneration : MonoBehaviour {
 	[SerializeField]int numberOfRooms = 20;
 
 	int inPosX, inPosY;
+	int loop = 0;//임시루프
+	[SerializeField]bool create = false;
+
 	public bool i_Room_L, i_Room_R, i_Room_U, i_Room_D;
 
 
@@ -42,6 +45,8 @@ public class LevelGeneration : MonoBehaviour {
 	[SerializeField]RoomEventListScript[] shopRoomScript;
 	[SerializeField]RoomEventListScript[] eventRoomScript;
 	[SerializeField]RoomEventListScript tutorialRoomScript;
+
+	#endregion
 
 	private void Start()
 	{
@@ -89,7 +94,7 @@ public class LevelGeneration : MonoBehaviour {
 		UIManager.Inst.ButtonActivate();
 	}
 
-
+	#region 절 대 건 들 지 마
 	Vector2 NewPosition(){
 		int x = 0, y = 0;
 		Vector2 checkingPos = Vector2.zero;
@@ -233,6 +238,9 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
+	#endregion
+
+	#region 추가 기능
 	void RoomNumberring(int _x, int _y)
 	{
 		rooms[_x + gridSizeX , _y + gridSizeY].roomNumX = _x;
@@ -269,12 +277,12 @@ public class LevelGeneration : MonoBehaviour {
 
 	}
 
-
 	 IEnumerator RefreshTest()
 	{
 		yield return new WaitForEndOfFrame();
 		RoomRefersh();
 	}
+	#endregion
 
 	#region RoomsType Set
 	// type 
@@ -284,10 +292,12 @@ public class LevelGeneration : MonoBehaviour {
 	// 보스룸 만들기.
 	void CreateBossRoom()
 	{
-		for (int i = 0; i< EdgeRooms.Count; i++)
+		create = false;
+		do
 		{
 			try
 			{
+				if (EdgeRooms.Count == 0) break;
 				int randomRoom;
 				randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
 
@@ -296,7 +306,39 @@ public class LevelGeneration : MonoBehaviour {
 					EdgeRooms[randomRoom].type = 4;
 					EdgeRooms[randomRoom].RoomEventType = 1;
 					EdgeRooms.RemoveAt(randomRoom);
+					create = true;
 					break;
+				}
+			}
+			catch
+			{
+				Debug.LogError("Error_Edge_Empty");
+			}
+		} while (true);
+
+		while(!create)
+		{
+			try
+			{
+				int randomRoom;
+				randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
+
+				if (eventRoom[randomRoom].type != 1)
+				{
+					int randomPos;
+					randomPos = UnityEngine.Random.Range(0, 4);
+					//0 --> left
+					//1 --> right
+					//2 --> above
+					//3 --> bellow
+					if (randomPos == 0)
+						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 1)) { break; }
+					if (randomPos == 1)
+						if (RoomExpansion_EventRoom(1, 0, randomRoom, 1)) { break; }
+					if (randomPos == 2)
+						if (RoomExpansion_EventRoom(0, 1, randomRoom, 1)) { break; }
+					if (randomPos == 3)
+						if (RoomExpansion_EventRoom(0, -1, randomRoom, 1)) { break; }
 				}
 			}
 			catch
@@ -310,6 +352,7 @@ public class LevelGeneration : MonoBehaviour {
 	//이벤트 룸 일단 하나만 만들도록 해놓음
 	void CreateEventRoom()
 	{
+
 		do
 		{
 			int randomRoom;
@@ -320,8 +363,9 @@ public class LevelGeneration : MonoBehaviour {
 				eventRoom.RemoveAt(randomRoom);
 				break;
 			}
+			loop++;
 
-		} while (true);
+		} while (loop < 100);
 
 	}
 
@@ -329,14 +373,15 @@ public class LevelGeneration : MonoBehaviour {
 	//상점은 남은방 중 
 	void CreateShopRoom() // <<22-11-01 장형용 :: 프리즈 최적화 버전, 상점이 가끔 나오지 않는 버그는 일단 고치지 않음>>
 	{
-		do // 언제든 복원할 수 있게 주석처리만 해둠
+		create = false;
+		do
 		{
 			int randomRoom;
+			if (EdgeRooms.Count == 0) break; // 엣지룸 없으면 브레이크
 			randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
 			try
 			{
-				if (EdgeRooms.Count == 0) break;
-				if (EdgeRooms[randomRoom].type != 1)
+				if (EdgeRooms[randomRoom].type != 1 && EdgeRooms[randomRoom].RoomEventType != 1)
 				{
 					int randomPos;
 					randomPos = UnityEngine.Random.Range(0, 4);
@@ -345,13 +390,13 @@ public class LevelGeneration : MonoBehaviour {
 					//2 --> above
 					//3 --> bellow
 					if (randomPos == 0)
-						if (RoomExpansion(-1, 0, randomRoom)) { break; }
+						if (RoomExpansion_EdgeRoom(-1, 0, randomRoom, 2)) { create = true; break; }
 					if (randomPos == 1)
-						if (RoomExpansion(1, 0, randomRoom)) { break; }
+						if (RoomExpansion_EdgeRoom(1, 0, randomRoom, 2)) { create = true; break; }
 					if (randomPos == 2)
-						if (RoomExpansion(0, 1, randomRoom)) { break; }
+						if (RoomExpansion_EdgeRoom(0, 1, randomRoom, 2)) { create = true; break; }
 					if (randomPos == 3)
-						if (RoomExpansion(0, -1, randomRoom)) { break; }
+						if (RoomExpansion_EdgeRoom(0, -1, randomRoom, 2)) { create = true; break; }
 				}
 			}
 			catch
@@ -359,20 +404,68 @@ public class LevelGeneration : MonoBehaviour {
 				
 			}
 		} while (true);
+
+		while (!create) // 만약 안됐으면 다른방에 추가로 만들기
+		{
+			int randomRoom;
+			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
+			Debug.Log(":");
+			try
+			{
+				if (eventRoom[randomRoom].type != 1)
+				{
+					int randomPos;
+					randomPos = UnityEngine.Random.Range(0, 4);
+					//0 --> left
+					//1 --> right
+					//2 --> above
+					//3 --> bellow
+					if (randomPos == 0)
+						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 2)) { break; }
+					if (randomPos == 1)
+						if (RoomExpansion_EventRoom(1, 0, randomRoom, 2)) { break; }
+					if (randomPos == 2)
+						if (RoomExpansion_EventRoom(0, 1, randomRoom, 2)) { break; }
+					if (randomPos == 3)
+						if (RoomExpansion_EventRoom(0, -1, randomRoom,2)) { break; }
+				}
+			}
+			catch
+			{
+				Debug.LogError("상점생성 에러");
+			}
+		}
 		SetRoomDoors();
 	}
 
-	//방 확장
-	bool RoomExpansion(int _x, int _y, int _random)
+	#region 방 확장
+	bool RoomExpansion_EdgeRoom(int _x, int _y, int _random, int roomEventType)
 	{
 		if (rooms[EdgeRooms[_random].roomNumX + _x + gridSizeX, EdgeRooms[_random].roomNumY + _y + gridSizeY] == null)
 		{
-			rooms[EdgeRooms[_random].roomNumX + _x + gridSizeX, EdgeRooms[_random].roomNumY + _y + gridSizeY] = new Room(new Vector2(EdgeRooms[_random].roomNumX + _x, EdgeRooms[_random].roomNumY + _y), 2, 2);
+			rooms[EdgeRooms[_random].roomNumX + _x + gridSizeX, 
+				EdgeRooms[_random].roomNumY + _y + gridSizeY] = new Room(new Vector2(EdgeRooms[_random].roomNumX + _x, 
+				EdgeRooms[_random].roomNumY + _y), 2, roomEventType);
 			EdgeRooms.RemoveAt(_random);
 			return true;
 		}
 		return false;
 	}
+	bool RoomExpansion_EventRoom(int _x, int _y, int _random, int roomEventType)
+	{
+		if (rooms[eventRoom[_random].roomNumX + _x + gridSizeX, eventRoom[_random].roomNumY + _y + gridSizeY] == null)
+		{
+			rooms[eventRoom[_random].roomNumX + _x + gridSizeX,
+				eventRoom[_random].roomNumY + _y + gridSizeY] = new Room(new Vector2(eventRoom[_random].roomNumX + _x,
+				eventRoom[_random].roomNumY + _y), 2, roomEventType);
+			eventRoom.RemoveAt(_random);
+			return true;
+		}
+		return false;
+	}
+	#endregion
+
+
 
 	void SetEdgeRooms()
 	{
@@ -470,8 +563,6 @@ public class LevelGeneration : MonoBehaviour {
 
 
 	#endregion
-
-
 
 	#region RoomCode
 	void RoomRefersh()
@@ -706,6 +797,8 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 	#endregion
+
+
 
 	WaitForSeconds delay_01 = new WaitForSeconds(0.1f);
 

@@ -5,32 +5,28 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "EnemyAttackPattern/Stage1/Goblin")]
 public class GoblinAttackPattern : EntityPattern 
 {
+	//고정패턴 기본
 	public override bool Pattern(Entity _entity)
 	{
 		switch (_entity.attackTime)
 		{
 			case 0:
-				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
-				_entity.attackTime++;
-				break;
-			case 1:
-				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.ShieldSprite);
 				EntityManager.Inst.StartCoroutine(Attack(_entity));
 				break;
-			case 2:
+			case 1:
 				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				EntityManager.Inst.StartCoroutine(Shield(_entity));
 				break;
-			case 3:
+			case 2:
 				if (EntityManager.Inst.enemyEntities.Count < 3)
 				{
-					EntityManager.Inst.StartCoroutine(GoblinCall(_entity));
-					_entity.attackTime = 1;
+					EntityManager.Inst.StartCoroutine(CallEnemy(_entity));
+					_entity.attackTime = 0;
 					break;
 				}
 				else
 				{
-					_entity.attackTime = 1;
+					_entity.attackTime = 0;
 					Pattern(_entity);
 					break;
 				}
@@ -39,12 +35,20 @@ public class GoblinAttackPattern : EntityPattern
 		return true;
 	}
 
-	public IEnumerator GoblinCall(Entity entity)
+	public override bool ShowNextPattern(Entity _entity)
 	{
-		EntityManager.Inst.SelectSpawnEnemyEntity(1);
-		entity.attackTime++;
-		Debug.Log("1차 시도");
-		yield return new WaitForSeconds(0.15f);
+		switch (_entity.attackTime)
+		{
+			case 0:
+				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
+				break;
+			case 2:
+				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
+				break;
+		}
+
+
+		return true;
 	}
 }
 
