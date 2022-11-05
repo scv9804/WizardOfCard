@@ -284,7 +284,7 @@ public class PlayerEntity : MonoBehaviour
 
         set
         {
-            if(i_protection > 0)
+            if(value > 0)
             {
                 i_protection = value;
             }
@@ -333,19 +333,22 @@ public class PlayerEntity : MonoBehaviour
 
     public void Damaged(int _damage, Card _card = null)
     {
-        int totalDamage = _damage;
-
-        if (i_protection >= totalDamage) // 보호 => 보호 수치 이하의 데미지 무효
+        if (i_protection >= _damage) // 보호 => 보호 수치 이하의 데미지 무효
         {
-            i_protection--;
+            _damage = 0;
             return;
         }
 
         i_protection--;
 
-        totalDamage -= i_shield;
+        int totalDamage = _damage - i_shield;
 
-        if (totalDamage <= 0) // 쉴드 => 쉴드 수치만큼 데미지 차감
+        if(totalDamage < 0)
+        {
+            totalDamage = 0;
+        }
+
+        if (i_shield > _damage) // 쉴드 => 쉴드 수치만큼 데미지 차감
         {
             i_shield -= _damage;
         }
