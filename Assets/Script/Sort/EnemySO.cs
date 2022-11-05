@@ -9,6 +9,7 @@ using UnityEngine;
 		public int i_health;
 		public int i_attackCount;
 		public int i_damage;
+		public int increaseShield;
 
 		public float f_percentage;
 

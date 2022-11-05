@@ -41,7 +41,6 @@ public class PlayerEntity : MonoBehaviour
     public int karma = 0;
     int i_enhacneVal = 1;
     int i_calcDamage;
-    int i_everlasting = 0;  //고정 마법 증폭 (수정여지있음)
 
 
 	private void Start()

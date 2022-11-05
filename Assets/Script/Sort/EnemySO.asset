@@ -16,7 +16,8 @@ MonoBehaviour:
   - i_CharCode: 0
     i_health: 3
     i_attackCount: 1
-    i_damage: 1
+    i_damage: 2
+    increaseShield: 2
     f_percentage: 10
     st_charName: Wooden
     sp_sprite: {fileID: -5418961748632290587, guid: 36e94eac7606a574a8fedf0e362935d1, type: 3}
@@ -28,6 +29,7 @@ MonoBehaviour:
     i_health: 2
     i_attackCount: 1
     i_damage: 1
+    increaseShield: 1
     f_percentage: 12
     st_charName: Slime
     sp_sprite: {fileID: 21300000, guid: 9c48a0dd23227834e8cdf7aea2192311, type: 3}
@@ -39,6 +41,7 @@ MonoBehaviour:
     i_health: 2
     i_attackCount: 1
     i_damage: 1
+    increaseShield: 2
     f_percentage: 12
     st_charName: Gobline
     sp_sprite: {fileID: 21300000, guid: ba695732d62ff89419571e5cf66fab74, type: 3}
@@ -50,6 +53,7 @@ MonoBehaviour:
     i_health: 2
     i_attackCount: 1
     i_damage: 1
+    increaseShield: 0
     f_percentage: 12
     st_charName: robber_1
     sp_sprite: {fileID: 18698449243562082, guid: 49dcfee63b28ccc4388b20d88c191375, type: 3}
@@ -61,6 +65,7 @@ MonoBehaviour:
     i_health: 2
     i_attackCount: 1
     i_damage: 1
+    increaseShield: 1
     f_percentage: 12
     st_charName: robber_2
     sp_sprite: {fileID: -1718276221466070167, guid: 99a04f01cb623b74c8139a8df6836d09, type: 3}
@@ -72,6 +77,7 @@ MonoBehaviour:
     i_health: 2
     i_attackCount: 1
     i_damage: 1
+    increaseShield: 1
     f_percentage: 12
     st_charName: Engle_1
     sp_sprite: {fileID: -5451645765383914804, guid: 8414061d686c9444b874765e10e3542e, type: 3}

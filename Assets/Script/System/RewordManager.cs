@@ -25,7 +25,6 @@ public class RewordManager : MonoBehaviour
 
 	private void Start()
 	{
-		GameClear();
 	}
 
 	public void GameClear()
@@ -77,6 +76,7 @@ public class RewordManager : MonoBehaviour
 		rewardList.Clear();
 		rewardObjectList.Clear();
 		rewardSpawn.ClearViewList();
+		rewardWindow.SetActive(false);
 	}
 
 	public void AddClearReword() 

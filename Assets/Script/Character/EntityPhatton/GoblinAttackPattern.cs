@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 [CreateAssetMenu(menuName = "EnemyAttackPattern/Stage1/Goblin")]
 public class GoblinAttackPattern : EntityPattern 
 {
-
 	public override bool Pattern(Entity _entity)
 	{
 		switch (_entity.attackTime)
@@ -22,34 +20,31 @@ public class GoblinAttackPattern : EntityPattern
 			case 2:
 				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				EntityManager.Inst.StartCoroutine(Shield(_entity));
-				_entity.attackTime = 1;
 				break;
-
+			case 3:
+				if (EntityManager.Inst.enemyEntities.Count < 3)
+				{
+					EntityManager.Inst.StartCoroutine(GoblinCall(_entity));
+					_entity.attackTime = 1;
+					break;
+				}
+				else
+				{
+					_entity.attackTime = 1;
+					Pattern(_entity);
+					break;
+				}
 		}
+
 		return true;
 	}
 
-	// DefultShield
-	public IEnumerator Shield(Entity _entity)
+	public IEnumerator GoblinCall(Entity entity)
 	{
-		_entity.attackTime++;
-		_entity.i_shield++;
+		EntityManager.Inst.SelectSpawnEnemyEntity(1);
+		entity.attackTime++;
+		Debug.Log("1Â÷ ½Ãµµ");
 		yield return new WaitForSeconds(0.15f);
-		_entity.RefreshEntity();
-	}
-
-	// DefultAttack
-	public IEnumerator Attack(Entity _entity)
-	{
-		_entity.attackTime++;
-		PlayerEntity.Inst.Damaged(_entity.enemy.i_damage);
-		_entity.charater.sprite = _entity.enemy.EnemyAttackSprite;
-		_entity.transform.DOMove(_entity.originPos + new Vector3(-0.15f, 0, 0), 0.1f);
-		PlayerEntity.Inst.SetDamagedSprite(_entity.enemy.PlayerDamagedEffect);
-		yield return new WaitForSeconds(0.15f);
-		_entity.transform.DOMove(_entity.originPos, 0.2f);
-		yield return new WaitForSeconds(0.05f);
-		yield return new WaitForSeconds(0.1f);
-		_entity.charater.sprite = _entity.enemy.sp_sprite;
 	}
 }
+

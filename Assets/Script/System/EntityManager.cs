@@ -87,10 +87,14 @@ public class EntityManager : MonoBehaviour
 
     public IEnumerator EnemyEntityAttack()
 	{
-		foreach (var enemy in enemyEntities)
+        //foreach 사용금지 :: 전투 중 몬스터 추가 스폰시 오류걸림
+		for (int i = 0; i< enemyEntities.Count; i++)
 		{
-            enemy.Attack(playerEntity);
-            yield return new WaitForSeconds(enemyAttackDelay);
+            if (enemyEntities[i].attackable)
+            {
+                enemyEntities[i].Attack(playerEntity);
+                yield return new WaitForSeconds(enemyAttackDelay);
+            }
         }
         LevelGeneration.Inst.EndTurn();
     }
@@ -153,6 +157,17 @@ public class EntityManager : MonoBehaviour
         EnemyEntityAlignment();
     }
 
+    public void SelectSpawnEnemyEntity(int ID)
+    {
+        var entityObject = Instantiate(entitiyPrefab, spawnEnemy_Tf.position, Quaternion.identity);
+        var entity = entityObject.GetComponent<Entity>();
+        entity.attackable = false;
+        
+        enemyEntities.Add(entity);
+        entity.SetupEnemy(enemySO.enemy[ID]);
+        EnemyEntityAlignment();
+    }
+    
     // 이거 호출하면 다 호출
     public void SpawnEnemyEntity()
     {
@@ -501,12 +516,12 @@ public class EntityManager : MonoBehaviour
     {
         if (_isMine)
         {
-            enemyEntities.ForEach(x => x.attackable = true);
+            enemyEntities.ForEach(x => x.attackable = false);
             playerEntity.attackable = true;
         }
         else
         {
-            enemyEntities.ForEach(x => x.attackable = false);
+            enemyEntities.ForEach(x => x.attackable = true);
             playerEntity.attackable = false;
         }
         // 턴 넘어갈 때 공격인터페이스 끄기 //버그 수정 코드임. 

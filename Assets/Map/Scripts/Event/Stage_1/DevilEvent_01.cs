@@ -17,7 +17,7 @@ public class DevilEvent_01 : RoomEventListScript
 	{
 		SpawnDevilstatue();
 		StartCoroutine(Diaglog());
-		acceptButton.onClick.AddListener(Devile_Event);
+		//acceptButton.onClick.AddListener(Devile_Event);
 		return changeObject;
 	}
 

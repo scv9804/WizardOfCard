@@ -28,6 +28,7 @@ public class Entity : MonoBehaviour
     [HideInInspector] public Enemy enemy;
     [HideInInspector] public float i_health;
     [HideInInspector] public float HEALTHMAX;
+    [HideInInspector] public int increaseShield;
     [HideInInspector] public int i_shield = 0;
     [HideInInspector] public int i_attackCount ;
     [HideInInspector] public int i_damage;
@@ -94,6 +95,7 @@ public class Entity : MonoBehaviour
         i_health = _enemy.i_health;
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
+        increaseShield = _enemy.increaseShield;
 
         entitiyPattern = _enemy.entityPattern;
         HEALTHMAX = i_health;
