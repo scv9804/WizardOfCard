@@ -8,7 +8,7 @@ public class ConcentratedFire : Card
     {
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        BattleCalculater.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.SpellEnchaneReset();
 
         int _count = CardManager.Inst.myCards.Count + 1;
 

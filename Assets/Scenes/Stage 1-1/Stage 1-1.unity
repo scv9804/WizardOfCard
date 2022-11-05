@@ -16848,7 +16848,7 @@ GameObject:
   - component: {fileID: 1984387567}
   - component: {fileID: 1984387566}
   m_Layer: 0
-  m_Name: "***\uB370\uBBF8\uC9C0 \uB514\uBC84\uADF8\uC6A9***"
+  m_Name: Debug Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16863,11 +16863,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1984387565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a89622ec5c0b4514eb744fa93c7062c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a2c19002f4b36d4d8265e1a7fba5214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "\uB514\uBC84\uADF8_\uCD08\uAE30\uD654_\uAE30\uB2A5": 1
-  "\uB370\uBBF8\uC9C0_\uB514\uBC84\uADF8_\uAE30\uB2A5": 1
+  isClearDebugConsole: 1
+  isPrintDamage: 1
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
   selectCard: 0
 --- !u!4 &1984387567
@@ -17749,6 +17749,7 @@ MonoBehaviour:
   is_canUseCard: 0
   is_cardUsing: 0
   is_useEnhance: 0
+  test: 050000000f00000019000000230000002d000000
 --- !u!4 &2082127921
 Transform:
   m_ObjectHideFlags: 0

@@ -54,18 +54,22 @@ public class PlayerEntity : MonoBehaviour
     void OnEnable()
     {
         Utility.onBattleStart += ResetMagicAffinity_Battle;
+        Utility.onBattleStart += ResetProtection;
 
         TurnManager.onStartTurn += ResetValue_Shield;
         TurnManager.onStartTurn += ResetMagicAffinity_Turn;
+        TurnManager.onStartTurn += ReduceProtection;
     }
 
     // <<22-10-21 장형용 :: 추가>>
     void OnDisable()
     {
         Utility.onBattleStart -= ResetMagicAffinity_Battle;
+        Utility.onBattleStart -= ResetProtection;
 
         TurnManager.onStartTurn -= ResetValue_Shield;
         TurnManager.onStartTurn -= ResetMagicAffinity_Turn;
+        TurnManager.onStartTurn -= ReduceProtection;
     }
 
 
@@ -92,6 +96,9 @@ public class PlayerEntity : MonoBehaviour
     [HideInInspector] int i_magicAffinity_permanent = 0; // 장비(나 이벤트) 등으로 얻는 계속 유지되는 마나 친화성
     [HideInInspector] int i_magicAffinity_battle = 0; // 1번의 전투 동안 유지되는 마나 친화성
     [HideInInspector] int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성
+
+    // <<22-11-05 장형용 :: 추가>>
+    [HideInInspector] int i_protection = 0;
 
     #endregion
 
@@ -266,6 +273,28 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    // <<22-11-05 장형용 :: 추가>>
+
+    public int Status_Protection
+    {
+        get
+        {
+            return i_protection;
+        }
+
+        set
+        {
+            if(i_protection > 0)
+            {
+                i_protection = value;
+            }
+            else
+            {
+                i_protection = 0;
+            }
+        }
+    }
+
     #endregion
 
 
@@ -304,9 +333,19 @@ public class PlayerEntity : MonoBehaviour
 
     public void Damaged(int _damage, Card _card = null)
     {
-        int totalDamage = _damage - i_shield;
+        int totalDamage = _damage;
 
-        if (i_shield > _damage)
+        if (i_protection >= totalDamage) // 보호 => 보호 수치 이하의 데미지 무효
+        {
+            i_protection--;
+            return;
+        }
+
+        i_protection--;
+
+        totalDamage -= i_shield;
+
+        if (totalDamage <= 0) // 쉴드 => 쉴드 수치만큼 데미지 차감
         {
             i_shield -= _damage;
         }
@@ -405,7 +444,7 @@ public class PlayerEntity : MonoBehaviour
     {
         i_magicAffinity_battle = 0;
 
-        BattleCalculater.Inst.RefreshMyHands();
+        CardManager.Inst.RefreshMyHands();
     }
 
     void ResetMagicAffinity_Turn(bool isMyTurn)
@@ -414,10 +453,33 @@ public class PlayerEntity : MonoBehaviour
         {
             i_magicAffinity_turn = 0;
 
-            BattleCalculater.Inst.RefreshMyHands();
+            CardManager.Inst.RefreshMyHands();
         }
     }
 
+    void ResetProtection()
+    {
+        i_protection = 0;
+
+        RefreshPlayer();
+    }
+
+    void ReduceProtection(bool isMyTurn)
+    {
+        if (isMyTurn)
+        {
+            i_protection = 0;
+
+            CardManager.Inst.RefreshMyHands();
+        }
+    }
+
+    public void SpellEnchaneReset()
+    {
+        Status_EnchaneValue = 1;
+
+        CardManager.Inst.RefreshMyHands();
+    }
 
 
     #region DoTween

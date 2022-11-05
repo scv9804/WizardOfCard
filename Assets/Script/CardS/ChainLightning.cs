@@ -4,12 +4,29 @@ using UnityEngine;
 
 public class ChainLightning : Card
 {
-    [Header("공격 횟수"), SerializeField] int i_attackCount;
+    [Header("공격 횟수"), SerializeField] int[] attackCount = new int[3];
+
+	#region 프로퍼티
+
+	public int i_attackCount
+	{
+		get
+		{
+			return attackCount[i_upgraded];
+		}
+
+		//set
+		//{
+		//	attackCount[i_upgraded] = value;
+		//}
+	}
+
+	#endregion
+
 	public override void ExplainRefresh()
 	{
 		base.ExplainRefresh();
 
-		sb.Append("\n{3}번 더 반복합니다.\n");
 		sb.Replace("{3}", (i_attackCount - 1).ToString());
 
 		explainTMP.text = sb.ToString();
@@ -19,7 +36,7 @@ public class ChainLightning : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 
 		yield return StartCoroutine(Repeat(() => Attack_RandomEnemy(_target_enemy, ApplyManaAffinity_Instance(i_damage)), i_attackCount));
 

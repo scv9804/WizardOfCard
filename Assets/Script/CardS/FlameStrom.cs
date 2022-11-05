@@ -4,7 +4,25 @@ using UnityEngine;
 
 public class FlameStrom : Card
 {
-    [Header("화상"), SerializeField] int i_applyBurning;
+    [Header("화상"), SerializeField] int[] applyBurning = new int[3];
+
+    #region 프로퍼티
+
+    public int i_applyBurning
+    {
+        get
+        {
+            return applyBurning[i_upgraded];
+        }
+
+        set
+        {
+            applyBurning[i_upgraded] = value;
+        }
+    }
+
+    #endregion
+
     public override void ExplainRefresh()
     {
         base.ExplainRefresh();
@@ -19,7 +37,7 @@ public class FlameStrom : Card
     {
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        BattleCalculater.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.SpellEnchaneReset();
 
         TargetAll(() => Add_Burning(_target_enemy, i_applyBurning), ref _target_enemy);
         TargetAll(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), ref _target_enemy);

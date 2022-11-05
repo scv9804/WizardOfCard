@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class ManaHasteBarrier : Card
 {
-    [Header("카드 드로우"), SerializeField] int i_drawCount;
+    [Header("카드 드로우"), SerializeField] int[] drawCount = new int[3];
+
+    #region 프로퍼티
+
+    public int i_drawCount
+    {
+        get
+        {
+            return drawCount[i_upgraded];
+        }
+
+        //set
+        //{
+        //	drawCount[i_upgraded] = value;
+        //}
+    }
+
+    #endregion
 
     public override void ExplainRefresh()
     {
@@ -19,7 +36,7 @@ public class ManaHasteBarrier : Card
     {
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        BattleCalculater.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.SpellEnchaneReset();
 
         Shield(ApplyMagicResistance_Instance(i_damage));
 

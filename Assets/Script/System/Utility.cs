@@ -21,10 +21,46 @@ public class Pos_Rot_Scale
 
 public static class Utility_enum
 {
-    public enum AttackRange { Target_AllEnemy, Target_Self, Target_Single };
     public enum e_CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff };
     public enum ItemType {Use, Equi, Quest}
 }
+
+public enum AttackRange { Target_AllEnemy, Target_Self, Target_Single };
+public enum CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff }
+
+
+public enum CardEnum
+{
+    마법구,
+    보호막,
+    화염구,
+    불안정한_고서,
+    지혜,
+    마력_폭격,
+    마력창,
+    긴급_회복,
+    화염_폭풍,
+    연쇄_번개,
+    마나_가속_방패,
+    비전_광선,
+    붕괴,
+    벼락,
+    폭발,
+    //마나_화살, <<22-11-01 장형용 :: MonoBehaviour 이슈로 구현 연기>>
+    융해,
+    과부하,
+    집중_포화,
+    침착,
+    물의_룬,
+    불의_룬,
+    폭풍의_룬,
+    대지의_룬,
+    역장,
+    마나_환원,
+
+    마법진
+}
+
 
 public class Utility : MonoBehaviour
 {
@@ -43,6 +79,8 @@ public class Utility : MonoBehaviour
     public static Action<Card> onCardUsed; // 카드 사용 시 호출
     public static Action<Card, int> onDamaged; // 카드로 데미지를 입힐 시 호출
 }
+
+#region 코루틴 커스텀 클래스
 
 public class WaitAllCardUsingDone : CustomYieldInstruction // <<22-10-30 장형용 :: 카드 처리와 피격 모션 처리가 끝날때까지 대기시켜주는 클래스>>
 {
@@ -71,4 +109,6 @@ public class WaitForAllMotionDone : CustomYieldInstruction // <<22-10-30 장형용 
     {
         entity = _entity;
     }
-}
+} 
+
+#endregion

@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class ThunderBolt : Card
 {
-    [Header("ÃÖ´ñ°ª"), SerializeField] int i_maxDamage;
+    [Header("ÃÖ´ñ°ª"), SerializeField] int[] maxDamage = new int[3];
+
+	#region ÇÁ·ÎÆÛÆ¼
+
+	public int i_maxDamage
+	{
+		get
+		{
+			return maxDamage[i_upgraded];
+		}
+
+		//set
+		//{
+		//	maxDamage[i_upgraded] = value;
+		//}
+	}
+
+	#endregion
 
 	public override void ExplainRefresh()
 	{
@@ -20,7 +37,7 @@ public class ThunderBolt : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 
 		int totalDamage = ApplyManaAffinity_Instance(Random.Range(i_damage, i_maxDamage + 1));
 

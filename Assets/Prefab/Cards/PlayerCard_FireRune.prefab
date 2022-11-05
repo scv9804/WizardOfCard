@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7189029773443945926
+--- !u!1 &5732835134011332018
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,36 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7788795513637069349}
-  - component: {fileID: 9042746943260478307}
+  - component: {fileID: 2296117081852187142}
+  - component: {fileID: 2684296111631034952}
   m_Layer: 0
-  m_Name: Square
+  m_Name: PlayerAttackSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7788795513637069349
+  m_IsActive: 0
+--- !u!4 &2296117081852187142
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7189029773443945926}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.078, y: -0.029, z: 0}
-  m_LocalScale: {x: 6.4428, y: 9.234468, z: 10}
+  m_GameObject: {fileID: 5732835134011332018}
+  m_LocalRotation: {x: -0, y: -0, z: 0.13052624, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 10}
   m_Children: []
   m_Father: {fileID: 7395019933593546573}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &9042746943260478307
+--- !u!212 &2684296111631034952
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7189029773443945926}
+  m_GameObject: {fileID: 5732835134011332018}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35b714605bcc0b0498fbc210bc26cb91, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -71,8 +71,90 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
+  m_Sprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &7328974933103917625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2700369153654227543}
+  - component: {fileID: 7924227003371571853}
+  m_Layer: 0
+  m_Name: EnemyDamagedSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2700369153654227543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7328974933103917625}
+  m_LocalRotation: {x: -0, y: -0, z: 0.13052624, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 10}
+  m_Children: []
+  m_Father: {fileID: 7395019933593546573}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7924227003371571853
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7328974933103917625}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -289,8 +371,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -514,12 +596,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
+  - component: {fileID: 6128140062401689212}
   - component: {fileID: -2801819417619063475}
-  - component: {fileID: 1439778673537876551}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
-  m_Name: PlayerCard_Defult
+  m_Name: PlayerCard_FireRune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,15 +614,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7395019933593546574}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.133, y: -4.912, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.13052624, w: 0.9914449}
+  m_LocalPosition: {x: 3.2499995, y: -4.6200004, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 7395019933344051562}
   - {fileID: 7395019932707519518}
   - {fileID: 7395019933671154984}
   - {fileID: 7395019932878968508}
-  - {fileID: 7788795513637069349}
+  - {fileID: 2700369153654227543}
+  - {fileID: 2296117081852187142}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -595,6 +678,47 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6128140062401689212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395019933593546574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083be03605f62734bbc6eabc708a1c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
+  nameTMP: {fileID: 7395019933344051563}
+  manaCostTMP: {fileID: 7395019933671154985}
+  explainTMP: {fileID: 7395019932878968509}
+  enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+  playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+  st_cardName: "\uBD88\uC758 \uB8EC"
+  i_itemNum: 20
+  type: 0
+  f_percentage: 1
+  i_upgraded: 0
+  cost: 020000000200000002000000
+  attack: 020000000400000005000000
+  isExile: 010101
+  AR_attackRange: 000000000000000000000000
+  explainCard:
+  - "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C\n \uD654\uC0C1\uC744 {4} \uBD80\uC5EC\uD569\uB2C8\uB2E4.\r\n1\uD134\uAC04
+    \n\uB9C8\uB098 \uCE5C\uD654\uC131\uC774 \n{5} \uC99D\uAC00\uD569\uB2C8\uB2E4.\r\n"
+  - "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C\n \uD654\uC0C1\uC744 {4} \uBD80\uC5EC\uD569\uB2C8\uB2E4.\r\n1\uD134\uAC04
+    \n\uB9C8\uB098 \uCE5C\uD654\uC131\uC774 \n{5} \uC99D\uAC00\uD569\uB2C8\uB2E4.\r"
+  - "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C\n \uD654\uC0C1\uC744 {4} \uBD80\uC5EC\uD569\uB2C8\uB2E4.\r\n1\uD134\uAC04
+    \n\uB9C8\uB098 \uCE5C\uD654\uC131\uC774 \n{5} \uC99D\uAC00\uD569\uB2C8\uB2E4.\r"
+  originPRS:
+    pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 0, w: 0}
+    scale: {x: 0, y: 0, z: 0}
+  is_Useable_Card: 1
+  bonus: 0
+  applyBurning: 020000000200000002000000
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,45 +739,6 @@ MonoBehaviour:
   - {fileID: 7395019933671154982}
   - {fileID: 7395019932878968506}
   sortingLayerName: Card
---- !u!114 &1439778673537876551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395019933593546574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e473a6aa4d9eaf742b166720a18ea3b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  card: {fileID: 7395019933593546574}
-  itemSO: {fileID: 0}
-  charater: {fileID: 0}
-  sp_card: {fileID: 7395019933593546572}
-  nameTMP: {fileID: 7395019933344051563}
-  manaCostTMP: {fileID: 7395019933671154985}
-  explainTMP: {fileID: 7395019932878968509}
-  v_cardSize: {x: 0, y: 0, z: 0}
-  card_info: {fileID: 0}
-  i_itemCode: 0
-  i_damage: 0
-  enemyDamagedEffectSpriteRenderer: {fileID: 0}
-  playerAttackEffectSpriteRenderer: {fileID: 0}
-  originPRS:
-    pos: {x: 0, y: 0, z: 0}
-    rot: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 0, y: 0, z: 0}
-  i_CardNum: 0
-  i_manaCost: 0
-  i_cardType: 0
-  i_explainDamage: 0
-  st_explain: 
-  st_splitExplain: []
-  i_explainDamageOrigin: 0
-  b_isExile: 0
-  attackRange: 0
-  is_Useable_Card: 1
 --- !u!61 &2036147294181241873
 BoxCollider2D:
   m_ObjectHideFlags: 0

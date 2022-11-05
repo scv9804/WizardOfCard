@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class FireBolt : Card
 {
-	[Header("화상"), SerializeField] int i_applyBurning;
+	[Header("화상"), SerializeField] int[] applyBurning = new int[3];
+
+	#region 프로퍼티
+
+	public int i_applyBurning
+	{
+		get
+		{
+			return applyBurning[i_upgraded];
+		}
+
+        set
+        {
+			applyBurning[i_upgraded] = value;
+        }
+    }
+
+	#endregion
 
 	public override void ExplainRefresh()
     {
@@ -20,7 +37,7 @@ public class FireBolt : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		BattleCalculater.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.SpellEnchaneReset();
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{

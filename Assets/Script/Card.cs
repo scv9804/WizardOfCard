@@ -11,80 +11,179 @@ using System.Linq;
 using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour
-{
-	[SerializeField] GameObject card;
-	[SerializeField] ItemSO itemSO;
-	[SerializeField] SpriteRenderer charater;
-	[SerializeField] SpriteRenderer sp_card;
+{   
+	//<<22-11-04 장형용 :: 카드 정리 겸 레벨 시스템 추가>>
+	[Header("카드 원본 데이터")]
+	[Tooltip("카드 원본 데이터베이스"), SerializeField] ItemSO itemSO;
+
+	[Header("카드 정보 인터페이스")] 
 	[SerializeField] TMP_Text nameTMP;
 	[SerializeField] TMP_Text manaCostTMP;
 	[SerializeField] protected TMP_Text explainTMP;
-	[SerializeField] Vector3 v_cardSize;
 
-	public Card_Info card_info;
-	public int i_itemCode;
-	public int i_damage;
+	[Header("이펙트 스프라이트")]
+	[Tooltip("피격 이펙트")] public Sprite enemyDamageSprite;
+	[Tooltip("공격 이펙트")] public Sprite playerAttackSprite;
 
-	[HideInInspector] public SpriteRenderer enemyDamagedEffectSpriteRenderer;
-	[HideInInspector] public SpriteRenderer playerAttackEffectSpriteRenderer;
+	[Header("카드 기본 데이터")]
+	[Tooltip("카드 이름")] public string st_cardName;
+	[Tooltip("카드 번호")] public int i_itemNum;
+	[Tooltip("카드 분류(더미 데이터)")] public CardType type;
+	[Tooltip("카드 희귀도")] public float f_percentage;
+
+	[Header("카드 강화 횟수")]
+	[Range(0, 2)] public int i_upgraded;
+
+	[Header("카드 가변 데이터")]
+	[Tooltip("카드 비용"), SerializeField] int[] cost = new int[3];
+	[Tooltip("카드 데미지 및 효과 수치"), SerializeField] int[] attack = new int[3];
+	[Tooltip("카드 망각 여부"), SerializeField] bool[] isExile = new bool[3];
+	[Tooltip("카드 대상 범위"), SerializeField] AttackRange[] AR_attackRange = new AttackRange[3];
+	[Tooltip("카드 설명"), TextArea(3, 5), SerializeField] string[] explainCard = new string[3];
+
+	SpriteRenderer sp_card;
+
 	[HideInInspector] public Pos_Rot_Scale originPRS;
-	[HideInInspector] public int i_CardNum;
-	[HideInInspector] public int i_manaCost;
-	[HideInInspector] public int i_cardType;
-	[HideInInspector] public int i_explainDamage;
-	[HideInInspector] public string st_explain;
-	[HideInInspector] public string[] st_splitExplain;
-	[HideInInspector] public int i_explainDamageOrigin;
-	[HideInInspector] public bool b_isExile = false;
 
-	public Utility_enum.AttackRange attackRange;
-
-	public bool is_Useable_Card = true;
+	[HideInInspector] public bool is_Useable_Card = true;
 
 	protected StringBuilder sb = new StringBuilder();
 
+	[HideInInspector] public int bonus; // 현재는 안씀, 아이템 구현 대비용
+
 	// <<22-10-27 장형용 :: 추가, 이게 진짜 맞나>>
+	#region 강화 수치 인스턴스 값
+
 	protected int i_enhenceValue_inst = 0;
 	protected int i_magicAffinity_turn_inst = 0;
 	protected int i_magicAffinity_battle_inst = 0;
 	protected int i_magicAffinity_permanent_inst = 0;
 	protected int T_magicResistance_inst = 0;
 
-	private void Awake()
+	#endregion
+
+	//<<22-11-04 장형용 :: 추가>>
+	//기존 card_info에 있던 값들 이름을 수정하는 대신 프로퍼티로 호환되게 해둠(성능 생각하면 하나하나 바꿔주는게 맞긴 한데 너무 귀찮다...특히 i_attack...)
+	#region 프로퍼티
+
+	public AttackRange attackRange
 	{
+		get
+		{
+			return AR_attackRange[i_upgraded];
+		}
+
+		set
+		{
+			AR_attackRange[i_upgraded] = value;
+		}
+	}
+
+	public int i_manaCost
+	{
+		get
+		{
+			return cost[i_upgraded];
+		}
+
+		set
+		{
+			cost[i_upgraded] = value;
+		}
+	}
+
+	public string st_explain
+	{
+		get
+		{
+			return explainCard[i_upgraded];
+		}
+
+		//set
+		//{
+		//	explainCard[i_upgraded] = value;
+		//}
+	}
+
+	public bool b_isExile
+	{
+		get
+		{
+			return isExile[i_upgraded];
+		}
+
+		set
+		{
+			isExile[i_upgraded] = value;
+		}
+	}
+
+	public int i_damage
+	{
+		get
+		{
+			return attack[i_upgraded];
+		}
+
+		//set
+		//{
+		//	attack[i_upgraded] = value;
+		//}
+	}
+
+	#endregion
+
+	protected virtual void Awake()
+	{
+		sp_card = /*gameObject.*/GetComponent<SpriteRenderer>(); // 이거 스크립트 상에서 색 안 바뀌는데?
+
 		Setup();
 	}
 
 	protected virtual void Start()
     {
 
+	}
+
+	protected virtual void OnDisable()
+    {
+        if(b_isExile)
+        {
+			CardManager.Inst.myExiledCards.Add(DeepCopyCard());
+        }
+        else
+        {
+			CardManager.Inst.myCemetery.Add(DeepCopyCard());
+		}
     }
 
-	public void SetItemSO(Card_Info _card_info)
-	{
-		card_info = _card_info;
+    void Update() // 실시간으로 레벨 변화시켜서 테스트하기 위해 임시로 다시 추가
+    {
+		ExplainRefresh();
+		ManaCostRefresh();
+		NameRefresh();
 	}
+
+	//   public void SetItemSO(Card_Info _card_info) <<22-11-04 장형용 :: 이거때매 원본까지 변경되서 잠시 제거함>>
+	//{
+	//	card_info = _card_info;
+	//}
 
 	public void Setup()
 	{
-		i_manaCost = card_info.i_Cost;
-		i_CardNum = card_info.i_itemNum;
-		i_cardType = ((int)card_info.type);
-		st_explain = card_info.st_explainCard;
-		sp_card.sprite = card_info.sp_CardSprite;
-		card.transform.localScale = v_cardSize;
-		attackRange = card_info.attackRange;
-		enemyDamagedEffectSpriteRenderer = card_info.enemyDamageSprite;
-		playerAttackEffectSpriteRenderer = card_info.playerAttackSprite;
-
-		i_damage = card_info.i_attack;
-		b_isExile = card_info.b_isExile;
-
-		SetStatusInstance();
 		ExplainRefresh();
-
 		ManaCostRefresh(); // <<22-10-21 장형용 :: 함수로 변경>>
-		nameTMP.text = card_info.st_cardName;
+		NameRefresh(); // <<22-11-04 장형용 :: 함수로 변경>>
+	}
+
+	public Card DeepCopyCard()
+    {
+		Card _card = itemSO.items[i_itemNum].card;
+
+		i_upgraded = _card.i_upgraded;
+		bonus = _card.bonus;
+
+		return _card;
 	}
 
     #region 카드 UI 갱신
@@ -116,6 +215,7 @@ public class Card : MonoBehaviour
 		sb.Replace("{5}", ApplyEnhanceValue(i_damage).ToString());
 
 		sb.Replace("망각", "<color=#ff00ff>망각</color>");
+		sb.Replace("보호", "<color=#0000ff>보호</color>");
 
 		#endregion
 
@@ -127,7 +227,30 @@ public class Card : MonoBehaviour
 		manaCostTMP.text = i_manaCost.ToString();
 	}
 
+	public void NameRefresh() // <<22-11-04 장형용 :: 추가>>
+	{
+		sb.Clear();
+		sb.Append(st_cardName);
+
+		switch(i_upgraded)
+        {
+			case 0:
+				sb.Append(" I");
+				break;
+			case 1:
+				sb.Append(" II");
+				break;
+			case 2:
+				sb.Append(" III");
+				break;
+		}
+
+		nameTMP.text = sb.ToString();
+	}
+
     #endregion
+
+    #region 카드 이동
 
     //카드 드로우 움직임 추가 해야할 요소들 많음.
     public void MoveTransform(Pos_Rot_Scale _prs, bool _isUseDotween, float _DotweenTime = 0)
@@ -154,11 +277,13 @@ public class Card : MonoBehaviour
 		Sequence sequence1 = DOTween.Sequence()
 		.Append(transform.DORotate(new Vector3(0, 0, -120), 0.45f).SetEase(Ease.OutCirc))
 		.Append(transform.DOPath(_prs, 0.6f, PathType.CubicBezier, PathMode.Sidescroller2D, 5).SetLookAt(new Vector3(0,0,-120), new Vector3(0, 0 ,-120)).SetEase(Ease.InQuad))
-		.AppendCallback(() => { this.gameObject.SetActive(false); });
+        //.AppendCallback(() => { this.gameObject.SetActive(false); });
+        .AppendCallback(() => { Destroy( this.gameObject); }); // 굳이 제거할 이유는 없지만 그냥 제거
     }
 
-	// <<22-10-21 장형용 :: 추가>>
+	#endregion
 
+	// <<22-10-21 장형용 :: 추가>>
 	#region 수치 계산 (원본값)
 
 	public int ApplyManaAffinity(int _value)
@@ -210,12 +335,39 @@ public class Card : MonoBehaviour
 
 	#endregion
 
+	#region 카드 사용
+
+	// <<22-10-28 장형용 :: 수정>>
+	public virtual IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
+	{
+		PlayerEntity.Inst.Status_Aether -= i_manaCost;
+
+		SetStatusInstance();
+
+		CardManager.i_usingCardCount++;
+
+		Utility.onCardUsed?.Invoke(this);
+
+		yield return null;
+	}
+
+	protected void SetStatusInstance()
+	{
+		i_enhenceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
+
+		i_magicAffinity_turn_inst = PlayerEntity.Inst.Status_MagicAffinity_Turn;
+		i_magicAffinity_battle_inst = PlayerEntity.Inst.Status_MagicAffinity_Battle;
+		i_magicAffinity_permanent_inst = PlayerEntity.Inst.Status_MagicAffinity_Permanent;
+
+		T_magicResistance_inst = PlayerEntity.Inst.Status_MagicResistance;
+	}
+
 	protected IEnumerator Repeat(Action myMethodName, int _count) // <<22-10-26 장형용 :: 횟수만큼 메소드를 반복, 논리 상으론 문제가 없는데 비용이 비싼 듯>>
 	{
 		for (int i = 0; i < _count; i++)
 		{
 			myMethodName(); // 아니 카드 루프 돌다 퇴근하는데?
-			yield return new WaitForSeconds( FindMin( 1.0f / (float)_count)); // 바로 위 DoTween 대기시간 인지하면서 작업할 것
+			yield return new WaitForSeconds( FindMin( 1.0f / (float)_count)); // DoTween 대기시간 인지하면서 작업할 것
 		}
 
 		yield return null;
@@ -248,31 +400,6 @@ public class Card : MonoBehaviour
         }
 	}
 
-	// <<22-10-28 장형용 :: 수정>>
-	public virtual IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
-	{
-		PlayerEntity.Inst.Status_Aether -= i_manaCost;
-
-		SetStatusInstance();
-
-		CardManager.i_usingCardCount++;
-
-		Utility.onCardUsed?.Invoke(this);
-
-		yield return null;
-	}
-
-	protected void SetStatusInstance()
-	{
-		i_enhenceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
-
-		i_magicAffinity_turn_inst = PlayerEntity.Inst.Status_MagicAffinity_Turn;
-		i_magicAffinity_battle_inst = PlayerEntity.Inst.Status_MagicAffinity_Battle;
-		i_magicAffinity_permanent_inst = PlayerEntity.Inst.Status_MagicAffinity_Permanent;
-
-		T_magicResistance_inst = PlayerEntity.Inst.Status_MagicResistance;
-	}
-
 	protected IEnumerator EndUsingCard()
 	{
 		CardManager.i_usingCardCount--;
@@ -290,8 +417,8 @@ public class Card : MonoBehaviour
         {
 			_target?.Damaged(_value, this);
 
-			StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
-			StartCoroutine(_target?.DamagedEffectCorutin(enemyDamagedEffectSpriteRenderer.sprite));
+			StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackSprite));
+			StartCoroutine(_target?.DamagedEffectCorutin(enemyDamageSprite));
 		}
     }
 
@@ -299,22 +426,9 @@ public class Card : MonoBehaviour
 	{
 		_target?.Damaged(_value, this);
 
-		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackEffectSpriteRenderer.sprite));
-		_target.SetDamagedSprite(enemyDamagedEffectSpriteRenderer.sprite);
+		StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackSprite));
+		_target.SetDamagedSprite(enemyDamageSprite);
 	}
-
-	//protected void Attack_AllEnemy(Entity _target, int _value)
-	//{
-	//	for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
-	//	{
-	//		_target = EntityManager.Inst.enemyEntities[i];
-
-	//		if (!_target.is_die)
-	//		{
-	//			Attack(EntityManager.Inst.enemyEntities[i], i_damage);
-	//		}
-	//	}
-	//}
 
 	protected void Attack_RandomEnemy(Entity _target, int _value)
 	{
@@ -340,31 +454,22 @@ public class Card : MonoBehaviour
 		_target.i_burning += ApplyEnhanceValue_Instance(_value);
 	}
 
-	//protected void Add_Burning_AllEnemy(Entity _target, int _value)
-	//{
-	//	for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
-	//	{
-	//		_target = EntityManager.Inst.enemyEntities[i];
-
-	//		Add_Burning(_target, _value);
-	//	}
-	//}
-
 	#endregion
 
 	#region 마나 친화성
+
 	protected void Add_MagicAffinity_Turn(int _value)
 	{
 		PlayerEntity.Inst.Status_MagicAffinity_Turn += ApplyEnhanceValue_Instance(_value);
 
-		CardManager.Inst.RefreshMyHand();
+		CardManager.Inst.RefreshMyHands();
 	}
 
 	protected void Add_MagicAffinity_Battle(int _value)
 	{
 		PlayerEntity.Inst.Status_MagicAffinity_Battle += ApplyEnhanceValue_Instance(_value);
 
-		CardManager.Inst.RefreshMyHand();
+		CardManager.Inst.RefreshMyHands();
 	}
 
 	#endregion
@@ -378,7 +483,7 @@ public class Card : MonoBehaviour
 	{
 		PlayerEntity.Inst.Status_EnchaneValue *= i_damage;
 
-		CardManager.Inst.RefreshMyHand();
+		CardManager.Inst.RefreshMyHands();
 	}
 
 	protected void RestoreAether(int _value)
@@ -399,11 +504,15 @@ public class Card : MonoBehaviour
 
 			CardManager.Inst.myCards.Last().i_manaCost = 0;
 			CardManager.Inst.myCards.Last().b_isExile = true;
-
-			CardManager.Inst.myCards.Last().ManaCostRefresh();
-			CardManager.Inst.myCards.Last().ExplainRefresh();
 		}
 	}
+
+	protected void Protection(int _value)
+    {
+		PlayerEntity.Inst.Status_Protection += ApplyEnhanceValue_Instance(_value);
+	}
+
+    #endregion
 
     #endregion
 

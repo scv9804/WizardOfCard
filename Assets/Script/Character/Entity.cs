@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 using DG.Tweening;
+using System.Text;
 
 public class Entity : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class Entity : MonoBehaviour
     public VisualEffect dissolveEffect;
 
     public int i_entityMotionRunning;
+
+    StringBuilder sb = new StringBuilder();
 
     private void Start()
     {
@@ -145,7 +148,7 @@ public class Entity : MonoBehaviour
             return true;
         }
 
-        if (i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
+        if (i_burning > 0 && _card != null) //  <<22-10-21 장형용 :: 화상 추가>>
         {
             Burning();
         }
@@ -229,58 +232,43 @@ public class Entity : MonoBehaviour
     public IEnumerator DamagedEffectCorutin(Sprite _sprite)
     {
         EntityManager.i_entityMotionRunning++;  // <<22-10-30 장형용 :: 추가>>
-        Debug.Log("카운트 증가 :: " + EntityManager.i_entityMotionRunning);
         i_entityMotionRunning++;
 
-        DamagedSpriteRenederer.sprite = _sprite;
-        SetDamagedOpacityTrue();
+        sb.Clear();
+        sb.Append("카운트 증가 :: ");
+        sb.Append(EntityManager.i_entityMotionRunning);
+        Debug.Log(sb.ToString());
+
+        DamagedSpriteRenederer.sprite = _sprite; 
+        Sequence sequence1 = DOTween.Sequence()
+        .Append(DamagedSpriteRenederer.DOFade(1, 0.15f))
+        .Append(DamagedSpriteRenederer.DOFade(0, 0.05f));
+        //SetDamagedOpacityTrue(); // <<22-11-03 장형용 :: 피격 이펙트가 1회성이 되어버려서 제거>>
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
         charater.sprite = enemy.EnemyDamagedSprite;
         yield return new WaitForSeconds(0.15f);
         this.transform.DOMove(this.originPos, 0.2f);
-        Sequence sequence1 = DOTween.Sequence()
-        .Append(DamagedSpriteRenederer.DOFade(0, 0.2f));
 
         if (i_health <= 0)
         {
-            StartCoroutine(StartDestroyEffect());
+            StartCoroutine(DestroyEffectCoroutine());
 
             EndCheckingEntity();
         }
         else
         {
-            Debug.Log("피격후 생존"); // <<22-10-29 장형용 :: 어차피 뒤지면 이 뒤에 작업은 필요 없으니 else 부로 넣음>>
-            EndCheckingEntity();
+            EndCheckingEntity(); // <<22-10-29 장형용 :: 어차피 뒤지면 이 뒤에 작업은 필요 없으니 else 부로 넣음>>
             i_entityMotionRunning--;
 
             yield return new WaitForSeconds(0.15f);
             yield return new WaitForAllMotionDone(this); // <<22-10-30 장형용 :: 대기 중 사망 시 그대로 코루틴 정지>>
 
             charater.sprite = enemy.sp_sprite;
-            //try
-            //{
-            //    charater.sprite = enemy.sp_sprite;
-            //}
-            //catch
-            //{
-            //    Debug.Log("Entitiy Destroy");
-            //}
         }
     }
 
-    IEnumerator StartDestroyEffect() // <<22-10-26 장형용 :: 해결했다>>
+    IEnumerator DestroyEffectCoroutine() // <<22-10-26 장형용 :: 해결했다>>
     {
-        StartCoroutine(PlayDestroyEffect()); // <<22-10-29 장형용 :: 혹시 몰라서 분리했는데 이거 문제가 아니었음>>
-
-        yield return new WaitForSeconds(0.8f);
-
-        //EntityManager.Inst.CheckDieEveryEnemy(); // <<22-10-29 장형용 :: 최종적으로 이게 문제였음 foreach때문인지 진입을 못함>>
-        EntityManager.Inst.CheckDieEnemy(this);
-    }
-
-    IEnumerator PlayDestroyEffect() // <<22-10-29 장형용 :: 혹시 몰라서 분리했는데 이거 문제가 아니었음>>
-    {
-        //VFX
         dissolveEffect.Play();
         dissolveEffect.playRate = 2.5f;
 
@@ -290,31 +278,48 @@ public class Entity : MonoBehaviour
 
         yield return new WaitForSeconds(0.4f);
         dissolveEffect.Stop();
+        yield return new WaitForSeconds(0.4f);
 
-        yield return null;
+        //EntityManager.Inst.CheckDieEveryEnemy(); // <<22-10-29 장형용 :: 최종적으로 이게 문제였음>>
+        EntityManager.Inst.CheckDieEnemy(this);
     }
 
     public void EndCheckingEntity()
     {
+        EntityManager.i_entityMotionRunning--;  // <<22-10-27 장형용 :: 추가>>
 
-        EntityManager.i_entityMotionRunning--;  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
-        Debug.Log("카운트 감소 :: " + EntityManager.i_entityMotionRunning);
+        sb.Clear();
+        sb.Append("카운트 감소 :: ");
+        sb.Append(EntityManager.i_entityMotionRunning);
+        Debug.Log(sb.ToString());
     }
 
-    void SetDamagedOpacityTrue()
-    {
-        Color tempt = Color.white;
-        tempt.a = 1f;
-        DamagedSpriteRenederer.color = tempt;
-    } 
+    //IEnumerator PlayDestroyEffect() // <<22-11-03 장형용 :: 제거>>
+    //{
+    //    //VFX
+    //    dissolveEffect.Play();
+    //    dissolveEffect.playRate = 2.5f;
 
+    //    StateOff.SetActive(false);
+    //    isDissolving = true;
+    //    //수동조정 필요함
 
+    //    yield return new WaitForSeconds(0.4f);
+    //    dissolveEffect.Stop();
 
+    //    yield return null;
+    //}
 
+    //void SetDamagedOpacityTrue() // <<22-11-03 장형용 :: 피격 이펙트가 1회성이 되어버려서 제거>>
+    //{
+    //    Color tempt = Color.white;
+    //    tempt.a = 1f;
+    //    DamagedSpriteRenederer.color = tempt;
+    //} 
 
-	#endregion
+    #endregion
 
-	public void DestroyTest()
+    public void DestroyTest()
 	{
         Destroy(this.gameObject);
 	}
