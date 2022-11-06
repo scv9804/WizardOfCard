@@ -71,9 +71,9 @@ public class LevelGeneration : MonoBehaviour {
 		SetEventChangeRoom();
 		SetEdgeRooms();
 
-		CreateBossRoom();
-		CreateEventRoom();
-		CreateShopRoom();
+		//CreateBossRoom();
+		//CreateEventRoom();
+		//CreateShopRoom();
 
 		DrawMap();
 

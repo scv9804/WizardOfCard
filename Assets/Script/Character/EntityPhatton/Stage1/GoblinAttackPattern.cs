@@ -20,7 +20,7 @@ public class GoblinAttackPattern : EntityPattern
 			case 2:
 				if (EntityManager.Inst.enemyEntities.Count < 3)
 				{
-					EntityManager.Inst.StartCoroutine(CallEnemy(_entity));
+					EntityManager.Inst.StartCoroutine(CallEnemy(_entity, 0));
 					_entity.attackTime = 0;
 					break;
 				}

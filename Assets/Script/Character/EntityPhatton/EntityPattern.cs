@@ -38,9 +38,9 @@ public abstract class EntityPattern : ScriptableObject
 	}
 
 	//기본 적 추가소환하기
-	public IEnumerator CallEnemy(Entity entity)
+	public IEnumerator CallEnemy(Entity entity,int ID)
 	{
-		EntityManager.Inst.SelectSpawnEnemyEntity(0);
+		EntityManager.Inst.SelectSpawnEnemyEntity(ID);
 		entity.attackTime++;
 		yield return new WaitForSeconds(0.15f);
 	}

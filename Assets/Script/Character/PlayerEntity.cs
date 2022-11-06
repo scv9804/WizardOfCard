@@ -116,26 +116,26 @@ public class PlayerEntity : MonoBehaviour
     #region property_status
 
     //보류
-    public void Add_Status_MagicAffinity_Fire(int _addStatus)
-	{
-        i_magicAffinity_fire += _addStatus;
-        RefreshPlayer();
-    }
-    public void Add_Status_MagicAffinity_Earth(int _addStatus)
-    {
-        i_magicAffinity_earth += _addStatus;
-        RefreshPlayer();
-    }
-    public void Add_Status_MagicAffinity_Water(int _addStatus)
-    {
-        i_magicAffinity_water += _addStatus;
-        RefreshPlayer();
-    }
-    public void Add_Status_MagicAffinity_Air(int _addStatus)
-    {
-        i_magicAffinity_air += _addStatus;
-        RefreshPlayer();
-    }
+ //   public void Add_Status_MagicAffinity_Fire(int _addStatus)
+	//{
+ //       i_magicAffinity_fire += _addStatus;
+ //       RefreshPlayer();
+ //   }
+ //   public void Add_Status_MagicAffinity_Earth(int _addStatus)
+ //   {
+ //       i_magicAffinity_earth += _addStatus;
+ //       RefreshPlayer();
+ //   }
+ //   public void Add_Status_MagicAffinity_Water(int _addStatus)
+ //   {
+ //       i_magicAffinity_water += _addStatus;
+ //       RefreshPlayer();
+ //   }
+ //   public void Add_Status_MagicAffinity_Air(int _addStatus)
+ //   {
+ //       i_magicAffinity_air += _addStatus;
+ //       RefreshPlayer();
+ //   }
 
 
     public float Status_Health
@@ -296,15 +296,6 @@ public class PlayerEntity : MonoBehaviour
     }
 
     #endregion
-
-
-
-    // === 디버프 셋팅 ===
-    #region set_debuff
-
-
-    #endregion
-
 
 
 

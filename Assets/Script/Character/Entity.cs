@@ -9,8 +9,6 @@ using System.Text;
 
 public class Entity : MonoBehaviour
 {
-  
-
     [SerializeField] EntityPattern entitiyPattern;
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] public SpriteRenderer charater;
@@ -23,6 +21,8 @@ public class Entity : MonoBehaviour
     [SerializeField] GameObject StateOff;
     [SerializeField] Image healthImage;
     [SerializeField] Material dissolveMaterial;
+    [SerializeField] TMP_Text skillNameTmp;
+    [SerializeField] TMP_Text damagedValueTMP;
 
 
     [HideInInspector] Sprite playerDamagedEffect;
@@ -36,14 +36,18 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
     [HideInInspector] public int debuffValue = 1;
-
+    [HideInInspector] public int buffValue = 1;
     [HideInInspector] public int i_burning = 0;
+
 
     public bool is_mine;
     public bool attackable = true;
     public bool is_die = false;
+    bool isTextMove = false;
+    int popupSpeed = 25;
 
     [HideInInspector] public Vector3 originPos;
+    [HideInInspector] public Vector3 originSkillNamePos;
     [HideInInspector] public Vector3 originShieldScale = new Vector3(60,60,0);
 
     [Header("Grapics")]
@@ -61,36 +65,74 @@ public class Entity : MonoBehaviour
         entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
         dissolveEffect.Stop();
-    }
 
+        Debug.Log(skillNameTmp.rectTransform.position + "포지션");
+        Debug.Log(skillNameTmp.rectTransform.anchoredPosition3D + "3D");
+        Debug.Log(skillNameTmp.rectTransform.anchoredPosition + "2D");
+        Debug.Log(skillNameTmp.transform.position + "트포");
+        Debug.Log(skillNameTmp.transform.localPosition + "트로포");
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+		//if (Input.GetKeyDown(KeyCode.Space))
+		//{
+		//	isDissolving = true;
+		//}
+		if (isDissolving)
+		{
+			fade -= 2 * Time.deltaTime;
+			dissolveMaterial.SetFloat("_Fade", fade);
+		}
+    }
+
+	private void FixedUpdate()
+	{
+        if (isTextMove)
         {
-            isDissolving = true;
-        }
-        if (isDissolving)
-        {
-            fade -= 2*Time.deltaTime;
-            dissolveMaterial.SetFloat("_Fade", fade);
+            skillNameTmp.rectTransform.anchoredPosition3D += popupSpeed * Vector3.up;
+            Debug.Log("tlqkf dhodkseoa");
         }
     }
 
-	#region Entity Base
-	public void SetupEnemy(EnemyBoss _enemy)
+	public int IncreaseDamage 
+    {
+		set
+		{
+            i_damage = value;
+		}      
+    }
+
+    public IEnumerator SkillNamePopup(string _skillName)
+	{
+        skillNameTmp.text = _skillName;
+        skillNameTmp.gameObject.SetActive(true);
+        isTextMove = true;
+
+         Sequence sequence = DOTween.Sequence()
+        .Append(skillNameTmp.DOFade(1, 0.0f))
+        .Append(skillNameTmp.DOFade(0, 1f));
+        yield return new WaitForSeconds(1f);
+
+        isTextMove = false;
+        skillNameTmp.gameObject.SetActive(false);
+    }
+
+
+    #region Entity Base
+    public void SetupEnemy(EnemyBoss _enemy)
     {
         enemyBoss = _enemy;
         i_health = _enemy.i_health;
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
-
-
+     
         HEALTHMAX = i_health;
         healthImage.fillAmount = i_health / HEALTHMAX;
         
         charater.sprite = _enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
+  
         RefreshEntity();
     }
 
@@ -102,10 +144,13 @@ public class Entity : MonoBehaviour
         i_damage = _enemy.i_damage;
         increaseShield = _enemy.increaseShield;
         debuffValue = _enemy.debuffValue;
+        buffValue = _enemy.buffValue;
 
         entitiyPattern = _enemy.entityPattern;
-        HEALTHMAX = i_health;
+        HEALTHMAX = i_health ;
         healthImage.fillAmount = i_health / HEALTHMAX;
+        originSkillNamePos = skillNameTmp.rectTransform.anchoredPosition3D;
+
         RefreshEntity();
 
         charater.sprite = _enemy.sp_sprite;
@@ -221,6 +266,7 @@ public class Entity : MonoBehaviour
         healthTMP.text = i_health.ToString();
         ShieldTMP.text = i_shield.ToString();
     }
+
 
     public void ShowNextActionPattern(Sprite _NextActionSprite)
 	{

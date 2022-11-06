@@ -11,6 +11,7 @@ public class Enemy : ScriptableObject
 	public int i_attackCount;
 	public int i_damage;
 	public int increaseShield;
+	public int buffValue;
 
 	public int debuffValue;
 	public float f_percentage;

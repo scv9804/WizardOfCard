@@ -17,6 +17,7 @@ MonoBehaviour:
   i_attackCount: 0
   i_damage: 3
   increaseShield: 1
+  buffValue: 0
   debuffValue: 1
   f_percentage: 4
   st_charName: Thief_W
@@ -24,4 +25,4 @@ MonoBehaviour:
   PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
   EnemyDamagedSprite: {fileID: -6253880447344999236, guid: bd81739bbffcde747a70ebce1a7c0e96, type: 3}
   EnemyAttackSprite: {fileID: 3451235408210815540, guid: a42ec9df364314f408c33b45b1160694, type: 3}
-  entityPattern: {fileID: 11400000, guid: 115de6aef811b474fb4599a85a6ae804, type: 2}
+  entityPattern: {fileID: 11400000, guid: 3e2da79e6962d8343accbdf27d69a533, type: 2}
