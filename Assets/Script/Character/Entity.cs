@@ -106,6 +106,7 @@ public class Entity : MonoBehaviour
     public IEnumerator SkillNamePopup(string _skillName)
 	{
         skillNameTmp.text = _skillName;
+        skillNameTmp.rectTransform.anchoredPosition3D = originSkillNamePos;
         skillNameTmp.gameObject.SetActive(true);
         isTextMove = true;
 

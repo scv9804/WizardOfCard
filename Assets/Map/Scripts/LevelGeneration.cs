@@ -71,9 +71,9 @@ public class LevelGeneration : MonoBehaviour {
 		SetEventChangeRoom();
 		SetEdgeRooms();
 
-		//CreateBossRoom();
-		//CreateEventRoom();
-		//CreateShopRoom();
+		CreateBossRoom();
+		CreateEventRoom();
+		CreateShopRoom();
 
 		DrawMap();
 
@@ -332,13 +332,13 @@ public class LevelGeneration : MonoBehaviour {
 					//2 --> above
 					//3 --> bellow
 					if (randomPos == 0)
-						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 1)) { break; }
+						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 1)) { create = true; break; }
 					if (randomPos == 1)
-						if (RoomExpansion_EventRoom(1, 0, randomRoom, 1)) { break; }
+						if (RoomExpansion_EventRoom(1, 0, randomRoom, 1)) { create = true; break; }
 					if (randomPos == 2)
-						if (RoomExpansion_EventRoom(0, 1, randomRoom, 1)) { break; }
+						if (RoomExpansion_EventRoom(0, 1, randomRoom, 1)) { create = true; break; }
 					if (randomPos == 3)
-						if (RoomExpansion_EventRoom(0, -1, randomRoom, 1)) { break; }
+						if (RoomExpansion_EventRoom(0, -1, randomRoom, 1)) { create = true; break; }
 				}
 			}
 			catch
@@ -352,10 +352,10 @@ public class LevelGeneration : MonoBehaviour {
 	//이벤트 룸 일단 하나만 만들도록 해놓음
 	void CreateEventRoom()
 	{
-
 		do
 		{
 			int randomRoom;
+			if (eventRoom.Count == 0) break;
 			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
 			if (eventRoom[randomRoom].type != 1)
 			{
@@ -363,9 +363,8 @@ public class LevelGeneration : MonoBehaviour {
 				eventRoom.RemoveAt(randomRoom);
 				break;
 			}
-			loop++;
 
-		} while (loop < 100);
+		} while (true);
 
 	}
 
@@ -373,6 +372,7 @@ public class LevelGeneration : MonoBehaviour {
 	//상점은 남은방 중 
 	void CreateShopRoom() // <<22-11-01 장형용 :: 프리즈 최적화 버전, 상점이 가끔 나오지 않는 버그는 일단 고치지 않음>>
 	{
+		// <<22. 11. 07 이동화 :: 프리즈 더 깔끔하게 최적화 완료 만약 엣지룸 없으면 무작위 방에서 추가로 생성하기로 함.>>
 		create = false;
 		do
 		{
