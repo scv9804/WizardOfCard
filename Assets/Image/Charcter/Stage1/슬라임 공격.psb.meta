@@ -102,7 +102,7 @@ ScriptedImporter:
       y: 4
       width: 1195
       height: 1218
-    spriteID: 6e8ae31f4252bc848bf5a48130674434
+    spriteID: 3a92d9d07e6bd5e4886031ce04004090
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -112,7 +112,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -224, y: -239}
+    uvTransform: {x: 4, y: 4}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
@@ -120,7 +120,7 @@ ScriptedImporter:
   importHiddenLayers: 0
   importedTextureWidth: 2048
   importedTextureHeight: 2048
-  documentSize: {x: 1650, y: 1900}
+  documentSize: {x: 1195, y: 1218}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
@@ -136,8 +136,8 @@ ScriptedImporter:
     spriteName: "\uC2AC\uB77C\uC784"
     isGroup: 0
     parentIndex: -1
-    spriteID: 6e8ae31f4252bc848bf5a48130674434
-    layerID: 0
+    spriteID: 3a92d9d07e6bd5e4886031ce04004090
+    layerID: 2
     mosaicPosition: {x: 4, y: 4}
   characterData:
     bones: []

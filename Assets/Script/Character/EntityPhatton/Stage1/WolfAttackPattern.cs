@@ -57,7 +57,7 @@ public class WolfAttackPattern : EntityPattern
 	IEnumerator WarCry(Entity _entity)
 	{
 		EntityManager.Inst.StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
-		_entity.IncreaseDamage = _entity.buffValue + _entity.i_damage ;
+		_entity.IncreaseDamage = _entity.buffValue;
 		_entity.attackTime++;
 		yield return null;
 	}

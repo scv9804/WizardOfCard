@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e9709392b8b056248ade09cb4bc6b46b
+guid: fe7b5bffe7fe88147a2c822d886c013a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: "\uB291\uB300"
+  - name: "\uB808\uC774\uC5B4 5"
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -100,9 +100,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 1343
-      height: 1779
-    spriteID: 20a5dd9474465614da4f5cba81773449
+      width: 725
+      height: 883
+    spriteID: 3ebbc7b12c53770409800684442133df
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -118,25 +118,25 @@ ScriptedImporter:
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 2048
-  importedTextureHeight: 2048
-  documentSize: {x: 1343, y: 1779}
+  importedTextureWidth: 1024
+  importedTextureHeight: 1024
+  documentSize: {x: 725, y: 883}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 2048
-  textureActualHeight: 2048
+  textureActualWidth: 1024
+  textureActualHeight: 1024
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: "\uB291\uB300"
-    spriteName: "\uB291\uB300"
+  - name: "\uB808\uC774\uC5B4 5"
+    spriteName: "\uB808\uC774\uC5B4 5"
     isGroup: 0
     parentIndex: -1
-    spriteID: 20a5dd9474465614da4f5cba81773449
+    spriteID: 3ebbc7b12c53770409800684442133df
     layerID: 2
     mosaicPosition: {x: 4, y: 4}
   characterData:
@@ -145,7 +145,7 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
   generateGOHierarchy: 0
-  textureAssetName: "\uB291\uB300 Texture"
-  prefabAssetName: "\uB291\uB300 Prefab"
-  spriteLibAssetName: "\uB291\uB300 Sprite Lib"
+  textureAssetName: "\uBC84\uC12F\uBAAC\uC2A4\uD130 Texture"
+  prefabAssetName: "\uBC84\uC12F\uBAAC\uC2A4\uD130 Prefab"
+  spriteLibAssetName: "\uBC84\uC12F\uBAAC\uC2A4\uD130 Sprite Lib"
   secondarySpriteTextures: []

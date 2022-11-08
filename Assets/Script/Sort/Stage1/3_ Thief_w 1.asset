@@ -21,8 +21,8 @@ MonoBehaviour:
   debuffValue: 1
   f_percentage: 4
   st_charName: Thief_W
-  sp_sprite: {fileID: -1718276221466070167, guid: 99a04f01cb623b74c8139a8df6836d09, type: 3}
+  sp_sprite: {fileID: -4114023130244463289, guid: 99a04f01cb623b74c8139a8df6836d09, type: 3}
   PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
-  EnemyDamagedSprite: {fileID: -6253880447344999236, guid: bd81739bbffcde747a70ebce1a7c0e96, type: 3}
-  EnemyAttackSprite: {fileID: 3451235408210815540, guid: a42ec9df364314f408c33b45b1160694, type: 3}
+  EnemyDamagedSprite: {fileID: 6416118422617496057, guid: bd81739bbffcde747a70ebce1a7c0e96, type: 3}
+  EnemyAttackSprite: {fileID: -2317961647206415883, guid: a42ec9df364314f408c33b45b1160694, type: 3}
   entityPattern: {fileID: 11400000, guid: 3e2da79e6962d8343accbdf27d69a533, type: 2}

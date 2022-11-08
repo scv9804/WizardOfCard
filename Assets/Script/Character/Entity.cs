@@ -18,7 +18,7 @@ public class Entity : MonoBehaviour
     [SerializeField] GameObject ShieldObject;
     [SerializeField] GameObject ShieldObjectBase;
     [SerializeField] SpriteRenderer ShieldSpriteRenderer;
-    [SerializeField] GameObject StateOff;
+    [SerializeField] GameObject inPlayerCanvas;
     [SerializeField] Image healthImage;
     [SerializeField] Material dissolveMaterial;
     [SerializeField] TMP_Text skillNameTmp;
@@ -35,12 +35,22 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_damage;
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
-    [HideInInspector] public int debuffValue = 1;
-    [HideInInspector] public int buffValue = 1;
+
     [HideInInspector] public int i_burning = 0;
 
 
-    public bool is_mine;
+	#region 버프 스텟
+	[HideInInspector] public int debuffValue = 1;
+    [HideInInspector] public int buffValue = 1;
+
+    [HideInInspector] public int DecreaseDamage_Turn = 1;
+    [HideInInspector] public int DecreaseDamage_Battle = 1;
+
+    [HideInInspector] public int damageUpBuff_Turn = 0;
+    [HideInInspector] public int damageUpBuff_Battle = 0;
+	#endregion
+
+	public bool is_mine;
     public bool attackable = true;
     public bool is_die = false;
     bool isTextMove = false;
@@ -54,25 +64,37 @@ public class Entity : MonoBehaviour
     float fade = 1f;
     public bool isDissolving = false;
 
-    public VisualEffect dissolveEffect;
+    [SerializeField] VisualEffect dissolveEffect;
+    [SerializeField] VisualEffect buffEffect;
+    [SerializeField] VisualEffect debuffEffect;
 
     public int i_entityMotionRunning;
 
     StringBuilder sb = new StringBuilder();
 
-    private void Start()
+
+
+	#region 시작 생성 종료 업데이트
+	private void Start()
     {
         entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
-        dissolveEffect.Stop();
-
-        Debug.Log(skillNameTmp.rectTransform.position + "포지션");
-        Debug.Log(skillNameTmp.rectTransform.anchoredPosition3D + "3D");
-        Debug.Log(skillNameTmp.rectTransform.anchoredPosition + "2D");
-        Debug.Log(skillNameTmp.transform.position + "트포");
-        Debug.Log(skillNameTmp.transform.localPosition + "트로포");
+        Debug.Log(charater.sprite.bounds.size.y);
+        //켄버스 위치 스프라이트 사이즈에 따라 조절.
+        inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
+        AllEffectOff();
+    }
+    private void OnEnable()
+    {
+        TurnManager.onStartTurn += BuffOff_Turn;
+        TurnManager.onStartTurn += DebuffOff_Turn;
     }
 
+    private void OnDisable()
+    {
+        TurnManager.onStartTurn -= BuffOff_Turn;
+        TurnManager.onStartTurn -= DebuffOff_Turn;
+    }
     private void Update()
     {
 		//if (Input.GetKeyDown(KeyCode.Space))
@@ -91,15 +113,58 @@ public class Entity : MonoBehaviour
         if (isTextMove)
         {
             skillNameTmp.rectTransform.anchoredPosition3D += popupSpeed * Vector3.up;
-            Debug.Log("tlqkf dhodkseoa");
         }
     }
+    #endregion
 
+
+    #region 버프 디버프 및 이펙트 관련
+    public void AllEffectOff()
+    {
+        dissolveEffect.Stop();
+        debuffEffect.Stop();
+        buffEffect.Stop();
+    }
+
+    //턴 디버프 종료 
+    public void DebuffOff_Turn(bool isMyTurn)
+	{
+		if (!isMyTurn)
+		{
+            DecreaseDamage_Turn = 0;
+			if (DecreaseDamage_Battle > 0)
+			{
+                debuffEffect.Stop();
+			}
+		}
+	}
+
+    //턴 버프 종료
+    void BuffOff_Turn(bool isMyTurn)
+	{
+		if (!isMyTurn)
+		{
+            damageUpBuff_Turn = 0;
+			if (damageUpBuff_Battle > 0)
+			{
+                buffEffect.Stop();
+            }
+		}
+	}
+
+    //데미지 계산
+    public int FinalAttackValue()
+	{
+        return damageUpBuff_Turn + damageUpBuff_Battle + i_damage ;
+	}
+
+    // 데미지증가
 	public int IncreaseDamage 
     {
 		set
 		{
-            i_damage = value;
+            damageUpBuff_Battle = value;
+            buffEffect.Play();
 		}      
     }
 
@@ -119,9 +184,10 @@ public class Entity : MonoBehaviour
         skillNameTmp.gameObject.SetActive(false);
     }
 
+	#endregion
 
-    #region Entity Base
-    public void SetupEnemy(EnemyBoss _enemy)
+	#region Entity Base
+	public void SetupEnemy(EnemyBoss _enemy)
     {
         enemyBoss = _enemy;
         i_health = _enemy.i_health;
@@ -323,7 +389,7 @@ public class Entity : MonoBehaviour
         dissolveEffect.Play();
         dissolveEffect.playRate = 2.5f;
 
-        StateOff.SetActive(false);
+        inPlayerCanvas.SetActive(false);
         isDissolving = true;
         //수동조정 필요함
 
@@ -374,9 +440,6 @@ public class Entity : MonoBehaviour
 	{
         Destroy(this.gameObject);
 	}
-
-
-
 
     private void OnMouseOver()
     {

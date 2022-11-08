@@ -71,9 +71,9 @@ public class LevelGeneration : MonoBehaviour {
 		SetEventChangeRoom();
 		SetEdgeRooms();
 
-		CreateBossRoom();
-		CreateEventRoom();
-		CreateShopRoom();
+		//CreateBossRoom();
+		//CreateEventRoom();
+		//CreateShopRoom();
 
 		DrawMap();
 
@@ -293,8 +293,10 @@ public class LevelGeneration : MonoBehaviour {
 	void CreateBossRoom()
 	{
 		create = false;
+		int i = 0;
 		do
 		{
+			i++;
 			try
 			{
 				if (EdgeRooms.Count == 0) break;
@@ -314,7 +316,7 @@ public class LevelGeneration : MonoBehaviour {
 			{
 				Debug.LogError("Error_Edge_Empty");
 			}
-		} while (true);
+		} while (i < 100);
 
 		while(!create)
 		{
@@ -421,13 +423,13 @@ public class LevelGeneration : MonoBehaviour {
 					//2 --> above
 					//3 --> bellow
 					if (randomPos == 0)
-						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 2)) { break; }
+						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 2)) { create = true; break; }
 					if (randomPos == 1)
-						if (RoomExpansion_EventRoom(1, 0, randomRoom, 2)) { break; }
+						if (RoomExpansion_EventRoom(1, 0, randomRoom, 2)) { create = true; break; }
 					if (randomPos == 2)
-						if (RoomExpansion_EventRoom(0, 1, randomRoom, 2)) { break; }
+						if (RoomExpansion_EventRoom(0, 1, randomRoom, 2)) { create = true; break; }
 					if (randomPos == 3)
-						if (RoomExpansion_EventRoom(0, -1, randomRoom,2)) { break; }
+						if (RoomExpansion_EventRoom(0, -1, randomRoom,2)) { create = true; break; }
 				}
 			}
 			catch
