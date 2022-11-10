@@ -56,8 +56,7 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int damageUpBuff_Turn = 0;
     [HideInInspector] public int damageUpBuff_Battle = 0;
 
-    [HideInInspector] public Dictionary<string, int> buffDic;
-    [HideInInspector] public Dictionary<string, int> deBuffDic;
+    bool []isSkillOn;
     #endregion
 
 	public bool is_mine;
@@ -93,7 +92,6 @@ public class Entity : MonoBehaviour
         //켄버스 위치 스프라이트 사이즈에 따라 조절.
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
         AllEffectOff();
-        BuffImage(null,2);
     }
     private void OnEnable()
     {
@@ -174,7 +172,7 @@ public class Entity : MonoBehaviour
     {
 		set
 		{
-            damageUpBuff_Battle = value;
+            damageUpBuff_Battle += value;
             buffEffect.Play();
 		}      
     }
@@ -195,18 +193,33 @@ public class Entity : MonoBehaviour
         skillNameTmp.gameObject.SetActive(false);
     }   
 
-    public void BuffImage(Sprite _sprite, int _value)
+    public void AddBuffImage(Sprite _sprite, string _buffDebuffName , int _code , int _value)
 	{
         var temt = Instantiate(buffPrefab);
-        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite,_value);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value , _code);
         temt.transform.SetParent(buffImageSlot.transform, false);
         buffImageList.Add(temt);
 	}
 
-	#endregion
+    public bool CompareBuffImage(int _code ,int _value)
+	{
+		foreach (var buff in buffImageList)
+        {
+            var temt = buff.GetComponent<BuffDebuffImageSpawn>();
 
-	#region Entity Base
-	public void SetupEnemy(EnemyBoss _enemy)
+            if (temt.BuffDebuffCode == _code)
+			{
+                temt.useTime = _value + temt.useTime;
+                return true;
+            }
+		}
+        return false;
+	}
+
+    #endregion
+
+    #region Entity Base
+    public void SetupEnemy(EnemyBoss _enemy)
     {
         enemyBoss = _enemy;
         i_health = _enemy.i_health;

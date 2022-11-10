@@ -15,11 +15,9 @@ public class SlimeAttackPattern : EntityPattern
 				_entity.attackTime++;
 				break;
 			case 1:
-				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.ShieldSprite);
 				EntityManager.Inst.StartCoroutine(Attack(_entity));
 				break;
 			case 2:
-				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				EntityManager.Inst.StartCoroutine(Shield(_entity));
 				_entity.attackTime = 1;
 				break;

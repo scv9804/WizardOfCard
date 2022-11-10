@@ -14,7 +14,6 @@ public class GoblinAttackPattern : EntityPattern
 				EntityManager.Inst.StartCoroutine(Attack(_entity));
 				break;
 			case 1:
-				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				EntityManager.Inst.StartCoroutine(Shield(_entity));
 				break;
 			case 2:
@@ -40,10 +39,8 @@ public class GoblinAttackPattern : EntityPattern
 		switch (_entity.attackTime)
 		{
 			case 0:
-				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				break;
 			case 2:
-				_entity.ShowNextActionPattern(EnemyBaseEffectManager.Inst.AttackSprite);
 				break;
 		}
 

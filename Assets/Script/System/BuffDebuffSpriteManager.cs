@@ -2,25 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBaseEffectManager : MonoBehaviour
+public class BuffDebuffSpriteManager : MonoBehaviour
 {
-	public static EnemyBaseEffectManager Inst{ get; private set; }
+	public static BuffDebuffSpriteManager Inst { get; private set; }
 
 	private void Awake()
 	{
-		Inst = this;	
+		Inst = this;
 	}
 
 	[Header("EntityAttackPatternImages")]
-    [SerializeField] Sprite attackSprite;
+	[SerializeField] Sprite warCrySprite;
 	[SerializeField] Sprite shieldSprite;
 
 
-	public Sprite AttackSprite
+	public Sprite WarCrySprite
 	{
 		get
 		{
-			return attackSprite;
+			return warCrySprite;
 		}
 	}
 
@@ -31,7 +31,5 @@ public class EnemyBaseEffectManager : MonoBehaviour
 			return shieldSprite;
 		}
 	}
-
-
 
 }
