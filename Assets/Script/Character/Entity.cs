@@ -6,9 +6,12 @@ using UnityEngine.UI;
 using UnityEngine.VFX;
 using DG.Tweening;
 using System.Text;
+using System;
+
 
 public class Entity : MonoBehaviour
 {
+    [Header("기본 설정")]
     [SerializeField] EntityPattern entitiyPattern;
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] public SpriteRenderer charater;
@@ -23,8 +26,11 @@ public class Entity : MonoBehaviour
     [SerializeField] Material dissolveMaterial;
     [SerializeField] TMP_Text skillNameTmp;
     [SerializeField] TMP_Text damagedValueTMP;
+    [SerializeField] GameObject buffImageSlot;
+    [SerializeField] List<GameObject> buffImageList;
+    [SerializeField] GameObject buffPrefab;
 
-
+    //능력치 등
     [HideInInspector] Sprite playerDamagedEffect;
     [HideInInspector] public Enemy enemy;
     [HideInInspector] public float i_health;
@@ -35,6 +41,7 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_damage;
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
+
 
     [HideInInspector] public int i_burning = 0;
 
@@ -48,7 +55,10 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public int damageUpBuff_Turn = 0;
     [HideInInspector] public int damageUpBuff_Battle = 0;
-	#endregion
+
+    [HideInInspector] public Dictionary<string, int> buffDic;
+    [HideInInspector] public Dictionary<string, int> deBuffDic;
+    #endregion
 
 	public bool is_mine;
     public bool attackable = true;
@@ -59,8 +69,8 @@ public class Entity : MonoBehaviour
     [HideInInspector] public Vector3 originPos;
     [HideInInspector] public Vector3 originSkillNamePos;
     [HideInInspector] public Vector3 originShieldScale = new Vector3(60,60,0);
-
-    [Header("Grapics")]
+    
+    [Header("그래픽")]
     float fade = 1f;
     public bool isDissolving = false;
 
@@ -72,7 +82,7 @@ public class Entity : MonoBehaviour
 
     StringBuilder sb = new StringBuilder();
 
-
+    public static Action buffAction;
 
 	#region 시작 생성 종료 업데이트
 	private void Start()
@@ -83,6 +93,7 @@ public class Entity : MonoBehaviour
         //켄버스 위치 스프라이트 사이즈에 따라 조절.
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
         AllEffectOff();
+        BuffImage(null,2);
     }
     private void OnEnable()
     {
@@ -182,7 +193,15 @@ public class Entity : MonoBehaviour
 
         isTextMove = false;
         skillNameTmp.gameObject.SetActive(false);
-    }
+    }   
+
+    public void BuffImage(Sprite _sprite, int _value)
+	{
+        var temt = Instantiate(buffPrefab);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite,_value);
+        temt.transform.SetParent(buffImageSlot.transform, false);
+        buffImageList.Add(temt);
+	}
 
 	#endregion
 

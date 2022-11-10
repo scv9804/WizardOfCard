@@ -71,9 +71,9 @@ public class LevelGeneration : MonoBehaviour {
 		SetEventChangeRoom();
 		SetEdgeRooms();
 
-		//CreateBossRoom();
-		//CreateEventRoom();
-		//CreateShopRoom();
+		CreateBossRoom();
+		CreateEventRoom();
+		CreateShopRoom();
 
 		DrawMap();
 
@@ -301,7 +301,7 @@ public class LevelGeneration : MonoBehaviour {
 			{
 				if (EdgeRooms.Count == 0) break;
 				int randomRoom;
-				randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
+				randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count);
 
 				if (EdgeRooms[randomRoom].type != 1)
 				{
@@ -323,7 +323,7 @@ public class LevelGeneration : MonoBehaviour {
 			try
 			{
 				int randomRoom;
-				randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
+				randomRoom = UnityEngine.Random.Range(0, eventRoom.Count);
 
 				if (eventRoom[randomRoom].type != 1)
 				{
@@ -358,7 +358,7 @@ public class LevelGeneration : MonoBehaviour {
 		{
 			int randomRoom;
 			if (eventRoom.Count == 0) break;
-			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
+			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count);
 			if (eventRoom[randomRoom].type != 1)
 			{
 				eventRoom[randomRoom].RoomEventType = 3;
@@ -380,7 +380,7 @@ public class LevelGeneration : MonoBehaviour {
 		{
 			int randomRoom;
 			if (EdgeRooms.Count == 0) break; // 엣지룸 없으면 브레이크
-			randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count - 1);
+			randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count);
 			try
 			{
 				if (EdgeRooms[randomRoom].type != 1 && EdgeRooms[randomRoom].RoomEventType != 1)
@@ -410,7 +410,7 @@ public class LevelGeneration : MonoBehaviour {
 		while (!create) // 만약 안됐으면 다른방에 추가로 만들기
 		{
 			int randomRoom;
-			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count - 1);
+			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count);
 			Debug.Log(":");
 			try
 			{

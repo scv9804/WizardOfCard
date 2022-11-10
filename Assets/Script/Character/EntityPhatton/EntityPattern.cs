@@ -64,7 +64,7 @@ public abstract class EntityPattern : ScriptableObject
 		EntityManager.Inst.playerEntity.Status_MagicAffinity_Battle -= _entity.debuffValue;
 		_entity.attackTime++;
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
-	}
+	}  
 
 	//집중력 저하 (턴 데미지 감소)
 	public virtual IEnumerable DecreasedConcentration(Entity _entity)
