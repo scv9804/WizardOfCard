@@ -5,6 +5,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using Unity.Jobs;
+using Unity.Collections;
 
 public class PlayerEntity : MonoBehaviour
 {
@@ -15,7 +17,6 @@ public class PlayerEntity : MonoBehaviour
 
         //DontDestroyOnLoad(this);
     }
-
 
     [HideInInspector] public PlayerChar playerChar;
     [SerializeField] SpriteRenderer charaterSprite;
@@ -78,11 +79,9 @@ public class PlayerEntity : MonoBehaviour
     int i_aether; // 코스트
 
 
-    float i_health;
+    float i_health; // <<장형용 :: i가 아니자나 ㅡㅡ>>
     float maxHealth;
-     int i_shield = 0;
-
-    [HideInInspector] public int i_burning = 0;
+    int i_shield = 0;
 
     //마법 친화성  타입별 친화성으로 방어, 힐 효과 증폭... defult = 0
     // <<22-11-09 장형용 :: 미사용 제거>>
@@ -99,15 +98,18 @@ public class PlayerEntity : MonoBehaviour
     [HideInInspector] int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성
 
     // <<22-11-05 장형용 :: 추가>>
-    [HideInInspector] int i_protection = 0;
+    [HideInInspector] int i_protection = 0; // 수치 이하의 데미지를 방어 (수치 이상의 피해는 방어 못함)
 
     #endregion
 
 
     #region debuff
-    [HideInInspector] int i_decrease_magicAffinity;
-    [HideInInspector] int i_status_;
 
+    // <<22-11-09 장형용 :: 미사용 제거>>
+    //[HideInInspector] int i_decrease_magicAffinity;
+    //[HideInInspector] int i_status_;
+
+    [HideInInspector] public int i_burning = 0;
 
     #endregion
 
@@ -131,7 +133,8 @@ public class PlayerEntity : MonoBehaviour
 		}
 		set
 		{
-            if(value > maxHealth) // <<22-10-26 장형용 :: 별도의 초과회복 처리를 하지 않아도 되도록 수정>>
+            // <<22-10-26 장형용 :: 별도의 초과회복 처리를 하지 않아도 되도록 수정>>
+            if (value > maxHealth)
             {
                 i_health = maxHealth;
             }
@@ -188,8 +191,17 @@ public class PlayerEntity : MonoBehaviour
             return i_shield; 
 		}
 		set
-		{
-            i_shield = value;
+        {
+            if (value > 0)
+            {
+                i_shield = value;
+            }
+            else
+            {
+                i_shield = 0;
+            }
+
+            //i_shield = value;
             RefreshPlayer();
         }
     }
@@ -259,7 +271,6 @@ public class PlayerEntity : MonoBehaviour
     }
 
     // <<22-11-05 장형용 :: 추가>>
-
     public int Status_Protection
     {
         get
@@ -269,7 +280,7 @@ public class PlayerEntity : MonoBehaviour
 
         set
         {
-            if(value > 0)
+            if (value > 0)
             {
                 i_protection = value;
             }
@@ -280,8 +291,7 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
-    // <<22-11-07 장형용 :: 추가>>
-
+    // <<22-11-07 장형용 :: 가시성을 위해 추가>>
     public int Status_MagicAffinity
     {
         get
@@ -293,11 +303,31 @@ public class PlayerEntity : MonoBehaviour
 
         //set
         //{
-        //    i_magicResistance = value;
+        //    Status_MagicAffinity = value;
         //}
     }
 
     #endregion
+
+    public int Debuff_Burning
+    {
+        get
+        {
+            return i_burning;
+        }
+
+        set
+        {
+            if(value > 0)
+            {
+                i_burning = value;
+            }
+            else
+            {
+                i_burning = 0;
+            }
+        }
+    }
 
 
 
@@ -323,89 +353,158 @@ public class PlayerEntity : MonoBehaviour
         healthTMP.text = i_health.ToString();
     }
 
-
-    public void Damaged(int _damage, Card _card = null) // 더 깔끔하게 수정할 수 있지 않을까 싶긴 한데 일단은 패스
+    // <<22-10-21 장형용 :: 수정>>
+    // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
+    public void Damaged(int _damage, Card _card = null)
     {
-        if (i_protection >= _damage) // 보호 => 보호 수치 이하의 데미지 무효
+        //if (i_protection >= _damage) // 보호 => 보호 수치 이하의 데미지 무효
+        //{
+        //    _damage = 0;
+        //    return;
+        //}
+
+        //// <<22-11-09 장형용 :: 오류 수정>>
+        //if (i_protection > 0)
+        //{
+        //    i_protection--;
+        //}
+
+        //int totalDamage = _damage - i_shield;
+
+        //if (totalDamage < 0)
+        //{
+        //    totalDamage = 0;
+        //}
+
+        //if (i_shield > _damage) // 쉴드 => 쉴드 수치만큼 데미지 차감
+        //{
+        //    i_shield -= _damage;
+        //}
+        //else
+        //{
+        //    i_health -= totalDamage;
+        //    i_shield = 0;
+        //}
+
+        #region Status_Health -= _damage;
+
+        NativeArray<int> values = new NativeArray<int>(5, Allocator.TempJob);
+        values[0] = _damage;
+        values[1] = Status_Protection;
+        values[2] = Status_Shiled;
+        values[3] = (int)Status_Health;
+        values[4] = Debuff_Burning;
+
+        #region 입력 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
         {
-            _damage = 0;
-            return;
+            Debug.Log("-------------------------------------");
+            Debug.Log("입력 - 데미지 : " + values[0]);
+            Debug.Log("입력 - 보호 : " + values[1]);
+            Debug.Log("입력 - 쉴드 : " + values[2]);
+            Debug.Log("입력 - 체력 : " + values[3]);
+            Debug.Log("입력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
         }
 
-        // <<22-11-09 장형용 :: 오류 수정>>
-        if (i_protection > 0)
+        #endregion
+
+        JobHandle firstJob = new ProtectionJob
         {
-            i_protection--;
+            values = values,
+
+            isPrint = DebugManager.instance.isPrintDamageCalculating
+        }
+        .Schedule();
+
+        JobHandle secondJob = new ShieldJob
+        {
+            values = values,
+
+            isPrint = DebugManager.instance.isPrintDamageCalculating
+        }
+        .Schedule(firstJob);
+
+        JobHandle thirdJob = new BurningJob
+        {
+            values = values,
+
+            isPrint = DebugManager.instance.isPrintDamageCalculating
+        }
+        .Schedule(secondJob);
+
+        thirdJob.Complete();
+
+        _damage = values[0];
+        Status_Protection = values[1];
+        Status_Shiled = values[2];
+        Status_Health = values[3];
+        Debuff_Burning = values[4];
+
+        #region 결과 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
+        {
+            Debug.Log("출력 - 데미지 : " + values[0]);
+            Debug.Log("출력 - 보호 : " + values[1]);
+            Debug.Log("출력 - 쉴드 : " + values[2]);
+            Debug.Log("출력 - 체력 : " + values[3]);
+            Debug.Log("출력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
         }
 
-        int totalDamage = _damage - i_shield;
+        #endregion
 
-        if (totalDamage < 0)
-        {
-            totalDamage = 0;
-        }
+        values.Dispose();
 
-        if (i_shield > _damage) // 쉴드 => 쉴드 수치만큼 데미지 차감
-        {
-            i_shield -= _damage;
-        }
-        else
-        {
-            i_health -= totalDamage;
-            i_shield = 0;
-        }
+        #endregion
 
-        if (totalDamage > 0)
-        {
-            Utility.onDamaged?.Invoke(_card, totalDamage);
-        }
+        if (_damage > 0)
+            Utility.onDamaged?.Invoke(_card, _damage);
 
-        if (i_health <= 0)
+        //  <<22-10-21 장형용 :: 화상 추가>>
+        //  <<22-11-12 장형용 :: 위 데미지 공식에 통합 (기존과 동일하게 카드로 가한 데미지에는 포함 X)>>
+        //if (Debuff_Burning > 0)
+        //{
+        //    Burning();
+        //}
+
+        if (Status_Health <= 0)
         {
-            i_health = 0;
+            Status_Health = 0;
             is_die = true;
-            RefreshPlayer();
-            
-            StartCoroutine(GameManager.Inst.GameOverScene());
-            return ;
-        }
 
-        if (i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
-        {
-            Burning();
+            StartCoroutine(GameManager.Inst.GameOverScene());
         }
 
         RefreshPlayer();
-        return ;
     }
 
-    public void Burning() //  <<22-10-21 장형용 :: 화상 추가>>
-    {
-        if (i_shield > i_burning)
-        {
-            i_shield -= i_burning;
-        }
-        else
-        {
-            i_health -= (i_burning - i_shield);
-            i_shield = 0;
-        }
+    //  <<22-10-21 장형용 :: 화상 추가>>
+    //  <<22-11-12 장형용 :: 위 데미지 공식에 통합 (기존과 동일하게 카드로 가한 데미지에는 포함 X)>>
+    //public void Burning()
+    //{
+    //    if (i_shield > Debuff_Burning)
+    //    {
+    //        i_shield -= Debuff_Burning;
+    //    }
+    //    else
+    //    {
+    //        Status_Health -= (i_burning - i_shield);
+    //        i_shield = 0;
+    //    }
 
-        i_burning--;
+    //    Debuff_Burning--;
 
-        if (i_health <= 0)
-        {
-            i_health = 0;
-            is_die = true;
-            RefreshPlayer();
+    //    if (Status_Health <= 0)
+    //    {
+    //        Status_Health = 0;
+    //        is_die = true;
+    //    }
 
-            StartCoroutine(GameManager.Inst.GameOverScene());
-            return;
-        }
-
-        RefreshPlayer();
-        return;
-    }
+    //    return;
+    //}
 
     public void RefreshPlayer()
     {
@@ -459,7 +558,7 @@ public class PlayerEntity : MonoBehaviour
 
     void ResetProtection()
     {
-        i_protection = 0;
+        Status_Protection = 0;
 
         RefreshPlayer();
     }
@@ -468,7 +567,7 @@ public class PlayerEntity : MonoBehaviour
     {
         if (isMyTurn)
         {
-            i_protection = 0;
+            Status_Protection--;
 
             CardManager.Inst.RefreshMyHands();
         }

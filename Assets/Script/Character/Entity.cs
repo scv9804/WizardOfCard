@@ -7,7 +7,8 @@ using UnityEngine.VFX;
 using DG.Tweening;
 using System.Text;
 using System;
-
+using Unity.Jobs;
+using Unity.Collections;
 
 public class Entity : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class Entity : MonoBehaviour
     //능력치 등
     [HideInInspector] Sprite playerDamagedEffect;
     [HideInInspector] public Enemy enemy;
-    [HideInInspector] public float i_health;
+    [HideInInspector] public float i_health; // <<장형용 :: i가 아니라고 ㅡㅡ>>
     [HideInInspector] public float HEALTHMAX;
     [HideInInspector] public int increaseShield;
     [HideInInspector] public int i_shield = 0;
@@ -280,8 +281,43 @@ public class Entity : MonoBehaviour
     // - DamageEffectCoroutine과 같이 관리되던 DestroyEffectCoroutine를 분리
     // - RefreshEntity는 마지막에 한 번 호출
     #endregion
+    // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
     public void Damaged(int _damage, Sprite _enemyDamageSprite, Card _card = null)
     {
+        //if (_damage < 0)
+        //{
+        //    _damage = 0;
+        //}
+
+        //int totalDamage = _damage - i_shield; // 이거 뭔가 고치고 싶은데...이상적인 답이 떠오르지 않네...
+
+        //if (totalDamage < 0)
+        //{
+        //    totalDamage = 0;
+        //}
+
+        //if (i_shield > _damage)
+        //{
+        //    i_shield -= _damage;
+        //}
+        //else
+        //{
+        //    i_health -= totalDamage;
+        //    i_shield = 0;
+        //}
+
+        //if (totalDamage > 0)
+        //{
+        //    Utility.onDamaged?.Invoke(_card, totalDamage);
+        //}
+
+        // <<22-10-21 장형용 :: 화상 추가>>
+        // <<22-10-21 장형용 :: 제거>>
+        //if (i_burning > 0 && _card != null)
+        //{
+        //    Burning();
+        //}
+
         #region StartEntityDamageCheck
 
         EntityManager.i_checkingEntitiesCount++;
@@ -293,40 +329,76 @@ public class Entity : MonoBehaviour
 
         #endregion
 
+        #region i_health -= _damage;
+
+        NativeArray<int> values = new NativeArray<int>(5, Allocator.TempJob);
+        values[0] = _damage;
+        //values[1] = i_protection; // Entity는 해당 사항 없음
+        values[2] = i_shield;
+        values[3] = (int) i_health;
+        values[4] = i_burning;
+
+        #region 입력 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
+        {
+            Debug.Log("-------------------------------------");
+            Debug.Log("입력 - 데미지 : " + values[0]);
+            //Debug.Log("입력 - 보호 : " + values[1]); // Entity는 해당 사항 없음
+            Debug.Log("입력 - 쉴드 : " + values[2]);
+            Debug.Log("입력 - 체력 : " + values[3]);
+            Debug.Log("입력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
+        }
+
+        #endregion
+
+        JobHandle firstJob = new ShieldJob
+        {
+            values = values,
+
+            isPrint = DebugManager.instance.isPrintDamageCalculating
+        }
+        .Schedule();
+
+        JobHandle secondJob = new BurningJob
+        {
+            values = values,
+
+            isPrint = DebugManager.instance.isPrintDamageCalculating
+        }
+        .Schedule(firstJob);
+
         StartCoroutine(DamageEffectCoroutine(_enemyDamageSprite));
 
-        if (_damage < 0)
+        secondJob.Complete();
+
+        _damage = values[0];
+        //Status_Protection = values[1]; // Entity는 해당 사항 없음
+        i_shield = values[2];
+        i_health = values[3];
+        i_burning = values[4];
+
+        #region 결과 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
         {
-            _damage = 0;
+            Debug.Log("출력 - 데미지 : " + values[0]);
+            //Debug.Log("출력 - 보호 : " + values[1]); // Entity는 해당 사항 없음
+            Debug.Log("출력 - 쉴드 : " + values[2]);
+            Debug.Log("출력 - 체력 : " + values[3]);
+            Debug.Log("출력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
         }
 
-        int totalDamage = _damage - i_shield; // 이거 뭔가 고치고 싶은데...이상적인 답이 떠오르지 않네...
+        #endregion
 
-        if (totalDamage < 0)
-        {
-            totalDamage = 0;
-        }
+        values.Dispose();
 
-        if (i_shield > _damage)
-        {
-            i_shield -= _damage;
-        }
-        else
-        {
-            i_health -= totalDamage;
-            i_shield = 0;
-        }
+        if (_damage > 0)
+            Utility.onDamaged?.Invoke(_card, _damage);
 
-        if (totalDamage > 0)
-        {
-            Utility.onDamaged?.Invoke(_card, totalDamage);
-        }
-
-        // <<22-10-21 장형용 :: 화상 추가>>
-        if (i_burning > 0 && _card != null)
-        {
-            Burning();
-        }
+        #endregion
 
         #region EndEntityDamageCheck
 
@@ -352,22 +424,23 @@ public class Entity : MonoBehaviour
 
     // <<22-10-21 장형용 :: 화상 추가>>
     // <<22-11-09 장형용 :: 로직 상 여기서 굳이 사망 판정을 검사하지 않아도 되어 제거>>
-    public void Burning()
-    {
-        if (i_shield > i_burning)
-        {
-            i_shield -= i_burning;
-        }
-        else
-        {
-            i_health -= (i_burning - i_shield);
-            i_shield = 0;
-        }
+    // <<22-11-12 장형용 :: 화상 계산 위로 올림>>
+    //public void Burning()
+    //{
+    //    if (i_shield > i_burning)
+    //    {
+    //        i_shield -= i_burning;
+    //    }
+    //    else
+    //    {
+    //        i_health -= (i_burning - i_shield);
+    //        i_shield = 0;
+    //    }
 
-        i_burning--;
+    //    i_burning--;
 
-        return;
-    }
+    //    return;
+    //}
 
 
     public void Attack()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MagicCircle : Card
 {
-
 	// <<22-10-28 장형용 :: 수정>>
 	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{

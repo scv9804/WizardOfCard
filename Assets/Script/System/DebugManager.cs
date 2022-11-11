@@ -10,6 +10,7 @@ public class DebugManager : MonoBehaviour // DamageAnouncer 대체
     [Header("기능 활성화")]
     [Tooltip("전투 방에 진입하면 콘솔 창을 초기화합니다.")] public bool isClearDebugConsole;
     [Tooltip("콘솔 창에 데미지를 준 카드와 데미지를 표시합니다.")] public bool isPrintDamage;
+    [Tooltip("데미지 계산의 세부 흐름 내역을 표시합니다.")] public bool isPrintDamageCalculating;
 
     [Header("카드 생성")]
     [Tooltip("카드 원본 정보 데이터베이스")] public ItemSO itemSO;

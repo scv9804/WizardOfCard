@@ -7,6 +7,8 @@ using DG.Tweening;
 using System.Text;
 using System;
 using System.Linq;
+using Unity.Jobs;
+using Unity.Collections;
 
 public class Card : MonoBehaviour
 {   
@@ -50,7 +52,7 @@ public class Card : MonoBehaviour
     //[HideInInspector] public int bonus; // 현재 미사용, 아이템 구현 대비용
 
     // <<22-10-27 장형용 :: 추가>>
-    protected int i_enhenceValue_inst = 0;
+    protected int i_enhanceValue_inst = 0;
 	// <<22-11-09 장형용 :: 제거>>
 	//protected int i_magicAffinity_turn_inst = 0;
 	//protected int i_magicAffinity_battle_inst = 0;
@@ -164,7 +166,7 @@ public class Card : MonoBehaviour
 		b_isExile = itemSO.items[i_itemNum].card.b_isExile;
 		AR_attackRange = itemSO.items[i_itemNum].card.AR_attackRange;
 
-		i_enhenceValue_inst = 0;
+		i_enhanceValue_inst = 0;
 	}
 
     #region 카드 UI 갱신
@@ -180,7 +182,7 @@ public class Card : MonoBehaviour
 
     public virtual void ExplainRefresh()
 	{
-		i_enhenceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
+		i_enhanceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
 
 		sb.Clear();
 		if (b_isExile)
@@ -275,26 +277,96 @@ public class Card : MonoBehaviour
 	#region 수치 계산
 
 	// <<22-11-09 장형용 :: 수정>>
-	public int ApplyMagicAffinity(int _value)
+	protected int ApplyMagicAffinity(int _value)
 	{
-        //int value = _value
-        //	+ PlayerEntity.Inst.Status_MagicAffinity_Permanent
-        //	+ PlayerEntity.Inst.Status_MagicAffinity_Battle
-        //	+ PlayerEntity.Inst.Status_MagicAffinity_Turn;
+		//int value = _value
+		//	+ PlayerEntity.Inst.Status_MagicAffinity_Permanent
+		//	+ PlayerEntity.Inst.Status_MagicAffinity_Battle
+		//	+ PlayerEntity.Inst.Status_MagicAffinity_Turn;
 
-        return ApplyEnhanceValue(_value + PlayerEntity.Inst.Status_MagicAffinity);
-    }
+		//return ApplyEnhanceValue(_value + PlayerEntity.Inst.Status_MagicAffinity);
 
-	public int ApplyMagicResistance(int _value)
-	{
-		return ApplyEnhanceValue(_value + PlayerEntity.Inst.Status_MagicResistance);
+		#region _value += PlayerEntity.Inst.Status_MagicAffinity;
+
+		NativeArray<int> result = new NativeArray<int>(1, Allocator.TempJob);
+        result[0] = _value;
+
+        JobHandle MyJob = new CalculateMagicAffinity()
+        {
+            value = result,
+
+            magicAffinity = PlayerEntity.Inst.Status_MagicAffinity
+        }
+        .Schedule();
+
+        MyJob.Complete();
+
+        _value = result[0];
+
+        result.Dispose();
+
+        #endregion
+
+        return ApplyEnhanceValue(_value);
 	}
 
 	// <<22-11-09 장형용 :: 수정>>
-	public int ApplyEnhanceValue(int _value)
+	protected int ApplyMagicResistance(int _value)
 	{
+		//return ApplyEnhanceValue(_value + PlayerEntity.Inst.Status_MagicResistance);
+
+		#region _value += PlayerEntity.Inst.Status_MagicResistance;
+
+		NativeArray<int> result = new NativeArray<int>(1, Allocator.TempJob);
+        result[0] = _value;
+
+        JobHandle MyJob = new CalculateMagicResistance()
+        {
+            value = result,
+
+            magicResistance = PlayerEntity.Inst.Status_MagicResistance
+        }
+        .Schedule();
+
+        MyJob.Complete();
+
+        _value = result[0];
+
+        result.Dispose();
+
+        #endregion
+
+        return ApplyEnhanceValue(_value);
+	}
+
+    // <<22-11-09 장형용 :: 수정>>
+    protected int ApplyEnhanceValue(int _value)
+    {
 		//return _value * PlayerEntity.Inst.Status_EnchaneValue;
-		return _value * i_enhenceValue_inst;
+		//return _value * i_enhenceValue_inst;
+
+		#region _value *= i_enhanceValue_inst;
+
+		NativeArray<int> result = new NativeArray<int>(1, Allocator.TempJob);
+        result[0] = _value;
+
+        JobHandle MyJob = new CalculateEnhanceValue()
+        {
+            value = result,
+
+            enhanceValue = i_enhanceValue_inst
+        }
+        .Schedule();
+
+        MyJob.Complete();
+
+        _value = result[0];
+
+        result.Dispose();
+
+        #endregion
+
+        return _value;
 	}
 
 	// <<22-11-09 장형용 :: 제거>>
@@ -315,7 +387,7 @@ public class Card : MonoBehaviour
 
 		Utility.onCardUsed?.Invoke(this);
 
-		i_enhenceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
+		i_enhanceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
 
 		yield return null;
 	}

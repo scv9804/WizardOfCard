@@ -42,7 +42,7 @@ public class FlameStrom : Card
         base.ExplainRefresh();
 
         sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
-        sb.Replace("{4}", ApplyEnhanceValue(I_Burning).ToString());
+        sb.Replace("{4}", I_Burning.ToString());
 
         explainTMP.text = sb.ToString();
     }

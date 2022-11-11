@@ -551,7 +551,6 @@ public class CardManager : MonoBehaviour
         }
 
 		myCards.Remove(selectCard);
-		// <<22-11-09 장형용 :: 카드 이동 시간 0.7f => 0,25f로 감소>>
 		CardAlignment();
 	}
 
