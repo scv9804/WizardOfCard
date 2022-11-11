@@ -21,7 +21,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] CharacterSO characterSO;
     [SerializeField] GameObject entitiyPrefab;
     [SerializeField] GameObject playerPrefab;
-    [SerializeField] GameObject damagePrefab;
+    //[SerializeField] GameObject damagePrefab; // 미사용
     [SerializeField] GameObject targetSelector;
 
 
@@ -33,12 +33,12 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Transform spawnPlayerChar_Tf;
     [SerializeField] Transform spawnEnemy_Tf;
     [SerializeField] Transform sortEnemyPos_Tf;
-    [SerializeField] Card myUseCard;
+    //[SerializeField] Card myUseCard; // 미사용
 
 
-    [SerializeField] EnemyAttackList enemyAttackList;
+    //[SerializeField] EnemyAttackList enemyAttackList; // 미사용
     [SerializeField] List<Enemy> enemyBuffer;
-    [SerializeField] short Length;
+    //[SerializeField] short Length; // 미사용
     [SerializeField] private float f_targetSelectorUpPos;
 
     [HideInInspector] public PlayerEntity playerEntity;
@@ -52,7 +52,7 @@ public class EntityManager : MonoBehaviour
 
     const int MAX_ENEMY_COUNT = 3;
 
-    public static int i_entityMotionRunning = 0; // <<22-10-30 장형용 :: 실행 중인 전체 피격 모션 수>>
+    public static int i_checkingEntitiesCount = 0; // <<22-10-30 장형용 :: 실행 중인 전체 피격 모션 수>>
 
 
 
@@ -65,11 +65,11 @@ public class EntityManager : MonoBehaviour
     [SerializeField] PlayerEntity selectPlayerEntity;
     [SerializeField] PlayerEntity targetPickPlayerEntity;
 
-    WaitForSeconds delay10 = new WaitForSeconds(1.0f);
+    //WaitForSeconds delay10 = new WaitForSeconds(1.0f); // 미사용
 
-	#endregion
+    #endregion
 
-	private void Start()
+    private void Start()
     {
         levelGeneration = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
         TurnManager.onStartTurn += OnTurnStarted;
@@ -129,21 +129,31 @@ public class EntityManager : MonoBehaviour
             return null;
         }
 
-        int _index = Random.Range(0, enemyEntities.Count);
+        //int _index = Random.Range(0, enemyEntities.Count);
 
         //while(enemyEntities[_index].is_die)
         //{
         //    _index = Random.Range(0, enemyEntities.Count);
         //}
 
-        if(enemyEntities[_index].is_die)
+        //if(enemyEntities[_index].is_die)
+        //{
+        //    return SelectRandomTarget();
+        //}
+        //else
+        //{
+        //    return enemyEntities[_index];
+        //}
+
+        int _index;
+
+        do
         {
-            return SelectRandomTarget();
+            _index = Random.Range(0, enemyEntities.Count);
         }
-        else
-        {
-            return enemyEntities[_index];
-        }
+        while (enemyEntities[_index].is_die);
+
+        return enemyEntities[_index];
     }
 
     #endregion
@@ -272,43 +282,18 @@ public class EntityManager : MonoBehaviour
     #endregion
 
     #region TurnManger
+
     void OnTurnStarted(bool _myTurn)
     {
         SetAttackable(_myTurn);
     }
 
-    public void CheckDieEveryEnemy() // <<22-10-29 장형용 :: foreach 때문인지 뭐 때문인지 뭐 하나가 진입하면 Lock 걸려서 못 들어가니 안 씁니다>>
-	{
-		try 
-        {
-            foreach (var enemy in enemyEntities)
-            {
-                if (enemy.is_die)
-                {
-                    enemy.DestroyTest();
-                    enemyEntities.Remove(enemy);
-                    Debug.Log("하나죽었다.");
-                }
-                if (enemyEntities.Count == 0)
-                {
-                    Debug.Log("다음방으로");
-                    UIManager.Inst.ButtonActivate();
-                //    RewordManager.Inst.GameClear();
-                    CardManager.Inst.SetCardStateCannot();
-                }
-            }
-        }
-        catch
-		{
-            Debug.Log("이미 Destroy됨");
-		}
-    }
-
+    // <<22-11-09 장형용 :: 함수 안 거치고 직접 제거>>
     public void CheckDieEnemy(Entity _entity)
     {
         if (_entity.is_die)
         {
-            _entity.DestroyTest();
+            Destroy(_entity.gameObject);
             enemyEntities.Remove(_entity);
             Debug.Log("하나죽었다.");
         }
@@ -377,8 +362,9 @@ public class EntityManager : MonoBehaviour
     #region Entity
 
     public void EntityMouseOver(Entity _entity)
-    {
-        if (!is_canMouseInput || _entity.is_die) // <<22-11-01 장형용 :: 사망 판정 원래 진작에 수정했던 건데 리셋하는 과정에서 누락된 듯 ㅎㅎ;; ㅈㅅ;;;>>
+    { 
+        // <<22-11-01 장형용 :: 사망 판정 원래 진작에 수정했던 건데 리셋하는 과정에서 누락된 듯 ㅎㅎ;; ㅈㅅ;;;>>
+        if (!is_canMouseInput || _entity.is_die)
             return;
 
         targetPickEntity = _entity;
@@ -444,13 +430,15 @@ public class EntityManager : MonoBehaviour
         {
             CardManager.Inst.UseCardSetmyCemetery();
             if (selectPlayerEntity == null)
-            {
-                //CardManager.Inst.selectCard.UseCard(selectEntity); // <<22-10-21 장형용 :: 변경>>
+            { 
+                // <<22-10-21 장형용 :: 변경>>
+                //CardManager.Inst.selectCard.UseCard(selectEntity);
                 StartCoroutine(CardManager.Inst.selectCard.UseCard(selectEntity, null));
             }
             if (selectEntity == null)
             {
-                //CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity); // <<22-10-21 장형용 :: 변경>>  굳
+                // <<22-10-21 장형용 :: 변경>>  굳
+                //CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity);
                 StartCoroutine(CardManager.Inst.selectCard.UseCard(null, selectPlayerEntity));
             }
         }
@@ -481,7 +469,8 @@ public class EntityManager : MonoBehaviour
         try
         {
             CardManager.Inst.UseCardSetmyCemetery();
-            //CardManager.Inst.selectCard.UseCard(null); // <<22-10-21 장형용 :: 변경>>
+            // <<22-10-21 장형용 :: 변경>>
+            //CardManager.Inst.selectCard.UseCard(null);
             StartCoroutine(CardManager.Inst.selectCard.UseCard(null, null));
         }
         catch
@@ -545,15 +534,17 @@ public class EntityManager : MonoBehaviour
 
 	#region Card
 
-	public void SetUseCard(Card _card)
-    {
-        myUseCard = _card;
-    }
+    // 이거 뭐하는 애들이야
 
-    public void DelectUseCard()
-    {
-        myUseCard = null;
-    }
+	//public void SetUseCard(Card _card)
+ //   {
+ //       myUseCard = _card;
+ //   }
+
+ //   public void DelectUseCard()
+ //   {
+ //       myUseCard = null;
+ //   }
 
     #endregion
 

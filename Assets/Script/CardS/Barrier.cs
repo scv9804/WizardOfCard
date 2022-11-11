@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class Barrier : Card
 {
-	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
+    #region 프로퍼티
+
+    int I_Shield
+    {
+        get
+        {
+            return ApplyMagicResistance(i_damage);
+        }
+
+        //set
+        //{
+        //    I_Shield = value;
+        //}
+    }
+
+    #endregion
+
+    // <<22-10-28 장형용 :: 수정>>
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.SpellEnchaneReset();
 
-		Shield(ApplyMagicResistance_Instance(i_damage));
+        Shield(I_Shield);
 
 		yield return StartCoroutine(EndUsingCard());
 	}

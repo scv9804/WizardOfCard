@@ -697,10 +697,10 @@ MonoBehaviour:
   enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
   playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
   st_cardName: "\uB9C8\uBC95\uC9C4"
-  i_itemNum: 26
+  i_itemNum: 27
   type: 0
   f_percentage: 1
-  i_upgraded: 0
+  upgraded: 2
   cost: 020000000100000000000000
   attack: 020000000200000002000000
   isExile: 000000
@@ -717,7 +717,6 @@ MonoBehaviour:
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
-  bonus: 0
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

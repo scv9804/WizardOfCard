@@ -21,15 +21,15 @@ public class DebugManager : MonoBehaviour // DamageAnouncer 대체
 
     void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
 
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -42,9 +42,11 @@ public class DebugManager : MonoBehaviour // DamageAnouncer 대체
 
     void OnDisable()
     {
+#if UNITY_EDITOR
         Utility.onDamaged -= PrintDamage;
 
         Utility.onBattleStart -= ClearDebugConsole;
+#endif
     }
 
     void PrintDamage(Card _card, int _damage) // 카드 데미지 디버그

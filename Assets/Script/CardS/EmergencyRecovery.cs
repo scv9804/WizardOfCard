@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class EmergencyRecovery : Card
 {
-    public override void ExplainRefresh()
-    {
-        base.ExplainRefresh();
+	#region 프로퍼티
 
-        explainTMP.text = sb.ToString();
+	int I_Heal
+	{
+		get
+		{
+			return ApplyEnhanceValue(i_damage);
+		}
+
+        //set
+        //{
+        //    I_Heal = value;
+        //}
     }
 
-    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
-    {
+    #endregion
+
+    // <<22-10-28 장형용 :: 수정>>
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
+	{
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
         PlayerEntity.Inst.SpellEnchaneReset();
 
-        RestoreHealth(ApplyEnhanceValue_Instance(i_damage));
+        RestoreHealth(I_Heal);
 
         if(i_upgraded == 2)
         {

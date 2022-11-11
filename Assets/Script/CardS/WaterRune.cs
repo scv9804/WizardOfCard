@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class WaterRune : Card
 {
-	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
+	#region 프로퍼티
+
+	int I_Heal
+	{
+		get
+		{
+			return ApplyEnhanceValue(i_damage);
+		}
+
+		//set
+		//{
+		//    I_Heal = value;
+		//}
+	}
+
+	#endregion
+
+	// <<22-10-28 장형용 :: 수정>>
+	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
 		PlayerEntity.Inst.SpellEnchaneReset();
 
-		for(int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
         {
-			RestoreHealth(i_damage);
+			RestoreHealth(I_Heal);
 
 			CardManager.Inst.AddCard();
 

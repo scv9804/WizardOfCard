@@ -718,6 +718,7 @@ MonoBehaviour:
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
   bonus: 0
+  restoreAether: 010000000200000003000000
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

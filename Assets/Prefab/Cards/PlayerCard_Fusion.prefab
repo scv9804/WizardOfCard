@@ -715,7 +715,7 @@ MonoBehaviour:
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
-  bonus: 0
+  applyBurning: 020000000300000003000000
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

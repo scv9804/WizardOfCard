@@ -25,9 +25,22 @@ public static class Utility_enum
     public enum ItemType {Use, Equi, Quest}
 }
 
-public enum AttackRange { Target_AllEnemy, Target_Self, Target_Single };
-public enum CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff }
+public enum AttackRange
+{ 
+    Target_AllEnemy, 
+    Target_Self, 
+    Target_Single 
+}
 
+public enum CardType 
+{
+    Spell, 
+    Spell_Enhance, 
+    Shlied,
+    Heal, 
+    Buff, 
+    Debuff
+}
 
 public enum CardEnum
 {
@@ -46,7 +59,6 @@ public enum CardEnum
     붕괴,
     벼락,
     폭발,
-    //마나_화살, <<22-11-01 장형용 :: MonoBehaviour 이슈로 구현 연기>>
     융해,
     과부하,
     집중_포화,
@@ -57,7 +69,8 @@ public enum CardEnum
     대지의_룬,
     역장,
     마나_환원,
-
+    숨_고르기,
+    강타,
     마법진
 }
 
@@ -74,7 +87,7 @@ public class Utility : MonoBehaviour
         }
     }
 
-    public static Action onBattleStart;
+    public static Action onBattleStart; // 전투 방 진입 시 호출
 
     public static Action<Card> onCardUsed; // 카드 사용 시 호출
     public static Action<Card, int> onDamaged; // 카드로 데미지를 입힐 시 호출
@@ -82,33 +95,20 @@ public class Utility : MonoBehaviour
 
 #region 코루틴 커스텀 클래스
 
-public class WaitAllCardUsingDone : CustomYieldInstruction // <<22-10-30 장형용 :: 카드 처리와 피격 모션 처리가 끝날때까지 대기시켜주는 클래스>>
+// <<22-10-30 장형용 :: 모든 카드 사용과 데미지 처리가 끝날때까지 대기시켜주는 클래스>>
+public class WaitAllCardUsingDone : CustomYieldInstruction
 {
     public override bool keepWaiting
     {
         get
         {
-            return CardManager.i_usingCardCount > 0 || EntityManager.i_entityMotionRunning > 0;
+            return CardManager.i_usingCardCount > 0 || EntityManager.i_checkingEntitiesCount > 0;
         }
     }
 }
 
-public class WaitForAllMotionDone : CustomYieldInstruction // <<22-10-30 장형용 :: 해당 Entity의 피격 모션 처리가 끝날때까지 대기시켜주는 클래스>>
-{
-    Entity entity;
-
-    public override bool keepWaiting
-    {
-        get
-        {
-            return entity.i_entityMotionRunning > 0;
-        }
-    }
-
-    public WaitForAllMotionDone(Entity _entity)
-    {
-        entity = _entity;
-    }
-} 
+// <<22-10-30 장형용 :: 해당 Entity의 피격 모션 처리가 끝날때까지 대기시켜주는 클래스>>
+// <<22-11-09 장형용 :: 삭제>>
+//public class WaitForAllMotionDone : CustomYieldInstruction
 
 #endregion

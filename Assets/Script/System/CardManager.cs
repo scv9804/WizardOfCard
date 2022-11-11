@@ -7,21 +7,21 @@ using System.Linq;
 public class CardManager : MonoBehaviour
 {
 	public static CardManager Inst { get; private set; }
+
 	private void Awake()
 	{
 		Inst = this;
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-
 	[SerializeField] ItemSO itemSO;
-	[SerializeField] GameObject cardPrefab;
+	//[SerializeField] GameObject cardPrefab; // 미사용
 
 
 	public List<Card> myCards;
 	/*[HideInInspector] */public List<Card> myCemetery;
-	List<Card> itemBuffer;
-	[HideInInspector] public List<Card> myDeck;
+	//List<Card> itemBuffer; // 미사용
+	/*[HideInInspector] */public List<Card> myDeck;
 
 	/*[HideInInspector] */public List<Card> myExiledCards;
 
@@ -30,7 +30,7 @@ public class CardManager : MonoBehaviour
 	[SerializeField] Transform RightCard_Tf;
 	[SerializeField] Transform UseCard_Tf;
 	[SerializeField] Transform cardGarbage_Tf;
-	[SerializeField] public E_CardStats e_CardStats = E_CardStats.Cannot;
+	/*[SerializeField] */public E_CardStats e_CardStats = E_CardStats.Cannot;
 
 
 	[SerializeField] float f_useCardSize;
@@ -47,14 +47,15 @@ public class CardManager : MonoBehaviour
 
 
 	public Card selectCard;
-	[HideInInspector] public int i_ManaCost;
+	//[HideInInspector] public int i_ManaCost; // 미사용
 	[HideInInspector] public bool is_myCardDrag;
-	[HideInInspector] public bool is_useCardArea;
+	[HideInInspector] public bool is_useCardArea; // 사용은 하는데 용도가 굉장히 한정적
 	[HideInInspector] public bool is_canUseCard = true;
 	[HideInInspector] public bool is_cardUsing;
-	[HideInInspector] public bool is_useEnhance;
+	//[HideInInspector] public bool is_useEnhance; // 미사용
 
-	public static int i_usingCardCount = 0; // <<22-10-30 장형용 :: 실행 중인 카드 사용 수>>
+	// <<22-10-30 장형용 :: 실행 중인 카드 사용 수>>
+	public static int i_usingCardCount = 0;
 
 	public static int i_usedCardCount; // 비전 광선꺼 옮겨옴
 
@@ -66,9 +67,10 @@ public class CardManager : MonoBehaviour
 		{
 			AddDeck();
 		}
+
 		TurnManager.onAddCard += AddCard;
 
-		// <<22-10-21 장형용 :: 추가>>		
+		// <<22-10-21 장형용 :: 추가>>
 		Utility.onBattleStart += ShuffleExiledCard;
 		// 22-10-24 이동화 :: 이건 장비로 넣자
 		//Utility.onBattleStart += ShuffleCemetery;
@@ -82,11 +84,11 @@ public class CardManager : MonoBehaviour
 
 	void Update()
 	{
-		if (is_myCardDrag)
-		{
+        if (is_myCardDrag)
+        {
             CardDrag();
         }
-		DetectCardArea();
+        DetectCardArea();
 		SetCardEnable();
 	}
 
@@ -95,24 +97,21 @@ public class CardManager : MonoBehaviour
 		GameTick_CardManager();
 	}
 
-	private void OnDestroy()
-	{
-		TurnManager.onAddCard -= AddCard;
-
-		// <<22-10-21 장형용 :: 추가>>
-		Utility.onBattleStart -= ShuffleExiledCard;
-
-		// 22-10-24 이동화 :: 얘들도 장비에 넣자 (장착 시)
-		//	Utility.onBattleStart -= ShuffleCemetery;
-		//	Utility.onBattleStart -= RefreshMyHand;
-	}
-
-    private void OnDisable()
+    private void OnDestroy()
     {
-		Utility.onCardUsed -= IncreaseCardCount;
+        TurnManager.onAddCard -= AddCard;
 
-		TurnManager.onStartTurn -= ResetCardCount;
-	}
+        //// <<22-10-21 장형용 :: 추가>>
+        Utility.onBattleStart -= ShuffleExiledCard;
+
+        // 22-10-24 이동화 :: 얘들도 장비에 넣자 (장착 시)
+        //	Utility.onBattleStart -= ShuffleCemetery;
+        //	Utility.onBattleStart -= RefreshMyHand;
+
+        Utility.onCardUsed -= IncreaseCardCount;
+
+        TurnManager.onStartTurn -= ResetCardCount;
+    }
 
     // 비전 광선꺼 옮겨옴
     void IncreaseCardCount(Card _card)
@@ -182,27 +181,29 @@ public class CardManager : MonoBehaviour
 		DeckShuffle();
 	}
 
-
 	// 손패추가 (추가) 강화카드 사용 시 damage 0을 보내서 데미지 수치를 기본 값으로 변경 <<왜이렇게 만듦? 나 병신인가봄;;
 	public void AddCard()
 	{
 		var tempt = PopDeck();
+
 		if (tempt == null)
 		{
 			Debug.Log("Please Refresh Deck");
 		}
 		else
 		{
-			//var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 			InstantinateCard(tempt);
 		}
 	}
 
-	public void InstantinateCard(Card tempt) // <<22-10-30 장형용 :: 좋은 기능 있길래 쓰려고 분리했읍니다 ㅎㅎ;;;>>
-    {
+	// <<22-10-30 장형용 :: 좋은 기능 있길래 쓰려고 분리했읍니다 ㅎㅎ;;;>>
+	public void InstantinateCard(Card tempt)
+	{
+		//var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 		var cardObject = Instantiate(itemSO.items[tempt.i_itemNum].card_object, cardSpawnPos.position, Quaternion.identity);
 		var card = cardObject.GetComponent<Card>();
-		//card.SetItemSO(tempt.card_info); // <<22-11-04 장형용 :: 현재 카드 정보를 대부분 Card_Info로 옮기기 위해 분리>>
+		// <<22-11-04 장형용 :: Card_Info가 제거됐기 때문에 제거>>
+		//card.SetItemSO(tempt.card_info);
 		card.Setup();
 		myCards.Add(card);
 		setOriginOrder();
@@ -221,7 +222,6 @@ public class CardManager : MonoBehaviour
 		}
 	}
 
-
 	//카드 배치 크기조정 포함. Set Card Pos,Pos
 	void CardAlignment()
 	{
@@ -229,15 +229,15 @@ public class CardManager : MonoBehaviour
 		//카드 오리지날 크기와 위치 조정.
 		originCardPRSs = RoundAlignment(LeftCard_Tf, RightCard_Tf, myCards.Count, 0.5f, Vector3.one / 4);
 
-
 		for (int i = 0; i < myCards.Count; i++)
 		{
 			var targetCard = myCards[i];
 
 			targetCard.originPRS = originCardPRSs[i];
-			targetCard.MoveTransform(targetCard.originPRS, true, 0.7f);
+			targetCard.MoveTransform(targetCard.originPRS, true, 0.7f); // 이것 때문에 드래그 모션 안 나오는데 대체할만한 코드 있나?
 		}
 	}
+
 	//원형 배치 //안좋은 함수긴함....
 	List<Pos_Rot_Scale> RoundAlignment(Transform _Left_tf, Transform _Right_tf, int _objCount, float _height, Vector3 _scale)
 	{
@@ -310,7 +310,8 @@ public class CardManager : MonoBehaviour
 
 	public void CardMouseOver(Card _card)
 	{
-		if (e_CardStats == E_CardStats.Cannot || is_cardUsing || is_myCardDrag) // <<22-10-21 장형용 :: 카드 드래그 여부 확인 추가>>
+		// <<22-10-21 장형용 :: 카드 드래그 여부 확인 추가>>
+		if (e_CardStats == E_CardStats.Cannot || is_cardUsing || is_myCardDrag)
 		{
 			return;
 		}
@@ -357,30 +358,39 @@ public class CardManager : MonoBehaviour
 		//카드사용안하면 원위치.
 		if (is_canUseCard)
 		{
+			// 카드 사용
 			Debug.Log("카드사용");
 			if (AttackRange_Self(_card))
 			{
 				UseCardInArea(_card);
-				EntityManager.Inst.SetUseCard(_card);
+				// <<22-11-07 장형용 :: 더미 데이터길래 제거>>
+				//EntityManager.Inst.SetUseCard(_card);
 				EntityManager.Inst.UseCard_Self();
 			}
 			else if (AttackRange_AllEnemy(_card))
 			{
 				UseCardInArea(_card);
-				EntityManager.Inst.SetUseCard(_card);
+				// <<22-11-07 장형용 :: 더미 데이터길래 제거>>
+				//EntityManager.Inst.SetUseCard(_card);
 				EntityManager.Inst.UseCard_AllEnemy();
 
 			}
-			// 카드 사용
 			else if (AttackRange_Single(_card))
 			{
 				is_cardUsing = true;
 				UseCardInArea(_card);
-				EntityManager.Inst.SetUseCard(_card);
-				Debug.Log("카드사용");
+				// <<22-11-07 장형용 :: 더미 데이터길래 제거>>
+				//EntityManager.Inst.SetUseCard(_card);
 			}
-			
-		}
+            // <<22-11-09 장형용 :: 추가>>
+            else
+            {
+                // 카드 안사용
+                UseCardSetDefult();
+                SetCardDisable();
+                Debug.Log("카드 미사용");
+            }
+        }
 		else
 		{
 			// 카드 안사용
@@ -393,6 +403,7 @@ public class CardManager : MonoBehaviour
 	}
 
 	#region AttackRange Bool
+
 	bool AttackRange_Self(Card _card)
 	{
 		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.attackRange == AttackRange.Target_Self)
@@ -401,6 +412,7 @@ public class CardManager : MonoBehaviour
 		}
 		return false; 
 	}
+
 	bool AttackRange_AllEnemy(Card _card)
 	{
 		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.attackRange == AttackRange.Target_AllEnemy)
@@ -409,6 +421,7 @@ public class CardManager : MonoBehaviour
 		}
 		return false;
 	}
+
 	bool AttackRange_Single(Card _card)
 	{
 		if (_card.i_manaCost <= EntityManager.Inst.playerEntity.Status_Aether && _card.attackRange == AttackRange.Target_Single)
@@ -417,10 +430,11 @@ public class CardManager : MonoBehaviour
 		}
 		return false;
 	}
+
     #endregion
 
     void CardDrag()
-    {
+	{
         selectCard.MoveTransform(new Pos_Rot_Scale(Utility.MousePos, Quaternion.identity, Vector3.one * 0.1f), false);
     }
 
@@ -503,8 +517,9 @@ public class CardManager : MonoBehaviour
         if (is_cardUsing)
         {
 			is_cardUsing = !is_cardUsing;
-			UseCardSetDefult();
-			EntityManager.Inst.DelectUseCard();
+            UseCardSetDefult();
+			// <<22-11-07 장형용 :: 더미 데이터길래 제거>>
+			//EntityManager.Inst.DelectUseCard();
 		}
 	}
 
@@ -526,77 +541,117 @@ public class CardManager : MonoBehaviour
 
 		selectCard.MoveTransformGarbage(v3_cardPaths_onHand, f_garbageCardSize, 0.5f);
 
-		//if(selectCard.b_isExile)
-		//{
-		//	myExiledCards.Add(selectCard);
-		//}
-  //      else
-  //      {
-		//	myCemetery.Add(selectCard);
-		//}
+        if (selectCard.b_isExile) // 롤백함미다~
+		{
+            myExiledCards.Add(selectCard);
+        }
+        else
+        {
+            myCemetery.Add(selectCard);
+        }
 
 		myCards.Remove(selectCard);
+		// <<22-11-09 장형용 :: 카드 이동 시간 0.7f => 0,25f로 감소>>
 		CardAlignment();
 	}
 
-
-
+	// <<22-11-07 장형용 :: 임시 변수 제거>>
 	public void ShuffleCemetery()
 	{
-		int tempt = myCemetery.Count;
+        //int tempt = myCemetery.Count;
 
-		if (tempt == 0)
-		{
-			Debug.Log("묘지가 비었습니다!");
-			return;
-		}
+        //if (tempt == 0)
+        //{
+        //	Debug.Log("묘지가 비었습니다!");
+        //	return;
+        //}
 
+        //for (int i =0; tempt > i; i++)
+        //{
+        //	myDeck.Add(myCemetery[0]);
+        //	myCemetery.RemoveAt(0);
+        //}
 
-		for (int i =0; tempt > i; i++)
-		{
-			myDeck.Add(myCemetery[0]);
-			myCemetery.RemoveAt(0);
-		}
-		DeckShuffle();
+        //int tempt = myCemetery.Count;
+
+        if (myCemetery.Count == 0)
+        {
+            Debug.Log("묘지가 비었습니다!");
+            return;
+        }
+
+        for (int i = myCemetery.Count - 1; 0 <= i; i--)
+        {
+            myDeck.Add(myCemetery[i]);
+            myCemetery.RemoveAt(i);
+        }
+
+        DeckShuffle();
 	}
 
+	// <<22-11-07 장형용::임시 변수 제거>>
 	public IEnumerator ShuffleHand()
 	{
-		UIManager.Inst.canHandRefresh = false; // <<22-10-26 장형용 :: 추가>>
+		// <<22-10-26 장형용 :: 추가>>
+		UIManager.Inst.canHandRefresh = false;
 
-		int tempt = myCards.Count; 
-		for(int i =0;tempt > i ; i++ )
+        //int tempt = myCards.Count; 
+        //for(int i =0;tempt > i ; i++ )
+        //{
+        //	myCemetery.Add(myCards[0]);
+        //	myCards[0].gameObject.SetActive(false);
+        //	myCards.RemoveAt(0);			
+        //}
+
+        for (int i = myCards.Count - 1; 0 <= i; i--)
 		{
-			myCemetery.Add(myCards[0]);
-			myCards[0].gameObject.SetActive(false);
-			myCards.RemoveAt(0);			
-		}
-		for (int i = 0; 6 > i; i++)
+            myCemetery.Add(myCards[i]);
+            myCards[i].gameObject.SetActive(false);
+            myCards.RemoveAt(i);
+        }
+
+        for (int i = 0; 6 > i; i++)
 		{
 			AddCard();
+
 			yield return new WaitForSeconds(0.1f);
 		}
 
-		UIManager.Inst.canHandRefresh = true; // <<22-10-26 장형용 :: 추가>>
+		// <<22-10-26 장형용 :: 추가>>
+		UIManager.Inst.canHandRefresh = true;
 	}
 
-	public void ShuffleExiledCard() // <<22-10-21 장형용 :: 추가>>
+	// <<22-10-21 장형용 :: 추가>>
+	// <<22-11-07 장형용 :: 임시 변수 제거>>
+	public void ShuffleExiledCard()
 	{
-		int tempt = myExiledCards.Count;
+        //int tempt = myExiledCards.Count;
 
-		if (tempt == 0)
-		{
-			Debug.Log("제외된 카드가 없습니다!");
-			return;
-		}
+        //if (tempt == 0)
+        //{
+        //	Debug.Log("제외된 카드가 없습니다!");
+        //	return;
+        //}
 
-		for (int i = 0; tempt > i; i++)
-		{
-			myDeck.Add(myExiledCards[0]);
-			myExiledCards.RemoveAt(0);
-		}
+        //for (int i = 0; tempt > i; i++)
+        //{
+        //	myDeck.Add(myExiledCards[0]);
+        //	myExiledCards.RemoveAt(0);
+        //}
 
-		DeckShuffle();
+        if (myExiledCards.Count == 0)
+        {
+            Debug.Log("제외된 카드가 없습니다!");
+            return;
+        }
+
+        for (int i = myExiledCards.Count - 1; 0 <= i; i--)
+        {
+            myDeck.Add(myExiledCards[i]);
+            myExiledCards.RemoveAt(i);
+        }
+
+        DeckShuffle();
 	}
 
 	public void RefreshMyHands()
@@ -607,22 +662,9 @@ public class CardManager : MonoBehaviour
 		}
 	}
 
-
-	//public void RefreshMyHand() // <<22-10-21 장형용 :: 추가, 초기화하는 과정에서 카드가 잠시 줄어들었다 확대되는 버그?가 생기는데 뭔가 그럴듯하니 걍 두기로>>
-	//{
-	//	int tempt = myCards.Count;
-
-	//	if (tempt == 0)
-	//	{
-	//		Debug.Log("패에 카드가 없습니다!");
-	//		return;
-	//	}
-
-	//	for (int i = 0; tempt > i; i++)
-	//	{
-	//		myCards[i].Setup();
-	//	}
-	//}
+	// <<22-10-21 장형용 :: 추가, 초기화하는 과정에서 카드가 잠시 줄어들었다 확대되는 버그?가 생기는데 뭔가 그럴듯하니 걍 두기로>>
+	// <<22-11-09 장형용 :: RefreshMyHands랑 혼란 생겨서 걍 삭제함>>
+	//public void RefreshMyHand()
 
 	#endregion
 
@@ -670,18 +712,8 @@ public class CardManager : MonoBehaviour
 		}
 	}
 
-	public bool BoolCradCanall()
-	{
-		if (e_CardStats == E_CardStats.CanAll)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
+	// <<22-11-07 장형용 :: 더미>>
+	//public bool BoolCradCanall()
 
 	#endregion
 }

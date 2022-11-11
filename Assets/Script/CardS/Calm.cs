@@ -4,20 +4,34 @@ using UnityEngine;
 
 public class Calm : Card
 {
-	[Header("추가 마나 친화성 증가량"), SerializeField] int[] extraManaAffinity = new int[3];
+	[Header("카드 추가 데이터")]
+	[Tooltip("추가 마나 친화성 증가량"), SerializeField] int[] extraManaAffinity = new int[3];
 
 	#region 프로퍼티
 
-	public int i_extraManaAffinity
+	int I_ExtraManaAffinity_Battle
 	{
 		get
 		{
-			return extraManaAffinity[i_upgraded];
+			return ApplyEnhanceValue(extraManaAffinity[i_upgraded]);
 		}
 
 		//set
 		//{
-		//	extraManaAffinity[i_upgraded] = value;
+		//    I_ExtraManaAffinity_Battle = value;
+		//}
+	}
+
+	int I_MagicAffinity_Battle
+    {
+		get
+		{
+			return ApplyEnhanceValue(i_damage);
+		}
+
+		//set
+		//{
+		//    I_MagicAffinity_Battle = value;
 		//}
 	}
 
@@ -28,24 +42,25 @@ public class Calm : Card
 		base.ExplainRefresh();
 
 		sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
-		sb.Replace("{4}", ApplyEnhanceValue(i_extraManaAffinity + i_damage).ToString());
+		sb.Replace("{4}", (I_MagicAffinity_Battle + I_ExtraManaAffinity_Battle).ToString());
 
 		explainTMP.text = sb.ToString();
 	}
 
-	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
+	// <<22-10-28 장형용 :: 수정>>
+	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
 		PlayerEntity.Inst.SpellEnchaneReset();
 
-		Add_MagicAffinity_Battle(i_damage);
+		Add_MagicAffinity_Battle(I_MagicAffinity_Battle);
 
 		for(int i = 0; i < CardManager.Inst.myCards.Count; i++)
         {
 			if(CardManager.Inst.myCards[i].i_manaCost >= 3)
             {
-				Add_MagicAffinity_Battle(i_extraManaAffinity);
+				Add_MagicAffinity_Battle(I_ExtraManaAffinity_Battle);
 				break;
 			}
         }

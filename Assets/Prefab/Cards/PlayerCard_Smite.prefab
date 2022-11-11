@@ -371,8 +371,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -596,12 +596,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
-  - component: {fileID: -7591075208385413331}
+  - component: {fileID: 6756141277668787388}
   - component: {fileID: -2801819417619063475}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
-  m_Name: PlayerCard_Calm
+  m_Name: PlayerCard_Smite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,7 +678,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7591075208385413331
+--- !u!114 &6756141277668787388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7395019933593546574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 956c3d8324050bd4c97b8e8ea1df0acf, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f122236a0896d14186b16a412b8caba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
@@ -696,31 +696,27 @@ MonoBehaviour:
   explainTMP: {fileID: 7395019932878968509}
   enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
   playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
-  st_cardName: "\uCE68\uCC29"
-  i_itemNum: 18
+  st_cardName: "\uAC15\uD0C0"
+  i_itemNum: 26
   type: 0
   f_percentage: 1
   upgraded: 0
   cost: 020000000200000002000000
-  attack: 010000000200000002000000
+  attack: 030000000600000008000000
   isExile: 000000
-  AR_attackRange: 010000000100000001000000
+  AR_attackRange: 020000000200000002000000
   explainCard:
-  - "\uB9C8\uB098 \uCE5C\uD654\uC131\uC774\n{5} \uC99D\uAC00\uD569\uB2C8\uB2E4.\n\uBE44\uC6A9\uC774
-    3 \uC774\uC0C1\uC778 \uCE74\uB4DC\uAC00 \uC788\uB2E4\uBA74\n\uB300\uC2E0 {4}
-    \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  - "\uB9C8\uB098 \uCE5C\uD654\uC131\uC774\n{5} \uC99D\uAC00\uD569\uB2C8\uB2E4.\n\uBE44\uC6A9\uC774
-    3 \uC774\uC0C1\uC778 \uCE74\uB4DC\uAC00 \uC788\uB2E4\uBA74\n\uB300\uC2E0 {4}
-    \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  - "\uB9C8\uB098 \uCE5C\uD654\uC131\uC774\n{5} \uC99D\uAC00\uD569\uB2C8\uB2E4.\n\uBE44\uC6A9\uC774
-    3 \uC774\uC0C1\uC778 \uCE74\uB4DC\uAC00 \uC788\uB2E4\uBA74\n\uB300\uC2E0 {4}
-    \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4.\r\n\uC785\uD78C \uB370\uBBF8\uC9C0\uB9CC\uD07C
+    \n\uC274\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4.\r\n"
+  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4.\r\n\uC785\uD78C \uB370\uBBF8\uC9C0\uB9CC\uD07C
+    \n\uC274\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4.\r\n"
+  - "\uB370\uBBF8\uC9C0\uB97C {1} \uC90D\uB2C8\uB2E4.\r\n\uC785\uD78C \uB370\uBBF8\uC9C0\uB9CC\uD07C
+    \n\uC274\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4.\r\n"
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
-  extraManaAffinity: 010000000100000002000000
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

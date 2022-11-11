@@ -121,11 +121,13 @@ public class UIManager : MonoBehaviour
 		{
 			//LevelGeneration.Inst.EndTurn();
 
-			tryEndTurnCoroutine = StartCoroutine(TryEndTurn());  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+			// <<22-10-27 장형용 :: 추가>>
+			tryEndTurnCoroutine = StartCoroutine(TryEndTurn());
 		}
 	}
 
-	public IEnumerator TryEndTurn()  // ***실험(기능이 불안정할 수 있음)*** <<22-10-27 장형용 :: 추가>>
+	// <<22-10-27 장형용 :: 추가>>
+	public IEnumerator TryEndTurn()
 	{
 		CardManager.Inst.e_CardStats = CardManager.E_CardStats.Cannot;
 

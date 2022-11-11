@@ -85,10 +85,11 @@ public class PlayerEntity : MonoBehaviour
     [HideInInspector] public int i_burning = 0;
 
     //마법 친화성  타입별 친화성으로 방어, 힐 효과 증폭... defult = 0
-    [HideInInspector] int i_magicAffinity_fire = 0;
-    [HideInInspector] int i_magicAffinity_earth = 0;
-    [HideInInspector] int i_magicAffinity_water = 0;
-    [HideInInspector] int i_magicAffinity_air = 0;
+    // <<22-11-09 장형용 :: 미사용 제거>>
+    //[HideInInspector] int i_magicAffinity_fire = 0;
+    //[HideInInspector] int i_magicAffinity_earth = 0;
+    //[HideInInspector] int i_magicAffinity_water = 0;
+    //[HideInInspector] int i_magicAffinity_air = 0;
 
     [HideInInspector] int i_magicResistance = 0;
 
@@ -115,27 +116,11 @@ public class PlayerEntity : MonoBehaviour
     // 넣는값을 +- 로 조절하기
     #region property_status
 
-    //보류
- //   public void Add_Status_MagicAffinity_Fire(int _addStatus)
-	//{
- //       i_magicAffinity_fire += _addStatus;
- //       RefreshPlayer();
- //   }
- //   public void Add_Status_MagicAffinity_Earth(int _addStatus)
- //   {
- //       i_magicAffinity_earth += _addStatus;
- //       RefreshPlayer();
- //   }
- //   public void Add_Status_MagicAffinity_Water(int _addStatus)
- //   {
- //       i_magicAffinity_water += _addStatus;
- //       RefreshPlayer();
- //   }
- //   public void Add_Status_MagicAffinity_Air(int _addStatus)
- //   {
- //       i_magicAffinity_air += _addStatus;
- //       RefreshPlayer();
- //   }
+    // <<22-11-09 장형용 :: 더미 제거>>
+    //public void Add_Status_MagicAffinity_Fire(int _addStatus)
+    //public void Add_Status_MagicAffinity_Earth(int _addStatus)
+    //public void Add_Status_MagicAffinity_Water(int _addStatus)
+    //public void Add_Status_MagicAffinity_Air(int _addStatus)
 
 
     public float Status_Health
@@ -295,6 +280,23 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    // <<22-11-07 장형용 :: 추가>>
+
+    public int Status_MagicAffinity
+    {
+        get
+        {
+            return i_magicAffinity_permanent
+                + i_magicAffinity_battle
+                + i_magicAffinity_turn;
+        }
+
+        //set
+        //{
+        //    i_magicResistance = value;
+        //}
+    }
+
     #endregion
 
 
@@ -322,7 +324,7 @@ public class PlayerEntity : MonoBehaviour
     }
 
 
-    public void Damaged(int _damage, Card _card = null)
+    public void Damaged(int _damage, Card _card = null) // 더 깔끔하게 수정할 수 있지 않을까 싶긴 한데 일단은 패스
     {
         if (i_protection >= _damage) // 보호 => 보호 수치 이하의 데미지 무효
         {
@@ -330,11 +332,15 @@ public class PlayerEntity : MonoBehaviour
             return;
         }
 
-        i_protection--;
+        // <<22-11-09 장형용 :: 오류 수정>>
+        if (i_protection > 0)
+        {
+            i_protection--;
+        }
 
         int totalDamage = _damage - i_shield;
 
-        if(totalDamage < 0)
+        if (totalDamage < 0)
         {
             totalDamage = 0;
         }
@@ -364,7 +370,7 @@ public class PlayerEntity : MonoBehaviour
             return ;
         }
 
-        if(i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
+        if (i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
         {
             Burning();
         }
