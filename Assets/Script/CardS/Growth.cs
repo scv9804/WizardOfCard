@@ -7,7 +7,7 @@ public class Growth : Card
 	[Header("카드 추가 데이터")]
 	[Tooltip("마나 친화성 증가 기준 비용"), SerializeField] int[] criteriaCost = new int[3];
 
-	#region 프로퍼티
+	#region Properties
 
 	#endregion
 
@@ -16,7 +16,7 @@ public class Growth : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		// 왜 리스트에서 이 카드 못 찾지 일단 런
 

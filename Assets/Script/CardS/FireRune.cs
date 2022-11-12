@@ -7,7 +7,7 @@ public class FireRune : Card
 	[Header("카드 추가 데이터")]
 	[Tooltip("화상"), SerializeField] int[] applyBurning = new int[3];
 
-	#region 프로퍼티
+	#region Properties
 
 	int I_Burning
 	{
@@ -52,7 +52,7 @@ public class FireRune : Card
 	{
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        PlayerEntity.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.ResetEnhanceValue();
 
         TargetAll(() => Add_Burning(_target_enemy, I_Burning), ref _target_enemy);
         Add_MagicAffinity_Turn(I_MagicAffinity_Turn);

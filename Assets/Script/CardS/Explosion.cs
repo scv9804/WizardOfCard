@@ -16,7 +16,7 @@ public class Explosion : Card
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
-			StartCoroutine(Repeat(() => Attack(_target_player, 0), _target_player.i_burning));
+			StartCoroutine(Repeat(() => Attack(_target_player, 0), _target_player.Debuff_Burning));
 		}
 		else // 광역 또는 무작위 대상 (?)
 		{

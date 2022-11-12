@@ -10,7 +10,7 @@ public class EarthRune : Card
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
 		Protection(i_damage);
-		Shield(PlayerEntity.Inst.Status_Protection);
+		Shield(PlayerEntity.Inst.Buff_Protection);
 
 		yield return StartCoroutine(EndUsingCard());
 	}

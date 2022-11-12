@@ -12,8 +12,8 @@ public class Overload : Card
 
 		yield return StartCoroutine(Repeat(() => CardManager.Inst.AddCard(), i_damage));
 
-		//PlayerEntity.Inst.b_cannotDrawCard = true; <<22-11-01 장형용 :: 일단 나중에 구현>>
+        PlayerEntity.Inst.Debuff_CannotDrawCard = true;
 
-		yield return StartCoroutine(EndUsingCard());
+        yield return StartCoroutine(EndUsingCard());
 	}
 }

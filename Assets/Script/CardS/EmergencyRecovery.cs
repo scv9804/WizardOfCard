@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EmergencyRecovery : Card
 {
-	#region 프로퍼티
+	#region Properties
 
 	int I_Heal
 	{
@@ -26,7 +26,7 @@ public class EmergencyRecovery : Card
 	{
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        PlayerEntity.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.ResetEnhanceValue();
 
         RestoreHealth(I_Heal);
 

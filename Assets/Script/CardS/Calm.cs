@@ -7,7 +7,7 @@ public class Calm : Card
 	[Header("카드 추가 데이터")]
 	[Tooltip("추가 마나 친화성 증가량"), SerializeField] int[] extraManaAffinity = new int[3];
 
-	#region 프로퍼티
+	#region Properties
 
 	int I_ExtraManaAffinity_Battle
 	{
@@ -52,7 +52,7 @@ public class Calm : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		Add_MagicAffinity_Battle(I_MagicAffinity_Battle);
 

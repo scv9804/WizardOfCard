@@ -13962,17 +13962,13 @@ MonoBehaviour:
   characterSO: {fileID: 11400000, guid: 84ac19ad0941ac640aa9224ee18adca9, type: 2}
   entitiyPrefab: {fileID: 7799422697148875826, guid: 38d2167c9bd27114bbf3966e5dbb4534, type: 3}
   playerPrefab: {fileID: 2077760302346298912, guid: a5036b0576eb2ac489e5cd2a0127767f, type: 3}
-  damagePrefab: {fileID: 0}
   targetSelector: {fileID: 389184190}
   enemyEntities: []
   bossEntity: {fileID: 0}
   spawnPlayerChar_Tf: {fileID: 2058073973}
   spawnEnemy_Tf: {fileID: 1349807753}
   sortEnemyPos_Tf: {fileID: 1098706744}
-  myUseCard: {fileID: 0}
-  enemyAttackList: {fileID: 0}
   enemyBuffer: []
-  Length: 0
   f_targetSelectorUpPos: 0
   playerEntity: {fileID: 0}
   selectEntity: {fileID: 0}
@@ -16812,6 +16808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isClearDebugConsole: 1
   isPrintDamage: 1
+  isPrintDamageCalculating: 0
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
   selectCard: 0
 --- !u!4 &1984387567
@@ -17666,7 +17663,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  cardPrefab: {fileID: 7395019933593546574, guid: e87115681f440494493557df6f3ccf7e, type: 3}
   myCards: []
   myCemetery: []
   myDeck: []
@@ -17687,12 +17683,10 @@ MonoBehaviour:
   - {fileID: 498893767}
   v3_cardPaths_onHand: []
   selectCard: {fileID: 0}
-  i_ManaCost: 0
   is_myCardDrag: 0
   is_useCardArea: 0
   is_canUseCard: 0
   is_cardUsing: 0
-  is_useEnhance: 0
 --- !u!4 &2082127921
 Transform:
   m_ObjectHideFlags: 0

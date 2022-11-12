@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Smite : Card
 {
-	#region 프로퍼티
+	#region Properties
 
 	int I_Damage
 	{
@@ -23,16 +23,24 @@ public class Smite : Card
 
     protected override void Start()
     {
-		Utility.onDamaged -= Smite_Shield;
+		base.Start();
+
 		Utility.onDamaged += Smite_Shield;
 	}
 
-	// <<22-10-28 장형용 :: 수정>>
-	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
+    protected override void OnDisable()
+    {
+		base.OnDisable();
+
+		Utility.onDamaged -= Smite_Shield;
+	}
+
+    // <<22-10-28 장형용 :: 수정>>
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
     {
         yield return base.UseCard(_target_enemy, _target_player);
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MagicSpear : Card
 {
-	#region 프로퍼티
+	#region Properties
 
 	int I_Damage
 	{
@@ -26,7 +26,7 @@ public class MagicSpear : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{

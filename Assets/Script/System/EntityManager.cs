@@ -493,7 +493,6 @@ public class EntityManager : MonoBehaviour
             CardManager.Inst.UseCardSetmyCemetery();
             //CardManager.Inst.selectCard.UseCard(null, playerEntity); // <<22-10-21 장형용 :: 변경>>
             StartCoroutine(CardManager.Inst.selectCard.UseCard(null, playerEntity));
-
         }
         catch
         {

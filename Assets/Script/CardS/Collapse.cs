@@ -7,7 +7,7 @@ public class Collapse : Card
 	[Header("카드 추가 데이터")]
 	[Tooltip("쉴드 소지 시 데미지 배율"), SerializeField] int[] damageEnhanceValue = new int[3];
 
-	#region 프로퍼티
+	#region Properties
 
 	int I_DamageEnhanceValue
 	{
@@ -51,7 +51,7 @@ public class Collapse : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
@@ -61,7 +61,7 @@ public class Collapse : Card
 		{
 			Attack(_target_player, ShieldBreak(_target_player, I_Damage));
 		}
-		else // 광역 또는 무작위 대상 (?) + 이 카드는 특성상 모듈 못씀;;;
+		else // 광역 또는 무작위 대상 (?)
 		{
 			TargetAll(() => Attack(_target_enemy, ShieldBreak(_target_enemy, I_Damage)), ref _target_enemy);
 		}

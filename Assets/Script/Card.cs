@@ -53,15 +53,26 @@ public class Card : MonoBehaviour
 
     // <<22-10-27 장형용 :: 추가>>
     protected int i_enhanceValue_inst = 0;
-	// <<22-11-09 장형용 :: 제거>>
-	//protected int i_magicAffinity_turn_inst = 0;
-	//protected int i_magicAffinity_battle_inst = 0;
-	//protected int i_magicAffinity_permanent_inst = 0;
-	//protected int T_magicResistance_inst = 0;
+    // <<22-11-09 장형용 :: 제거>>
+    //protected int i_magicAffinity_turn_inst = 0;
+    //protected int i_magicAffinity_battle_inst = 0;
+    //protected int i_magicAffinity_permanent_inst = 0;
+    //protected int T_magicResistance_inst = 0;
+
+    #region Job System
+
+    MagicAffinityJob myMagicAffinityJob = new MagicAffinityJob();
+    MagicResistanceJob myMagicResistanceJob = new MagicResistanceJob();
+    EnhanceValueJob myEnhanceValueJob = new EnhanceValueJob();
+
+	#endregion
+
+	// <<22-11-12 장형용 :: 정보 갱신 업데이트로 올렸더니 버그 터져서 임시 추가>>
+	bool isUsing = false;
 
 	// <<22-11-04 장형용 :: 기존 card_info에 있던 값들 이름을 수정하는 대신 프로퍼티로 호환되게 해둠>>
-	// 성능 생각하면 하나하나 바꿔주는게 맞긴 한데 너무 귀찮다...특히 i_damage...
-	#region 프로퍼티
+	// 성능 생각하면 하나하나 바꿔주는게 맞긴 한데 너무 귀찮다... 특히 i_damage...
+	#region Properties
 
 	public int i_upgraded
     {
@@ -154,9 +165,15 @@ public class Card : MonoBehaviour
 
 	protected virtual void Start() { }
 
+	protected virtual void OnDisable() { }
+
 	protected void Update() // 실시간으로 레벨 변화시켜서 테스트하기 위해 임시로 다시 추가
-    {
-		RefreshCardUI();
+	{
+		// <<22-11-12 장형용 :: 정보 갱신 업데이트로 올렸더니 버그 터져서 임시 추가>>
+		if (!isUsing)
+        {
+			RefreshCardUI();
+		}
 	}
 
 	// <<22-11-09 장형용 :: 추가>>
@@ -182,7 +199,7 @@ public class Card : MonoBehaviour
 
     public virtual void ExplainRefresh()
 	{
-		i_enhanceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
+		i_enhanceValue_inst = PlayerEntity.Inst.Buff_EnchaneValue;
 
 		sb.Clear();
 		if (b_isExile)
@@ -210,6 +227,7 @@ public class Card : MonoBehaviour
 
 		sb.Replace("망각", "<color=#ff00ff>망각</color>");
 		sb.Replace("보호", "<color=#0000ff>보호</color>");
+		sb.Replace("드로우 불가", "<color=#ff0000>드로우 불가</color>");
 
 		#endregion
 
@@ -274,32 +292,22 @@ public class Card : MonoBehaviour
 	#endregion
 
 	// <<22-10-21 장형용 :: 추가>>
-	#region 수치 계산
+	#region 카드 수치 계산
 
 	// <<22-11-09 장형용 :: 수정>>
 	protected int ApplyMagicAffinity(int _value)
 	{
-		//int value = _value
-		//	+ PlayerEntity.Inst.Status_MagicAffinity_Permanent
-		//	+ PlayerEntity.Inst.Status_MagicAffinity_Battle
-		//	+ PlayerEntity.Inst.Status_MagicAffinity_Turn;
-
-		//return ApplyEnhanceValue(_value + PlayerEntity.Inst.Status_MagicAffinity);
-
 		#region _value += PlayerEntity.Inst.Status_MagicAffinity;
 
 		NativeArray<int> result = new NativeArray<int>(1, Allocator.TempJob);
         result[0] = _value;
 
-        JobHandle MyJob = new CalculateMagicAffinity()
-        {
-            value = result,
+		myMagicAffinityJob.value = result;
+		myMagicAffinityJob.magicAffinity = PlayerEntity.Inst.Buff_MagicAffinity;
 
-            magicAffinity = PlayerEntity.Inst.Status_MagicAffinity
-        }
-        .Schedule();
+		JobHandle firstJob = myMagicAffinityJob.Schedule();
 
-        MyJob.Complete();
+		firstJob.Complete();
 
         _value = result[0];
 
@@ -313,22 +321,17 @@ public class Card : MonoBehaviour
 	// <<22-11-09 장형용 :: 수정>>
 	protected int ApplyMagicResistance(int _value)
 	{
-		//return ApplyEnhanceValue(_value + PlayerEntity.Inst.Status_MagicResistance);
-
 		#region _value += PlayerEntity.Inst.Status_MagicResistance;
 
 		NativeArray<int> result = new NativeArray<int>(1, Allocator.TempJob);
         result[0] = _value;
 
-        JobHandle MyJob = new CalculateMagicResistance()
-        {
-            value = result,
+		myMagicResistanceJob.value = result;
+		myMagicResistanceJob.magicResistance = PlayerEntity.Inst.Buff_MagicResistance;
 
-            magicResistance = PlayerEntity.Inst.Status_MagicResistance
-        }
-        .Schedule();
+		JobHandle firstJob = myMagicResistanceJob.Schedule();
 
-        MyJob.Complete();
+		firstJob.Complete();
 
         _value = result[0];
 
@@ -342,25 +345,19 @@ public class Card : MonoBehaviour
     // <<22-11-09 장형용 :: 수정>>
     protected int ApplyEnhanceValue(int _value)
     {
-		//return _value * PlayerEntity.Inst.Status_EnchaneValue;
-		//return _value * i_enhenceValue_inst;
-
 		#region _value *= i_enhanceValue_inst;
 
 		NativeArray<int> result = new NativeArray<int>(1, Allocator.TempJob);
         result[0] = _value;
 
-        JobHandle MyJob = new CalculateEnhanceValue()
-        {
-            value = result,
+		myEnhanceValueJob.value = result;
+		myEnhanceValueJob.enhanceValue = i_enhanceValue_inst;
 
-            enhanceValue = i_enhanceValue_inst
-        }
-        .Schedule();
+		JobHandle firstJob = myEnhanceValueJob.Schedule();
 
-        MyJob.Complete();
+		firstJob.Complete();
 
-        _value = result[0];
+		_value = result[0];
 
         result.Dispose();
 
@@ -387,7 +384,10 @@ public class Card : MonoBehaviour
 
 		Utility.onCardUsed?.Invoke(this);
 
-		i_enhanceValue_inst = PlayerEntity.Inst.Status_EnchaneValue;
+		i_enhanceValue_inst = PlayerEntity.Inst.Buff_EnchaneValue;
+
+		// <<22-11-12 장형용 :: 정보 갱신 업데이트로 올렸더니 버그 터져서 임시 추가>>
+		isUsing = true;
 
 		yield return null;
 	}
@@ -422,7 +422,7 @@ public class Card : MonoBehaviour
     }
 
 	// <<22-10-26 장형용 :: 추가>>
-	protected void TargetAll(Action myMethodName, ref Entity _target) // 22-10-26 장형용 :: 적 전체에게 메소드 반복
+	protected void TargetAll(Action myMethodName, ref Entity _target) // 적 전체에게 메소드 반복
 	{
 		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
 		{
@@ -442,7 +442,7 @@ public class Card : MonoBehaviour
 		yield return null;
 	}
 
-    #region 카드 효과 모듈
+    #region 카드 효과
 
     #region 공격
 
@@ -486,7 +486,7 @@ public class Card : MonoBehaviour
 
 	protected void Add_Burning(PlayerEntity _target, int _value)
 	{
-		_target.i_burning += _value;
+		_target.Debuff_Burning += _value;
 	}
 
 	#endregion
@@ -495,14 +495,14 @@ public class Card : MonoBehaviour
 
 	protected void Add_MagicAffinity_Turn(int _value)
 	{
-		PlayerEntity.Inst.Status_MagicAffinity_Turn += _value;
+		PlayerEntity.Inst.Buff_MagicAffinity_Turn += _value;
 
 		CardManager.Inst.RefreshMyHands();
 	}
 
 	protected void Add_MagicAffinity_Battle(int _value)
 	{
-		PlayerEntity.Inst.Status_MagicAffinity_Battle += _value;
+		PlayerEntity.Inst.Buff_MagicAffinity_Battle += _value;
 
 		CardManager.Inst.RefreshMyHands();
 	}
@@ -516,7 +516,7 @@ public class Card : MonoBehaviour
 
 	protected void EnhanceValue()
 	{
-		PlayerEntity.Inst.Status_EnchaneValue *= i_damage;
+		PlayerEntity.Inst.Buff_EnchaneValue *= i_damage;
 
 		CardManager.Inst.RefreshMyHands();
 	}
@@ -544,7 +544,7 @@ public class Card : MonoBehaviour
 
 	protected void Protection(int _value)
     {
-		PlayerEntity.Inst.Status_Protection += _value;
+		PlayerEntity.Inst.Buff_Protection += _value;
 	}
 
     #endregion

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManaReduction : Card
+public class Absorb : Card
 {
-    #region Properties
+	#region Properties
 
 	int I_Index
-    {
-        get
-        {
+	{
+		get
+		{
 			return Random.Range(0, CardManager.Inst.myCards.Count);
 
 		}
@@ -28,7 +28,7 @@ public class ManaReduction : Card
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
 		if (CardManager.Inst.myCards.Count > 1)
-        {
+		{
 			do
 			{
 				if (CardManager.Inst.myCards[I_Index] != this)
@@ -36,14 +36,16 @@ public class ManaReduction : Card
 			}
 			while (true);
 
-			CardManager.Inst.myCards[I_Index].i_manaCost++;
-
-			RestoreAether(i_damage);
+			PlayerEntity.Inst.Status_MaxAether_Battle += CardManager.Inst.myCards[I_Index].i_manaCost;
 
 			if (i_upgraded == 2)
-				CardManager.Inst.AddCard();
+				CardManager.Inst.myCemetery.Add(CardManager.Inst.myCards[I_Index]);
 
-			CardManager.Inst.RefreshMyHands();
+			else
+				CardManager.Inst.myExiledCards.Add(CardManager.Inst.myCards[I_Index]);
+
+			CardManager.Inst.myCards[I_Index].gameObject.SetActive(false);
+			CardManager.Inst.myCards.RemoveAt(I_Index);
 		}
 
 		yield return StartCoroutine(EndUsingCard());

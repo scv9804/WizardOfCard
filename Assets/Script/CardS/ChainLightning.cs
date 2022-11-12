@@ -7,7 +7,7 @@ public class ChainLightning : Card
 	[Header("카드 추가 데이터")]
 	[Tooltip("공격 횟수"), SerializeField] int[] attackCount = new int[3];
 
-	#region 프로퍼티
+	#region Properties
 
 	int I_AttackCount
 	{
@@ -51,8 +51,7 @@ public class ChainLightning : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
-
+		PlayerEntity.Inst.ResetEnhanceValue();
 		yield return StartCoroutine(Repeat(() => Attack_RandomEnemy(_target_enemy, I_Damage), I_AttackCount));
 
 		yield return StartCoroutine(EndUsingCard());

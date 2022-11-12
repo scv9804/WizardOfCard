@@ -85,8 +85,15 @@ public class Entity : MonoBehaviour
 
     public static Action buffAction;
 
-	#region 시작 생성 종료 업데이트
-	private void Start()
+    #region Job 시스템
+
+    ShieldJob myShieldJob = new ShieldJob();
+    BurningJob myBurningJob = new BurningJob();
+
+    #endregion
+
+    #region 시작 생성 종료 업데이트
+    private void Start()
     {
         entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
@@ -127,7 +134,6 @@ public class Entity : MonoBehaviour
         }
     }
     #endregion
-
 
     #region 버프 디버프 및 이펙트 관련
     public void AllEffectOff()
@@ -221,6 +227,7 @@ public class Entity : MonoBehaviour
     #endregion
 
     #region Entity Base
+
     public void SetupEnemy(EnemyBoss _enemy)
     {
         enemyBoss = _enemy;
@@ -270,8 +277,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    // <<22-11-09 장형용 :: 소폭 수정, 자세한 내역은 아래 참조, 더 깔끔하게 수정할 수 있지 않을까 싶긴 한데 일단은 패스>>
-    #region 22-11-09 변경 세부 내역 (자잘하게 많아서 접어둠)
+    #region // <<22-11-09 장형용 :: 소폭 수정, 세부 내용은 내역 참조, 더 깔끔하게 수정할 수 있지 않을까 싶긴 한데 일단은 패스>>
     // - 데미지 이펙트 호출부를 Damaged 함수 안으로 옮김
     // - Burning 함수 내 사망 판정부 제거
     // - Entity 개별적으로 피격 모션 활성화 여부를 카운트하던 변수 제거
@@ -284,40 +290,6 @@ public class Entity : MonoBehaviour
     // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
     public void Damaged(int _damage, Sprite _enemyDamageSprite, Card _card = null)
     {
-        //if (_damage < 0)
-        //{
-        //    _damage = 0;
-        //}
-
-        //int totalDamage = _damage - i_shield; // 이거 뭔가 고치고 싶은데...이상적인 답이 떠오르지 않네...
-
-        //if (totalDamage < 0)
-        //{
-        //    totalDamage = 0;
-        //}
-
-        //if (i_shield > _damage)
-        //{
-        //    i_shield -= _damage;
-        //}
-        //else
-        //{
-        //    i_health -= totalDamage;
-        //    i_shield = 0;
-        //}
-
-        //if (totalDamage > 0)
-        //{
-        //    Utility.onDamaged?.Invoke(_card, totalDamage);
-        //}
-
-        // <<22-10-21 장형용 :: 화상 추가>>
-        // <<22-10-21 장형용 :: 제거>>
-        //if (i_burning > 0 && _card != null)
-        //{
-        //    Burning();
-        //}
-
         #region StartEntityDamageCheck
 
         EntityManager.i_checkingEntitiesCount++;
@@ -353,21 +325,15 @@ public class Entity : MonoBehaviour
 
         #endregion
 
-        JobHandle firstJob = new ShieldJob
-        {
-            values = values,
+        myShieldJob.values = values;
+        myShieldJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
 
-            isPrint = DebugManager.instance.isPrintDamageCalculating
-        }
-        .Schedule();
+        JobHandle firstJob = myShieldJob.Schedule();
 
-        JobHandle secondJob = new BurningJob
-        {
-            values = values,
+        myBurningJob.values = values;
+        myBurningJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
 
-            isPrint = DebugManager.instance.isPrintDamageCalculating
-        }
-        .Schedule(firstJob);
+        JobHandle secondJob = myBurningJob.Schedule(firstJob);
 
         StartCoroutine(DamageEffectCoroutine(_enemyDamageSprite));
 
@@ -426,22 +392,6 @@ public class Entity : MonoBehaviour
     // <<22-11-09 장형용 :: 로직 상 여기서 굳이 사망 판정을 검사하지 않아도 되어 제거>>
     // <<22-11-12 장형용 :: 화상 계산 위로 올림>>
     //public void Burning()
-    //{
-    //    if (i_shield > i_burning)
-    //    {
-    //        i_shield -= i_burning;
-    //    }
-    //    else
-    //    {
-    //        i_health -= (i_burning - i_shield);
-    //        i_shield = 0;
-    //    }
-
-    //    i_burning--;
-
-    //    return;
-    //}
-
 
     public void Attack()
     {
@@ -479,8 +429,7 @@ public class Entity : MonoBehaviour
         ShieldTMP.text = i_shield.ToString();
     }
 
-
-    public void ShowNextActionPattern(Sprite _NextActionSprite)
+    public void ShowNextActionPattern(Sprite _NextActionSprite) // ???
 	{
         
 	}
@@ -489,7 +438,7 @@ public class Entity : MonoBehaviour
 
     #region Damage
 
-    // <<22-11-09 장형용 :: 추가>>
+    // <<22-11-09 장형용 :: 추가...라기 보다는 분리가 맞네>>
     IEnumerator DamageEffectCoroutine(Sprite _sprite)
     {
         DamagedSpriteRenederer.sprite = _sprite;
@@ -536,7 +485,6 @@ public class Entity : MonoBehaviour
 
     // <<22-11-09 장형용 :: 효율을 위해 함수 제거>>
     //public void EndCheckingEntity()
-
 
     #endregion
 

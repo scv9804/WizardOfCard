@@ -55,8 +55,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] Camera mainCam;
 	[SerializeField] Camera mapCam;
 
-	[SerializeField]CameraData mainCamera;
-	[SerializeField]CameraData mapCamera;
+	[SerializeField] CameraData mainCamera;
+	[SerializeField] CameraData mapCamera;
 
 	bool isDeckUse;
 	bool isCardUse;
@@ -67,7 +67,8 @@ public class UIManager : MonoBehaviour
 	bool ispostProcessing = true;
 	bool isUIUse;
 
-	public bool canHandRefresh; //<<22-10-26 장형용 :: 리롤 버튼 사용 중 추가 사용 못 하게 추가>>
+	//<<22-10-26 장형용 :: 리롤 버튼 사용 중 추가 사용 못 하게 추가>>
+	public bool canHandRefresh;
 
 	[SerializeField] LevelGeneration levelGeneration;
 
@@ -117,7 +118,7 @@ public class UIManager : MonoBehaviour
 
 	public void TurnEndButton()
 	{
-		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == CardManager.E_CardStats.CanAll)
+		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == E_CardStats.CanAll)
 		{
 			//LevelGeneration.Inst.EndTurn();
 
@@ -129,7 +130,7 @@ public class UIManager : MonoBehaviour
 	// <<22-10-27 장형용 :: 추가>>
 	public IEnumerator TryEndTurn()
 	{
-		CardManager.Inst.e_CardStats = CardManager.E_CardStats.Cannot;
+		CardManager.Inst.e_CardStats = E_CardStats.Cannot;
 
 		yield return new WaitAllCardUsingDone();
 
@@ -182,11 +183,14 @@ public class UIManager : MonoBehaviour
 
 	public void HandRefresh()
 	{
+		// <<22-10-26 장형용 :: canHandRefresh 조건 추가>>
 		if (TurnManager.Inst.myTurn 
 			&& CardManager.Inst.myDeck.Count != 0
-			&& canHandRefresh) // <<22-10-26 장형용 :: 추가>>
+			&& canHandRefresh)
 		{
-			CardManager.Inst.HandRefresh();
+			//CardManager.Inst.HandRefresh();
+
+			StartCoroutine(CardManager.Inst.HandRefresh());
 		}
 	}
 

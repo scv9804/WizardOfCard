@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManaHasteBarrier : Card
+public class Recycle : Card
 {
-    [Header("카드 추가 데이터")]
-    [Tooltip("카드 드로우 횟수"), SerializeField] int[] drawCount = new int[3];
+	[Header("카드 추가 데이터")]
+	[Tooltip("카드 드로우 횟수"), SerializeField] int[] drawCount = new int[3];
 
     #region Properties
 
@@ -22,16 +22,16 @@ public class ManaHasteBarrier : Card
         //}
     }
 
-    int I_Shield
+    int I_RecycleCount
     {
         get
         {
-            return ApplyMagicResistance(i_damage);
+            return i_damage;
         }
 
         //set
         //{
-        //    I_Shield = value;
+        //	drawCount[i_upgraded] = value;
         //}
     }
 
@@ -46,23 +46,27 @@ public class ManaHasteBarrier : Card
         explainTMP.text = sb.ToString();
     }
 
-
     // <<22-10-28 장형용 :: 수정>>
     public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
-    {
-        yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
+	{
+		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        PlayerEntity.Inst.ResetEnhanceValue();
+        int random;
 
-        Shield(I_Shield);
-
-        for(int i = 0; i < I_DrawCount; i++)
+        for (int i = 0; i < I_RecycleCount; i++)
         {
-            CardManager.Inst.AddCard();
+            random = UnityEngine.Random.Range(0, CardManager.Inst.myCemetery.Count);
 
-            yield return new WaitForSeconds(0.15f);
+            CardManager.Inst.ReplaceCardFromCemeteryToDeck(random);
+
+            if (i < I_DrawCount)
+                CardManager.Inst.AddCard();
+
+            yield return new WaitForSeconds(0.1f);
         }
 
+        CardManager.Inst.DeckShuffle();
+
         yield return StartCoroutine(EndUsingCard());
-    }
+	}
 }

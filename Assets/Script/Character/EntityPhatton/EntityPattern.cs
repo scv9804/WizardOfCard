@@ -63,7 +63,7 @@ public abstract class EntityPattern : ScriptableObject
 	//부식 (배틀 데미지 감소) 
 	protected virtual IEnumerator RustAccid(Entity _entity)
 	{
-		EntityManager.Inst.playerEntity.Status_MagicAffinity_Battle -= _entity.debuffValue;
+		EntityManager.Inst.playerEntity.Buff_MagicAffinity_Battle -= _entity.debuffValue;
 		_entity.attackTime++;
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 	}
@@ -71,7 +71,7 @@ public abstract class EntityPattern : ScriptableObject
 	//집중력 저하 (턴 데미지 감소)
 	protected virtual IEnumerable DecreasedConcentration(Entity _entity)
 	{
-		EntityManager.Inst.playerEntity.Status_MagicAffinity_Turn -= _entity.debuffValue;
+		EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
 		_entity.attackTime++;
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 	}

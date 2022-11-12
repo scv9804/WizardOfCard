@@ -2,31 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StormRune : Card
+public class ShieldBurst : Card
 {
-	[Header("카드 추가 데이터")]
-	[Tooltip("공격 횟수"), SerializeField] int[] attackCount = new int[3];
-
 	#region Properties
-
-	int I_AttackCount
-	{
-		get
-		{
-			return attackCount[i_upgraded];
-		}
-
-		//set
-		//{
-		//    attackCount[i_upgraded] = value;
-		//}
-	}
 
 	int I_Damage
 	{
 		get
 		{
-			return ApplyMagicAffinity(i_damage);
+			return ApplyMagicAffinity(i_damage + PlayerEntity.Inst.Status_Shiled);
 		}
 
 		//set
@@ -41,7 +25,8 @@ public class StormRune : Card
 	{
 		base.ExplainRefresh();
 
-		sb.Replace("{3}", (I_AttackCount - 1).ToString());
+		sb.Replace("{4}", "<color=#ff0000>{4}</color>");
+		sb.Replace("{4}", I_Damage.ToString());
 
 		explainTMP.text = sb.ToString();
 	}
@@ -53,7 +38,20 @@ public class StormRune : Card
 
 		PlayerEntity.Inst.ResetEnhanceValue();
 
-		yield return StartCoroutine(Repeat(() => Attack_RandomEnemy(_target_enemy, I_Damage), I_AttackCount));
+		if (_target_enemy != null && _target_player == null) // 단일 대상
+		{
+			Attack(_target_enemy, I_Damage);
+		}
+		else if (_target_enemy == null && _target_player != null) // 자신 대상
+		{
+			Attack(_target_player, I_Damage);
+		}
+		else // 광역 또는 무작위 대상 (?)
+		{
+			TargetAll(() => Attack(_target_enemy, I_Damage), ref _target_enemy);
+		}
+
+		PlayerEntity.Inst.Status_Shiled = 0;
 
 		yield return StartCoroutine(EndUsingCard());
 	}

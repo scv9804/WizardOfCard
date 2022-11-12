@@ -6,7 +6,7 @@ public class MagicBombardment : Card
 {
 	[Header("공격 횟수"), SerializeField] int[] attackCount = new int[3];
 
-	#region 프로퍼티
+	#region Properties
 
 	int I_AttackCount
 	{
@@ -44,7 +44,7 @@ public class MagicBombardment : Card
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		yield return StartCoroutine(Repeat(() => TargetAll(() => Attack(_target_enemy, I_Damage), ref _target_enemy), I_AttackCount)); // 가독성;;;
 

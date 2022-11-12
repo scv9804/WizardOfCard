@@ -7,7 +7,7 @@ public class ArcaneRay : Card
 	[Header("카드 추가 데이터")]
 	[Tooltip("데미지 증가에 필요한 카드 수"), SerializeField] int[] damagePerCard = new int[3];
 
-	#region 프로퍼티
+	#region Properties
 
 	int I_DamagePerCard
     {
@@ -67,7 +67,7 @@ public class ArcaneRay : Card
     {
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.SpellEnchaneReset();
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{

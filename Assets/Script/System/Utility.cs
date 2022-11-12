@@ -21,26 +21,60 @@ public class Pos_Rot_Scale
 }
 
 
-public static class Utility_enum
+public class Utility
 {
-    public enum e_CardType { Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff };
-    public enum ItemType {Use, Equi, Quest}
+    public static Vector3 MousePos
+    {
+        get
+        {
+            Vector3 result = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            result.z = -10;
+            return result;
+        }
+    }
+
+    public static Action onBattleStart; // 전투 방 진입 시 호출
+
+    public static Action<Card> onCardUsed; // 카드 사용 시 호출
+    public static Action<Card, int> onDamaged; // 카드로 데미지를 입힐 시 호출
+}
+
+// << 22-11-12 장형용 :: 클래스 제거>>
+//public static class Utility_enum
+
+#region Enums
+
+public enum ItemType
+{
+    Use,
+    Equi,
+    Quest
+}
+
+public enum e_CardType
+{
+    Spell,
+    Spell_Enhance,
+    Shlied,
+    Heal,
+    Buff,
+    Debuff
 }
 
 public enum AttackRange
-{ 
-    Target_AllEnemy, 
-    Target_Self, 
-    Target_Single 
+{
+    Target_AllEnemy,
+    Target_Self,
+    Target_Single
 }
 
-public enum CardType 
+public enum CardType
 {
-    Spell, 
-    Spell_Enhance, 
+    Spell,
+    Spell_Enhance,
     Shlied,
-    Heal, 
-    Buff, 
+    Heal,
+    Buff,
     Debuff
 }
 
@@ -73,29 +107,23 @@ public enum CardEnum
     마나_환원,
     숨_고르기,
     강타,
+    쉴드_폭발,
+    마력포,
+    마법_재활용,
+    흡수,
     마법진
 }
 
-
-public class Utility : MonoBehaviour
-{
-    public static Vector3 MousePos
-    {
-        get
-        {
-            Vector3 result = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            result.z = -10;
-            return result;
-        }
-    }
-
-    public static Action onBattleStart; // 전투 방 진입 시 호출
-
-    public static Action<Card> onCardUsed; // 카드 사용 시 호출
-    public static Action<Card, int> onDamaged; // 카드로 데미지를 입힐 시 호출
+public enum E_CardStats
+{ 
+    Cannot, 
+    CanMouseOver,
+    CanAll
 }
 
-#region 코루틴 커스텀 클래스
+#endregion
+
+#region Custom Yield Instructions
 
 // <<22-10-30 장형용 :: 모든 카드 사용과 데미지 처리가 끝날때까지 대기시켜주는 클래스>>
 public class WaitAllCardUsingDone : CustomYieldInstruction
@@ -115,7 +143,7 @@ public class WaitAllCardUsingDone : CustomYieldInstruction
 
 #endregion
 
-#region Job 시스템
+#region Job System
 
 #region Entities
 
@@ -132,8 +160,8 @@ public struct ProtectionJob : IJob
 
         if (isPrint)
         {
-            Debug.Log("첫 번째 연산 전 데미지 : " + values[0]);
-            Debug.Log("첫 번째 연산 전 보호 : " + values[1]);
+            Debug.Log("보호 연산 전 데미지 : " + values[0]);
+            Debug.Log("보호 연산 전 보호 : " + values[1]);
             Debug.Log("-------------------------------------");
         }
 
@@ -151,8 +179,8 @@ public struct ProtectionJob : IJob
 
         if (isPrint)
         {
-            Debug.Log("첫 번째 연산 후 데미지 : " + values[0]);
-            Debug.Log("첫 번째 연산 후 보호 : " + values[1]);
+            Debug.Log("보호 연산 후 데미지 : " + values[0]);
+            Debug.Log("보호 연산 후 보호 : " + values[1]);
             Debug.Log("-------------------------------------");
         }
 
@@ -173,9 +201,9 @@ public struct ShieldJob : IJob
 
         if (isPrint)
         {
-            Debug.Log("두 번째 연산 전 데미지 : " + values[0]);
-            Debug.Log("두 번째 연산 전 쉴드 : " + values[2]);
-            Debug.Log("두 번째 연산 전 체력 : " + values[3]);
+            Debug.Log("쉴드 연산 전 데미지 : " + values[0]);
+            Debug.Log("쉴드 연산 전 쉴드 : " + values[2]);
+            Debug.Log("쉴드 연산 전 체력 : " + values[3]);
             Debug.Log("-------------------------------------");
         }
         #endregion
@@ -197,9 +225,9 @@ public struct ShieldJob : IJob
 
         if (isPrint)
         {
-            Debug.Log("두 번째 연산 후 데미지 : " + values[0]);
-            Debug.Log("두 번째 연산 후 쉴드 : " + values[2]);
-            Debug.Log("두 번째 연산 후 체력 : " + values[3]);
+            Debug.Log("쉴드 연산 후 데미지 : " + values[0]);
+            Debug.Log("쉴드 연산 후 쉴드 : " + values[2]);
+            Debug.Log("쉴드 연산 후 체력 : " + values[3]);
             Debug.Log("-------------------------------------");
         }
 
@@ -220,9 +248,9 @@ public struct BurningJob : IJob
 
         if (isPrint)
         {
-            Debug.Log("세 번째 연산 전 쉴드 : " + values[2]);
-            Debug.Log("세 번째 연산 전 체력 : " + values[3]);
-            Debug.Log("세 번째 연산 전 화상 : " + values[4]);
+            Debug.Log("화상 연산 전 쉴드 : " + values[2]);
+            Debug.Log("화상 연산 전 체력 : " + values[3]);
+            Debug.Log("화상 연산 전 화상 : " + values[4]);
             Debug.Log("-------------------------------------");
         }
         #endregion
@@ -245,9 +273,9 @@ public struct BurningJob : IJob
 
         if (isPrint)
         {
-            Debug.Log("세 번째 연산 후 쉴드 : " + values[2]);
-            Debug.Log("세 번째 연산 후 체력 : " + values[3]);
-            Debug.Log("세 번째 연산 후 화상 : " + values[4]);
+            Debug.Log("화상 연산 후 쉴드 : " + values[2]);
+            Debug.Log("화상 연산 후 체력 : " + values[3]);
+            Debug.Log("화상 연산 후 화상 : " + values[4]);
             Debug.Log("-------------------------------------");
         }
 
@@ -257,9 +285,10 @@ public struct BurningJob : IJob
 
 #endregion
 
-#region Card
+#region Cards
 
-public struct CalculateMagicAffinity : IJob
+// <<22-11-12 장형용 :: 마나 친화성 계산 Job>>
+public struct MagicAffinityJob : IJob
 {
     public NativeArray<int> value;
 
@@ -271,7 +300,8 @@ public struct CalculateMagicAffinity : IJob
     }
 }
 
-public struct CalculateMagicResistance : IJob
+// <<22-11-12 장형용 :: 마나 저항력 계산 Job>>
+public struct MagicResistanceJob : IJob
 {
     public NativeArray<int> value;
 
@@ -283,7 +313,8 @@ public struct CalculateMagicResistance : IJob
     }
 }
 
-public struct CalculateEnhanceValue : IJob
+// <<22-11-12 장형용 :: 강화 수치 계산 Job>>
+public struct EnhanceValueJob : IJob
 {
     public NativeArray<int> value;
 
