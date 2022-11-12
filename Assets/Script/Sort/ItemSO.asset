@@ -73,7 +73,5 @@ MonoBehaviour:
     card_object: {fileID: 7395019933593546574, guid: 76fe13085930c1543bc125756b99acf5, type: 3}
   - card: {fileID: 900910324449656004, guid: efe7804ad492194439ce6cd47327427f, type: 3}
     card_object: {fileID: 7395019933593546574, guid: efe7804ad492194439ce6cd47327427f, type: 3}
-  - card: {fileID: 7306794971919007782, guid: 9ad5d8e124ec77d4682a97c207fdbc64, type: 3}
-    card_object: {fileID: 7395019933593546574, guid: 9ad5d8e124ec77d4682a97c207fdbc64, type: 3}
   - card: {fileID: 5251858741531333875, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
     card_object: {fileID: 7395019933593546574, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
