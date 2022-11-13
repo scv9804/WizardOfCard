@@ -7,7 +7,8 @@ using UnityEngine.VFX;
 using DG.Tweening;
 using System.Text;
 using System;
-
+using Unity.Jobs;
+using Unity.Collections;
 
 public class Entity : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class Entity : MonoBehaviour
     //능력치 등
     [HideInInspector] Sprite playerDamagedEffect;
     [HideInInspector] public Enemy enemy;
-    [HideInInspector] public float i_health;
+    [HideInInspector] public float i_health; // <<장형용 :: i가 아니라고 ㅡㅡ>>
     [HideInInspector] public float HEALTHMAX;
     [HideInInspector] public int increaseShield;
     [HideInInspector] public int i_shield = 0;
@@ -41,8 +42,6 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_damage;
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
-    [HideInInspector] public float spriteSize_X;
-    [HideInInspector] public float spriteSize_Y;
 
 
     [HideInInspector] public int i_burning = 0;
@@ -79,21 +78,26 @@ public class Entity : MonoBehaviour
     [SerializeField] VisualEffect buffEffect;
     [SerializeField] VisualEffect debuffEffect;
 
-    public int i_entityMotionRunning;
+    // << 22-11-09 장형용 :: 제거>>
+    //public int i_entityMotionRunning;
 
     StringBuilder sb = new StringBuilder();
 
     public static Action buffAction;
 
-	#region 시작 생성 종료 업데이트
-	private void Start()
+    #region Job 시스템
+
+    ShieldJob myShieldJob = new ShieldJob();
+    BurningJob myBurningJob = new BurningJob();
+
+    #endregion
+
+    #region 시작 생성 종료 업데이트
+    private void Start()
     {
         entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
         Debug.Log(charater.sprite.bounds.size.y);
-        spriteSize_X = charater.sprite.bounds.size.x;
-        spriteSize_Y = charater.sprite.bounds.size.y;
-
         //켄버스 위치 스프라이트 사이즈에 따라 조절.
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
         AllEffectOff();
@@ -130,7 +134,6 @@ public class Entity : MonoBehaviour
         }
     }
     #endregion
-
 
     #region 버프 디버프 및 이펙트 관련
     public void AllEffectOff()
@@ -224,6 +227,7 @@ public class Entity : MonoBehaviour
     #endregion
 
     #region Entity Base
+
     public void SetupEnemy(EnemyBoss _enemy)
     {
         enemyBoss = _enemy;
@@ -273,67 +277,121 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public bool Damaged(int _damage, Card _card = null) 
+    #region // <<22-11-09 장형용 :: 소폭 수정, 세부 내용은 내역 참조, 더 깔끔하게 수정할 수 있지 않을까 싶긴 한데 일단은 패스>>
+    // - 데미지 이펙트 호출부를 Damaged 함수 안으로 옮김
+    // - Burning 함수 내 사망 판정부 제거
+    // - Entity 개별적으로 피격 모션 활성화 여부를 카운트하던 변수 제거
+    // - 함수로 관리하던 EndCheckingEntity 함수를 비용 효율 관리 차원에서 제거, 해당 기능은 Damaged 내 관리
+    // - 같은 이유로 DestroyTest 제거, 해당 기능은 EntityManager에서 바로 발동됨
+    // - 누락되어 있었던 Entity 데미지 공식 오류 수정 (ㄴㄱㅁㅇㄴ...)
+    // - DamageEffectCoroutine과 같이 관리되던 DestroyEffectCoroutine를 분리
+    // - RefreshEntity는 마지막에 한 번 호출
+    #endregion
+    // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
+    public void Damaged(int _damage, Sprite _enemyDamageSprite, Card _card = null)
     {
-        int totalDamage = _damage - i_shield;
+        #region StartEntityDamageCheck
 
-        if (i_shield > _damage)
+        EntityManager.i_checkingEntitiesCount++;
+
+        sb.Clear();
+        sb.Append("카운트 증가 :: ");
+        sb.Append(EntityManager.i_checkingEntitiesCount);
+        Debug.Log(sb.ToString());
+
+        #endregion
+
+        #region i_health -= _damage;
+
+        NativeArray<int> values = new NativeArray<int>(5, Allocator.TempJob);
+        values[0] = _damage;
+        //values[1] = i_protection; // Entity는 해당 사항 없음
+        values[2] = i_shield;
+        values[3] = (int) i_health;
+        values[4] = i_burning;
+
+        #region 입력 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
         {
-            i_shield -= _damage;
-        }
-        else
-        {
-            i_health -= totalDamage;
-            i_shield = 0;
+            Debug.Log("-------------------------------------");
+            Debug.Log("입력 - 데미지 : " + values[0]);
+            //Debug.Log("입력 - 보호 : " + values[1]); // Entity는 해당 사항 없음
+            Debug.Log("입력 - 쉴드 : " + values[2]);
+            Debug.Log("입력 - 체력 : " + values[3]);
+            Debug.Log("입력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
         }
 
-        if (totalDamage > 0)
+        #endregion
+
+        myShieldJob.values = values;
+        myShieldJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
+
+        JobHandle firstJob = myShieldJob.Schedule();
+
+        myBurningJob.values = values;
+        myBurningJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
+
+        JobHandle secondJob = myBurningJob.Schedule(firstJob);
+
+        StartCoroutine(DamageEffectCoroutine(_enemyDamageSprite));
+
+        secondJob.Complete();
+
+        _damage = values[0];
+        //Status_Protection = values[1]; // Entity는 해당 사항 없음
+        i_shield = values[2];
+        i_health = values[3];
+        i_burning = values[4];
+
+        #region 결과 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
         {
-            Utility.onDamaged?.Invoke(_card, totalDamage);
+            Debug.Log("출력 - 데미지 : " + values[0]);
+            //Debug.Log("출력 - 보호 : " + values[1]); // Entity는 해당 사항 없음
+            Debug.Log("출력 - 쉴드 : " + values[2]);
+            Debug.Log("출력 - 체력 : " + values[3]);
+            Debug.Log("출력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
         }
+
+        #endregion
+
+        values.Dispose();
+
+        if (_damage > 0)
+            Utility.onDamaged?.Invoke(_card, _damage);
+
+        #endregion
+
+        #region EndEntityDamageCheck
+
+        EntityManager.i_checkingEntitiesCount--;
+
+        sb.Clear();
+        sb.Append("카운트 감소 :: ");
+        sb.Append(EntityManager.i_checkingEntitiesCount);
+        Debug.Log(sb.ToString());
+
+        #endregion
 
         if (i_health <= 0)
         {
             i_health = 0;
             is_die = true;
-            RefreshEntity();
-            return true;
-        }
 
-        if (i_burning > 0 && _card != null) //  <<22-10-21 장형용 :: 화상 추가>>
-        {
-            Burning();
+            StartCoroutine(DestroyEffectCoroutine());
         }
 
         RefreshEntity();
-        return false;
     }
 
-    public void Burning() //  <<22-10-21 장형용 :: 화상 추가>>
-    {
-        if (i_shield > i_burning)
-        {
-            i_shield -= i_burning;
-        }
-        else
-        {
-            i_health -= (i_burning - i_shield);
-            i_shield = 0;
-        }
-
-        i_burning--;
-
-        if (i_health <= 0)
-        {
-            i_health = 0;
-            is_die = true;
-            RefreshEntity();
-            return;
-        }
-
-        RefreshEntity();
-        return;
-    }
+    // <<22-10-21 장형용 :: 화상 추가>>
+    // <<22-11-09 장형용 :: 로직 상 여기서 굳이 사망 판정을 검사하지 않아도 되어 제거>>
+    // <<22-11-12 장형용 :: 화상 계산 위로 올림>>
+    //public void Burning()
 
     public void Attack()
     {
@@ -371,55 +429,43 @@ public class Entity : MonoBehaviour
         ShieldTMP.text = i_shield.ToString();
     }
 
-
-    public void ShowNextActionPattern(Sprite _NextActionSprite)
+    public void ShowNextActionPattern(Sprite _NextActionSprite) // ???
 	{
         
 	}
 
-	#endregion
+    #endregion
 
-	#region Damage
+    #region Damage
 
-    public IEnumerator DamagedEffectCorutin(Sprite _sprite)
+    // <<22-11-09 장형용 :: 추가...라기 보다는 분리가 맞네>>
+    IEnumerator DamageEffectCoroutine(Sprite _sprite)
     {
-        EntityManager.i_entityMotionRunning++;  // <<22-10-30 장형용 :: 추가>>
-        i_entityMotionRunning++;
+        DamagedSpriteRenederer.sprite = _sprite;
 
-        sb.Clear();
-        sb.Append("카운트 증가 :: ");
-        sb.Append(EntityManager.i_entityMotionRunning);
-        Debug.Log(sb.ToString());
-
-        DamagedSpriteRenederer.sprite = _sprite; 
         Sequence sequence1 = DOTween.Sequence()
         .Append(DamagedSpriteRenederer.DOFade(1, 0.15f))
         .Append(DamagedSpriteRenederer.DOFade(0, 0.05f));
-        //SetDamagedOpacityTrue(); // <<22-11-03 장형용 :: 피격 이펙트가 1회성이 되어버려서 제거>>
+
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
+
         charater.sprite = enemy.EnemyDamagedSprite;
+
         yield return new WaitForSeconds(0.15f);
+
         this.transform.DOMove(this.originPos, 0.2f);
 
-        if (i_health <= 0)
+        if (i_health > 0)
         {
-            StartCoroutine(DestroyEffectCoroutine());
-
-            EndCheckingEntity();
-        }
-        else
-        {
-            EndCheckingEntity(); // <<22-10-29 장형용 :: 어차피 뒤지면 이 뒤에 작업은 필요 없으니 else 부로 넣음>>
-            i_entityMotionRunning--;
-
             yield return new WaitForSeconds(0.15f);
-            yield return new WaitForAllMotionDone(this); // <<22-10-30 장형용 :: 대기 중 사망 시 그대로 코루틴 정지>>
 
             charater.sprite = enemy.sp_sprite;
         }
+
     }
 
-    IEnumerator DestroyEffectCoroutine() // <<22-10-26 장형용 :: 해결했다>>
+    // <<22-10-26 장형용 :: 해결했다>>
+    IEnumerator DestroyEffectCoroutine()
     {
         dissolveEffect.Play();
         dissolveEffect.playRate = 2.5f;
@@ -429,52 +475,21 @@ public class Entity : MonoBehaviour
         //수동조정 필요함
 
         yield return new WaitForSeconds(0.4f);
+
         dissolveEffect.Stop();
+
         yield return new WaitForSeconds(0.4f);
 
-        //EntityManager.Inst.CheckDieEveryEnemy(); // <<22-10-29 장형용 :: 최종적으로 이게 문제였음>>
         EntityManager.Inst.CheckDieEnemy(this);
     }
 
-    public void EndCheckingEntity()
-    {
-        EntityManager.i_entityMotionRunning--;  // <<22-10-27 장형용 :: 추가>>
-
-        sb.Clear();
-        sb.Append("카운트 감소 :: ");
-        sb.Append(EntityManager.i_entityMotionRunning);
-        Debug.Log(sb.ToString());
-    }
-
-    //IEnumerator PlayDestroyEffect() // <<22-11-03 장형용 :: 제거>>
-    //{
-    //    //VFX
-    //    dissolveEffect.Play();
-    //    dissolveEffect.playRate = 2.5f;
-
-    //    StateOff.SetActive(false);
-    //    isDissolving = true;
-    //    //수동조정 필요함
-
-    //    yield return new WaitForSeconds(0.4f);
-    //    dissolveEffect.Stop();
-
-    //    yield return null;
-    //}
-
-    //void SetDamagedOpacityTrue() // <<22-11-03 장형용 :: 피격 이펙트가 1회성이 되어버려서 제거>>
-    //{
-    //    Color tempt = Color.white;
-    //    tempt.a = 1f;
-    //    DamagedSpriteRenederer.color = tempt;
-    //} 
+    // <<22-11-09 장형용 :: 효율을 위해 함수 제거>>
+    //public void EndCheckingEntity()
 
     #endregion
 
-    public void DestroyTest()
-	{
-        Destroy(this.gameObject);
-	}
+    // <<22-11-09 장형용 :: 효율을 위해 함수 제거>>
+    //public void DestroyTest()
 
     private void OnMouseOver()
     {

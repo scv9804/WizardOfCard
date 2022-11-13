@@ -700,27 +700,23 @@ MonoBehaviour:
   i_itemNum: 16
   type: 0
   f_percentage: 1
-  i_upgraded: 0
+  upgraded: 0
   cost: 000000000000000000000000
   attack: 030000000500000006000000
   isExile: 010101
   AR_attackRange: 010000000100000001000000
   explainCard:
   - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uC774\uBC88
-    \uD134 \uB3D9\uC548 \uCE74\uB4DC\uB97C \n\uB354 \uB4DC\uB85C\uC6B0\uD560 \uC218
-    \uC5C6\uC2B5\uB2C8\uB2E4."
+    \uD134 \uB3D9\uC548\n\uB4DC\uB85C\uC6B0 \uBD88\uAC00 \uD6A8\uACFC\uB97C\n\uC5BB\uC2B5\uB2C8\uB2E4."
   - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uC774\uBC88
-    \uD134 \uB3D9\uC548 \uCE74\uB4DC\uB97C \n\uB354 \uB4DC\uB85C\uC6B0\uD560 \uC218
-    \uC5C6\uC2B5\uB2C8\uB2E4."
+    \uD134 \uB3D9\uC548\n\uB4DC\uB85C\uC6B0 \uBD88\uAC00 \uD6A8\uACFC\uB97C\n\uC5BB\uC2B5\uB2C8\uB2E4."
   - "\uCE74\uB4DC\uB97C {0}\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4.\n\uC774\uBC88
-    \uD134 \uB3D9\uC548 \uCE74\uB4DC\uB97C \n\uB354 \uB4DC\uB85C\uC6B0\uD560 \uC218
-    \uC5C6\uC2B5\uB2C8\uB2E4."
+    \uD134 \uB3D9\uC548\n\uB4DC\uB85C\uC6B0 \uBD88\uAC00 \uD6A8\uACFC\uB97C\n\uC5BB\uC2B5\uB2C8\uB2E4."
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
-  bonus: 0
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

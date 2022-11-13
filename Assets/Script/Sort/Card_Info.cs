@@ -27,7 +27,7 @@ public class Card_Info : MonoBehaviour
 
 	//public Sprite sp_CardSprite; <<22-11-04 장형용 :: 제거>>
 
-	#region 프로퍼티
+	#region Properties
 
 	public int i_cost
 	{

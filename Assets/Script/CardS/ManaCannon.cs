@@ -2,25 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StormRune : Card
+public class ManaCannon : Card
 {
-	[Header("카드 추가 데이터")]
-	[Tooltip("공격 횟수"), SerializeField] int[] attackCount = new int[3];
-
 	#region Properties
-
-	int I_AttackCount
-	{
-		get
-		{
-			return attackCount[i_upgraded];
-		}
-
-		//set
-		//{
-		//    attackCount[i_upgraded] = value;
-		//}
-	}
 
 	int I_Damage
 	{
@@ -37,15 +21,6 @@ public class StormRune : Card
 
 	#endregion
 
-	public override void ExplainRefresh()
-	{
-		base.ExplainRefresh();
-
-		sb.Replace("{3}", (I_AttackCount - 1).ToString());
-
-		explainTMP.text = sb.ToString();
-	}
-
 	// <<22-10-28 장형용 :: 수정>>
 	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
@@ -53,7 +28,20 @@ public class StormRune : Card
 
 		PlayerEntity.Inst.ResetEnhanceValue();
 
-		yield return StartCoroutine(Repeat(() => Attack_RandomEnemy(_target_enemy, I_Damage), I_AttackCount));
+		if (_target_enemy != null && _target_player == null) // 단일 대상
+		{
+			Attack(_target_enemy, I_Damage);
+		}
+		else if (_target_enemy == null && _target_player != null) // 자신 대상
+		{
+			Attack(_target_player, I_Damage);
+		}
+		else // 광역 또는 무작위 대상 (?)
+		{
+			TargetAll(() => Attack(_target_enemy, I_Damage), ref _target_enemy);
+		}
+
+		PlayerEntity.Inst.Debuff_CannotDrawCard = true;
 
 		yield return StartCoroutine(EndUsingCard());
 	}

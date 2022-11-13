@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBolt : Card
+public class Smite : Card
 {
 	#region Properties
 
@@ -19,12 +19,26 @@ public class MagicBolt : Card
 		//}
 	}
 
-	#endregion
+    #endregion
 
-	// <<22-10-28 장형용 :: 수정>>
-	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
-	{
-		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
+    protected override void Start()
+    {
+		base.Start();
+
+		Utility.onDamaged += Smite_Shield;
+	}
+
+    protected override void OnDisable()
+    {
+		base.OnDisable();
+
+		Utility.onDamaged -= Smite_Shield;
+	}
+
+    // <<22-10-28 장형용 :: 수정>>
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
+    {
+        yield return base.UseCard(_target_enemy, _target_player);
 
 		PlayerEntity.Inst.ResetEnhanceValue();
 
@@ -43,4 +57,10 @@ public class MagicBolt : Card
 
 		yield return StartCoroutine(EndUsingCard());
 	}
+
+	void Smite_Shield(Card card, int damage)
+    {
+		if (card == this)
+			Shield(damage);
+    }
 }

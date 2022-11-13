@@ -4,25 +4,54 @@ using UnityEngine;
 
 public class ConcentratedFire : Card
 {
-    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
-    {
+	#region Properties
+
+	int I_Damage
+	{
+		get
+		{
+			return ApplyMagicAffinity(i_damage);
+		}
+
+		//set
+		//{
+		//    I_Damage = value;
+		//}
+	}
+
+	int I_AttackCount
+	{
+		get
+		{
+			return CardManager.Inst.myCards.Count + 1;
+		}
+
+		//set
+		//{
+		//    I_Count = value;
+		//}
+	}
+
+	#endregion
+
+	// <<22-10-28 장형용 :: 수정>>
+	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
+	{
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        PlayerEntity.Inst.SpellEnchaneReset();
-
-        int _count = CardManager.Inst.myCards.Count + 1;
+		PlayerEntity.Inst.ResetEnhanceValue();
 
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
-			StartCoroutine(Repeat(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), _count));
+			StartCoroutine(Repeat(() => Attack(_target_enemy, I_Damage), I_AttackCount));
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
-			StartCoroutine(Repeat(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), _count));
+			StartCoroutine(Repeat(() => Attack(_target_enemy, I_Damage), I_AttackCount));
 		}
 		else // 광역 또는 무작위 대상 (?)
 		{
-			TargetAll(() => StartCoroutine(Repeat(() => Attack(_target_enemy, ApplyManaAffinity_Instance(i_damage)), _count)), ref _target_enemy);
+			TargetAll(() => StartCoroutine(Repeat(() => Attack(_target_enemy, I_Damage), I_AttackCount)), ref _target_enemy);
 		}
 
 		yield return StartCoroutine(EndUsingCard());

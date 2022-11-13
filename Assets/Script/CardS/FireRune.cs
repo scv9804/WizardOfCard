@@ -4,43 +4,58 @@ using UnityEngine;
 
 public class FireRune : Card
 {
-    [Header("화상"), SerializeField] int[] applyBurning = new int[3];
+	[Header("카드 추가 데이터")]
+	[Tooltip("화상"), SerializeField] int[] applyBurning = new int[3];
 
-    #region 프로퍼티
+	#region Properties
 
-    public int i_applyBurning
-    {
-        get
-        {
-            return applyBurning[i_upgraded];
-        }
+	int I_Burning
+	{
+		get
+		{
+			return ApplyEnhanceValue(applyBurning[i_upgraded]);
+		}
 
-        set
-        {
-            applyBurning[i_upgraded] = value;
-        }
-    }
+		//set
+		//{
+		//    I_Burning = value;
+		//}
+	}
 
-    #endregion
+	int I_MagicAffinity_Turn
+	{
+		get
+		{
+			return ApplyMagicAffinity(i_damage);
+		}
 
-    public override void ExplainRefresh()
+		//set
+		//{
+		//    I_MagicAffinity_Turn = value;
+		//}
+	}
+
+	#endregion
+
+	public override void ExplainRefresh()
     {
         base.ExplainRefresh();
 
         sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
-        sb.Replace("{4}", ApplyEnhanceValue(i_applyBurning).ToString());
+        sb.Replace("{4}", ApplyEnhanceValue(I_Burning).ToString());
 
         explainTMP.text = sb.ToString();
     }
 
-    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null) // <<22-10-28 장형용 :: 수정>>
-    {
+	// <<22-10-28 장형용 :: 수정>>
+	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
+	{
         yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-        PlayerEntity.Inst.SpellEnchaneReset();
+        PlayerEntity.Inst.ResetEnhanceValue();
 
-        TargetAll(() => Add_Burning(_target_enemy, i_applyBurning), ref _target_enemy);
-        Add_MagicAffinity_Turn(i_damage);
+        TargetAll(() => Add_Burning(_target_enemy, I_Burning), ref _target_enemy);
+        Add_MagicAffinity_Turn(I_MagicAffinity_Turn);
 
         yield return StartCoroutine(EndUsingCard());
     }

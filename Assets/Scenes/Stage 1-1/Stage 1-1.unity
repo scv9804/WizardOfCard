@@ -1815,7 +1815,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &206478948
 GameObject:
@@ -3799,7 +3799,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &490724208
 GameObject:
@@ -4196,7 +4196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -7263,7 +7263,7 @@ Transform:
   - {fileID: 1288007533}
   - {fileID: 1857414040}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &863816442
 GameObject:
@@ -8681,7 +8681,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &917471832
 GameObject:
@@ -9572,7 +9572,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &994731341
 MonoBehaviour:
@@ -10091,7 +10091,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054381874
 GameObject:
@@ -11302,7 +11302,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1286286528
 GameObject:
@@ -13532,7 +13532,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644636754
 GameObject:
@@ -13943,7 +13943,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1667317809
 MonoBehaviour:
@@ -13964,17 +13964,13 @@ MonoBehaviour:
   characterSO: {fileID: 11400000, guid: 84ac19ad0941ac640aa9224ee18adca9, type: 2}
   entitiyPrefab: {fileID: 7799422697148875826, guid: 38d2167c9bd27114bbf3966e5dbb4534, type: 3}
   playerPrefab: {fileID: 2077760302346298912, guid: a5036b0576eb2ac489e5cd2a0127767f, type: 3}
-  damagePrefab: {fileID: 0}
   targetSelector: {fileID: 389184190}
   enemyEntities: []
   bossEntity: {fileID: 0}
   spawnPlayerChar_Tf: {fileID: 2058073973}
   spawnEnemy_Tf: {fileID: 1349807753}
   sortEnemyPos_Tf: {fileID: 1098706744}
-  myUseCard: {fileID: 0}
-  enemyAttackList: {fileID: 0}
   enemyBuffer: []
-  Length: 0
   f_targetSelectorUpPos: 0
   playerEntity: {fileID: 0}
   selectEntity: {fileID: 0}
@@ -14300,7 +14296,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1687293409
 GameObject:
@@ -16228,7 +16224,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1939514122
 MonoBehaviour:
@@ -16814,6 +16810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isClearDebugConsole: 1
   isPrintDamage: 1
+  isPrintDamageCalculating: 0
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
   selectCard: 0
 --- !u!4 &1984387567
@@ -16828,7 +16825,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989070027
 GameObject:
@@ -17630,7 +17627,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2076931105
 GameObject:
@@ -17698,7 +17695,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  cardPrefab: {fileID: 7395019933593546574, guid: e87115681f440494493557df6f3ccf7e, type: 3}
   myCards: []
   myCemetery: []
   myDeck: []
@@ -17708,23 +17704,21 @@ MonoBehaviour:
   RightCard_Tf: {fileID: 877174403}
   UseCard_Tf: {fileID: 793746676}
   cardGarbage_Tf: {fileID: 1687293410}
-  e_CardStats: 2
-  f_useCardSize: 0.3
-  f_garbageCardSize: 0.05
-  f_arrangementSize: 0.4
   useCardPath_OnHand_Tf:
   - {fileID: 827964578}
   - {fileID: 1528485075}
   - {fileID: 1960448389}
   - {fileID: 498893767}
   v3_cardPaths_onHand: []
+  f_useCardSize: 0.3
+  f_garbageCardSize: 0.05
+  f_arrangementSize: 0.4
+  e_CardStats: 2
   selectCard: {fileID: 0}
-  i_ManaCost: 0
   is_myCardDrag: 0
   is_useCardArea: 0
   is_canUseCard: 0
   is_cardUsing: 0
-  is_useEnhance: 0
 --- !u!4 &2082127921
 Transform:
   m_ObjectHideFlags: 0
@@ -17737,7 +17731,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2103320840
 GameObject:
@@ -17962,7 +17956,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2135162816
 GameObject:

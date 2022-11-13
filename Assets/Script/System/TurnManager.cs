@@ -73,7 +73,7 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
-            CardManager.Inst.e_CardStats = CardManager.E_CardStats.CanMouseOver;
+            CardManager.Inst.e_CardStats = E_CardStats.CanMouseOver;
             EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
             UIManager.Inst.IsUIUse = true;
             isLoding = false;

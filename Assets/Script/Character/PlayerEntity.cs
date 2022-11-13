@@ -5,17 +5,19 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using Unity.Jobs;
+using Unity.Collections;
 
 public class PlayerEntity : MonoBehaviour
 {
     public static PlayerEntity Inst { get; private set; }
+
     private void Awake()
     {
         Inst = this;
 
         //DontDestroyOnLoad(this);
     }
-
 
     [HideInInspector] public PlayerChar playerChar;
     [SerializeField] SpriteRenderer charaterSprite;
@@ -28,22 +30,28 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] SpriteRenderer damagedEffectSpriteRenderer;
     Image healthImage_UI;
 
-
     Vector3 originScale;
     Vector3 originPos;
 
     public bool attackable;
-    
-    bool is_attackAble;
-    bool is_die = false;
-    bool is_canUseSelf;
+
+    //bool is_attackAble; // 미사용 더미
+    bool is_die = false; // 사용은 되는데 의미는 없음
+    //bool is_canUseSelf; // 미사용 더미
 
     public int karma = 0;
     int i_enhacneVal = 1;
-    int i_calcDamage;
+    //int i_calcDamage;
 
+    #region Job System
 
-	private void Start()
+    ProtectionJob myProtectionJob = new ProtectionJob();
+    ShieldJob myShieldJob = new ShieldJob();
+    BurningJob myBurningJob = new BurningJob();
+
+    #endregion
+
+    private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
         SetDefultPS();
@@ -52,100 +60,113 @@ public class PlayerEntity : MonoBehaviour
     // <<22-10-21 장형용 :: 추가>>
     void OnEnable()
     {
+        #region 액션 등록
+
         Utility.onBattleStart += ResetMagicAffinity_Battle;
         Utility.onBattleStart += ResetProtection;
 
         TurnManager.onStartTurn += ResetValue_Shield;
         TurnManager.onStartTurn += ResetMagicAffinity_Turn;
         TurnManager.onStartTurn += ReduceProtection;
+        TurnManager.onStartTurn += ResetCannotDrawCard;
+
+        #endregion
     }
 
     // <<22-10-21 장형용 :: 추가>>
     void OnDisable()
     {
+        #region 액션 등록 해제
+
         Utility.onBattleStart -= ResetMagicAffinity_Battle;
         Utility.onBattleStart -= ResetProtection;
 
         TurnManager.onStartTurn -= ResetValue_Shield;
         TurnManager.onStartTurn -= ResetMagicAffinity_Turn;
         TurnManager.onStartTurn -= ReduceProtection;
+        TurnManager.onStartTurn -= ResetCannotDrawCard;
+
+        #endregion
     }
 
+    #region 플레이어 능력치
 
-    #region status
+    // Ex) Health, Aether, Shield, ...
+    #region Status
+
     int maxAether = 5; // 최대 코스트
+    // <<22-11-12 장형용 :: 전투 간 추가되는 임시 최대 코스트 추가>>
+    int maxAether_battle;
     int i_aether; // 코스트
 
-
-    float i_health;
+    float i_health; // <<장형용 :: i가 아니자나 ㅠㅠㅠㅠ>>
     float maxHealth;
-     int i_shield = 0;
+    int i_shield = 0;
 
-    [HideInInspector] public int i_burning = 0;
+    #endregion
 
-    //마법 친화성  타입별 친화성으로 방어, 힐 효과 증폭... defult = 0
-    [HideInInspector] int i_magicAffinity_fire = 0;
-    [HideInInspector] int i_magicAffinity_earth = 0;
-    [HideInInspector] int i_magicAffinity_water = 0;
-    [HideInInspector] int i_magicAffinity_air = 0;
+    // Ex) Magic Affinity, Magic Resistance, ...
+    #region Buffs
 
-    [HideInInspector] int i_magicResistance = 0;
+    // 마법 친화성  타입별 친화성으로 방어, 힐 효과 증폭... defult = 0
+    // <<22-11-09 장형용 :: 제거>>
+    //int i_magicAffinity_fire = 0;
+    //int i_magicAffinity_earth = 0;
+    //int i_magicAffinity_water = 0;
+    //int i_magicAffinity_air = 0;
+
+    int i_magicResistance = 0;
 
     // <<22-10-21 장형용 :: 추가>>
-    [HideInInspector] int i_magicAffinity_permanent = 0; // 장비(나 이벤트) 등으로 얻는 계속 유지되는 마나 친화성
-    [HideInInspector] int i_magicAffinity_battle = 0; // 1번의 전투 동안 유지되는 마나 친화성
-    [HideInInspector] int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성
+    int i_magicAffinity_permanent = 0; // 장비(나 이벤트) 등으로 얻는 계속 유지되는 마나 친화성
+    int i_magicAffinity_battle = 0; // 1번의 전투 동안 유지되는 마나 친화성
+    int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성
 
     // <<22-11-05 장형용 :: 추가>>
-    [HideInInspector] int i_protection = 0;
+    int i_protection = 0; // 수치 이하의 데미지를 방어 (수치 이상의 피해는 방어 못함, 쉴드 상위호환으로 겹쳐서 살짝 바꿔봄)
+
+    // <<22-11-12 장형용 :: 상태이상을 막아주는 면역 효과 추가>>
+    int i_emmune;
 
     #endregion
 
+    // Ex) Burning, Cannot Draw Card, ...
+    #region Debuffs
 
-    #region debuff
-    [HideInInspector] int i_decrease_magicAffinity;
-    [HideInInspector] int i_status_;
+    // <<22-11-09 장형용 :: 제거>>
+    //int i_decrease_magicAffinity;
+    //int i_status_;
 
+    int i_burning = 0;
+
+    bool b_cannotDrawCard = false;
 
     #endregion
 
+    #endregion
+
+    #region Properties
 
     // === 스테이터스 증가/감소 ====
     // 넣는값을 +- 로 조절하기
-    #region property_status
+    #region Status
 
-    //보류
- //   public void Add_Status_MagicAffinity_Fire(int _addStatus)
-	//{
- //       i_magicAffinity_fire += _addStatus;
- //       RefreshPlayer();
- //   }
- //   public void Add_Status_MagicAffinity_Earth(int _addStatus)
- //   {
- //       i_magicAffinity_earth += _addStatus;
- //       RefreshPlayer();
- //   }
- //   public void Add_Status_MagicAffinity_Water(int _addStatus)
- //   {
- //       i_magicAffinity_water += _addStatus;
- //       RefreshPlayer();
- //   }
- //   public void Add_Status_MagicAffinity_Air(int _addStatus)
- //   {
- //       i_magicAffinity_air += _addStatus;
- //       RefreshPlayer();
- //   }
-
+    // <<22-11-09 장형용 :: 제거>>
+    //public void Add_Status_MagicAffinity_Fire(int _addStatus)
+    //public void Add_Status_MagicAffinity_Earth(int _addStatus)
+    //public void Add_Status_MagicAffinity_Water(int _addStatus)
+    //public void Add_Status_MagicAffinity_Air(int _addStatus)
 
     public float Status_Health
-	{
-		get
-		{
+    {
+        get
+        {
             return i_health;
-		}
-		set
-		{
-            if(value > maxHealth) // <<22-10-26 장형용 :: 별도의 초과회복 처리를 하지 않아도 되도록 수정>>
+        }
+        set
+        {
+            // <<22-10-26 장형용 :: 별도의 초과회복 처리를 하지 않아도 되도록 수정>>
+            if (value > maxHealth)
             {
                 i_health = maxHealth;
             }
@@ -157,70 +178,130 @@ public class PlayerEntity : MonoBehaviour
             RefreshPlayer();
         }
     }
+
     public float Status_MaxHealth
     {
-		get
-		{
+        get
+        {
             return maxHealth;
-		}
-		set
-		{
+        }
+        set
+        {
             maxHealth = value;
+
             RefreshPlayer();
         }
     }
-    public int Status_Aether 
+    public int Status_Aether
     {
-		get
-		{
+        get
+        {
             return i_aether;
-		}
-		set
-		{
+        }
+        set
+        {
             i_aether = value;
+
             RefreshPlayer();
         }
-       
+
     }
-    public int Status_MaxAether
-	{
-		get
-		{
+
+    public int Status_MaxAether_Permanent
+    {
+        get
+        {
             return maxAether;
-		}
-		set
-		{
+        }
+        set
+        {
             maxAether = value;
+
             RefreshPlayer();
         }
-        
+
     }
+
+    // <<22-11-12 장형용 :: 추가>>
+    public int Status_MaxAether_Battle
+    {
+        get
+        {
+            return maxAether_battle;
+        }
+        set
+        {
+            maxAether_battle = value;
+
+            RefreshPlayer();
+        }
+    }
+
+    public int Status_MaxAether
+    {
+        get
+        {
+            return maxAether_battle + maxAether;
+        }
+
+        //set
+        //{
+        //    Status_MaxAether = value;
+        //}
+    }
+
     public int Status_Shiled
-	{
-		get
-		{
-            return i_shield; 
-		}
-		set
-		{
-            i_shield = value;
+    {
+        get
+        {
+            return i_shield;
+        }
+        set
+        {
+            if (value > 0)
+            {
+                i_shield = value;
+            }
+            else
+            {
+                i_shield = 0;
+            }
+
+            //i_shield = value;
             RefreshPlayer();
         }
     }
-    public int Status_EnchaneValue
-	{
-		get
-		{
+
+    // <<22-11-12 장형용 :: 해당 Properties들을 Buff 또는 Debuff로 변경>>
+    //public int Status_EnchaneValue
+    //public int Status_MagicAffinity_Permanent
+    //public int Status_MagicAffinity_Battle
+    //public int Status_MagicAffinity_Turn
+    //public int Status_MagicResistance
+    //public int Status_Protection
+    //public int Status_MagicAffinity
+
+    #endregion
+
+    // <<22-11-12 장형용 :: Status => Buff로 변경 및 정리>>
+    #region Buffs
+
+    public int Buff_EnchaneValue
+    {
+        get
+        {
             return i_enhacneVal;
-		}
-		set
-		{
+        }
+        set
+        {
             i_enhacneVal = value;
         }
-	}
+    }
 
     // <<22-10-21 장형용 :: 추가>>
-    public int Status_MagicAffinity_Permanent
+    #region ManaAffinities
+
+    public int Buff_MagicAffinity_Permanent
     {
         get
         {
@@ -233,7 +314,7 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
-    public int Status_MagicAffinity_Battle
+    public int Buff_MagicAffinity_Battle
     {
         get
         {
@@ -246,7 +327,7 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
-    public int Status_MagicAffinity_Turn
+    public int Buff_MagicAffinity_Turn
     {
         get
         {
@@ -259,7 +340,26 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
-    public int Status_MagicResistance
+    // <<22-11-07 장형용 :: 가시성을 위해 추가>>
+    public int Buff_MagicAffinity // 전체 마나 친화성의 총합
+    {
+        get
+        {
+            return i_magicAffinity_permanent
+                + i_magicAffinity_battle
+                + i_magicAffinity_turn;
+        }
+
+        //set
+        //{
+        //    Status_MagicAffinity = value;
+        //}
+    }
+
+    #endregion
+
+    // <<22-10-21 장형용 :: 추가>>
+    public int Buff_MagicResistance
     {
         get
         {
@@ -273,8 +373,7 @@ public class PlayerEntity : MonoBehaviour
     }
 
     // <<22-11-05 장형용 :: 추가>>
-
-    public int Status_Protection
+    public int Buff_Protection
     {
         get
         {
@@ -283,7 +382,7 @@ public class PlayerEntity : MonoBehaviour
 
         set
         {
-            if(value > 0)
+            if (value > 0)
             {
                 i_protection = value;
             }
@@ -294,9 +393,61 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    // <<22-11-12 장형용 :: 추가>>
+    public int Buff_Emmune
+    {
+        get
+        {
+            return i_emmune;
+        }
+
+        set
+        {
+            i_emmune = value;
+        }
+    }
+
     #endregion
 
+    // <<22-11-12 장형용 :: 정리>>
+    #region Debuffs
 
+    public int Debuff_Burning
+    {
+        get
+        {
+            return i_burning;
+        }
+
+        set
+        {
+            if (value > 0)
+            {
+                i_burning = value;
+            }
+            else
+            {
+                i_burning = 0;
+            }
+        }
+    }
+
+    public bool Debuff_CannotDrawCard
+    {
+        get
+        {
+            return b_cannotDrawCard;
+        }
+
+        set
+        {
+            b_cannotDrawCard = value;
+        }
+    }
+
+    #endregion
+
+    #endregion
 
     // 플레이어 기본 정보 설정
     public void SetupPlayerChar(PlayerChar _playerChar)
@@ -320,85 +471,92 @@ public class PlayerEntity : MonoBehaviour
         healthTMP.text = i_health.ToString();
     }
 
-
+    // <<22-10-21 장형용 :: 수정>>
+    // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
     public void Damaged(int _damage, Card _card = null)
     {
-        if (i_protection >= _damage) // 보호 => 보호 수치 이하의 데미지 무효
+        #region Status_Health -= _damage;
+
+        NativeArray<int> values = new NativeArray<int>(5, Allocator.TempJob);
+        values[0] = _damage;
+        values[1] = Buff_Protection;
+        values[2] = Status_Shiled;
+        values[3] = (int)Status_Health;
+        values[4] = Debuff_Burning;
+
+        #region 입력 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
         {
-            _damage = 0;
-            return;
+            Debug.Log("-------------------------------------");
+            Debug.Log("입력 - 데미지 : " + values[0]);
+            Debug.Log("입력 - 보호 : " + values[1]);
+            Debug.Log("입력 - 쉴드 : " + values[2]);
+            Debug.Log("입력 - 체력 : " + values[3]);
+            Debug.Log("입력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
         }
 
-        i_protection--;
+        #endregion
 
-        int totalDamage = _damage - i_shield;
+        myProtectionJob.values = values;
+        myProtectionJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
 
-        if(totalDamage < 0)
+        JobHandle firstJob = myProtectionJob.Schedule();
+
+        myShieldJob.values = values;
+        myShieldJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
+
+        JobHandle secondJob = myShieldJob.Schedule(firstJob);
+
+        myBurningJob.values = values;
+        myBurningJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
+
+        JobHandle thirdJob = myBurningJob.Schedule(secondJob);
+
+        thirdJob.Complete();
+
+        _damage = values[0];
+        Buff_Protection = values[1];
+        Status_Shiled = values[2];
+        Status_Health = values[3];
+        Debuff_Burning = values[4];
+
+        #region 결과 값 디버그
+
+        if (DebugManager.instance.isPrintDamageCalculating)
         {
-            totalDamage = 0;
+            Debug.Log("출력 - 데미지 : " + values[0]);
+            Debug.Log("출력 - 보호 : " + values[1]);
+            Debug.Log("출력 - 쉴드 : " + values[2]);
+            Debug.Log("출력 - 체력 : " + values[3]);
+            Debug.Log("출력 - 화상 : " + values[4]);
+            Debug.Log("-------------------------------------");
         }
 
-        if (i_shield > _damage) // 쉴드 => 쉴드 수치만큼 데미지 차감
-        {
-            i_shield -= _damage;
-        }
-        else
-        {
-            i_health -= totalDamage;
-            i_shield = 0;
-        }
+        #endregion
 
-        if (totalDamage > 0)
-        {
-            Utility.onDamaged?.Invoke(_card, totalDamage);
-        }
+        values.Dispose();
 
-        if (i_health <= 0)
+        #endregion
+
+        if (_damage > 0)
+            Utility.onDamaged?.Invoke(_card, _damage);
+
+        if (Status_Health <= 0)
         {
-            i_health = 0;
+            Status_Health = 0;
             is_die = true;
-            RefreshPlayer();
-            
-            StartCoroutine(GameManager.Inst.GameOverScene());
-            return ;
-        }
 
-        if(i_burning > 0) //  <<22-10-21 장형용 :: 화상 추가>>
-        {
-            Burning();
+            StartCoroutine(GameManager.Inst.GameOverScene());
         }
 
         RefreshPlayer();
-        return ;
     }
 
-    public void Burning() //  <<22-10-21 장형용 :: 화상 추가>>
-    {
-        if (i_shield > i_burning)
-        {
-            i_shield -= i_burning;
-        }
-        else
-        {
-            i_health -= (i_burning - i_shield);
-            i_shield = 0;
-        }
-
-        i_burning--;
-
-        if (i_health <= 0)
-        {
-            i_health = 0;
-            is_die = true;
-            RefreshPlayer();
-
-            StartCoroutine(GameManager.Inst.GameOverScene());
-            return;
-        }
-
-        RefreshPlayer();
-        return;
-    }
+    //  <<22-10-21 장형용 :: 화상 추가>>
+    //  <<22-11-12 장형용 :: 위 데미지 공식에 통합 (기존과 동일하게 카드로 가한 데미지에는 포함 X)>>
+    //public void Burning()
 
     public void RefreshPlayer()
     {
@@ -407,8 +565,7 @@ public class PlayerEntity : MonoBehaviour
         healthImage_UI.fillAmount = i_health / maxHealth;
         UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
         healthTMP.text = i_health.ToString();
-        ShieldTMP.text = i_shield.ToString();
-        
+        ShieldTMP.text = i_shield.ToString();     
     }
 
     void Set_ShieldActivate()
@@ -423,15 +580,9 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
-    void ResetValue_Shield(bool isMyTurn)
-    {
-        if(isMyTurn)
-        {
-            i_shield = 0;
+    #region StatusValueChange
 
-            RefreshPlayer();
-        }
-    }
+    #region 마나 친화성
 
     void ResetMagicAffinity_Battle()
     {
@@ -450,9 +601,13 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region 보호
+
     void ResetProtection()
     {
-        i_protection = 0;
+        Buff_Protection = 0;
 
         RefreshPlayer();
     }
@@ -461,19 +616,40 @@ public class PlayerEntity : MonoBehaviour
     {
         if (isMyTurn)
         {
-            i_protection = 0;
+            Buff_Protection--;
 
             CardManager.Inst.RefreshMyHands();
         }
     }
 
-    public void SpellEnchaneReset()
-    {
-        Status_EnchaneValue = 1;
+    #endregion
 
-        CardManager.Inst.RefreshMyHands();
+    void ResetValue_Shield(bool isMyTurn)
+    {
+        if (isMyTurn)
+        {
+            i_shield = 0;
+
+            RefreshPlayer();
+        }
     }
 
+    public void ResetEnhanceValue()
+    {
+        Buff_EnchaneValue = 1;
+
+        CardManager.Inst.RefreshMyHands();
+    } 
+
+    public void ResetCannotDrawCard(bool isMyTurn)
+    {
+        if (isMyTurn)
+        {
+            Debuff_CannotDrawCard = false;
+        }
+    }
+
+    #endregion
 
     #region DoTween
 
@@ -567,8 +743,6 @@ public class PlayerEntity : MonoBehaviour
 
 	#endregion
 
-
-
 	#region MouseControlle
 	private void OnMouseOver()
     {
@@ -591,6 +765,4 @@ public class PlayerEntity : MonoBehaviour
     }
 
 	#endregion
-
-
 }
