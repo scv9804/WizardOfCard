@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Reflection;
+using System;
 
 public class EnemySkillCollection : MonoBehaviour
 {
@@ -11,6 +13,43 @@ public class EnemySkillCollection : MonoBehaviour
 	{
 		inst = this;
 	}
+
+	// 이번 만입니다... 효율적이진 않겠지만 원하는 대로 해드렸습니다...
+    #region Prototype
+
+	public static void PrototypeFunction(string _name, Entity _entity)
+    {
+		Type type = inst.GetType();
+
+		MethodInfo methodInfo = type.GetMethod(_name);
+
+		object[] parameters = new object[1]
+		{
+			_entity
+		};
+
+		IEnumerator ie = (IEnumerator) methodInfo.Invoke(inst, parameters);
+
+        inst.StartCoroutine(ie);
+    }
+
+	public static void PrototypeFunction(string _name, Entity _entity, int _index)
+	{
+		Type type = inst.GetType();
+
+		MethodInfo methodInfo = type.GetMethod(_name);
+
+		object[] parameters = new object[2]
+		{
+			_entity, _index
+		};
+
+		IEnumerator ie = (IEnumerator)methodInfo.Invoke(inst, parameters);
+
+		inst.StartCoroutine(ie);
+	}
+
+	#endregion
 
 	#region 공통 기본
 	IEnumerator AttackMotion(Entity _entity)

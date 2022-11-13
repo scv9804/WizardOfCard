@@ -10,7 +10,8 @@ public class WolfAttackPattern : EntityPattern
 		switch (_entity.attackTime)
 		{
 			case 0: // 전투의 포효
-				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.WarCry(_entity));
+				//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.WarCry(_entity));
+				EnemySkillCollection.PrototypeFunction("WarCry", _entity);
 				break;
 			case 1:
 				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
