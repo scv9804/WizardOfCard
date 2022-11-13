@@ -411,14 +411,14 @@ public class Card : MonoBehaviour
 
     #region АјАн
 
-    protected void Attack(Entity _target, int _value)
+    protected void Attack(Entity _target, int _value )
 	{
 		if(!_target.is_die)
         {
 			_target?.Damaged(_value, this);
 
 			StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackSprite));
-			StartCoroutine(_target?.DamagedEffectCorutin(enemyDamageSprite));
+			StartCoroutine(_target?.DamagedEffectCorutin(enemyDamageSprite)); 
 		}
     }
 

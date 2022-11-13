@@ -86,6 +86,7 @@ public abstract class EntityPattern : ScriptableObject
 		}
 		else
 		{
+			yield return EntityManager.Inst.StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkill(_entity));
 			EntityManager.Inst.StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
 			_entity.IncreaseDamage = _entity.buffValue;
 			_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "WarCry", 0, 1);

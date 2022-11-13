@@ -10,10 +10,18 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	{
 		Inst = this;
 	}
+	Vector3 spawnPos = new Vector3(-1 , 0, 0);
 
-	[Header("EntityAttackPatternImages")]
+	[Header("EntityAttackPatternExplainImages")]
 	[SerializeField] Sprite warCrySprite;
 	[SerializeField] Sprite shieldSprite;
+
+	[Header("SkillEffectImage")]
+	[SerializeField] Sprite warCrySkillSprite;
+
+
+	[Header("SkillEffectImage")]
+	[SerializeField]GameObject defultPrefab;
 
 
 	public Sprite WarCrySprite
@@ -30,6 +38,17 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 		{
 			return shieldSprite;
 		}
+	}
+
+	public IEnumerator SpawnSkill(Entity _entity)
+	{
+		var temt = Instantiate(defultPrefab);
+		temt.transform.localScale = new Vector3(1, 1, 0);
+		temt.transform.SetParent(_entity.transform, true);
+		temt.transform.localPosition = new Vector3(-(_entity.spriteSize_X/2),_entity.spriteSize_Y/2 , 0);
+		yield return new WaitForSeconds(1.0f);
+		Destroy(temt);
+		temt = null;
 	}
 
 }

@@ -41,6 +41,8 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_damage;
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
+    [HideInInspector] public float spriteSize_X;
+    [HideInInspector] public float spriteSize_Y;
 
 
     [HideInInspector] public int i_burning = 0;
@@ -89,6 +91,9 @@ public class Entity : MonoBehaviour
         entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
         Debug.Log(charater.sprite.bounds.size.y);
+        spriteSize_X = charater.sprite.bounds.size.x;
+        spriteSize_Y = charater.sprite.bounds.size.y;
+
         //켄버스 위치 스프라이트 사이즈에 따라 조절.
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
         AllEffectOff();
@@ -375,8 +380,6 @@ public class Entity : MonoBehaviour
 	#endregion
 
 	#region Damage
-
-
 
     public IEnumerator DamagedEffectCorutin(Sprite _sprite)
     {

@@ -21,7 +21,8 @@ public class Enemy : ScriptableObject
 	public Sprite PlayerDamagedEffect;
 	public Sprite EnemyDamagedSprite;
 	public Sprite EnemyAttackSprite;
-
+	public Sprite []SpelcialSkillSprite;
+	
 
 	public EntityPattern entityPattern;
 }

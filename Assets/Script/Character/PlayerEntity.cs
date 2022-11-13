@@ -19,13 +19,13 @@ public class PlayerEntity : MonoBehaviour
 
     [HideInInspector] public PlayerChar playerChar;
     [SerializeField] SpriteRenderer charaterSprite;
+    [SerializeField] GameObject spineObeject;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] Image healthImage_Bar;
     [SerializeField] GameObject AttackEffect;
     [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
     [SerializeField] SpriteRenderer damagedEffectSpriteRenderer;
-    [SerializeField] Animator animatior;
     Image healthImage_UI;
 
 
@@ -46,7 +46,6 @@ public class PlayerEntity : MonoBehaviour
 	private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
-        animatior = GetComponent<Animator>();
         SetDefultPS();
     }
 
@@ -482,14 +481,34 @@ public class PlayerEntity : MonoBehaviour
     public IEnumerator AttackSprite(Sprite _character, Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f) , 0);
-        //   charaterSprite.sprite = _character;
-        animatior.SetBool("Attack", true);
+        charaterSprite.sprite = _character;
+        charaterSprite.enabled = true;
+        spineObeject.SetActive(false);
         AttackEffectSpriteRenderer.sprite = _effect;
         AttackWandEffect();
-        yield return new WaitForSeconds(0.25f);
-        animatior.SetBool("Attack", false);
+        this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.15f);
+        yield return new WaitForSeconds(0.15f);
+        this.transform.DOMove(this.originPos, 0.05f);
+        yield return new WaitForSeconds(0.20f);
+        charaterSprite.enabled = false;
+        spineObeject.SetActive(true);
         DoOrigin();
 	}
+
+    //공격스킬 아닌 이펙트같은건 다 여기로
+    public IEnumerator SpecialSkillSprite(Sprite _character , Sprite _effect)
+	{
+        this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0);
+        charaterSprite.sprite = _character;
+        charaterSprite.enabled = true;
+        spineObeject.SetActive(false);
+        AttackEffectSpriteRenderer.sprite = _effect;
+        AttackWandEffect();
+        yield return new WaitForSeconds(0.35f);
+        charaterSprite.enabled = false;
+        spineObeject.SetActive(true);
+        DoOrigin();
+    }
 
     public void SetDamagedSprite(Sprite _damagedEffedt)
 	{
@@ -499,6 +518,8 @@ public class PlayerEntity : MonoBehaviour
     IEnumerator DamagedSprite(Sprite _damagedEffet)
     {
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0);
+        charaterSprite.enabled = true;
+        spineObeject.SetActive(false);
         charaterSprite.sprite = playerChar.damagedSprite;
         damagedEffectSpriteRenderer.sprite = _damagedEffet;
         DamagedEffect();
@@ -506,6 +527,8 @@ public class PlayerEntity : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         this.transform.DOMove(this.originPos, 0.05f);
         yield return new WaitForSeconds(0.2f);
+        charaterSprite.enabled = false;
+        spineObeject.SetActive(true);
         DoOrigin();
     }
 
