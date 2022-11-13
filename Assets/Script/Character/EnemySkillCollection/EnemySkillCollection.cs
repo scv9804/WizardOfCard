@@ -17,32 +17,13 @@ public class EnemySkillCollection : MonoBehaviour
 	// 이번 만입니다... 효율적이진 않겠지만 원하는 대로 해드렸습니다...
     #region Prototype
 
-	public static void PrototypeFunction(string _name, Entity _entity)
-    {
-		Type type = inst.GetType();
-
-		MethodInfo methodInfo = type.GetMethod(_name);
-
-		object[] parameters = new object[1]
-		{
-			_entity
-		};
-
-		IEnumerator ie = (IEnumerator) methodInfo.Invoke(inst, parameters);
-
-        inst.StartCoroutine(ie);
-    }
-
-	public static void PrototypeFunction(string _name, Entity _entity, int _index)
+	public static void PrototypeFunction(string _name, params object[] _parameters)
 	{
 		Type type = inst.GetType();
 
 		MethodInfo methodInfo = type.GetMethod(_name);
 
-		object[] parameters = new object[2]
-		{
-			_entity, _index
-		};
+		object[] parameters = _parameters;
 
 		IEnumerator ie = (IEnumerator)methodInfo.Invoke(inst, parameters);
 
