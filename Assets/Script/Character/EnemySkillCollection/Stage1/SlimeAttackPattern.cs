@@ -11,14 +11,14 @@ public class SlimeAttackPattern : EntityPattern
 		switch (UnityEngine.Random.Range(0, 2))
 		{
 			case 0: // ºÎ½Ä
-				EntityManager.Inst.StartCoroutine(RustAccid(_entity));
+				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.RustAccid(_entity));
 				_entity.attackTime++;
 				break;
 			case 1:
-				EntityManager.Inst.StartCoroutine(Attack(_entity));
+				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
 				break;
 			case 2:
-				EntityManager.Inst.StartCoroutine(Shield(_entity));
+				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Shield(_entity));
 				_entity.attackTime = 1;
 				break;
 		}

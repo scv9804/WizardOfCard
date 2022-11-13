@@ -11,15 +11,15 @@ public class GoblinAttackPattern : EntityPattern
 		switch (_entity.attackTime)
 		{
 			case 0:
-				EntityManager.Inst.StartCoroutine(Attack(_entity));
+				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
 				break;
 			case 1:
-				EntityManager.Inst.StartCoroutine(Shield(_entity));
+				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Shield(_entity));
 				break;
 			case 2:
 				if (EntityManager.Inst.enemyEntities.Count < 3)
 				{
-					EntityManager.Inst.StartCoroutine(CallEnemy(_entity, 0));
+					EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.CallEnemy(_entity,0));
 					_entity.attackTime = 0;
 					break;
 				}
