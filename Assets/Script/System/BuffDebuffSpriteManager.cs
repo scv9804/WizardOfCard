@@ -45,6 +45,7 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 		var temt = Instantiate(defultPrefab);
 		temt.transform.localScale = new Vector3(1, 1, 0);
 		temt.transform.SetParent(_entity.transform, true);
+		Debug.Log(-(_entity.spriteSize_X / 2));
 		temt.transform.localPosition = new Vector3(-(_entity.spriteSize_X/2),_entity.spriteSize_Y/2 , 0);
 		yield return new WaitForSeconds(1.0f);
 		Destroy(temt);

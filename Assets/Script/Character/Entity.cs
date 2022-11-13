@@ -30,6 +30,7 @@ public class Entity : MonoBehaviour
     [SerializeField] GameObject buffImageSlot;
     [SerializeField] List<GameObject> buffImageList;
     [SerializeField] GameObject buffPrefab;
+    [SerializeField] GameObject spineGameObject;
 
     //능력치 등
     [HideInInspector] Sprite playerDamagedEffect;
@@ -42,7 +43,9 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int i_damage;
     [HideInInspector] public int attackTime = 0;
     [HideInInspector] public int nextPattorn = 0;
-
+    [HideInInspector] public float spriteSize_X = 0;
+    [HideInInspector] public float spriteSize_Y = 0;
+  
 
     [HideInInspector] public int i_burning = 0;
 
@@ -100,6 +103,8 @@ public class Entity : MonoBehaviour
         Debug.Log(charater.sprite.bounds.size.y);
         //켄버스 위치 스프라이트 사이즈에 따라 조절.
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
+        spriteSize_X = charater.sprite.bounds.size.x;
+        spriteSize_Y = charater.sprite.bounds.size.y;
         AllEffectOff();
     }
     private void OnEnable()
@@ -443,11 +448,13 @@ public class Entity : MonoBehaviour
     {
         DamagedSpriteRenederer.sprite = _sprite;
 
+
         Sequence sequence1 = DOTween.Sequence()
         .Append(DamagedSpriteRenederer.DOFade(1, 0.15f))
         .Append(DamagedSpriteRenederer.DOFade(0, 0.05f));
 
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
+
 
         charater.sprite = enemy.EnemyDamagedSprite;
 
