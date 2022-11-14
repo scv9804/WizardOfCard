@@ -2809,7 +2809,6 @@ GameObject:
   - component: {fileID: 322670483}
   - component: {fileID: 322670485}
   - component: {fileID: 322670484}
-  - component: {fileID: 322670486}
   m_Layer: 5
   m_Name: Equi_Hat
   m_TagString: Untagged
@@ -2874,19 +2873,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322670482}
   m_CullTransparentMesh: 1
---- !u!114 &322670486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322670482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 13
 --- !u!1 &337854128
 GameObject:
   m_ObjectHideFlags: 0
@@ -2898,7 +2884,6 @@ GameObject:
   - component: {fileID: 337854129}
   - component: {fileID: 337854131}
   - component: {fileID: 337854130}
-  - component: {fileID: 337854132}
   m_Layer: 5
   m_Name: Equi_Book
   m_TagString: Untagged
@@ -2963,19 +2948,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337854128}
   m_CullTransparentMesh: 1
---- !u!114 &337854132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337854128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 12
 --- !u!1 &345995838
 GameObject:
   m_ObjectHideFlags: 0
@@ -3526,7 +3498,6 @@ GameObject:
   - component: {fileID: 440529667}
   - component: {fileID: 440529669}
   - component: {fileID: 440529668}
-  - component: {fileID: 440529670}
   m_Layer: 5
   m_Name: Equi_Wand
   m_TagString: Untagged
@@ -3591,19 +3562,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440529666}
   m_CullTransparentMesh: 1
---- !u!114 &440529670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440529666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 11
 --- !u!1 &476230647
 GameObject:
   m_ObjectHideFlags: 0
@@ -10248,7 +10206,6 @@ GameObject:
   - component: {fileID: 1099399100}
   - component: {fileID: 1099399102}
   - component: {fileID: 1099399101}
-  - component: {fileID: 1099399103}
   m_Layer: 5
   m_Name: Equi_Suit
   m_TagString: Untagged
@@ -10313,19 +10270,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099399099}
   m_CullTransparentMesh: 1
---- !u!114 &1099399103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1099399099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 14
 --- !u!1 &1110110435
 GameObject:
   m_ObjectHideFlags: 0
@@ -13469,9 +13413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58132d81f7117f4b945e39870484769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
   rewardObjectList: []
-  rewardList: []
   database: {fileID: 1939514123}
   rewardWindow: {fileID: 586966902}
   acceptButton: {fileID: 1316177159}
@@ -13577,7 +13519,6 @@ GameObject:
   - component: {fileID: 1647063782}
   - component: {fileID: 1647063784}
   - component: {fileID: 1647063783}
-  - component: {fileID: 1647063785}
   m_Layer: 5
   m_Name: Equi_Ring
   m_TagString: Untagged
@@ -13642,19 +13583,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647063781}
   m_CullTransparentMesh: 1
---- !u!114 &1647063785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647063781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 15
 --- !u!1 &1647843352
 GameObject:
   m_ObjectHideFlags: 0
@@ -16164,11 +16092,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 730093458}
   slotPanel: {fileID: 88910647}
+  equipslotPanel: {fileID: 1177486781}
   database: {fileID: 1939514123}
   inventorySlot: {fileID: 8904342169361867188, guid: 438ff174dbd956d47bd47d7bc1052558, type: 3}
   inventoryItem: {fileID: 197196, guid: 1a1731ca39f31b54c9b2ff6a3add0e67, type: 3}
-  items: []
   slots: []
+  equipslots: []
 --- !u!4 &1939514121
 Transform:
   m_ObjectHideFlags: 0
@@ -16208,7 +16137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030207ba2cc21f9479782cc9c91e802a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  database: []
 --- !u!114 &1939514124
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,13 +7,16 @@ public class Inventory : MonoBehaviour
 {
 	public GameObject inventoryPanel;
 	public GameObject slotPanel;
+	public GameObject equipslotPanel;
 	[SerializeField]ItemDataBase database;
 	public GameObject inventorySlot;
 	public GameObject inventoryItem;
 
 	private int slotAmount;
 	public List<Item_inven> items = new List<Item_inven>();
+	public List<Item_inven> equipitems = new List<Item_inven>();
 	public List<GameObject> slots = new List<GameObject>();
+	public List<GameObject> equipslots = new List<GameObject>();
 
 	void Start()
 	{
@@ -26,6 +29,11 @@ public class Inventory : MonoBehaviour
 		{
 			MakeSlot(i);
 		}
+		for (int i = 0; i < 5; i++)
+		{
+			MakeEquipSlot(i);
+		}
+
 		//테스트용 아이템 추가
 		AddItem(0);
 		AddItem(1);
@@ -44,41 +52,33 @@ public class Inventory : MonoBehaviour
 		slots[i].GetComponent<Slot>().id = i;
 		slots[i].transform.SetParent(slotPanel.transform);
 	}
+	public void MakeEquipSlot(int i)
+	{
+		equipitems.Add(new Item_inven());
+		equipslots.Add(Instantiate(inventorySlot));
+		equipslots[i].transform.SetParent(equipslotPanel.transform.GetChild(i).transform);
+		equipslots[i].transform.localPosition = Vector2.zero;
+		equipslots[i].GetComponent<Slot>().id = i+10;
+	}
 	public void AddItem(int id)
 	{
 		Item_inven itemToAdd = database.FetchItemById(id);
-		/*if (itemToAdd.Stackable && CheckIfItemIsInInventory(itemToAdd))           //아이템 스택 안씀
+		for (int i = 0; i < items.Count; i++)
 		{
-			for (int i = 0; i < items.Count; i++)
+			if (items[i].Id == -1)
 			{
-				if (items[i].Id == id)
-				{
-					ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
-					data.amount++;
-					data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-					break;
-				}
+				items[i] = itemToAdd;
+				GameObject itemObj = Instantiate(inventoryItem);
+				itemObj.GetComponent<ItemData>().item = itemToAdd;
+				itemObj.GetComponent<ItemData>().slotId = i;
+				itemObj.transform.SetParent(slots[i].transform);
+				itemObj.transform.localPosition = Vector2.zero;
+				itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+				itemObj.name = "Item: " + itemToAdd.Title;
+				slots[i].name = "Slot: " + itemToAdd.Title;
+				break;
 			}
 		}
-		else
-		{*/
-			for (int i = 0; i < items.Count; i++)
-			{
-				if (items[i].Id == -1)
-				{
-					items[i] = itemToAdd;
-					GameObject itemObj = Instantiate(inventoryItem);
-					itemObj.GetComponent<ItemData>().item = itemToAdd;
-					itemObj.GetComponent<ItemData>().slotId = i;
-					itemObj.transform.SetParent(slots[i].transform);
-					itemObj.transform.position = Vector2.zero;
-					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-					itemObj.name = "Item: " + itemToAdd.Title;
-					slots[i].name = "Slot: " + itemToAdd.Title;
-					break;
-				}
-			}
-		//}
 		Debug.Log(itemToAdd.Title + "Added");
 	}
 

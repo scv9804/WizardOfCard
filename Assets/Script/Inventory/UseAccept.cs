@@ -31,8 +31,16 @@ public class UseAccept : MonoBehaviour
 
 	public void ConstructDataString()
 	{
-		data = item.Title + "을(를) 사용 하시겠습니까?";
-		useAccept.transform.GetChild(0).GetComponent<Text>().text = data;
+        if (item != null && !item.Equipable)
+        {
+			data = item.Title + "을(를) 사용 하시겠습니까?";
+			useAccept.transform.GetChild(0).GetComponent<Text>().text = data;
+		}
+		else if (item != null && item.Equipable)
+		{
+			data = item.Title + "을(를) 장착 하시겠습니까?";
+			useAccept.transform.GetChild(0).GetComponent<Text>().text = data;
+		}
 	}
 
 	public void Ybutton()

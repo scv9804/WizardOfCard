@@ -11,7 +11,8 @@
 		},
 		"description": "just postion?",
 		"equipable": false,
-		"rarity": 5,
+		"ItemType": "Consumable",
+		"rarity": 2,
 		"slug": "potion"
 	},
 	{
@@ -26,7 +27,8 @@
 		},
 		"description": "체력이 10 회복되어요",
 		"equipable": false,
-		"rarity": 5,
+		"ItemType": "Consumable",
+		"rarity": 2,
 		"slug": "힐엘릭서"
 	},
 	{
@@ -41,7 +43,8 @@
 		},
 		"description": "어...최대체력 +10?",
 		"equipable": true,
-		"rarity": 5,
+		"ItemType": "Weapon",
+		"rarity": 2,
 		"slug": "마나엘릭서"
 	}
 ]

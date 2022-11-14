@@ -29,9 +29,7 @@ public class Slot : MonoBehaviour, IDropHandler
 		}
 		else if (droppedItem.slotId != id)
 		{
-			Debug.Log(inv.items[id].Id);
 			Transform item = this.transform.GetChild(0);
-			Debug.Log(item);
 			item.GetComponent<ItemData>().slotId = droppedItem.slotId;
 			item.transform.SetParent(inv.slots[droppedItem.slotId].transform);
 			item.transform.position = inv.slots[droppedItem.slotId].transform.position;
