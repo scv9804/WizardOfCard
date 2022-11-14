@@ -11,19 +11,23 @@ public class WolfAttackPattern : EntityPattern
 		{
 			case 0: // 전투의 포효
 				//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.WarCry(_entity));
-				EnemySkillCollection.PrototypeFunction("CallEnemy", _entity, 0);
+				EnemySkillCollection.PrototypeFunction("WarCry", _entity);
 				break;
 			case 1:
-				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
+				//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
+				EnemySkillCollection.PrototypeFunction("Attack", _entity);
 				break;
 			case 2:
-				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Shield(_entity));
+				//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Shield(_entity));
+				EnemySkillCollection.PrototypeFunction("Shield", _entity);
 				break;
 			case 3:
-				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
+				//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
+				EnemySkillCollection.PrototypeFunction("Attack", _entity);
 				break;
 			case 4:
-				EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
+				//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.Attack(_entity));
+				EnemySkillCollection.PrototypeFunction("Attack", _entity);
 				break;
 			case 5:
 				//적을 부릅니다 보여주기(차징)
@@ -32,8 +36,10 @@ public class WolfAttackPattern : EntityPattern
 			case 6:
 				if (EntityManager.Inst.enemyEntities.Count < 3)
 				{
-					EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.CallEnemy(_entity,0));
-					EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.CallEnemy(_entity,0));
+					//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.CallEnemy(_entity,0));
+					//EnemySkillCollection.inst.StartCoroutine(EnemySkillCollection.inst.CallEnemy(_entity,0));
+					EnemySkillCollection.PrototypeFunction("CallEnemy", _entity, 0);
+					EnemySkillCollection.PrototypeFunction("CallEnemy", _entity, 0);
 					_entity.attackTime = 0;
 					break;
 				}
