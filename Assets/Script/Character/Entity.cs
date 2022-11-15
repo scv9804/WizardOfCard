@@ -443,7 +443,6 @@ public class Entity : MonoBehaviour
 
     #region Damage
 
-    // <<22-11-09 장형용 :: 추가...라기 보다는 분리가 맞네>>
     IEnumerator DamageEffectCoroutine(Sprite _sprite)
     {
         DamagedSpriteRenederer.sprite = _sprite;
@@ -490,14 +489,9 @@ public class Entity : MonoBehaviour
         EntityManager.Inst.CheckDieEnemy(this);
     }
 
-    // <<22-11-09 장형용 :: 효율을 위해 함수 제거>>
-    //public void EndCheckingEntity()
-
     #endregion
 
-    // <<22-11-09 장형용 :: 효율을 위해 함수 제거>>
-    //public void DestroyTest()
-
+ 
     private void OnMouseOver()
     {
         EntityManager.Inst.EntityMouseOver(this);

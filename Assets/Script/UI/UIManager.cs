@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 		//mainCamera = mainCam.GetComponent<CameraData>();
 		//mapCamera = mapCam.GetComponent<CameraData>();
 		SetClose();
+		Reward_UI.gameObject.SetActive(false);
 	}
 
 	[Header("방이동 버튼")]
@@ -46,7 +47,7 @@ public class UIManager : MonoBehaviour
 	public GameObject minimapCancleArea;
 	public GameObject inventoryCancleArea;
 	public GameObject gameClearBack_UI;
-	public GameObject Reword_UI;
+	public GameObject Reward_UI;
 
 
 	[Header("옵션 UI")]

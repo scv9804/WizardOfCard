@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnPattern
 {
 	[Tooltip("3개까지 가능")] public Enemy[] enemy;
-	public int Reward_item;
+	public int[] Reward_item;
 	public int Reward_Money;
 	public int[] Reward_Card;
 }

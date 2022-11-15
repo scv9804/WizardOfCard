@@ -6,19 +6,15 @@ using UnityEngine.UI;
 
 public class RewardScrollView : MonoBehaviour
 {
-    private ScrollRect scrollRect;
+    [SerializeField]private ScrollRect scrollRect;
 
     public float space = 50f;
 
     public GameObject uiPrefab;
-
+    public GameObject contents;
     public List<RectTransform> uiobjects = new List<RectTransform>();
 
-    void Start()
-    {
-        scrollRect = GetComponent<ScrollRect>();
-    }
-
+ 
     public void ClearViewList()
 	{
         uiobjects.Clear();
@@ -26,7 +22,8 @@ public class RewardScrollView : MonoBehaviour
 
     public GameObject SetReward(Item_inven item)
     {
-        var newUI = Instantiate(uiPrefab, scrollRect.content);
+        var newUI = Instantiate(uiPrefab);
+        newUI.transform.parent = contents.transform;
 
         //프리팹 내용 설정
         Image itemimage = newUI.GetComponentInChildren<Image>();
@@ -43,6 +40,7 @@ public class RewardScrollView : MonoBehaviour
             y += uiobjects[0].sizeDelta.y + space;
         }
         scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
+  
 
         return newUI;
     }

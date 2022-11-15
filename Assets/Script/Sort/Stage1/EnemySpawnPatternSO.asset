@@ -16,25 +16,25 @@ MonoBehaviour:
   - enemy:
     - {fileID: 11400000, guid: c58e16b61f1af6b43a398556b79607e1, type: 2}
     - {fileID: 11400000, guid: c58e16b61f1af6b43a398556b79607e1, type: 2}
-    Reward_item: 0
+    Reward_item: 0000000002000000
     Reward_Money: 0
     Reward_Card: 
   - enemy:
     - {fileID: 11400000, guid: 0b3722501f229c34a8cf5f676f761960, type: 2}
     - {fileID: 11400000, guid: c58e16b61f1af6b43a398556b79607e1, type: 2}
     - {fileID: 11400000, guid: 0b3722501f229c34a8cf5f676f761960, type: 2}
-    Reward_item: 0
+    Reward_item: 
     Reward_Money: 0
     Reward_Card: 
   - enemy:
     - {fileID: 11400000, guid: 01afddf32dfda6746a4a861501e6ea26, type: 2}
     - {fileID: 11400000, guid: 5db64655860d61243a23d19942937593, type: 2}
-    Reward_item: 0
+    Reward_item: 
     Reward_Money: 0
     Reward_Card: 
   - enemy:
     - {fileID: 11400000, guid: 5db64655860d61243a23d19942937593, type: 2}
     - {fileID: 11400000, guid: 5db64655860d61243a23d19942937593, type: 2}
-    Reward_item: 0
+    Reward_item: 
     Reward_Money: 0
     Reward_Card: 

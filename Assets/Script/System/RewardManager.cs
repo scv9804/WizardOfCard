@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class RewordManager : MonoBehaviour
+public class RewardManager : MonoBehaviour
 {
-    public static RewordManager Inst { get; set; }
+    public static RewardManager Inst { get; set; }
 
 	private void Awake()
 	{
@@ -14,6 +14,7 @@ public class RewordManager : MonoBehaviour
 	}
 
 	public List<Item_inven> itemList = new List<Item_inven>();
+	public List<Item_inven> randomitemList = new List<Item_inven>();
 	public List<GameObject> rewardObjectList = new List<GameObject>();
 	public List<Item_inven> rewardList = new List<Item_inven>();
 
@@ -25,40 +26,60 @@ public class RewordManager : MonoBehaviour
 
 	private void Start()
 	{
+		SetRandomRewardTable();
 	}
-
 	public void GameClear()
 	{
-		Debug.Log("º¸»ó");
 		UIManager.Inst.MapClearUI();
 		acceptButton.onClick.AddListener(AddClearReword);
-		SetRewardTable();
-		SetRandomReward();
+		if (itemList.Count != 0)
+		{
+			SetReward();
+		}
+		else
+		{
+			SetRandomReward();
+		}
 	}
 
-	void SetRandomReward()
+	public void AddReward(int ID)
 	{
-		rewardObjectList.Add(rewardSpawn.SetReward(itemList[0]));
-		rewardList.Add(itemList[0]);
-		itemList.RemoveAt(0);
+		itemList.Add(database.database[ID]);
 	}
 
-	void SetRewardTable()
+	void SetReward()
+	{
+		for (int i = 0;i < itemList.Count ; i++)
+		{
+			rewardObjectList.Add(rewardSpawn.SetReward(itemList[i]));
+			rewardList.Add(itemList[i]);
+		}
+		itemList.Clear();
+	}
+	
+	public void SetRandomReward()
+	{
+		int rand = UnityEngine.Random.Range(0, randomitemList.Count);
+		rewardObjectList.Add(rewardSpawn.SetReward(randomitemList[rand]));
+		rewardList.Add(randomitemList[rand]);
+	}
+
+	void SetRandomRewardTable()
 	{
 		for (int indexCount = 0; indexCount < database.database.Count; indexCount++)
 		{
 			for (int addRare = 0; addRare < database.database[indexCount].Rarity ; addRare++ )
 			{
-				itemList.Add(database.database[indexCount]);
+				randomitemList.Add(database.database[indexCount]);
 			}
 		}
 
-		for (int i = 0; i < itemList.Count; i++)
+		for (int i = 0; i < randomitemList.Count; i++)
 		{
-			int rand = UnityEngine.Random.Range(i, itemList.Count);
-			Item_inven temp = itemList[i];
-			itemList[i] = itemList[rand];
-			itemList[rand] = temp;
+			int rand = UnityEngine.Random.Range(i, randomitemList.Count);
+			Item_inven temp = randomitemList[i];
+			randomitemList[i] = randomitemList[rand];
+			randomitemList[rand] = temp;
 		}
 	}
 	public void GiveReward()
@@ -81,8 +102,7 @@ public class RewordManager : MonoBehaviour
 
 	public void AddClearReword() 
 	{
-
-
 		acceptButton.onClick.RemoveListener(AddClearReword);
+		GiveReward();
 	}
 }

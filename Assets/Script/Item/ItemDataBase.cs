@@ -55,6 +55,7 @@ public class ItemDataBase : MonoBehaviour
 	}
 }
 
+[System.Serializable]
 public class Item_inven
 {
 	public int Id { get; set; }

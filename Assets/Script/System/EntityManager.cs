@@ -170,6 +170,12 @@ public class EntityManager : MonoBehaviour
         EnemyEntityAlignment();
     }
 
+    void SetReward(int _RewardID)
+	{
+        RewardManager.Inst.AddReward(_RewardID);
+	}
+
+
     public void SelectSpawnEnemyEntity(int ID)
     {
         var entityObject = Instantiate(entitiyPrefab, spawnEnemy_Tf.position, Quaternion.identity);
@@ -199,8 +205,16 @@ public class EntityManager : MonoBehaviour
 
 		for (int i = 0; enemySpawnPatternSO.spawnPattern[randomPattern].enemy.Length > i; i++)
 		{
-            Debug.Log("??");
             SetEnemyEntity(enemySpawnPatternSO.spawnPattern[randomPattern].enemy[i]);
+		}
+
+		if (enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item.Length != 0)
+		{
+            for (int i = 0; enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item.Length > i; i++)
+            {
+                SetReward(enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item[i]);
+                Debug.Log("선택");
+            }
 		}
     }
 
@@ -221,6 +235,7 @@ public class EntityManager : MonoBehaviour
         EnemyEntityAlignment();
     }
 
+    //이젠 더미가 되어버린 적 버퍼에 추가하기.....
     void SetupEnemyBuffer()
     {
         enemyBuffer = new List<Enemy>(100);
@@ -269,8 +284,7 @@ public class EntityManager : MonoBehaviour
     }
 
 
-
-    //캐릭터 셀렉트 창 만들거임 차후 수정 부탁.... 누가 할지는 모르겠지만 고생해라 ㅎㅎ 코드자체는 대부분 깔끔하게 만들었는데 너무 귀찮아서 변수명 조금 이상하긴하네 ㅎㅎ;; 미안합니다!
+    //몰라 알아서하셈
     void ChosePlayer()
     {
         playerChar = characterSO.playrChar[0];
@@ -302,7 +316,7 @@ public class EntityManager : MonoBehaviour
         {
             Debug.Log("다음방으로");
             UIManager.Inst.ButtonActivate();
-            //    RewordManager.Inst.GameClear();
+            RewardManager.Inst.GameClear();
             CardManager.Inst.SetCardStateCannot();
         }
     }
