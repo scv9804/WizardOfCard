@@ -110,7 +110,8 @@ public enum CardEnum
     쉴드_폭발,
     마력포,
     마법_재활용,
-    마법진
+    마법진,
+    디버그용
 }
 
 public enum E_CardStats

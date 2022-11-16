@@ -12,14 +12,18 @@ public class EnemySkillCollection : MonoBehaviour
 	private void Awake()
 	{
 		inst = this;
+
+		type = inst.GetType();
 	}
 
 	#region 그냥 편한걸로할래... 귀찮아....
 	MethodInfo methodInfo;
 
+	Type type;
+
 	public static void PrototypeFunction(string _name, params object[] _parameters)
 	{
-		inst.methodInfo = inst.GetType().GetMethod(_name);
+		inst.methodInfo = inst.type.GetMethod(_name);
 
 		inst.StartCoroutine((IEnumerator) inst.methodInfo.Invoke(inst, _parameters));
 	}
