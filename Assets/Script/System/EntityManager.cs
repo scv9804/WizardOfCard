@@ -170,9 +170,9 @@ public class EntityManager : MonoBehaviour
         EnemyEntityAlignment();
     }
 
-    void SetReward(int _RewardID)
+    void SetReward(SpawnPattern _pattern)
 	{
-        RewardManager.Inst.AddReward(_RewardID);
+        RewardManager.Inst.AddReward(_pattern);
 	}
 
 
@@ -208,14 +208,11 @@ public class EntityManager : MonoBehaviour
             SetEnemyEntity(enemySpawnPatternSO.spawnPattern[randomPattern].enemy[i]);
 		}
 
-		if (enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item.Length != 0)
-		{
-            for (int i = 0; enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item.Length > i; i++)
-            {
-                SetReward(enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item[i]);
-                Debug.Log("선택");
-            }
-		}
+        for (int i = 0; enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item.Length > i; i++)
+        {
+            SetReward(enemySpawnPatternSO.spawnPattern[randomPattern]);
+            Debug.Log("선택");
+        }
     }
 
     public void SpawnEnemyBossEntity()

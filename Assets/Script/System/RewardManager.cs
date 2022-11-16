@@ -13,10 +13,12 @@ public class RewardManager : MonoBehaviour
 		Inst = this;
 	}
 
-	public List<Item_inven> itemList = new List<Item_inven>();
-	public List<Item_inven> randomitemList = new List<Item_inven>();
-	public List<GameObject> rewardObjectList = new List<GameObject>();
-	public List<Item_inven> rewardList = new List<Item_inven>();
+	[SerializeField] List<Item_inven> itemList = new List<Item_inven>();
+	[SerializeField] List<Item_inven> randomitemList = new List<Item_inven>();
+	[SerializeField] List<GameObject> rewardObjectList = new List<GameObject>();
+	[SerializeField] List<Item_inven> rewardList = new List<Item_inven>();
+	GameObject moneyObject;
+	int rewardMoney;
 
 	[SerializeField] ItemDataBase database;
 	[SerializeField] GameObject rewardWindow;
@@ -42,9 +44,31 @@ public class RewardManager : MonoBehaviour
 		}
 	}
 
-	public void AddReward(int ID)
+	public void AddReward(SpawnPattern _pattern)
 	{
-		itemList.Add(database.database[ID]);
+		if (_pattern.Reward_item.Length != 0)
+		{
+			for (int i = 0; i < _pattern.Reward_item.Length; i++)
+			{
+				itemList.Add(database.database[_pattern.Reward_item[i]]);
+			}
+		}
+
+		if (!_pattern.MoneyRandom)
+		{
+			rewardMoney = _pattern.Reward_Money;
+		}
+		else
+		{
+			rewardMoney = UnityEngine.Random.Range(_pattern.Reward_Money - _pattern.Reward_Money / 2
+				, _pattern.Reward_Money + _pattern.Reward_Money / 2);
+		}
+
+	}
+
+	void SetMoney()
+	{
+		moneyObject = rewardSpawn.SetReward(rewardMoney);
 	}
 
 	void SetReward()
@@ -55,13 +79,20 @@ public class RewardManager : MonoBehaviour
 			rewardList.Add(itemList[i]);
 		}
 		itemList.Clear();
+		SetMoney();
 	}
 	
 	public void SetRandomReward()
 	{
-		int rand = UnityEngine.Random.Range(0, randomitemList.Count);
-		rewardObjectList.Add(rewardSpawn.SetReward(randomitemList[rand]));
-		rewardList.Add(randomitemList[rand]);
+		int  count = UnityEngine.Random.Range(0, 2);
+
+		for (int i = 0;i < count ; i++)
+		{
+			int rand = UnityEngine.Random.Range(0, randomitemList.Count);
+			rewardObjectList.Add(rewardSpawn.SetReward(randomitemList[rand]));
+			rewardList.Add(randomitemList[rand]);
+		}
+		SetMoney();
 	}
 
 	void SetRandomRewardTable()
@@ -82,11 +113,14 @@ public class RewardManager : MonoBehaviour
 			randomitemList[rand] = temp;
 		}
 	}
+
+
 	public void GiveReward()
 	{
 		for (int i = 0; i<rewardObjectList.Count; i++)
 		{
 			Toggle temptoggle = rewardObjectList[i].GetComponentInChildren<Toggle>();
+			Debug.Log(temptoggle.isOn);
 			if (temptoggle.isOn)
 			{
 				inven.AddItem(rewardList[i].Id);
@@ -94,6 +128,16 @@ public class RewardManager : MonoBehaviour
 			}
 		}
 
+		Toggle toggle = moneyObject.GetComponentInChildren<Toggle>();
+		Debug.Log(toggle);
+
+		if (toggle.isOn)
+		{
+			EntityManager.Inst.playerEntity.money = rewardMoney;
+		}
+
+
+		moneyObject = null;
 		rewardList.Clear();
 		rewardObjectList.Clear();
 		rewardSpawn.ClearViewList();

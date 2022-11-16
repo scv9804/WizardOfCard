@@ -2577,6 +2577,7 @@ MonoBehaviour:
   space: 0
   uiPrefab: {fileID: 4703257573079357050, guid: f144b172449fff643a7af58fe95b7cf5, type: 3}
   contents: {fileID: 1155083015}
+  moneySprite: {fileID: 0}
   uiobjects: []
 --- !u!1 &296745624
 GameObject:
@@ -11174,6 +11175,7 @@ MonoBehaviour:
   CemeteryCountTMP_UI: {fileID: 955029623}
   HealthTMP_UI: {fileID: 1581037315}
   myturn_UI_TMP: {fileID: 1652097863}
+  money_TMP: {fileID: 2135162818}
   ManaTMP_UI: {fileID: 517384230}
   optionUI: {fileID: 1565842616}
   minimapUI: {fileID: 1413772970}
@@ -13414,10 +13416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58132d81f7117f4b945e39870484769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
-  randomitemList: []
-  rewardObjectList: []
-  rewardList: []
   database: {fileID: 1939514123}
   rewardWindow: {fileID: 586966902}
   acceptButton: {fileID: 1316177159}
@@ -17803,7 +17801,7 @@ GameObject:
   - component: {fileID: 2135162819}
   - component: {fileID: 2135162818}
   m_Layer: 5
-  m_Name: Stage_TMP_UI
+  m_Name: Money_TMP_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

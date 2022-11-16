@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
 	public TMP_Text HealthTMP_UI;
 	public TMP_Text myturn_UI_TMP;
 
+	public TMP_Text money_TMP;
 	public TMP_Text ManaTMP_UI;
 	public GameObject optionUI;
 	public GameObject minimapUI;
@@ -91,8 +92,6 @@ public class UIManager : MonoBehaviour
 		mapCamera.antialiasing = AntialiasingMode.None;
 		mainCamera.antialiasing = AntialiasingMode.None;
 	}
-
-
 
 	public void PostProcessing()
 	{

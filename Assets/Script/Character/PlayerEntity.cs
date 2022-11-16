@@ -41,6 +41,7 @@ public class PlayerEntity : MonoBehaviour
 
     public int karma = 0;
     int i_enhacneVal = 1;
+    int playerMoney = 0;
     //int i_calcDamage;
 
     #region Job System
@@ -151,7 +152,7 @@ public class PlayerEntity : MonoBehaviour
     // 넣는값을 +- 로 조절하기
     #region Status
 
-    // <<22-11-09 장형용 :: 제거>>
+    // <<22-11-09 장형용 :: 제거>> 일단더미로 두자
     //public void Add_Status_MagicAffinity_Fire(int _addStatus)
     //public void Add_Status_MagicAffinity_Earth(int _addStatus)
     //public void Add_Status_MagicAffinity_Water(int _addStatus)
@@ -271,6 +272,20 @@ public class PlayerEntity : MonoBehaviour
             RefreshPlayer();
         }
     }
+
+    public int money
+	{
+        get
+        {
+            return playerMoney;
+        }
+
+		set
+		{
+            playerMoney += value;
+            UIManager.Inst.money_TMP.text = playerMoney.ToString();
+		}
+	}
 
     // <<22-11-12 장형용 :: 해당 Properties들을 Buff 또는 Debuff로 변경>>
     //public int Status_EnchaneValue
