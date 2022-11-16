@@ -1333,6 +1333,7 @@ MonoBehaviour:
   buffImageSlot: {fileID: 4602028185298132969}
   buffImageList: []
   buffPrefab: {fileID: 2472875045232849160, guid: bbc77f8a547ec074f848d85c6f4a8917, type: 3}
+  spineGameObject: {fileID: 0}
   enemy: {fileID: 0}
   i_health: 0
   HEALTHMAX: 0
@@ -1342,6 +1343,8 @@ MonoBehaviour:
   i_damage: 0
   attackTime: 0
   nextPattorn: 0
+  spriteSize_X: 0
+  spriteSize_Y: 0
   i_burning: 0
   debuffValue: 1
   buffValue: 1
@@ -1359,7 +1362,6 @@ MonoBehaviour:
   dissolveEffect: {fileID: 7926155528284001421}
   buffEffect: {fileID: 791947784384409501}
   debuffEffect: {fileID: 8061054641146292473}
-  i_entityMotionRunning: 0
 --- !u!114 &8312923331759166195
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 		}
 	}
 
-	public IEnumerator SpawnSkill(Entity _entity)
+	public IEnumerator SpawnSkillEffect(Entity _entity)
 	{
 		var temt = Instantiate(defultPrefab);
 		temt.transform.localScale = new Vector3(1, 1, 0);

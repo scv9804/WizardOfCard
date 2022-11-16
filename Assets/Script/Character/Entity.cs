@@ -100,7 +100,6 @@ public class Entity : MonoBehaviour
     {
         entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
-        Debug.Log(charater.sprite.bounds.size.y);
         //켄버스 위치 스프라이트 사이즈에 따라 조절.
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
         spriteSize_X = charater.sprite.bounds.size.x;
@@ -206,21 +205,20 @@ public class Entity : MonoBehaviour
         skillNameTmp.gameObject.SetActive(false);
     }   
 
-    public void AddBuffImage(Sprite _sprite, string _buffDebuffName , int _code , int _value)
+    public void AddBuffImage(Sprite _sprite, string _buffDebuffName , int _value)
 	{
         var temt = Instantiate(buffPrefab);
-        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value , _code);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value);
         temt.transform.SetParent(buffImageSlot.transform, false);
         buffImageList.Add(temt);
 	}
 
-    public bool CompareBuffImage(int _code ,int _value)
+    public bool CompareBuffImage(string _name ,int _value)
 	{
 		foreach (var buff in buffImageList)
         {
             var temt = buff.GetComponent<BuffDebuffImageSpawn>();
-
-            if (temt.BuffDebuffCode == _code)
+            if (temt.Name == _name)
 			{
                 temt.useTime = _value + temt.useTime;
                 return true;

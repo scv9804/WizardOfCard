@@ -207,12 +207,7 @@ public class EntityManager : MonoBehaviour
 		{
             SetEnemyEntity(enemySpawnPatternSO.spawnPattern[randomPattern].enemy[i]);
 		}
-
-        for (int i = 0; enemySpawnPatternSO.spawnPattern[randomPattern].Reward_item.Length > i; i++)
-        {
-            SetReward(enemySpawnPatternSO.spawnPattern[randomPattern]);
-            Debug.Log("º±≈√");
-        }
+        SetReward(enemySpawnPatternSO.spawnPattern[randomPattern]);
     }
 
     public void SpawnEnemyBossEntity()

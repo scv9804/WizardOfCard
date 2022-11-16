@@ -75,6 +75,8 @@ public class EnemySkillCollection : MonoBehaviour
 	public IEnumerator RustAccid(Entity _entity)
 	{
 		EntityManager.Inst.playerEntity.Buff_MagicAffinity_Battle -= _entity.debuffValue;
+		SkillPlayerPopup("부식성 독");
+		_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "RustAccid", _entity.debuffValue);
 		_entity.attackTime++;
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 	}
@@ -83,6 +85,8 @@ public class EnemySkillCollection : MonoBehaviour
 	public IEnumerable DecreasedConcentration(Entity _entity)
 	{
 		EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
+		SkillPlayerPopup("집중력 저하");
+		
 		_entity.attackTime++;
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 	}
@@ -91,19 +95,31 @@ public class EnemySkillCollection : MonoBehaviour
 	//전투의 함성
 	public IEnumerator WarCry(Entity _entity)
 	{
-		if (_entity.CompareBuffImage(0, 1))
+		if (_entity.CompareBuffImage("WarCry", 1))
 		{
 			yield return null;
 		}
 		else
 		{
-			yield return EntityManager.Inst.StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkill(_entity));
-			EntityManager.Inst.StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
+			yield return StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkillEffect(_entity));
+			SkillPopupEnemy(_entity , "WarCry");
 			_entity.IncreaseDamage = _entity.buffValue;
-			_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "WarCry", 0, 1);
+			_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "WarCry", _entity.buffValue);
 			_entity.attackTime++;
 			yield return null;
 		}
+	}
+
+	void SkillImage
+
+	void SkillPopupEnemy(Entity _entity, string _name)
+	{
+		StartCoroutine(_entity.SkillNamePopup(_name));
+	}
+
+	void SkillPlayerPopup(string _name)
+	{
+		StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup(_name));
 	}
 	#endregion
 

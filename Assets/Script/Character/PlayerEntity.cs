@@ -26,8 +26,15 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] TMP_Text ShieldTMP;
     [SerializeField] Image healthImage_Bar;
     [SerializeField] GameObject AttackEffect;
+    [SerializeField] TMP_Text skillNameTmp;
     [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
     [SerializeField] SpriteRenderer damagedEffectSpriteRenderer;
+
+    [Tooltip("버프관련")]
+    [SerializeField] GameObject buffPrefab;
+    [SerializeField] GameObject buffImageSlot;
+    [SerializeField] List<GameObject> buffImageList;
+
     Image healthImage_UI;
 
     Vector3 originScale;
@@ -35,6 +42,8 @@ public class PlayerEntity : MonoBehaviour
 
     public bool attackable;
 
+    Vector3 originSkillNamePos;
+    bool isTextMove;
     //bool is_attackAble; // 미사용 더미
     bool is_die = false; // 사용은 되는데 의미는 없음
     //bool is_canUseSelf; // 미사용 더미
@@ -144,6 +153,28 @@ public class PlayerEntity : MonoBehaviour
 
     #endregion
 
+    public IEnumerator SkillNamePopup(string _skillName)
+    {
+        skillNameTmp.text = _skillName;
+        skillNameTmp.rectTransform.anchoredPosition3D = originSkillNamePos;
+        skillNameTmp.gameObject.SetActive(true);
+        isTextMove = true;
+
+        Sequence sequence = DOTween.Sequence()
+       .Append(skillNameTmp.DOFade(1, 0.0f))
+       .Append(skillNameTmp.DOFade(0, 1f));
+        yield return new WaitForSeconds(1f);
+
+        isTextMove = false;
+        skillNameTmp.gameObject.SetActive(false);
+    }
+    public void AddBuffImage(Sprite _sprite, string _buffDebuffName, int _value)
+    {
+        var temt = Instantiate(buffPrefab);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value);
+        temt.transform.SetParent(buffImageSlot.transform, false);
+        buffImageList.Add(temt);
+    }
     #endregion
 
     #region Properties
@@ -282,8 +313,16 @@ public class PlayerEntity : MonoBehaviour
 
 		set
 		{
-            playerMoney += value;
-            UIManager.Inst.money_TMP.text = playerMoney.ToString();
+            if (playerMoney + value < 1000)
+            {
+                playerMoney += value;
+                UIManager.Inst.money_TMP.text = playerMoney.ToString("D3");
+            }
+			else
+			{
+                playerMoney = 999;
+                UIManager.Inst.money_TMP.text = playerMoney.ToString("D3");
+            }
 		}
 	}
 
@@ -484,6 +523,7 @@ public class PlayerEntity : MonoBehaviour
         UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
         charaterSprite.sprite = _playerChar.sp_sprite;
         healthTMP.text = i_health.ToString();
+        originSkillNamePos = skillNameTmp.rectTransform.anchoredPosition3D;
     }
 
     // <<22-10-21 장형용 :: 수정>>
