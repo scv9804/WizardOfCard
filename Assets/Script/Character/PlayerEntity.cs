@@ -530,6 +530,9 @@ public class PlayerEntity : MonoBehaviour
     // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
     public void Damaged(int _damage, Card _card = null)
     {
+        if (_damage < 0)
+            _damage = 0;
+
         #region Status_Health -= _damage;
 
         NativeArray<int> values = new NativeArray<int>(5, Allocator.TempJob);

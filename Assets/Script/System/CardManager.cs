@@ -205,8 +205,8 @@ public class CardManager : MonoBehaviour
 			var targetCard = myCards[i];
 
 			targetCard.originPRS = originCardPRSs[i];
-			targetCard.MoveTransform(targetCard.originPRS, true, 0.7f); // 이것 때문에 드래그 모션 안 나오는데 대체할만한 코드 있나?
-		}
+            targetCard.MoveTransform(targetCard.originPRS, true, 0.7f); // 이것 때문에 드래그 모션 안 나오는데 대체할만한 코드 있나?
+        }
 	}
 
 	//원형 배치, 안좋은 함수긴함....
@@ -410,8 +410,8 @@ public class CardManager : MonoBehaviour
 		card.Setup();
 		myCards.Add(card);
 		setOriginOrder();
-		CardAlignment();
-	}
+        CardAlignment();
+    }
 
 	public IEnumerator HandRefresh()
 	{
