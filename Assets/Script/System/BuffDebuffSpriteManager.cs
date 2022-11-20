@@ -13,7 +13,9 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	Vector3 spawnPos = new Vector3(-1 , 0, 0);
 
 	[Header("EntityAttackPatternExplainImages")]
-	[SerializeField] Sprite warCrySprite;
+	[SerializeField] [Tooltip("전투의함성")] Sprite warCrySprite;
+	[SerializeField] [Tooltip("집중력저하")] Sprite decreasedConcentration;
+	[SerializeField] [Tooltip("부식독")] Sprite rustAccid;
 	[SerializeField] Sprite shieldSprite;
 
 	[Header("SkillEffectImage")]
@@ -24,14 +26,14 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	[SerializeField]GameObject defultPrefab;
 
 
-	public Sprite WarCrySprite
-	{
-		get
-		{
-			return warCrySprite;
-		}
-	}
+	#region 버프이미지 프로퍼티화
 
+	public Sprite WarCrySprite	{get{return warCrySprite;}}
+	public Sprite DecreasedConcentration { get { return decreasedConcentration; } }
+	public Sprite RustAccid { get { return rustAccid; } }
+
+
+	#endregion
 	public Sprite ShieldSprite
 	{
 		get

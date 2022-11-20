@@ -57,6 +57,11 @@ public class RewardManager : MonoBehaviour
 		itemList.Clear();
 	}
 	
+	void SetToolTip()
+	{
+		//tooltip = inv.GetComponent<Tooltip>();
+	}
+
 	public void SetRandomReward()
 	{
 		int rand = UnityEngine.Random.Range(0, randomitemList.Count);

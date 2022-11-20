@@ -28,13 +28,22 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] GameObject AttackEffect;
     [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
     [SerializeField] SpriteRenderer damagedEffectSpriteRenderer;
+
+    [Header("버프용")]
+    [SerializeField] GameObject buffImageSlot;
+    [SerializeField] GameObject buffPrefab;
+    [SerializeField] TMP_Text skillNameTmp;
+    [SerializeField] List<GameObject> buffImageList;
+
     Image healthImage_UI;
 
+    Vector3 originSkillNamePos;
     Vector3 originScale;
     Vector3 originPos;
 
     public bool attackable;
 
+    bool isTextMove = false; // 버프 텍스트 움직이는거 체크용
     //bool is_attackAble; // 미사용 더미
     bool is_die = false; // 사용은 되는데 의미는 없음
     //bool is_canUseSelf; // 미사용 더미
@@ -280,6 +289,47 @@ public class PlayerEntity : MonoBehaviour
     //public int Status_MagicResistance
     //public int Status_Protection
     //public int Status_MagicAffinity
+
+    #endregion
+    public IEnumerator SkillNamePopup(string _skillName)
+    {
+        skillNameTmp.text = _skillName;
+        skillNameTmp.rectTransform.anchoredPosition3D = originSkillNamePos;
+        skillNameTmp.gameObject.SetActive(true);
+        isTextMove = true;
+
+        Sequence sequence = DOTween.Sequence()
+       .Append(skillNameTmp.DOFade(1, 0.0f))
+       .Append(skillNameTmp.DOFade(0, 1f));
+        yield return new WaitForSeconds(1f);
+
+        isTextMove = false;
+        skillNameTmp.gameObject.SetActive(false);
+    }
+
+    #region 버프 이미지 팝업
+    public void AddBuffImage(Sprite _sprite, string _buffDebuffName, int _code, int _value)
+    {
+        var temt = Instantiate(buffPrefab);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value, _code);
+        temt.transform.SetParent(buffImageSlot.transform, false);
+        buffImageList.Add(temt);
+    }
+
+    public bool CompareBuffImage(int _code, int _value)
+    {
+        foreach (var buff in buffImageList)
+        {
+            var temt = buff.GetComponent<BuffDebuffImageSpawn>();
+
+            if (temt.BuffDebuffCode == _code)
+            {
+                temt.useTime = _value + temt.useTime;
+                return true;
+            }
+        }
+        return false;
+    }
 
     #endregion
 
@@ -671,7 +721,7 @@ public class PlayerEntity : MonoBehaviour
         DoOrigin();
 	}
 
-    //공격스킬 아닌 이펙트같은건 다 여기로
+    //공격스킬 아닌 모션 이펙트같은건 다 여기로
     public IEnumerator SpecialSkillSprite(Sprite _character , Sprite _effect)
 	{
         this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0);

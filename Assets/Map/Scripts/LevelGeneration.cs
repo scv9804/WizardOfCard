@@ -42,7 +42,7 @@ public class LevelGeneration : MonoBehaviour {
 	GameObject mustDisableObject;
 
 
-	[SerializeField]RoomEventListScript[] shopRoomScript;
+	[SerializeField]ShopScirpt shopRoomScript;
 	[SerializeField]RoomEventListScript[] eventRoomScript;
 	[SerializeField]RoomEventListScript tutorialRoomScript;
 
@@ -718,8 +718,8 @@ public class LevelGeneration : MonoBehaviour {
 					EntityManager.Inst.SpawnEnemyBossEntity();
 					break;
 				case 2:
+					shopRoomScript.EnterShop();
 					Debug.Log("상점이벤트");
-
 					break;
 				case 3:
 					Debug.Log("그냥 이벤트");

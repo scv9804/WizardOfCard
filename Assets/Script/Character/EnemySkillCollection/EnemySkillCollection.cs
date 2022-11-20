@@ -71,24 +71,42 @@ public class EnemySkillCollection : MonoBehaviour
 	#endregion
 
 	#region 공통 기본 디버프
-	//부식 (배틀 데미지 감소) 
+	//부식 (배틀 데미지 감소)  0
 	public IEnumerator RustAccid(Entity _entity)
 	{
-		EntityManager.Inst.playerEntity.Buff_MagicAffinity_Battle -= _entity.debuffValue;
-		_entity.attackTime++;
-		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
+		if (EntityManager.Inst.playerEntity.CompareBuffImage(0, 1))
+		{
+			yield return null;
+		}
+		else
+		{
+			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Battle -= _entity.debuffValue;
+			_entity.attackTime++;
+			yield return StartCoroutine(AttackMotion(_entity));
+			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
+			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffSpriteManager.Inst.RustAccid, "RustAccid", 0, 1);
+		}
 	}
 
-	//집중력 저하 (턴 데미지 감소)
+	//집중력 저하 (턴 데미지 감소)  1
 	public IEnumerable DecreasedConcentration(Entity _entity)
 	{
-		EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
-		_entity.attackTime++;
-		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
+		if (EntityManager.Inst.playerEntity.CompareBuffImage(1, 1))
+		{
+			yield return null;
+		}
+		else
+		{
+			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
+			_entity.attackTime++;
+			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
+			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
+			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffSpriteManager.Inst.DecreasedConcentration, "DecreasedConcentration", 1, 1);
+		}
 	}
 
 	//스킬 제작 방식 : 이름으로 구분하기로 함, 
-	//전투의 함성
+	//전투의 함성 100
 	public IEnumerator WarCry(Entity _entity)
 	{
 		if (_entity.CompareBuffImage(0, 1))
@@ -97,10 +115,10 @@ public class EnemySkillCollection : MonoBehaviour
 		}
 		else
 		{
-			yield return EntityManager.Inst.StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkill(_entity));
-			EntityManager.Inst.StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
+			yield return StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkill(_entity));
+			StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
 			_entity.IncreaseDamage = _entity.buffValue;
-			_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "WarCry", 0, 1);
+			_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "WarCry", 100, 1);
 			_entity.attackTime++;
 			yield return null;
 		}

@@ -25,12 +25,14 @@ public class Entity : MonoBehaviour
     [SerializeField] GameObject inPlayerCanvas;
     [SerializeField] Image healthImage;
     [SerializeField] Material dissolveMaterial;
-    [SerializeField] TMP_Text skillNameTmp;
     [SerializeField] TMP_Text damagedValueTMP;
-    [SerializeField] GameObject buffImageSlot;
-    [SerializeField] List<GameObject> buffImageList;
-    [SerializeField] GameObject buffPrefab;
     [SerializeField] GameObject spineGameObject;
+    [SerializeField] List<GameObject> buffImageList;
+
+    [Header("버프용")]
+    [SerializeField] GameObject buffPrefab;
+    [SerializeField] GameObject buffImageSlot;
+    [SerializeField] TMP_Text skillNameTmp;
 
     //능력치 등
     [HideInInspector] Sprite playerDamagedEffect;
@@ -101,7 +103,7 @@ public class Entity : MonoBehaviour
         entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
         Debug.Log(charater.sprite.bounds.size.y);
-        //켄버스 위치 스프라이트 사이즈에 따라 조절.
+        //켄버스 위치 스프라이트 사이즈에 따라 조절. (체력바 위치)
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
         spriteSize_X = charater.sprite.bounds.size.x;
         spriteSize_Y = charater.sprite.bounds.size.y;
