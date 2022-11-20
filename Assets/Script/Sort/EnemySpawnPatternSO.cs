@@ -9,6 +9,7 @@ public class SpawnPattern
 	public int[] Reward_item;
 	public int Reward_Money;
 	public int[] Reward_Card;
+	public bool MoneyRandom;
 }
 
 [CreateAssetMenu(fileName = "EnemySpawnPatternSO", menuName = "Scriptalbe Object/EnemySpawnPatternSO")]

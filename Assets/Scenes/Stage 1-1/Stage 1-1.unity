@@ -2677,6 +2677,7 @@ MonoBehaviour:
   space: 0
   uiPrefab: {fileID: 4703257573079357050, guid: f144b172449fff643a7af58fe95b7cf5, type: 3}
   contents: {fileID: 1155083015}
+  moneySprite: {fileID: 0}
   uiobjects: []
 --- !u!1 &296745624
 GameObject:
@@ -11623,6 +11624,7 @@ MonoBehaviour:
   CemeteryCountTMP_UI: {fileID: 955029623}
   HealthTMP_UI: {fileID: 1581037315}
   myturn_UI_TMP: {fileID: 1652097863}
+  money_TMP: {fileID: 2135162818}
   ManaTMP_UI: {fileID: 517384230}
   optionUI: {fileID: 1565842616}
   minimapUI: {fileID: 1413772970}
@@ -11967,19 +11969,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1316177160}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1618926632}
-        m_TargetAssemblyTypeName: RewordManager, Assembly-CSharp
-        m_MethodName: GiveReward
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1316177160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17617,7 +17607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2c19002f4b36d4d8265e1a7fba5214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isClearDebugConsole: 1
+  isClearDebugConsole: 0
   isPrintDamage: 1
   isPrintDamageCalculating: 0
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
@@ -18792,7 +18782,7 @@ GameObject:
   - component: {fileID: 2135162819}
   - component: {fileID: 2135162818}
   m_Layer: 5
-  m_Name: Stage_TMP_UI
+  m_Name: Money_TMP_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

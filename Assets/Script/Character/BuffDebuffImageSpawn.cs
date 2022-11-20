@@ -16,9 +16,8 @@ public class BuffDebuffImageSpawn : MonoBehaviour
 	public string Name { get { return buffDebuffName; } }
 	public int useTime { get { return value; } set { this.value = value; } }
 
-	public void Setup(Sprite _sprite ,string _buffDebuffName ,int _value ,int _code)
+	public void Setup(Sprite _sprite ,string _buffDebuffName ,int _value)
 	{
-		code = _code;
 		buffDebuffName = _buffDebuffName;
 		buffImage.sprite = _sprite;
 		text_TMP.text = _value.ToString();
