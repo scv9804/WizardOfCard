@@ -31,7 +31,7 @@ public class ItemDataBase : MonoBehaviour
 		return null;
 	}
 
-	 void ConstructItemDatabase()
+	void ConstructItemDatabase()
 	{
 		for (int i = 0; i < itemData.Count; i++)
 		{
@@ -47,6 +47,7 @@ public class ItemDataBase : MonoBehaviour
 			newItem.Equipable = (bool)itemData[i]["equipable"];
 			newItem.Type = itemData[i]["ItemType"].ToString();
 			newItem.Rarity = (int)itemData[i]["rarity"];
+			newItem.Price = (int)itemData[i]["price"];
 			newItem.Slug = itemData[i]["slug"].ToString();
 			newItem.Sprite = Resources.Load<Sprite>("potion/" + newItem.Slug);
 
@@ -55,7 +56,6 @@ public class ItemDataBase : MonoBehaviour
 	}
 }
 
-[System.Serializable]
 public class Item_inven
 {
 	public int Id { get; set; }
@@ -69,6 +69,7 @@ public class Item_inven
 	public bool Equipable { get; set; }
 	public string Type { get; set; }
 	public int Rarity { get; set; }
+	public int Price { get; set; }
 	public string Slug { get; set; }
 	public Sprite Sprite { get; set; }
 

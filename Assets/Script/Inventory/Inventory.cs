@@ -15,8 +15,10 @@ public class Inventory : MonoBehaviour
 	private int slotAmount;
 	public List<Item_inven> items = new List<Item_inven>();
 	public List<Item_inven> equipitems = new List<Item_inven>();
+	public List<Item_inven> quickitems = new List<Item_inven>();
 	public List<GameObject> slots = new List<GameObject>();
-	public List<GameObject> equipslots = new List<GameObject>();
+    public List<GameObject> equipslots = new List<GameObject>();
+	public List<GameObject> quickslots = new List<GameObject>();
 
 	void Start()
 	{
@@ -33,14 +35,17 @@ public class Inventory : MonoBehaviour
 		{
 			MakeEquipSlot(i);
 		}
+		for (int i = 0; i < 3; i++)
+		{
+			MakeQuickSlot(i);
+		}
 
 		//테스트용 아이템 추가
 		AddItem(0);
 		AddItem(1);
 		AddItem(2);
-		AddItem(0);
-		AddItem(1);
-		AddItem(2);
+		AddItem(3);
+		AddItem(4);
 
 		Debug.Log(items[7].Title);
 	}
@@ -59,6 +64,14 @@ public class Inventory : MonoBehaviour
 		equipslots[i].transform.SetParent(equipslotPanel.transform.GetChild(i).transform);
 		equipslots[i].transform.localPosition = Vector2.zero;
 		equipslots[i].GetComponent<Slot>().id = i+10;
+	}
+	public void MakeQuickSlot(int i)
+    {
+		quickitems.Add(new Item_inven());
+		quickslots.Add(Instantiate(inventorySlot));
+		quickslots[i].transform.SetParent(equipslotPanel.transform.GetChild(i+5).transform);
+		quickslots[i].transform.localPosition = Vector2.zero;
+		quickslots[i].GetComponent<Slot>().id = i + 15;
 	}
 	public void AddItem(int id)
 	{

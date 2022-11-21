@@ -7,8 +7,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	public Item_inven item;
 	public int id;
 	public int slotId;
-	public ItemData newEquip;
-	public ItemData Equiped;
+	private int targetEquipSlot;
 
 	private Inventory inv;
 	private Tooltip tooltip;
@@ -77,9 +76,14 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 			HealItemUsed();
 			useAccept.Deactivate();
 		}
-		else if (item != null && item.Equipable)
+		else if (item != null && item.Equipable && this.slotId < 10)
 		{
 			EquipItem();
+			useAccept.Deactivate();
+		}
+		else if (item != null && item.Equipable && this.slotId >= 10)
+		{
+			UnequipItem();
 			useAccept.Deactivate();
 		}
 	}
@@ -92,7 +96,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 			PlayerEntity.Inst.Status_Health = PlayerEntity.Inst.Status_MaxHealth;
 		}
 		Destroy(gameObject);
-		inv.items[slotId] = null;
 		inv.items[slotId] = new Item_inven();
 		useAccept.Deactivate();
 		inv.AddItem(0);
@@ -103,45 +106,58 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		switch(item.Type){
 			case "Weapon":
 				Debug.Log("무기 장착");
-				this.transform.SetParent(inv.equipslots[0].transform);
-				this.transform.localPosition = Vector2.zero;
-				inv.equipitems[0] = item;
+				targetEquipSlot = 0;
 				Debug.Log(inv.equipitems[0].Id);
 				break;
-			case "Sub":
-				Debug.Log("서브 장착");
-				this.transform.SetParent(inv.equipslots[1].transform);
-				this.transform.localPosition = Vector2.zero;
-				inv.equipitems[1] = item;
+			case "Ear":
+				Debug.Log("귀걸이 장착");
+				targetEquipSlot = 1;
 				break;
 			case "Hat":
 				Debug.Log("머리 장착");
-				this.transform.SetParent(inv.equipslots[2].transform);
-				this.transform.localPosition = Vector2.zero;
-				inv.equipitems[2] = item;
+				targetEquipSlot = 2;
 				break;
 			case "Suit":
 				Debug.Log("옷 장착");
-				this.transform.SetParent(inv.equipslots[3].transform);
-				this.transform.localPosition = Vector2.zero;
-				inv.equipitems[3] = item;
+				targetEquipSlot = 3;
 				break;
-			case "Accessory":
-				Debug.Log("악세장착");
-				this.transform.SetParent(inv.equipslots[4].transform);
-				this.transform.localPosition = Vector2.zero;
-				inv.equipitems[4] = item;
+			case "Ring":
+				Debug.Log("반지 장착");
+				targetEquipSlot = 4;
 				break;
 		}
-		inv.items[slotId] = null;
+		if(inv.equipitems[targetEquipSlot].Id != -1)
+        {
+			Debug.Log("이미 있는데용");
+			Transform equipeditem = inv.equipslots[targetEquipSlot].transform.GetChild(0);
+			equipeditem.GetComponent<ItemData>().slotId = this.slotId;
+			equipeditem.transform.SetParent(inv.slots[this.slotId].transform);
+			equipeditem.transform.position = inv.slots[this.slotId].transform.position;
+			//inv.equipitems[targetEquipSlot] = item;
+		}
+		this.transform.SetParent(inv.equipslots[targetEquipSlot].transform);
+		inv.equipitems[targetEquipSlot] = item;
+		this.transform.localPosition = Vector2.zero;
 		inv.items[slotId] = new Item_inven();
 		useAccept.Deactivate();
-		if (inv.equipslots[slotId] = null)
+		this.slotId = inv.equipslots[targetEquipSlot].GetComponent<Slot>().id;
+
+	}
+	public void UnequipItem()
+    {
+		inv.equipitems[this.slotId-10] = new Item_inven();
+		for (int i = 0; i < inv.items.Count; i++)
         {
-			//Equiped = inv.equipslots[slotId];
-			newEquip.id = item.Id;
-			Debug.Log(Equiped.id);
-			inv.AddItem(item.Id);
-        }
-    }
+			if (inv.items[i].Id == -1)
+            {
+				Debug.Log(i);
+				this.transform.SetParent(inv.slots[i].transform);
+				this.transform.position = inv.slots[i].transform.position;
+				inv.items[i] = item;
+				this.slotId = i;
+				break;
+			}
+		}
+		useAccept.Deactivate();
+	}
 }

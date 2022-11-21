@@ -13,6 +13,7 @@
 		"equipable": false,
 		"ItemType": "Consumable",
 		"rarity": 2,
+		"price": 10,
 		"slug": "potion"
 	},
 	{
@@ -29,11 +30,46 @@
 		"equipable": false,
 		"ItemType": "Consumable",
 		"rarity": 2,
+		"price": 10,
 		"slug": "힐엘릭서"
 	},
 	{
 		"id": 2,
 		"title": "마나엘릭서(무?기)",
+		"value": 1,
+		"Healing": 0,
+		"stats": {
+			"power": 0,
+			"defense": 10,
+			"vitality": 0
+		},
+		"description": "최대체력 +10?",
+		"equipable": true,
+		"ItemType": "Weapon",
+		"rarity": 2,
+		"price": 10,
+		"slug": "마나엘릭서"
+	},
+	{
+		"id": 3,
+		"title": "마나엘릭서(서?브)",
+		"value": 1,
+		"Healing": 0,
+		"stats": {
+			"power": 0,
+			"defense": 10,
+			"vitality": 0
+		},
+		"description": "최대체력 +10?",
+		"equipable": true,
+		"ItemType": "Ear",
+		"rarity": 2,
+		"price": 10,
+		"slug": "마나엘릭서"
+	},
+	{
+		"id": 4,
+		"title": "힐엘릭서(무?기)",
 		"value": 1,
 		"Healing": 10,
 		"stats": {
@@ -41,10 +77,11 @@
 			"defense": 10,
 			"vitality": 0
 		},
-		"description": "어...최대체력 +10?",
+		"description": "최대체력 +10?",
 		"equipable": true,
 		"ItemType": "Weapon",
 		"rarity": 2,
-		"slug": "마나엘릭서"
+		"price": 10,
+		"slug": "힐엘릭서"
 	}
 ]
