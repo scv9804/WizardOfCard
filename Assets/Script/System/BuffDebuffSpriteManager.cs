@@ -2,6 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region 딕셔너리 인스펙터화 구현부
+[System.Serializable]
+public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue> , ISerializationCallbackReceiver
+{
+	[SerializeField] List<TKey> keys = new List<TKey>();
+	[SerializeField] List<TValue> values = new List<TValue>();
+
+	//여기서 저장
+	public void OnBeforeSerialize()
+	{
+		keys.Clear();
+		values.Clear();
+		foreach (KeyValuePair<TKey,TValue> pair in this)
+		{
+			keys.Add(pair.Key); values.Add(pair.Value);
+		}
+	}
+
+	//여기서 로드
+	public void OnAfterDeserialize()
+	{
+		this.Clear();
+		if (keys.Count != values.Count) { throw new System.Exception("{0}의 키와 대응하는 {1} 값이 둘 중 하나가 없습니다. 한쌍이 되도록 설정해 주세요 "); }
+		for (int i = 0; i < keys.Count; i++) { this.Add(keys[i], values[i]); } 
+	}
+}
+[System.Serializable]
+public class ExplainSpriteDictionary : SerializableDictionary<string , Sprite> { }
+[System.Serializable]
+public class SkillSpriteDictionary : SerializableDictionary<string , Sprite> { }
+
+#endregion
+
+
 public class BuffDebuffSpriteManager : MonoBehaviour
 {
 	public static BuffDebuffSpriteManager Inst { get; private set; }
@@ -12,12 +46,14 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		SpriteDictionary.Clear();
+		exlpainSpriteDictionary.Clear();
+		SetDictionary();
 	}
 
 	Vector3 spawnPos = new Vector3(-1 , 0, 0);
 
-	[SerializeField]Dictionary<string, Sprite> SpriteDictionary;
+	[SerializeField] ExplainSpriteDictionary explainSpriteDictionary = new ExplainSpriteDictionary();
+	[SerializeField] SkillSpriteDictionary skillSpriteDictionary = new SkillSpriteDictionary();
 	
 	[Header("EntityAttackPatternExplainImages")]
 	[SerializeField] [Tooltip("전투의함성")] Sprite warCrySprite;
@@ -33,6 +69,15 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	[SerializeField]GameObject defultPrefab;
 
 	//이미지 딕셔너리로 서치하기!
+
+
+
+
+	void SetDictionary()
+	{
+		explainSpriteDictionary.Add("WarCrySkillSprite", warCrySkillSprite );
+		ex
+	}
 
 	#region 버프이미지 프로퍼티화
 
