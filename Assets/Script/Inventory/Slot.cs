@@ -42,4 +42,8 @@ public class Slot : MonoBehaviour, IDropHandler
 			inv.items[id] = droppedItem.item;
 		}
 	}
+	public void ChangeEquipments()
+    {
+
+    }
 }
