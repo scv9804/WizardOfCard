@@ -10,8 +10,15 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	{
 		Inst = this;
 	}
+	private void Start()
+	{
+		SpriteDictionary.Clear();
+	}
+
 	Vector3 spawnPos = new Vector3(-1 , 0, 0);
 
+	[SerializeField]Dictionary<string, Sprite> SpriteDictionary;
+	
 	[Header("EntityAttackPatternExplainImages")]
 	[SerializeField] [Tooltip("전투의함성")] Sprite warCrySprite;
 	[SerializeField] [Tooltip("집중력저하")] Sprite decreasedConcentration;
@@ -25,6 +32,7 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	[Header("SkillEffectImage")]
 	[SerializeField]GameObject defultPrefab;
 
+	//이미지 딕셔너리로 서치하기!
 
 	#region 버프이미지 프로퍼티화
 

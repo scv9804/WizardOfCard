@@ -115,7 +115,7 @@ public class EnemySkillCollection : MonoBehaviour
 		}
 		else
 		{
-			yield return StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkill(_entity));
+			yield return StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkillEffect(_entity));
 			StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
 			_entity.IncreaseDamage = _entity.buffValue;
 			_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "WarCry", 100, 1);
