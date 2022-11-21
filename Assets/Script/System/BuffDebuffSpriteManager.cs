@@ -46,7 +46,6 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	}
 	private void Start()
 	{
-		exlpainSpriteDictionary.Clear();
 		SetDictionary();
 	}
 
@@ -76,7 +75,6 @@ public class BuffDebuffSpriteManager : MonoBehaviour
 	void SetDictionary()
 	{
 		explainSpriteDictionary.Add("WarCrySkillSprite", warCrySkillSprite );
-		ex
 	}
 
 	#region 버프이미지 프로퍼티화
