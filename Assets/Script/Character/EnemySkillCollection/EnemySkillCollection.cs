@@ -24,10 +24,22 @@ public class EnemySkillCollection : MonoBehaviour
 		inst.StartCoroutine((IEnumerator) inst.methodInfo.Invoke(inst, _parameters));
 	}
 
-	#endregion
+	// <<22-11-22 장형용 :: 조금 더 귀찮아지는 대신 훨씬 빠름>>
+	#region Advanced Callback Method
 
-	#region 공통 기본
-	IEnumerator AttackMotion(Entity _entity)
+	// 해당 매개 변수마다 새로운 콜백 메소드 생성 필요 && 호출 시 코드 길이 증가
+	// 근데 역시 그냥 StartCoroutine 생으로 호출하는 건 안됨?
+	public static void AdvancedPrototypeFunction(Func</* Parameter Types Input Here, */IEnumerator> _routine/*, Parameters Input Here */)
+	{
+		inst.StartCoroutine(_routine(/* Parameters Input Here */));
+	}
+
+    #endregion
+
+    #endregion
+
+    #region 공통 기본
+    IEnumerator AttackMotion(Entity _entity)
 	{
 		_entity.charater.sprite = _entity.enemy.EnemyAttackSprite;
 		_entity.transform.DOMove(_entity.originPos + new Vector3(-0.15f, 0, 0), 0.1f);

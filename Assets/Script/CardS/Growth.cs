@@ -20,8 +20,15 @@ public class Growth : Card
 
 		// 왜 리스트에서 이 카드 못 찾지 일단 런
 
+		CardManager.Inst.myCards.Find((Card card) => { return this; });
+
 		CardManager.Inst.RefreshMyHands();
 
 		yield return StartCoroutine(EndUsingCard());
 	}
+
+	public bool findcard(Card card)
+    {
+		return this;
+    }
 }
