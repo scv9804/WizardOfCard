@@ -223,6 +223,10 @@ public class UIManager : MonoBehaviour
 		gameClearBack_UI.SetActive(false);
 	}
 
+	public void PlayerMoneyUIRefresh()
+	{
+		money_TMP.text = EntityManager.Inst.playerEntity.money.ToString("D3");
+	}
 
 	#region minimaps
 

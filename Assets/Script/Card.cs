@@ -39,7 +39,7 @@ public class Card : MonoBehaviour
 	[Tooltip("카드 데미지 및 효과 수치"), SerializeField] int[] attack = new int[3];
 	[Tooltip("카드 망각 여부"), SerializeField] bool[] isExile = new bool[3];
 	[Tooltip("카드 대상 범위"), SerializeField] AttackRange[] AR_attackRange = new AttackRange[3];
-	[Tooltip("카드 설명"), TextArea(3, 5), SerializeField] string[] explainCard = new string[3];
+	[Tooltip("카드 설명"), TextArea(3, 5)]public string[] explainCard = new string[3]; // 잠시 필요해서 퍼블릭으로 바꿈 메서드추가할까 했는데 일단 그대로둠
 
 	//SpriteRenderer sp_card; // 현재 미사용
 
@@ -453,6 +453,7 @@ public class Card : MonoBehaviour
 			_target?.Damaged(_value, enemyDamageSprite, this);
 
 			StartCoroutine(PlayerEntity.Inst.AttackSprite(PlayerEntity.Inst.playerChar.MagicBoltSprite, playerAttackSprite));
+			MusicManager.inst.PlayerDefultSoundEffect();
 			//StartCoroutine(_target?.DamagedEffectCorutin(enemyDamageSprite));
 		}
     }

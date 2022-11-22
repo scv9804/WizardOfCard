@@ -43,6 +43,7 @@ public class EnemySkillCollection : MonoBehaviour
 	public IEnumerator Attack(Entity _entity)
 	{
 		_entity.attackTime++;
+		MusicManager.inst.SlashSound();
 		PlayerEntity.Inst.Damaged(_entity.FinalAttackValue());
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 		_entity.attackable = false;
@@ -84,7 +85,7 @@ public class EnemySkillCollection : MonoBehaviour
 			_entity.attackTime++;
 			yield return StartCoroutine(AttackMotion(_entity));
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
-			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffSpriteManager.Inst.RustAccid, "RustAccid", 0, 1);
+			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.RustAccid, "RustAccid", 0, 1);
 		}
 	}
 
@@ -101,7 +102,7 @@ public class EnemySkillCollection : MonoBehaviour
 			_entity.attackTime++;
 			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
-			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffSpriteManager.Inst.DecreasedConcentration, "DecreasedConcentration", 1, 1);
+			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.DecreasedConcentration, "DecreasedConcentration", 1, 1);
 		}
 	}
 
@@ -111,14 +112,16 @@ public class EnemySkillCollection : MonoBehaviour
 	{
 		if (_entity.CompareBuffImage(0, 1))
 		{
+			MusicManager.inst.WarCrySound();
 			yield return null;
 		}
 		else
 		{
-			yield return StartCoroutine(BuffDebuffSpriteManager.Inst.SpawnSkillEffect(_entity));
+			MusicManager.inst.WarCrySound();
+			yield return StartCoroutine(BuffDebuffManager.Inst.SpawnSkillEffect(_entity, "WarCry"));
 			StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
 			_entity.IncreaseDamage = _entity.buffValue;
-			_entity.AddBuffImage(BuffDebuffSpriteManager.Inst.WarCrySprite, "WarCry", 100, 1);
+			_entity.AddBuffImage(BuffDebuffManager.Inst.WarCrySprite, "WarCry", 100, 1);
 			_entity.attackTime++;
 			yield return null;
 		}

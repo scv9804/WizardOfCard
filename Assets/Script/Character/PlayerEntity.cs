@@ -254,13 +254,13 @@ public class PlayerEntity : MonoBehaviour
             return maxAether_battle + maxAether;
         }
 
-        //set
-        //{
-        //    Status_MaxAether = value;
-        //}
-    }
+		set
+		{
+			maxAether = value;
+		}
+	}
 
-    public int Status_Shiled
+	public int Status_Shiled
     {
         get
         {
@@ -506,6 +506,7 @@ public class PlayerEntity : MonoBehaviour
         playerChar = _playerChar;
         i_health = _playerChar.i_health;
         maxHealth = i_health;
+        money = 200;
 		if (i_shield == 0)
         {
             ShieldTMP.gameObject.SetActive(false);
@@ -520,6 +521,7 @@ public class PlayerEntity : MonoBehaviour
         UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
         charaterSprite.sprite = _playerChar.sp_sprite;
         healthTMP.text = i_health.ToString();
+        UIManager.Inst.money_TMP.text = money.ToString("D3");
     }
 
     // <<22-10-21 장형용 :: 수정>>

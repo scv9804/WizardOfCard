@@ -15,7 +15,7 @@ public class CardManager : MonoBehaviour
 	}
 
 	[Header("카드매니저 원본 데이터")]
-	[Tooltip("카드매니저 원본 데이터베이스"), SerializeField] ItemSO itemSO;
+	[Tooltip("카드매니저 원본 데이터베이스")] public ItemSO itemSO;
 	//[SerializeField] GameObject cardPrefab; // 미사용
 
 	// 카드 리스트
@@ -402,11 +402,8 @@ public class CardManager : MonoBehaviour
 	// <<22-10-30 장형용 :: 좋은 기능 있길래 쓰려고 분리했읍니다 ㅎㅎ;;;>>
 	public void InstantinateCard(Card tempt)
 	{
-		//var cardObject = Instantiate(cardPrefab, cardSpawnPos.position, Quaternion.identity);
 		var cardObject = Instantiate(itemSO.items[tempt.i_itemNum].card_object, cardSpawnPos.position, Quaternion.identity);
 		var card = cardObject.GetComponent<Card>();
-		// <<22-11-04 장형용 :: Card_Info가 제거됐기 때문에 제거>>
-		//card.SetItemSO(tempt.card_info);
 		card.Setup();
 		myCards.Add(card);
 		setOriginOrder();

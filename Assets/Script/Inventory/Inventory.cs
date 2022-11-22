@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+	public static Inventory inst;
+	void Awake()
+	{
+		inst = this;
+	}
+
 	public GameObject inventoryPanel;
 	public GameObject slotPanel;
 	public GameObject equipslotPanel;
@@ -83,6 +89,7 @@ public class Inventory : MonoBehaviour
 				items[i] = itemToAdd;
 				GameObject itemObj = Instantiate(inventoryItem);
 				itemObj.GetComponent<ItemData>().item = itemToAdd;
+				itemObj.GetComponent<ItemData>().item.OwnPlayer = true;
 				itemObj.GetComponent<ItemData>().slotId = i;
 				itemObj.transform.SetParent(slots[i].transform);
 				itemObj.transform.localPosition = Vector2.zero;

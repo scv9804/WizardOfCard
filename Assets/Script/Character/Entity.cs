@@ -475,6 +475,10 @@ public class Entity : MonoBehaviour
     // <<22-10-26 장형용 :: 해결했다>>
     IEnumerator DestroyEffectCoroutine()
     {
+        yield return new WaitForSeconds(0.4f);
+
+        MusicManager.inst.EnemyDisappear();
+
         dissolveEffect.Play();
         dissolveEffect.playRate = 2.5f;
 

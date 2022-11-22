@@ -134,7 +134,6 @@ public class RewardManager : MonoBehaviour
 		}
 
 		Toggle toggle = moneyObject.GetComponentInChildren<Toggle>();
-		Debug.Log(toggle);
 
 		if (toggle.isOn)
 		{

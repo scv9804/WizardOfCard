@@ -20,16 +20,22 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		tooltip = inv.GetComponent<Tooltip>();
 		useAccept = inv.GetComponent<UseAccept>();
 	}
+	
+	public void TooltipDeActive()
+	{
+		tooltip.Deactivate();
+	}
+
 	public void OnPointerClick(PointerEventData eventData)
     {
 		Debug.Log(this.item.Id+"Clicked");
-		if (item != null && item.Equipable == false) //장비가 아닐시 == 소모품일시
+		if (item != null && item.Equipable == false && item.OwnPlayer) //장비가 아닐시 == 소모품일시
         {
 			useAccept.itemData = this;
 			useAccept.Activate(item);
 			tooltip.Deactivate();
 		}
-		else if(item != null && item.Equipable == true)
+		else if(item != null && item.Equipable == true && item.OwnPlayer)
         {
 			useAccept.itemData = this;
 			useAccept.Activate(item);
@@ -38,7 +44,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	}
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		if (item != null)
+		if (item != null && item.OwnPlayer)
 		{
 			this.transform.SetParent(this.transform.parent.parent);
 			this.transform.position = Input.mousePosition;
@@ -47,15 +53,19 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	}
 	public void OnDrag(PointerEventData eventData)
 	{
-		if (item != null)
+		if (item != null && item.OwnPlayer)
 		{
-			this.transform.position = Input.mousePosition;		}
+			this.transform.position = Input.mousePosition;	
+		}
 	}
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		this.transform.SetParent(inv.slots[slotId].transform);
-		this.transform.position = inv.slots[slotId].transform.position;
-		GetComponent<CanvasGroup>().blocksRaycasts = true;
+		if (item.OwnPlayer)
+		{
+			this.transform.SetParent(inv.slots[slotId].transform);
+			this.transform.position = inv.slots[slotId].transform.position;
+			GetComponent<CanvasGroup>().blocksRaycasts = true;
+		}
 	}
 	public void OnPointerDown(PointerEventData eventData)
 	{
@@ -71,17 +81,17 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	}
 	public void ItemUse(Item_inven item)
 	{
-		if (item != null && !item.Equipable)
+		if (item != null && !item.Equipable && item.OwnPlayer)
 		{
 			HealItemUsed();
 			useAccept.Deactivate();
 		}
-		else if (item != null && item.Equipable && this.slotId < 10)
+		else if (item != null && item.Equipable && this.slotId < 10 && item.OwnPlayer)
 		{
 			EquipItem();
 			useAccept.Deactivate();
 		}
-		else if (item != null && item.Equipable && this.slotId >= 10)
+		else if (item != null && item.Equipable && this.slotId >= 10 && item.OwnPlayer)
 		{
 			UnequipItem();
 			useAccept.Deactivate();
