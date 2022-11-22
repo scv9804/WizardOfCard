@@ -10160,6 +10160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5d0d0676c92c64d9b7e61e057c1a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explainSpriteDictionary:
+    keys: []
+    values: []
+  skillSpriteDictionary:
+    keys: []
+    values: []
   warCrySprite: {fileID: 21300000, guid: ffd32dad8deeb534c8cfedb0e7b81c2b, type: 3}
   decreasedConcentration: {fileID: 21300000, guid: e60157e9cf3af6a4eb3af376e95f2957, type: 3}
   rustAccid: {fileID: 21300000, guid: d910d649e4c328947846f7882b42acb0, type: 3}

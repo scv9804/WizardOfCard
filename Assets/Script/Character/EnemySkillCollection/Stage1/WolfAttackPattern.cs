@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,26 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "EnemyAttackPattern/Stage1/Boss_wolf")]
 public class WolfAttackPattern : EntityPattern
 {
+	// <<22-11-22 장형용 :: 하나하나 쓰기 귀찮아서 추가, 걍 이렇게 쓰면 안됨?>>
+	EnemySkillCollection Collection
+    {
+		get { return EnemySkillCollection.inst; }
+	}
+
+	Func<IEnumerator, Coroutine> StartCoroutine
+	{
+		get { return EnemySkillCollection.inst.StartCoroutine; }
+	}
+
 	public override bool Pattern(Entity _entity)
 	{
 		switch (_entity.attackTime)
 		{
 			case 0: // 전투의 포효
-				EnemySkillCollection.PrototypeFunction(SkillName.WarCry.ToString(), _entity);
+                EnemySkillCollection.PrototypeFunction(SkillName.WarCry.ToString(), _entity);
+
+                //collection.AdvancedPrototypeFunction(collection.WarCry, _entity);
+                //StartCoroutine(Collection.WarCry(_entity));
 				break;
 			case 1:
 				EnemySkillCollection.PrototypeFunction(SkillName.Attack.ToString(), _entity);
