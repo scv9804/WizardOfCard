@@ -596,12 +596,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7395019933593546573}
   - component: {fileID: 7395019933593546572}
-  - component: {fileID: 5422279455807514475}
+  - component: {fileID: 5098886892376731245}
   - component: {fileID: -2801819417619063475}
   - component: {fileID: 2036147294181241873}
   - component: {fileID: 4762897529609082601}
   m_Layer: 0
-  m_Name: PlayerCard_KillEntity
+  m_Name: PlayerCard_ContinuousAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,7 +678,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5422279455807514475
+--- !u!114 &5098886892376731245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -687,33 +687,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 7395019933593546574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7ff4eb8eca94814da14e872eaab9c99, type: 3}
+  m_Script: {fileID: 11500000, guid: c8eaebe6af4d6204d8e74431399df1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
   nameTMP: {fileID: 7395019933344051563}
   manaCostTMP: {fileID: 7395019933671154985}
   explainTMP: {fileID: 7395019932878968509}
-  enemyDamageSprite: {fileID: -819192339617493520, guid: 4541f2b6030383741b25fe571aaefac9, type: 3}
-  playerAttackSprite: {fileID: -819192339617493520, guid: 4541f2b6030383741b25fe571aaefac9, type: 3}
-  st_cardName: "\uB514\uBC84\uADF8\uC6A9"
-  i_itemNum: 33
+  enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+  playerAttackSprite: {fileID: 21300000, guid: 004759733ceab5c4ab7e77bd6f7a99d2, type: 3}
+  st_cardName: "\uC5F0\uC18D \uACF5\uACA9"
+  i_itemNum: 31
   type: 0
-  f_percentage: 0
+  f_percentage: 1
   upgraded: 0
-  cost: 000000000000000000000000
-  attack: 000000000000000000000000
+  cost: 010000000000000000000000
+  attack: 010000000100000002000000
   isExile: 000000
-  AR_attackRange: 000000000000000000000000
+  AR_attackRange: 020000000200000002000000
   explainCard:
-  - "\uC801\uC744 \uCC98\uCE58\uD569\uB2C8\uB2E4."
-  - "\uC801\uC744 \uCC98\uCE58\uD569\uB2C8\uB2E4."
-  - "\uC801\uC744 \uCC98\uCE58\uD569\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C {4} \uC90D\uB2C8\uB2E4.\r\n\uC774\uBC88 \uC804\uD22C
+    \uB3D9\uC548 \n\uBAA8\uB4E0 \uC5F0\uC18D \uACF5\uACA9\uC758 \uB370\uBBF8\uC9C0\uAC00
+    \n{3} \uC99D\uAC00\uD569\uB2C8\uB2E4.\r"
+  - "\uB370\uBBF8\uC9C0\uB97C {4} \uC90D\uB2C8\uB2E4.\r\n\uC774\uBC88 \uC804\uD22C
+    \uB3D9\uC548 \n\uBAA8\uB4E0 \uC5F0\uC18D \uACF5\uACA9\uC758 \uB370\uBBF8\uC9C0\uAC00
+    \n{3} \uC99D\uAC00\uD569\uB2C8\uB2E4.\r"
+  - "\uB370\uBBF8\uC9C0\uB97C {4} \uC90D\uB2C8\uB2E4.\r\n\uC774\uBC88 \uC804\uD22C
+    \uB3D9\uC548 \n\uBAA8\uB4E0 \uC5F0\uC18D \uACF5\uACA9\uC758 \uB370\uBBF8\uC9C0\uAC00
+    \n{3} \uC99D\uAC00\uD569\uB2C8\uB2E4.\r\n\uCE74\uB4DC\uB97C 1\uC7A5 \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4."
   originPRS:
     pos: {x: 0, y: 0, z: 0}
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
+  damagePerCard: 000000000000000000000000
 --- !u!114 &-2801819417619063475
 MonoBehaviour:
   m_ObjectHideFlags: 0

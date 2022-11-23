@@ -37,14 +37,16 @@ public class Collapse : Card
 
 	#endregion
 
-	public override void ExplainRefresh()
+	public override string ExplainRefresh()
     {
         base.ExplainRefresh();
 
 		sb.Replace("{3}", I_DamageEnhanceValue.ToString());
 
 		explainTMP.text = sb.ToString();
-    }
+
+		return sb.ToString();
+	}
 
 	// <<22-10-28 장형용 :: 수정>>
 	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)

@@ -37,13 +37,15 @@ public class StormRune : Card
 
 	#endregion
 
-	public override void ExplainRefresh()
+	public override string ExplainRefresh()
 	{
 		base.ExplainRefresh();
 
 		sb.Replace("{3}", (I_AttackCount - 1).ToString());
 
 		explainTMP.text = sb.ToString();
+
+		return sb.ToString();
 	}
 
 	// <<22-10-28 장형용 :: 수정>>
