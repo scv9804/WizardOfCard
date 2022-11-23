@@ -267,6 +267,7 @@ MonoBehaviour:
     MagicBoltSprite: {fileID: 0}
     WandAttackEffect: {fileID: 0}
   money: 0
+  manaInchentValue: 0
   charaterSprite: {fileID: 2077760302346298915}
   spineObeject: {fileID: 7556468839633654502}
   healthTMP: {fileID: 2077760302748284320}
