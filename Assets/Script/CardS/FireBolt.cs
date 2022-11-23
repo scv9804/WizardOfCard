@@ -37,7 +37,7 @@ public class FireBolt : Card
 
 	#endregion
 
-	public override void ExplainRefresh()
+	public override string ExplainRefresh()
     {
 		base.ExplainRefresh();
 
@@ -45,6 +45,8 @@ public class FireBolt : Card
 		sb.Replace("{4}", ApplyEnhanceValue(I_Burning).ToString());
 
 		explainTMP.text = sb.ToString();
+
+		return sb.ToString();
 	}
 
 	// <<22-10-28 장형용 :: 수정>>

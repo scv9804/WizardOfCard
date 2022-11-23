@@ -24,7 +24,7 @@ public class ThunderBolt : Card
 
 	#endregion
 
-	public override void ExplainRefresh()
+	public override string ExplainRefresh()
 	{
 		base.ExplainRefresh();
 
@@ -32,6 +32,8 @@ public class ThunderBolt : Card
 		sb.Replace("{4}", I_MaxDamage.ToString());
 
 		explainTMP.text = sb.ToString();
+
+		return sb.ToString();
 	}
 
 	// <<22-10-28 장형용 :: 수정>>

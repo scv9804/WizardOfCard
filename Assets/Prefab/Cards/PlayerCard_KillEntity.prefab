@@ -697,7 +697,7 @@ MonoBehaviour:
   enemyDamageSprite: {fileID: -819192339617493520, guid: 4541f2b6030383741b25fe571aaefac9, type: 3}
   playerAttackSprite: {fileID: -819192339617493520, guid: 4541f2b6030383741b25fe571aaefac9, type: 3}
   st_cardName: "\uB514\uBC84\uADF8\uC6A9"
-  i_itemNum: 32
+  i_itemNum: 33
   type: 0
   f_percentage: 0
   upgraded: 0

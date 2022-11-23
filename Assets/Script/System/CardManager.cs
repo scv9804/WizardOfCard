@@ -57,6 +57,7 @@ public class CardManager : MonoBehaviour
 	public static int i_usingCardCount = 0;
 
 	public static int i_usedCardCount; // 비전 광선꺼 옮겨옴
+	public static int i_attackCardCount; // 연속 공격꺼 옮겨옴
 
 	private void Start()
 	{
@@ -85,10 +86,18 @@ public class CardManager : MonoBehaviour
 
         TurnManager.onStartTurn += ResetCardCount;
 
-        #endregion 
+		#endregion
 
-        #endregion
-    }
+		#region ContinuousAttack
+
+		Utility.onCardUsed += IncreaseAttackCount;
+
+		Utility.onBattleStart += ResetAttackCount;
+
+		#endregion
+
+		#endregion
+	}
 
 	void Update()
 	{
@@ -125,10 +134,18 @@ public class CardManager : MonoBehaviour
 
         TurnManager.onStartTurn -= ResetCardCount;
 
-        #endregion 
+		#endregion
 
-        #endregion
-    }
+		#region ContinuousAttack
+
+		Utility.onCardUsed -= IncreaseAttackCount;
+
+		Utility.onBattleStart -= ResetAttackCount;
+
+		#endregion
+
+		#endregion
+	}
 
 	//그냥만듦. 나중에수정 Update에 임시로 박아넣음 ㅋㅋㅋ;;;
 	public void GameTick_CardManager()
@@ -171,6 +188,28 @@ public class CardManager : MonoBehaviour
 	void ResetCardCount(bool isMyTurn)
 	{
 		i_usedCardCount = 0;
+
+		RefreshMyHands();
+	}
+
+	#endregion
+
+	// MonoBehaviour 관련 문제로 인해 CardManager에 연속 공격 효과 구현
+	#region ContinuousAttack
+
+	void IncreaseAttackCount(Card _card)
+	{
+		if (_card.GetType() == typeof(ContinuousAttack))
+        {
+			i_attackCardCount++;
+		}
+
+		RefreshMyHands();
+	}
+
+	void ResetAttackCount()
+	{
+		i_attackCardCount = -1;
 
 		RefreshMyHands();
 	}

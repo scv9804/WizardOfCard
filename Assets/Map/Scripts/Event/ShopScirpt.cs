@@ -13,21 +13,23 @@ public class ShopScirpt : MonoBehaviour
 	[SerializeField] ItemDataBase database;
 
 	[Header("오브젝트들 설정")]
-	[SerializeField] GameObject []shopAllObject;
+	[SerializeField] GameObject[] shopAllObject;
 	[SerializeField] GameObject shopPanelObject;
 	[SerializeField] GameObject shopOwner;
 	[SerializeField] GameObject speechBubble;
 
 	[SerializeField] Button shopOwnerButton;
 	[SerializeField] Button shopExitButton;
+	[SerializeField] Button ManaUpPurchaseButton;
 
 	[SerializeField] TMP_Text shopOwnerTMP;
+	[SerializeField] TMP_Text ManaPriceTMP;
 	[SerializeField] string[] ShopOwnerspeechArray;
 
 	[Header("아이템 관련")]
 	[SerializeField] GameObject cardSpawnParent;
-	[SerializeField] GameObject [] itemSapwnParents;
-	[SerializeField] TMP_Text[] priceTMP; 
+	[SerializeField] GameObject[] itemSapwnParents;
+	[SerializeField] TMP_Text[] priceTMP;
 
 
 	[Header("아이템 프리팹")]
@@ -39,8 +41,9 @@ public class ShopScirpt : MonoBehaviour
 
 	Vector3 OriginSize;
 
+	bool isSettingOver = false;
 	bool isShopActive = false;
-	int manaPirce = 10;
+	int manaPrice = 10;
 
 	StringBuilder sb = new StringBuilder();
 
@@ -51,9 +54,12 @@ public class ShopScirpt : MonoBehaviour
 	{
 		shopOwnerButton.onClick.AddListener(OpenShop);
 		shopExitButton.onClick.AddListener(CloseShop);
+		ManaUpPurchaseButton.onClick.AddListener(ManaLevelUp);
 		OriginSize = speechBubble.transform.localScale;
 		SetShop(2);
+		SetManaLevelUp();
 	}
+
 
 	public void EnterShop()
 	{
@@ -109,8 +115,8 @@ public class ShopScirpt : MonoBehaviour
 	{
 		speechBubble.SetActive(true);
 		speechBubble.transform.localScale = Vector3.zero;
-		speechBubble.transform.DOScale(OriginSize ,0.5f).SetEase(Ease.OutBack);
-		int rand = UnityEngine.Random.Range(0,ShopOwnerspeechArray.Length-1);
+		speechBubble.transform.DOScale(OriginSize, 0.5f).SetEase(Ease.OutBack);
+		int rand = UnityEngine.Random.Range(0, ShopOwnerspeechArray.Length - 1);
 		shopOwnerTMP.text = ShopOwnerspeechArray[rand];
 		yield return speechBubbleDelay;
 		speechBubble.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InCubic);
@@ -121,38 +127,42 @@ public class ShopScirpt : MonoBehaviour
 
 	void SetShop(int id)
 	{
-		//카드 세팅
-		for (int i = 0; i < 5; i++)
+		if (!isSettingOver)
 		{
-			int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length-1);
-			var temt = Instantiate(cardPrefab);
-			temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
-			temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-			//temt.transform.GetChild(2).GetComponent<TMP_Text>().text = ;   //일단 막힘 이거 근본 수정해야하는데 좀더 상의 해서 바꿀필요 있음.
-			temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
-			temt.transform.SetParent(cardSpawnParent.transform);
-			//temt.GetComponent<Material>();
-			//temt.GetComponentInChildren<TMP_Text>().text = ;
-		}
+			//카드 세팅
+			for (int i = 0; i < 5; i++)
+			{
+				int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
+				var temt = Instantiate(cardPrefab);
+				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
+				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
+				//temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.ExplainUIRefresh();   //일단 막힘 이거 근본 수정해야하는데 좀더 상의 해서 바꿀필요 있음.
+				temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
+				temt.transform.SetParent(cardSpawnParent.transform);
+				//temt.GetComponent<Material>();
+				//temt.GetComponentInChildren<TMP_Text>().text = ;
+			}
 
 
-		//아이템 세팅
-		Item_inven itemToAdd = database.FetchItemById(id);
-		for (int i = 0; i < 3; i++)
-		{
-			int temp = i;
-			GameObject itemObj = Instantiate(itemPrefab);
-			itemObj.GetComponent<ItemData>().item = itemToAdd;
-			itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
-			itemObj.transform.SetParent(itemSapwnParents[i].transform);
-			itemObj.transform.localPosition = Vector2.zero;
-			itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-			itemObj.name = "Item: " + itemToAdd.Title;
-			itemObj.transform.localScale *= 3;
-			itemObj.AddComponent<Button>();
-			itemObj.GetComponent<Button>().onClick.AddListener(()=> SetBuyItem(temp));
-			solditems.Add(itemObj);
-			priceTMP[i].text = itemToAdd.Price.ToString();
+			//아이템 세팅
+			Item_inven itemToAdd = database.FetchItemById(id);
+			for (int i = 0; i < 3; i++)
+			{
+				int temp = i;
+				GameObject itemObj = Instantiate(itemPrefab);
+				itemObj.GetComponent<ItemData>().item = itemToAdd;
+				itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
+				itemObj.transform.SetParent(itemSapwnParents[i].transform);
+				itemObj.transform.localPosition = Vector2.zero;
+				itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+				itemObj.name = "Item: " + itemToAdd.Title;
+				itemObj.transform.localScale *= 3;
+				itemObj.AddComponent<Button>();
+				itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(temp));
+				solditems.Add(itemObj);
+				priceTMP[i].text = itemToAdd.Price.ToString();
+			}
+			isSettingOver = true;
 		}
 	}
 
@@ -174,10 +184,27 @@ public class ShopScirpt : MonoBehaviour
 	//마나 업그레이드 비용은 10원부터 시작해서 10원씩 증가함 대충 1300골드 정도 들어감 일부러 좀 적은 가격으로 구성함
 	void ManaLevelUp()
 	{
-		if (EntityManager.Inst.playerEntity.money <= manaPirce)
+		if (EntityManager.Inst.playerEntity.money >= manaPrice)
 		{
-			EntityManager.Inst.playerEntity.money -= manaPirce;
+			EntityManager.Inst.playerEntity.money -= manaPrice;
 			EntityManager.Inst.playerEntity.Status_MaxAether = EntityManager.Inst.playerEntity.Status_MaxAether + 1;
+			EntityManager.Inst.playerEntity.manaInchentValue++;
+			UIManager.Inst.PlayerMoneyUIRefresh();
+			SetManaLevelUp();
+		}
+	}
+
+	void SetManaLevelUp()
+	{
+		manaPrice = EntityManager.Inst.playerEntity.manaInchentValue * 10 + 10;
+		if (manaPrice >= 170)
+		{
+			ManaUpPurchaseButton.onClick.RemoveAllListeners();
+			ManaPriceTMP.text = "재고 없음!";
+		}
+		else
+		{
+			ManaPriceTMP.text = "마나 활성\n " + manaPrice + " 정수!";
 		}
 	}
 

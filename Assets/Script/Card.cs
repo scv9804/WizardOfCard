@@ -197,7 +197,7 @@ public class Card : MonoBehaviour
 		NameRefresh();
 	}
 
-    public virtual void ExplainRefresh()
+    public virtual string ExplainRefresh()
 	{
 		i_enhanceValue_inst = PlayerEntity.Inst.Buff_EnchaneValue;
 
@@ -232,6 +232,8 @@ public class Card : MonoBehaviour
 		#endregion
 
 		explainTMP.text = sb.ToString();
+
+		return sb.ToString();
 	}
 
 	// <<22-11-04 장형용 :: 추가>>

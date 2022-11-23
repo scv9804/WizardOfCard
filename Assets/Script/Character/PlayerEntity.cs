@@ -21,6 +21,7 @@ public class PlayerEntity : MonoBehaviour
 
     [HideInInspector] public PlayerChar playerChar;
     [HideInInspector] public int money;
+    [HideInInspector] public int manaInchentValue = 0;
     [SerializeField] SpriteRenderer charaterSprite;
     [SerializeField] GameObject spineObeject;
     [SerializeField] TMP_Text healthTMP;
