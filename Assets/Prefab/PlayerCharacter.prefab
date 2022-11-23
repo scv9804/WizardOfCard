@@ -266,6 +266,7 @@ MonoBehaviour:
     damagedSprite: {fileID: 0}
     MagicBoltSprite: {fileID: 0}
     WandAttackEffect: {fileID: 0}
+  money: 0
   charaterSprite: {fileID: 2077760302346298915}
   spineObeject: {fileID: 7556468839633654502}
   healthTMP: {fileID: 2077760302748284320}
@@ -1177,7 +1178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d831f2b0aecc9574bbb6b9845e0b7d77, type: 2}
+  - {fileID: 2100000, guid: dbed54cfadd3c744b9f43727a3b2718d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1211,8 +1212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: f1a6ff03becbd6f468705fd6b2f378af, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 2c271d6cbb9f5d949a981f3bcf183879, type: 2}
   initialSkinName: 
+  fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
   initialFlipY: 0
   updateWhenInvisible: 3
@@ -1233,6 +1235,8 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
+  updateTiming: 1
+  unscaledTime: 0
   _animationName: animation
   loop: 1
   timeScale: 0.5

@@ -1,0 +1,15 @@
+버섯몬스터 관절.png
+size:1024,1024
+filter:Linear,Linear
+pma:true
+레이어 5
+bounds:2,132,725,828
+offsets:1,1,727,830
+오른다리
+bounds:2,2,128,163
+offsets:1,1,130,165
+rotate:90
+왼다리
+bounds:167,52,78,176
+offsets:1,1,80,178
+rotate:90

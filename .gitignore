@@ -1240,3 +1240,98 @@ Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineEvent.cs
 Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineEvent.cs.meta
 Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineTrackEntryEnd.cs
 Assets/Spine/Runtime/spine-unity/Utility/YieldInstructions/WaitForSpineTrackEntryEnd.cs.meta
+Assets/Spine Examples/Other Examples/RenderTexture FadeOut Transparency.unity
+Assets/Spine Examples/Other Examples/RenderTexture FadeOut Transparency.unity.meta
+Assets/Spine Examples/Scripts/RenderTextureFadeoutExample.cs
+Assets/Spine Examples/Scripts/RenderTextureFadeoutExample.cs.meta
+Assets/Spine Examples/Scripts/RuntimeLoadFromExportsExample.cs
+Assets/Spine Examples/Scripts/RuntimeLoadFromExportsExample.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/RenderQuadMaterial.mat
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/RenderQuadMaterial.mat.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/RenderQuadShader.shader
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/RenderQuadShader.shader.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonGraphicRenderTexture.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonGraphicRenderTexture.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonRenderTexture.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonRenderTexture.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonRenderTextureBase.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonRenderTextureBase.cs.meta
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonRenderTextureFadeout.cs
+Assets/Spine Examples/Scripts/Sample Components/SkeletonRenderTexture/SkeletonRenderTextureFadeout.cs.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon3.mat
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon3.mat.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon4.mat
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon4.mat.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon5.mat
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon5.mat.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon6.mat
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon_dragon6.mat.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon3.png
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon3.png.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon4.png
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon4.png.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon5.png
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon5.png.meta
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon6.png
+Assets/Spine Examples/Spine Skeletons/Dragon/dragon6.png.meta
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineBuildProcessor.cs
+Assets/Spine/Editor/spine-unity/Editor/Utility/SpineBuildProcessor.cs.meta
+Assets/Spine/Runtime/spine-csharp/package.json
+Assets/Spine/Runtime/spine-csharp/package.json.meta
+Assets/Spine/Runtime/spine-csharp/SkeletonLoader.cs
+Assets/Spine/Runtime/spine-csharp/SkeletonLoader.cs.meta
+Assets/Spine/Runtime/spine-csharp/spine-csharp.asmdef
+Assets/Spine/Runtime/spine-csharp/spine-csharp.asmdef.meta
+Assets/Spine/Runtime/spine-csharp/SpringConstraint.cs
+Assets/Spine/Runtime/spine-csharp/SpringConstraint.cs.meta
+Assets/Spine/Runtime/spine-csharp/SpringConstraintData.cs
+Assets/Spine/Runtime/spine-csharp/SpringConstraintData.cs.meta
+Assets/Spine/Runtime/spine-csharp/TextureRegion.cs
+Assets/Spine/Runtime/spine-csharp/TextureRegion.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/IHasTextureRegion.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/IHasTextureRegion.cs.meta
+Assets/Spine/Runtime/spine-csharp/Attachments/Sequence.cs
+Assets/Spine/Runtime/spine-csharp/Attachments/Sequence.cs.meta
+Assets/Spine/Runtime/spine-unity/Components/Internal.meta
+Assets/Spine/Runtime/spine-unity/Components/Internal/SkeletonSubmeshGraphic.cs
+Assets/Spine/Runtime/spine-unity/Components/Internal/SkeletonSubmeshGraphic.cs.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicAdditive.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicAdditive.mat.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicDefaultGrayscale.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicDefaultGrayscale.mat.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicFill.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicFill.mat.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicMultiply.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicMultiply.mat.meta
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicScreen.mat
+Assets/Spine/Runtime/spine-unity/Materials/SkeletonGraphicScreen.mat.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-BlendModes-NormalPass.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-BlendModes-NormalPass.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-BlendModes-ShadowCasterPass.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-BlendModes-ShadowCasterPass.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Common.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/CGIncludes/Spine-Common.cginc.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/CGIncludes.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Additive.shader
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Additive.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Fill.shader
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Fill.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Multiply.shader
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Multiply.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Screen.shader
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Screen.shader.meta
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/CGIncludes/Spine-SkeletonGraphic-NormalPass.cginc
+Assets/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/CGIncludes/Spine-SkeletonGraphic-NormalPass.cginc.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonStraightAdditive.mat
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonStraightAdditive.mat.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonStraightMultiply.mat
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonStraightMultiply.mat.meta
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonStraightScreen.mat
+Assets/Spine/Runtime/spine-unity/SkeletonDataModifierAssets/BlendModeMaterials/SkeletonStraightScreen.mat.meta
+Assets/Spine/Runtime/spine-unity/Utility/BuildUtilities.cs
+Assets/Spine/Runtime/spine-unity/Utility/BuildUtilities.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/MathUtilities.cs
+Assets/Spine/Runtime/spine-unity/Utility/MathUtilities.cs.meta
+Assets/Spine/Runtime/spine-unity/Utility/SettingsTriState.cs
+Assets/Spine/Runtime/spine-unity/Utility/SettingsTriState.cs.meta

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Enemy", menuName = "Scriptalbe Object/Enemy")]
@@ -22,7 +23,8 @@ public class Enemy : ScriptableObject
 	public Sprite EnemyDamagedSprite;
 	public Sprite EnemyAttackSprite;
 	public Sprite []SpelcialSkillSprite;
-	
+
+	public SkeletonDataAsset skeletonDataAsset;
 
 	public EntityPattern entityPattern;
 }
