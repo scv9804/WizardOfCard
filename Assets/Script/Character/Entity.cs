@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.VFX;
@@ -28,7 +29,9 @@ public class Entity : MonoBehaviour
     [SerializeField] TMP_Text damagedValueTMP;
     [SerializeField] GameObject spineGameObject;
     [SerializeField] List<GameObject> buffImageList;
-
+    [SerializeField] SkeletonAnimation entitySkeletonAnimation;
+    [SerializeField] SkeletonGraphic entitySkeletonGraphic;
+        
     [Header("¹öÇÁ¿ë")]
     [SerializeField] GameObject buffPrefab;
     [SerializeField] GameObject buffImageSlot;
@@ -260,6 +263,7 @@ public class Entity : MonoBehaviour
         increaseShield = _enemy.increaseShield;
         debuffValue = _enemy.debuffValue;
         buffValue = _enemy.buffValue;
+        SetSkeletonAnimation(_enemy);
 
         entitiyPattern = _enemy.entityPattern;
         HEALTHMAX = i_health ;
@@ -270,6 +274,13 @@ public class Entity : MonoBehaviour
 
         charater.sprite = _enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
+    }
+
+    void SetSkeletonAnimation(Enemy _enemy)
+	{
+        entitySkeletonAnimation.ClearState();
+        entitySkeletonAnimation.skeletonDataAsset = _enemy.skeletonDataAsset;        
+        entitySkeletonAnimation.Initialize(true);    
     }
 
     public void MoveTransForm(Vector3 _pos, bool _isUseDotween, float _DotweenTime = 0)

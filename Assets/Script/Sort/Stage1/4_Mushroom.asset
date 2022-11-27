@@ -17,6 +17,7 @@ MonoBehaviour:
   i_attackCount: 0
   i_damage: 1
   increaseShield: 2
+  buffValue: 0
   debuffValue: 1
   f_percentage: 0
   st_charName: MushRoom
@@ -24,4 +25,6 @@ MonoBehaviour:
   PlayerDamagedEffect: {fileID: 0}
   EnemyDamagedSprite: {fileID: 0}
   EnemyAttackSprite: {fileID: 0}
+  SpelcialSkillSprite: []
+  skeletonDataAsset: {fileID: 11400000, guid: b7c7d1c03b35044408935719228517db, type: 2}
   entityPattern: {fileID: 0}

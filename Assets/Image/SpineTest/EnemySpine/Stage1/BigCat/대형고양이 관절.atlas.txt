@@ -1,0 +1,37 @@
+대형고양이 관절.png
+size:1024,1024
+filter:Linear,Linear
+pma:true
+꼬리
+bounds:2,90,363,338
+offsets:1,1,365,340
+다리1
+bounds:783,385,164,218
+offsets:1,1,166,220
+다리1 관절
+bounds:783,786,185,191
+offsets:1,1,187,193
+다리2
+bounds:778,264,119,200
+offsets:1,1,121,202
+rotate:90
+다리2 관절
+bounds:783,605,166,179
+offsets:1,1,168,181
+다리3
+bounds:367,138,254,290
+offsets:1,1,256,292
+다리3 관절
+bounds:623,200,153,228
+offsets:1,1,155,230
+뒷다리
+bounds:623,55,143,166
+offsets:1,1,145,168
+rotate:90
+뒷다리 복사
+bounds:367,2,134,240
+offsets:1,1,136,242
+rotate:90
+몸통
+bounds:2,430,779,547
+offsets:1,1,781,549
