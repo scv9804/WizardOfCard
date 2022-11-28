@@ -22,7 +22,7 @@ MonoBehaviour:
   f_percentage: 0
   st_charName: Wolf
   sp_sprite: {fileID: -292607455591267788, guid: e9709392b8b056248ade09cb4bc6b46b, type: 3}
-  PlayerDamagedEffect: {fileID: 5936145020738914265, guid: 37852e5b2634d5941b08e71f0df22ddc, type: 3}
+  PlayerDamagedEffect: {fileID: 9170522266831513912, guid: 5239e907273c5e74bb287e38aa59ca9a, type: 3}
   EnemyDamagedSprite: {fileID: 205287133995507429, guid: 391c7383bdfd58d45ac192b7e90081d1, type: 3}
   EnemyAttackSprite: {fileID: 5936145020738914265, guid: 37852e5b2634d5941b08e71f0df22ddc, type: 3}
   SpelcialSkillSprite:

@@ -465,7 +465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2414445803875292292
 Transform:
   m_ObjectHideFlags: 0
@@ -474,7 +474,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2397058908741018786}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.6084874}
+  m_LocalPosition: {x: 0.86, y: -6.89, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7799422697148875853}
@@ -507,7 +507,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 29e9e76db6e174943b4cb5abeb1aa858, type: 2}
+  - {fileID: 2100000, guid: 39c65941406509e41a9481e0b46b66db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 5f0994380785e9e4cbed7bf6d4f16f25, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: a7090badd31b8cd499ebcbac00decd27, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -1455,7 +1455,7 @@ MonoBehaviour:
   spineGameObject: {fileID: 2397058908741018786}
   buffImageList: []
   entitySkeletonAnimation: {fileID: 1761407665280062807}
-  entitySkeletonGraphic: {fileID: 0}
+  entitySkeletonGameObject: {fileID: 2397058908741018786}
   buffPrefab: {fileID: 2472875045232849160, guid: bbc77f8a547ec074f848d85c6f4a8917, type: 3}
   buffImageSlot: {fileID: 4602028185298132969}
   skillNameTmp: {fileID: 2312189718010226657}

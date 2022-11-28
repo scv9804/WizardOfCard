@@ -41,6 +41,9 @@ public class EnemySkillCollection : MonoBehaviour
     #region 공통 기본
     IEnumerator AttackMotion(Entity _entity)
 	{
+
+		_entity.entitySkeletonGameObject.SetActive(false);
+		_entity.charater.enabled = true;
 		_entity.charater.sprite = _entity.enemy.EnemyAttackSprite;
 		_entity.transform.DOMove(_entity.originPos + new Vector3(-0.15f, 0, 0), 0.1f);
 		PlayerEntity.Inst.SetDamagedSprite(_entity.enemy.PlayerDamagedEffect);
@@ -48,6 +51,8 @@ public class EnemySkillCollection : MonoBehaviour
 		_entity.transform.DOMove(_entity.originPos, 0.2f);
 		yield return new WaitForSeconds(0.05f);
 		yield return new WaitForSeconds(0.1f);
+		_entity.entitySkeletonGameObject.SetActive(true);
+		_entity.charater.enabled = false;
 		_entity.charater.sprite = _entity.enemy.sp_sprite;
 	}
 

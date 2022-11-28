@@ -17,7 +17,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] float enemyAttackDelay;
     [SerializeField] EnemySO enemySO;
     [SerializeField] EnemySpawnPatternSO enemySpawnPatternSO;
-    [SerializeField] EnemyBossSO enemyBossSO;
+    [SerializeField] EnemySO enemyBossSO;
     [SerializeField] CharacterSO characterSO;
     [SerializeField] GameObject entitiyPrefab;
     [SerializeField] GameObject playerPrefab;
@@ -217,7 +217,8 @@ public class EntityManager : MonoBehaviour
 
     public void SetEnemyBossEntity()
     {
-        var Boss = enemyBossSO.enemyBoss[0];
+        int rand = UnityEngine.Random.Range(0, enemyBossSO.enemy.Length);       
+        var Boss = enemyBossSO.enemy[rand];
         var entityObject = Instantiate(entitiyPrefab, spawnEnemy_Tf.position, Quaternion.identity);
         var entity = entityObject.GetComponent<Entity>();
         entity.attackable = true;

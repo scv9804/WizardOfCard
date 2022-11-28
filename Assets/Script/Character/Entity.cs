@@ -29,8 +29,10 @@ public class Entity : MonoBehaviour
     [SerializeField] TMP_Text damagedValueTMP;
     [SerializeField] GameObject spineGameObject;
     [SerializeField] List<GameObject> buffImageList;
+
+    [Header("스파인")]
     [SerializeField] SkeletonAnimation entitySkeletonAnimation;
-    [SerializeField] SkeletonGraphic entitySkeletonGraphic;
+    public GameObject entitySkeletonGameObject;
         
     [Header("버프용")]
     [SerializeField] GameObject buffPrefab;
@@ -108,8 +110,6 @@ public class Entity : MonoBehaviour
         Debug.Log(charater.sprite.bounds.size.y);
         //켄버스 위치 스프라이트 사이즈에 따라 조절. (체력바 위치)
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
-        spriteSize_X = charater.sprite.bounds.size.x;
-        spriteSize_Y = charater.sprite.bounds.size.y;
         AllEffectOff();
     }
     private void OnEnable()
@@ -238,20 +238,31 @@ public class Entity : MonoBehaviour
 
     #region Entity Base
 
-    public void SetupEnemy(EnemyBoss _enemy)
+    public void SetupEnemyBoss(Enemy _enemy)
     {
-        enemyBoss = _enemy;
+        enemy = _enemy;
         i_health = _enemy.i_health;
         i_attackCount = _enemy.i_attackCount;
         i_damage = _enemy.i_damage;
-     
+        increaseShield = _enemy.increaseShield;
+        debuffValue = _enemy.debuffValue;
+        buffValue = _enemy.buffValue;
+        SetSkeletonAnimation(_enemy);
+
+        entitiyPattern = _enemy.entityPattern;
         HEALTHMAX = i_health;
         healthImage.fillAmount = i_health / HEALTHMAX;
-        
+        originSkillNamePos = skillNameTmp.rectTransform.anchoredPosition3D;
+
+        RefreshEntity();
+
         charater.sprite = _enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
-  
-        RefreshEntity();
+        spriteSize_X = charater.sprite.bounds.size.x;
+        spriteSize_Y = charater.sprite.bounds.size.y;
+
+        charater.enabled = false;
+        entitySkeletonGameObject.transform.localPosition = new Vector3(0, -spriteSize_Y / 2, -2);
     }
 
     public void SetupEnemy(Enemy _enemy)
@@ -274,8 +285,15 @@ public class Entity : MonoBehaviour
 
         charater.sprite = _enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
+        spriteSize_X = charater.sprite.bounds.size.x;
+        spriteSize_Y = charater.sprite.bounds.size.y;
+
+        charater.enabled = false;
+        entitySkeletonGameObject.transform.localPosition = new Vector3(0,-spriteSize_Y/2, -2);
     }
 
+
+    //초기화 필수입니당
     void SetSkeletonAnimation(Enemy _enemy)
 	{
         entitySkeletonAnimation.ClearState();
@@ -447,10 +465,6 @@ public class Entity : MonoBehaviour
         ShieldTMP.text = i_shield.ToString();
     }
 
-    public void ShowNextActionPattern(Sprite _NextActionSprite) // ???
-	{
-        
-	}
 
     #endregion
 
@@ -467,12 +481,18 @@ public class Entity : MonoBehaviour
 
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
 
-
+        entitySkeletonGameObject.SetActive(false);
+        charater.enabled = true;
         charater.sprite = enemy.EnemyDamagedSprite;
 
         yield return new WaitForSeconds(0.15f);
 
         this.transform.DOMove(this.originPos, 0.2f);
+
+        yield return new WaitForSeconds(0.2f);
+
+        entitySkeletonGameObject.SetActive(true);
+        charater.enabled = false;
 
         if (i_health > 0)
         {
