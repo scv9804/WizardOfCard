@@ -136,7 +136,7 @@ public class ShopScirpt : MonoBehaviour
 				var temt = Instantiate(cardPrefab);
 				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
 				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-				//temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.ExplainUIRefresh();   //일단 막힘 이거 근본 수정해야하는데 좀더 상의 해서 바꿀필요 있음.
+				temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.ExplainRefresh();
 				temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
 				temt.transform.SetParent(cardSpawnParent.transform);
 				//temt.GetComponent<Material>();

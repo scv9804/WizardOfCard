@@ -1,0 +1,37 @@
+대형사막여우 관절.png
+size:2048,1024
+filter:Linear,Linear
+pma:true
+꼬리
+bounds:616,537,442,452
+offsets:1,1,444,454
+다리1
+bounds:2,4,193,315
+offsets:1,1,195,317
+다리1 관절
+bounds:514,3,120,241
+offsets:1,1,122,243
+rotate:90
+다리2
+bounds:616,357,153,178
+offsets:1,1,155,180
+다리2 관절
+bounds:757,2,136,186
+offsets:1,1,138,188
+rotate:90
+다리3
+bounds:197,61,164,258
+offsets:1,1,166,260
+다리3 관절
+bounds:514,125,183,194
+offsets:1,1,185,196
+다리4
+bounds:363,63,149,256
+offsets:1,1,151,258
+다리4 관절
+bounds:699,140,124,215
+offsets:1,1,126,217
+몸통
+bounds:2,321,668,612
+offsets:1,1,670,614
+rotate:90

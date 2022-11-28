@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: "sd \uAD00\uC808\uB098\uB208\uAC70_SkeletonData"
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 350b6f2e8bc168342a53aed30e8d30dd, type: 2}
+  - {fileID: 11400000, guid: 843ac6c3075bd0445982c8ac5dcd971e, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 31024ed313762374a97055bd2d476916, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 6c39f5926753f4c4392b91667e76c02e, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0

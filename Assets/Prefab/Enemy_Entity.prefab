@@ -465,7 +465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2414445803875292292
 Transform:
   m_ObjectHideFlags: 0
@@ -1455,6 +1455,7 @@ MonoBehaviour:
   spineGameObject: {fileID: 2397058908741018786}
   buffImageList: []
   entitySkeletonAnimation: {fileID: 1761407665280062807}
+  entitySkeletonGraphic: {fileID: 0}
   buffPrefab: {fileID: 2472875045232849160, guid: bbc77f8a547ec074f848d85c6f4a8917, type: 3}
   buffImageSlot: {fileID: 4602028185298132969}
   skillNameTmp: {fileID: 2312189718010226657}
