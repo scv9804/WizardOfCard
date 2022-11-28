@@ -275,8 +275,7 @@ public class Entity : MonoBehaviour
         charater.sprite = _enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
     }
-    
-    //진짜 ㅋㅋㅋㅋ 애니메이션 클리어 꼭 반드시 해야함!
+
     void SetSkeletonAnimation(Enemy _enemy)
 	{
         entitySkeletonAnimation.ClearState();

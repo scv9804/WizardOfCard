@@ -130,18 +130,17 @@ public class ShopScirpt : MonoBehaviour
 		if (!isSettingOver)
 		{
 			//카드 세팅
-			//메테리얼 세팅 추가하기.
 			for (int i = 0; i < 5; i++)
 			{
 				int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
 				var temt = Instantiate(cardPrefab);
 				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
 				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-				temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.ExplainRefresh();
+				//temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.ExplainUIRefresh();   //일단 막힘 이거 근본 수정해야하는데 좀더 상의 해서 바꿀필요 있음.
 				temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
-				//temt.transform.GetChild(3).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card
 				temt.transform.SetParent(cardSpawnParent.transform);
 				//temt.GetComponent<Material>();
+				//temt.GetComponentInChildren<TMP_Text>().text = ;
 			}
 
 
