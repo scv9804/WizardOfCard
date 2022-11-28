@@ -326,14 +326,22 @@ public class CardManager : MonoBehaviour
 	{
 		myDeck = new List<Card>(100);
 		// 아이템 버퍼에 추가
-		for (int i = 0; i < itemSO.items.Length; i++)
-		{
-			Card card = itemSO.items[i].card;
-			for (int j = 0; j < card.f_percentage; j++)
-			{
-				myDeck.Add(card);
-			}
+		//for (int i = 0; i < itemSO.items.Length; i++)
+		//{
+		//	Card card = itemSO.items[i].card;
+		//	for (int j = 0; j < card.f_percentage; j++)
+		//	{
+		//		myDeck.Add(card);
+		//	}
+		//}
+
+		// <<22-11-28 장형용 :: 수정>>
+		for (int i = 0; i < 5; i++)
+        {
+			myDeck.Add(itemSO.items[0].card);
+			myDeck.Add(itemSO.items[1].card);
 		}
+
 		DeckShuffle();
 	}
 
@@ -779,7 +787,7 @@ public class CardManager : MonoBehaviour
 	{
 		for (int i = 0; i < myCards.Count; i++)
 		{
-			myCards[i].ExplainRefresh();
+			myCards[i].CardExplainRefresh();
 		}
 	}
 

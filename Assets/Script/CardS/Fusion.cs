@@ -2,62 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fusion : Card
+public class Fusion : Card, IBurning
 {
-	#region Properties
+	[Header("카드 추가 가변 데이터")]
+	[Tooltip("카드 화상 부여 수치"), SerializeField] int[] burning = new int[3];
 
-	int I_Burning
+	public int Burning
 	{
-		get
-		{
-			return ApplyEnhanceValue(i_damage);
-		}
-
-		//set
-		//{
-		//    I_Burning = value;
-		//}
+		get { return ApplyEnhanceValue(burning[i_upgraded]); }
 	}
 
-	#endregion
-
-	public override string ExplainRefresh()
+	public override string GetCardExplain()
 	{
-		base.ExplainRefresh();
+		base.GetCardExplain();
 
-		sb.Replace("{4}", "<color=#ff00ff>{4}</color>");
-		sb.Replace("{4}", ApplyEnhanceValue(I_Burning).ToString());
-
-		explainTMP.text = sb.ToString();
+		sb.Replace("{0}", "<color=#ff00ff>{0}</color>");
+		sb.Replace("{0}", Burning.ToString());
 
 		return sb.ToString();
 	}
 
 	// <<22-10-28 장형용 :: 수정>>
+	// <<22-11-24 장형용 :: 수정>>
 	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.ResetEnhanceValue();
-
 		if (_target_enemy != null && _target_player == null) // 단일 대상
 		{
-			Add_Burning(_target_enemy, I_Burning);
+			AddBurning(_target_enemy);
 		}
 		else if (_target_enemy == null && _target_player != null) // 자신 대상
 		{
-			Add_Burning(_target_player, I_Burning);
+			AddBurning(_target_player);
 		}
 		else // 광역 또는 무작위 대상 (?)
 		{
-			TargetAll(() => Add_Burning(_target_enemy, I_Burning), ref _target_enemy);
+			TargetAll(() => AddBurning(_target_enemy), ref _target_enemy);
 		}
 
 		if(i_upgraded == 2)
-        {
 			CardManager.Inst.AddCard();
-		}
 
-		yield return StartCoroutine(EndUsingCard());
+		#region EndUsingCard
+
+		CardManager.i_usingCardCount--;
+
+		RefreshMyHandsExplain();
+
+		yield return null;
+
+		#endregion
+	}
+
+	public void AddBurning(Entity _target)
+	{
+		_target.i_burning += Burning;
+	}
+
+	public void AddBurning(PlayerEntity _target)
+	{
+		_target.Debuff_Burning += Burning;
 	}
 }

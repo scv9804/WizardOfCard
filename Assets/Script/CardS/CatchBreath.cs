@@ -2,51 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatchBreath : Card
+public class CatchBreath : Card, IRestoreHealth, IRestoreAether
 {
-	[Header("카드 추가 데이터")]
-	[Tooltip("마나 회복량"), SerializeField] int[] restoreAether = new int[3];
+    [Header("카드 추가 가변 데이터")]
+    [Tooltip("카드 체력 회복 수치"), SerializeField] int[] health = new int[3];
+	[Tooltip("카드 마나 회복 수치"), SerializeField] int[] aether = new int[3];
 
-	#region Properties
+    public int Health
+    {
+        get { return ApplyEnhanceValue(health[i_upgraded]); }
+    }
 
-	int I_Aether
-	{
-		get
-		{
-			return restoreAether[i_upgraded];
-		}
+    public int Aether
+    {
+        get { return aether[i_upgraded]; }
+    }
 
-		//set
-		//{
-		//    I_RestoreAether = value;
-		//}
-	}
+    public override string GetCardExplain()
+    {
+        base.GetCardExplain();
 
-	int I_Heal
-	{
-		get
-		{
-			return ApplyEnhanceValue(i_damage);
-		}
+        sb.Replace("{0}", "<color=#ff00ff>{0}</color>");
+        sb.Replace("{0}", Health.ToString());
 
-		//set
-		//{
-		//    I_Heal = value;
-		//}
-	}
+        sb.Replace("{1}", Aether.ToString());
 
-	#endregion
+        return sb.ToString();
+    }
 
-	// <<22-10-28 장형용 :: 수정>>
-	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
+    // <<22-10-28 장형용 :: 수정>>
+    // <<22-11-24 장형용 :: 수정>>
+    public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.ResetEnhanceValue();
+		RestoreHealth(); 
+        RestoreAether();
 
-		RestoreHealth(I_Heal); 
-		RestoreAether(I_Aether);
+        #region EndUsingCard
 
-		yield return StartCoroutine(EndUsingCard());
-	}
+        CardManager.i_usingCardCount--;
+
+        RefreshMyHandsExplain();
+
+        yield return null;
+
+        #endregion
+    }
+
+    public void RestoreHealth()
+    {
+        Player.Status_Health += Health;
+    }
+
+    public void RestoreAether()
+    {
+        Player.Status_Aether += Aether;
+    }
 }

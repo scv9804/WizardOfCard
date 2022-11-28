@@ -306,7 +306,7 @@ public class Entity : MonoBehaviour
     // - RefreshEntity는 마지막에 한 번 호출
     #endregion
     // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
-    public void Damaged(int _damage, Sprite _enemyDamageSprite, Card _card = null)
+    public int Damaged(int _damage, Sprite _enemyDamageSprite, Card _card = null)
     {
         #region StartEntityDamageCheck
 
@@ -404,6 +404,8 @@ public class Entity : MonoBehaviour
         }
 
         RefreshEntity();
+
+        return _damage;
     }
 
     // <<22-10-21 장형용 :: 화상 추가>>

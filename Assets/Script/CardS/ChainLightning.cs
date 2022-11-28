@@ -2,60 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChainLightning : Card
+public class ChainLightning : Card, IAttack
 {
-	[Header("카드 추가 데이터")]
+	[Header("카드 추가 가변 데이터")]
+	[Tooltip("카드 데미지"), SerializeField] int[] damage = new int[3];
 	[Tooltip("공격 횟수"), SerializeField] int[] attackCount = new int[3];
 
-	#region Properties
-
-	int I_AttackCount
+	public int Damage
 	{
-		get
-		{
-			return attackCount[i_upgraded];
-		}
-
-		//set
-		//{
-		//    attackCount[i_upgraded] = value;
-		//}
+		get { return ApplyMagicAffinity(damage[i_upgraded]); }
 	}
 
-	int I_Damage
+	public int AttackCount
+    {
+		get { return attackCount[i_upgraded]; }
+    }
+
+	public override string GetCardExplain()
 	{
-		get
-		{
-			return ApplyMagicAffinity(i_damage);
-		}
+		base.GetCardExplain();
 
-		//set
-		//{
-		//    I_Damage = value;
-		//}
-	}
+		sb.Replace("{0}", "<color=#ff0000>{0}</color>");
+		sb.Replace("{0}", Damage.ToString());
 
-	#endregion
-
-	public override string ExplainRefresh()
-	{
-		base.ExplainRefresh();
-
-		sb.Replace("{3}", (I_AttackCount - 1).ToString());
-
-		explainTMP.text = sb.ToString();
+		sb.Replace("{1}", (AttackCount - 1).ToString());
 
 		return sb.ToString();
 	}
 
 	// <<22-10-28 장형용 :: 수정>>
+	// <<22-11-24 장형용 :: 수정>>
 	public override IEnumerator UseCard(Entity _target_enemy, PlayerEntity _target_player = null)
 	{
 		yield return StartCoroutine(base.UseCard(_target_enemy, _target_player));
 
-		PlayerEntity.Inst.ResetEnhanceValue();
-		yield return StartCoroutine(Repeat(() => Attack_RandomEnemy(_target_enemy, I_Damage), I_AttackCount));
+		for (int i = 0; i < AttackCount; i++)
+		{
+			_target_enemy = RandomTarget;
 
-		yield return StartCoroutine(EndUsingCard());
+			if (_target_enemy != null)
+				Attack(_target_enemy);
+
+			yield return new WaitForSeconds(0.1f);
+		}
+
+		#region EndUsingCard
+
+		CardManager.i_usingCardCount--;
+
+		RefreshMyHandsExplain();
+
+		yield return null;
+
+		#endregion
+	}
+
+	public void Attack(Entity _target)
+	{
+		if (!_target.is_die)
+		{
+			_target?.Damaged(Damage, enemyDamageSprite, this);
+
+			StartCoroutine(PlayAttackSprite);
+			MusicManager.inst.PlayerDefultSoundEffect();
+		}
+	}
+
+	public void Attack(PlayerEntity _target)
+	{
+		Debug.LogError("잘못된 접근입니다.");
 	}
 }
