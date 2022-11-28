@@ -136,7 +136,8 @@ public class ShopScirpt : MonoBehaviour
 				var temt = Instantiate(cardPrefab);
 				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
 				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-				temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.ExplainRefresh();
+				// <<22-11-28 장형용 :: 수정>>
+				temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
 				temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
 				temt.transform.SetParent(cardSpawnParent.transform);
 				//temt.GetComponent<Material>();

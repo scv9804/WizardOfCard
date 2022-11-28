@@ -5,8 +5,7 @@ using System;
 using Unity.Jobs;
 using Unity.Collections;
 
-[System.Serializable]
-public class Pos_Rot_Scale
+[Serializable] public class Pos_Rot_Scale
 {
     public Vector3 pos;
     public Quaternion rot;
@@ -19,7 +18,6 @@ public class Pos_Rot_Scale
         scale = _scale;
     }
 }
-
 
 public class Utility
 {
@@ -44,22 +42,12 @@ public class Utility
 
 #region Enums
 
-public enum ItemType
-{
-    Use,
-    Equi,
-    Quest
-}
-
-public enum e_CardType
-{
-    Spell,
-    Spell_Enhance,
-    Shlied,
-    Heal,
-    Buff,
-    Debuff
-}
+//public enum ItemType
+//{
+//    Use,
+//    Equi,
+//    Quest
+//}
 
 public enum AttackRange
 {
@@ -68,14 +56,15 @@ public enum AttackRange
     Target_Single
 }
 
-public enum CardType
+// <<22-11-24 장형용 :: 수정>>
+[Flags] public enum CardType
 {
-    Spell,
-    Spell_Enhance,
-    Shlied,
-    Heal,
-    Buff,
-    Debuff
+    ATTACK  = 1 << 1,
+    DEFENCE = 1 << 2,
+    BUFF    = 1 << 3,
+    DEBUFF  = 1 << 4,
+    DRAW    = 1 << 5,
+    UTILITY = 1 << 6,
 }
 
 public enum CardEnum
@@ -299,6 +288,9 @@ public struct MagicAffinityJob : IJob
     public void Execute()
     {
         value[0] += magicAffinity;
+
+        if (value[0] < 0)
+            value[0] = 0;
     }
 }
 
@@ -312,6 +304,9 @@ public struct MagicResistanceJob : IJob
     public void Execute()
     {
         value[0] += magicResistance;
+
+        if (value[0] < 0)
+            value[0] = 0;
     }
 }
 
@@ -325,6 +320,9 @@ public struct EnhanceValueJob : IJob
     public void Execute()
     {
         value[0] *= enhanceValue;
+
+        if (value[0] < 0)
+            value[0] = 0;
     }
 }
 

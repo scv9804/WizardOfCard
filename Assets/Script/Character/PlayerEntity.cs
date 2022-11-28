@@ -100,7 +100,7 @@ public class PlayerEntity : MonoBehaviour
         #endregion
     }
 
-    #region 플레이어 능력치
+    #region Player's Stat
 
     // Ex) Health, Aether, Shield, ...
     #region Status
@@ -130,7 +130,8 @@ public class PlayerEntity : MonoBehaviour
 
     // <<22-10-21 장형용 :: 추가>>
     int i_magicAffinity_permanent = 0; // 장비(나 이벤트) 등으로 얻는 계속 유지되는 마나 친화성
-    int i_magicAffinity_battle = 0; // 1번의 전투 동안 유지되는 마나 친화성
+    int i_magicAffinity_stage = 0; // 1번의 스테이지간 유지되는 마나 친화성
+    int i_magicAffinity_battle = 0; // 1번의 전투간 유지되는 마나 친화성
     int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성
 
     // <<22-11-05 장형용 :: 추가>>
@@ -161,12 +162,6 @@ public class PlayerEntity : MonoBehaviour
     // === 스테이터스 증가/감소 ====
     // 넣는값을 +- 로 조절하기
     #region Status
-
-    // <<22-11-09 장형용 :: 제거>>
-    //public void Add_Status_MagicAffinity_Fire(int _addStatus)
-    //public void Add_Status_MagicAffinity_Earth(int _addStatus)
-    //public void Add_Status_MagicAffinity_Water(int _addStatus)
-    //public void Add_Status_MagicAffinity_Air(int _addStatus)
 
     public float Status_Health
     {
@@ -293,47 +288,6 @@ public class PlayerEntity : MonoBehaviour
     //public int Status_MagicAffinity
 
     #endregion
-    public IEnumerator SkillNamePopup(string _skillName)
-    {
-        skillNameTmp.text = _skillName;
-        skillNameTmp.rectTransform.anchoredPosition3D = originSkillNamePos;
-        skillNameTmp.gameObject.SetActive(true);
-        isTextMove = true;
-
-        Sequence sequence = DOTween.Sequence()
-       .Append(skillNameTmp.DOFade(1, 0.0f))
-       .Append(skillNameTmp.DOFade(0, 1f));
-        yield return new WaitForSeconds(1f);
-
-        isTextMove = false;
-        skillNameTmp.gameObject.SetActive(false);
-    }
-
-    #region 버프 이미지 팝업
-    public void AddBuffImage(Sprite _sprite, string _buffDebuffName, int _code, int _value)
-    {
-        var temt = Instantiate(buffPrefab);
-        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value, _code);
-        temt.transform.SetParent(buffImageSlot.transform, false);
-        buffImageList.Add(temt);
-    }
-
-    public bool CompareBuffImage(int _code, int _value)
-    {
-        foreach (var buff in buffImageList)
-        {
-            var temt = buff.GetComponent<BuffDebuffImageSpawn>();
-
-            if (temt.BuffDebuffCode == _code)
-            {
-                temt.useTime = _value + temt.useTime;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    #endregion
 
     // <<22-11-12 장형용 :: Status => Buff로 변경 및 정리>>
     #region Buffs
@@ -366,6 +320,20 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    // <<22-11-24 장형용 :: 추가>>
+    public int Buff_MagicAffinity_Stage
+    {
+        get
+        {
+            return i_magicAffinity_stage;
+        }
+
+        set
+        {
+            i_magicAffinity_stage = value;
+        }
+    }
+
     public int Buff_MagicAffinity_Battle
     {
         get
@@ -392,20 +360,18 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    // 전체 마나 친화성의 총합
     // <<22-11-07 장형용 :: 가시성을 위해 추가>>
-    public int Buff_MagicAffinity // 전체 마나 친화성의 총합
+    // <<22-11-24 장형용 :: 스테이지 마나 친화성 추가>>
+    public int Buff_MagicAffinity
     {
         get
         {
             return i_magicAffinity_permanent
+                + i_magicAffinity_stage
                 + i_magicAffinity_battle
                 + i_magicAffinity_turn;
         }
-
-        //set
-        //{
-        //    Status_MagicAffinity = value;
-        //}
     }
 
     #endregion
@@ -501,6 +467,49 @@ public class PlayerEntity : MonoBehaviour
 
     #endregion
 
+    public IEnumerator SkillNamePopup(string _skillName)
+    {
+        skillNameTmp.text = _skillName;
+        skillNameTmp.rectTransform.anchoredPosition3D = originSkillNamePos;
+        skillNameTmp.gameObject.SetActive(true);
+        isTextMove = true;
+
+        Sequence sequence = DOTween.Sequence()
+       .Append(skillNameTmp.DOFade(1, 0.0f))
+       .Append(skillNameTmp.DOFade(0, 1f));
+        yield return new WaitForSeconds(1f);
+
+        isTextMove = false;
+        skillNameTmp.gameObject.SetActive(false);
+    }
+
+    #region 버프 이미지 팝업
+    public void AddBuffImage(Sprite _sprite, string _buffDebuffName, int _code, int _value)
+    {
+        var temt = Instantiate(buffPrefab);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value, _code);
+        temt.transform.SetParent(buffImageSlot.transform, false);
+        buffImageList.Add(temt);
+    }
+
+    public bool CompareBuffImage(int _code, int _value)
+    {
+        foreach (var buff in buffImageList)
+        {
+            var temt = buff.GetComponent<BuffDebuffImageSpawn>();
+
+            if (temt.BuffDebuffCode == _code)
+            {
+                temt.useTime = _value + temt.useTime;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    #endregion
+
+
     // 플레이어 기본 정보 설정
     public void SetupPlayerChar(PlayerChar _playerChar)
     {
@@ -527,7 +536,8 @@ public class PlayerEntity : MonoBehaviour
 
     // <<22-10-21 장형용 :: 수정>>
     // <<22-11-12 장형용 :: 대폭 수정, 최대한의 디버깅을 했으나 버그가 있을 수 있음>>
-    public void Damaged(int _damage, Card _card = null)
+    // <<22-11-24 장형용 :: 반환 타입 Int로 변경>>
+    public int Damaged(int _damage, Card _card = null)
     {
         #region Status_Health -= _damage;
 
@@ -606,6 +616,8 @@ public class PlayerEntity : MonoBehaviour
         }
 
         RefreshPlayer();
+
+        return _damage;
     }
 
     //  <<22-10-21 장형용 :: 화상 추가>>
