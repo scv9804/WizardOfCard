@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: "\uAC1C\uBBF8\uC9C0\uC625 \uAD00\uC808_Atlas"
   m_EditorClassIdentifier: 
   atlasFile: {fileID: 4900000, guid: 3f9941076ad12ff419f0a7ffd8477e06, type: 3}
-  materials:
-  - {fileID: 2100000, guid: 2ecb0763457f2fa48825d85eb534f414, type: 2}
+  materials: []
