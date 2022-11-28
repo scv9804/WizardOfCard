@@ -445,7 +445,7 @@ public class Card : MonoBehaviour
 		CardManager.i_usingCardCount--;
 
 		yield return null;
-	}
+    }
 
     #endregion
 
@@ -453,40 +453,32 @@ public class Card : MonoBehaviour
 
     private void OnMouseOver()
     {
-		if (is_Useable_Card)
-		{
+        if (is_Useable_Card)
 			CardManager.Inst.CardMouseOver(this);
-		}
-    }
+	}
 
     private void OnMouseExit()
 	{
 		if (is_Useable_Card)
-		{
 			CardManager.Inst.CardMouseExit(this);
-		}
-    }
+	}
 
 	private void OnMouseDown()
 	{
 		if (is_Useable_Card)
-		{
 			CardManager.Inst.CardMouseDown();
-		}
 	}
 
 	private void OnMouseUp()
 	{
 		if (is_Useable_Card)
-		{
 			CardManager.Inst.CardMouseUp(this);
-		}
 	}
 
 	#endregion
 }
 
-#region Card Effect Interfaces
+#region Card Effects Interfaces
 
 public interface IAttack
 {
@@ -554,11 +546,3 @@ public interface IProtection
 }
 
 #endregion
-
-// !!! 작성 예정 !!!
-
-// 카드 효과 구현부를 각각의 카드에 분할 작성
-
-// 카드 구현부 이동 여부
-// EX) - IChicken
-// EX) : BBQ, BHC, KFC

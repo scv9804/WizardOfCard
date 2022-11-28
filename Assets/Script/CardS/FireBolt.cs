@@ -79,6 +79,7 @@ public class FireBolt : Card, IBurning, IAttack
 			_target?.Damaged(Damage, enemyDamageSprite, this);
 
 			StartCoroutine(PlayAttackSprite);
+
 			MusicManager.inst.PlayerDefultSoundEffect();
 		}
 	}
@@ -89,5 +90,7 @@ public class FireBolt : Card, IBurning, IAttack
 
 		StartCoroutine(PlayAttackSprite);
 		_target?.SetDamagedSprite(enemyDamageSprite);
+
+		MusicManager.inst.PlayerDefultSoundEffect();
 	}
 }

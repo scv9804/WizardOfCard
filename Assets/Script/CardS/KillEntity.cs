@@ -46,7 +46,6 @@ public class KillEntity : Card, IAttack
 			_target?.Damaged(Damage, enemyDamageSprite, this);
 
 			StartCoroutine(PlayAttackSprite);
-			MusicManager.inst.PlayerDefultSoundEffect();
 		}
 	}
 

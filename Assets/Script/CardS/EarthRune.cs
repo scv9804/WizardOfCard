@@ -55,5 +55,7 @@ public class EarthRune : Card, IProtection, IShield
     public void GainShield()
     {
         Player.Status_Shiled += Shield;
+
+        MusicManager.inst.PlayBarrierSound();
     }
 }

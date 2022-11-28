@@ -530,6 +530,8 @@ public class CardManager : MonoBehaviour
 			return;
 		}
 		is_myCardDrag = true;
+
+		MusicManager.inst.PlayCardClickSound();
 	}
 
 	//카드 놓기 (카드사용)

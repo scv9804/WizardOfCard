@@ -72,6 +72,7 @@ public class Smite : Card, IAttack, IShield
 			Shield += (int)_target?.Damaged(Damage, enemyDamageSprite, this);
 
 			StartCoroutine(PlayAttackSprite);
+
 			MusicManager.inst.PlayerDefultSoundEffect();
 		}
 	}
@@ -82,10 +83,14 @@ public class Smite : Card, IAttack, IShield
 
 		StartCoroutine(PlayAttackSprite);
 		_target?.SetDamagedSprite(enemyDamageSprite);
+
+		MusicManager.inst.PlayerDefultSoundEffect();
 	}
 
 	public void GainShield()
     {
 		Player.Status_Shiled += Shield;
+
+		MusicManager.inst.PlayBarrierSound();
 	}
 }
