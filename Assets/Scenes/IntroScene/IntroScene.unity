@@ -2441,16 +2441,8 @@ MonoBehaviour:
   - {fileID: 1130474677}
   slashSound: {fileID: 8300000, guid: 6612ff5bb2709a84d8ab562b48e6f94e, type: 3}
   warCrySound: {fileID: 8300000, guid: 56498d909c262724ebf3a0a0ccec0d8b, type: 3}
-  enemyDisappear: {fileID: 8300000, guid: d59f6bbeec8ea5b4cb9489a078b22d79, type: 3}
-  Audio_Myturn: {fileID: 8300000, guid: b4de4b92abf533e41a12b6c517911fc4, type: 3}
-  Audio_Enemyturn: {fileID: 8300000, guid: 1084ea69a20ebff44b31a7eca813af49, type: 3}
-  Audio_OnMouseDown: {fileID: 8300000, guid: ab6cf5bd2c39c82479c1e28b5e51cd28, type: 3}
-  Audio_OnMouseUp: {fileID: 8300000, guid: 68e0c3a4d495eee4bb25d9a129815ebb, type: 3}
-  Audio_CardClick: {fileID: 8300000, guid: 14d40fcb7a561774791c5855f8ce383b, type: 3}
   playerDefultSoundEffect: {fileID: 8300000, guid: cd82e919efba73d4e8a417007a3d729f, type: 3}
-  Audio_Barrier: {fileID: 8300000, guid: 24084ce03fac1bf4095bf8932d7f5ac0, type: 3}
-  Audio_Shop: {fileID: 8300000, guid: c55178d949d281c4589d64a9c27fa7b9, type: 3}
-  Audio_Money: {fileID: 8300000, guid: 80bb83d15d9fe8a4987c4b41ad6e40f9, type: 3}
+  enemyDisappear: {fileID: 8300000, guid: d59f6bbeec8ea5b4cb9489a078b22d79, type: 3}
 --- !u!82 &1130474677
 AudioSource:
   m_ObjectHideFlags: 0
