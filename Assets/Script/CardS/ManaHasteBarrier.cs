@@ -59,5 +59,7 @@ public class ManaHasteBarrier : Card, IShield
     public void GainShield()
     {
         Player.Status_Shiled += Shield;
+
+        MusicManager.inst.PlayBarrierSound();
     }
 }

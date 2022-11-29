@@ -121,10 +121,7 @@ public class WaitAllCardUsingDone : CustomYieldInstruction
 {
     public override bool keepWaiting
     {
-        get
-        {
-            return CardManager.i_usingCardCount > 0 || EntityManager.i_checkingEntitiesCount > 0;
-        }
+        get { return CardManager.i_usingCardCount > 0 || EntityManager.i_checkingEntitiesCount > 0; }
     }
 }
 

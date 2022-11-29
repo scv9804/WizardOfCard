@@ -90,10 +90,16 @@ public class ShopScirpt : MonoBehaviour
 	public void OpenShop()
 	{
 		shopPanelObject.SetActive(true);
+
+		// <<22-11-28 장형용 :: 추가>>
+		MusicManager.inst.PlayShopSound();
 	}
 	public void CloseShop()
 	{
 		shopPanelObject.SetActive(false);
+
+		// <<22-11-28 장형용 :: 추가>>
+		MusicManager.inst.PlayShopSound();
 	}
 
 	#endregion
@@ -189,6 +195,9 @@ public class ShopScirpt : MonoBehaviour
 			solditems[i].GetComponent<ItemData>().TooltipDeActive();
 			Destroy(solditems[i]);
 			priceTMP[i].gameObject.SetActive(false);
+
+			// <<22-11-28 장형용 :: 추가>>
+			MusicManager.inst.PlayBuyingSound();
 		}
 	}
 
@@ -202,6 +211,9 @@ public class ShopScirpt : MonoBehaviour
 			EntityManager.Inst.playerEntity.manaInchentValue++;
 			UIManager.Inst.PlayerMoneyUIRefresh();
 			SetManaLevelUp();
+
+			// <<22-11-28 장형용 :: 추가>>
+			MusicManager.inst.PlayBuyingSound();
 		}
 	}
 

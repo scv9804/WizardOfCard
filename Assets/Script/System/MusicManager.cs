@@ -20,14 +20,35 @@ public class MusicManager : MonoBehaviour
 
 	[Header("효과음 넣을 곳")]
 	[SerializeField] AudioSource[] effectSource;
-
-	[Header("효과음")]
-	[SerializeField] AudioClip slashSound;
-	[SerializeField] AudioClip warCrySound;
-	[SerializeField] AudioClip playerDefultSoundEffect;
-	[SerializeField] AudioClip enemyDisappear;
-
 	
+	// 효과음
+	[Header("효과음 - 적 몬스터")]
+	public AudioClip slashSound;
+	public AudioClip warCrySound;
+	public AudioClip enemyDisappear;
+
+	[Header("효과음 - UI")]
+	public AudioClip Audio_Myturn;
+	public AudioClip Audio_Enemyturn;
+
+	[Space(10)]
+	public AudioClip Audio_OnMouseDown;
+	public AudioClip Audio_OnMouseUp;
+
+	[Header("효과음 - 카드")]
+	public AudioClip Audio_CardClick;
+
+	[Space(10)]
+	public AudioClip playerDefultSoundEffect;
+	public AudioClip Audio_Barrier;
+
+	[Header("효과음 - 상점")]
+	public AudioClip Audio_Shop;
+	public AudioClip Audio_Money;
+
+	float times = 0.25f;
+	bool isClicked = false;
+
 	private void Awake()
 	{
 		if (inst == null)
@@ -41,6 +62,7 @@ public class MusicManager : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
 	void OnSceneLoaded(Scene _scene, LoadSceneMode _loadSceneManager)
 	{
 		for (int i = 0; i<backGroundClips.Length;i++)
@@ -52,22 +74,83 @@ public class MusicManager : MonoBehaviour
 		}
 	}
 
-	public void SlashSound()
-	{
-			EffectPlay(slashSound);
+    private void Update()
+    {
+		PlayClickSound();
 	}
+
+    public void SlashSound()
+	{
+		EffectPlay(slashSound);
+	}
+
 	public void WarCrySound()
 	{
-			EffectPlay(warCrySound);
+		EffectPlay(warCrySound);
 	}
+
 	public void PlayerDefultSoundEffect()
 	{
 		EffectPlay(playerDefultSoundEffect);
 	}
+
 	public void EnemyDisappear() 
 	{
 		EffectPlay(enemyDisappear);
 	}
+
+	// 맛없긴 함, 근데 클릭음 구현하라는게 이거 맞음?
+	// <<22-11-28 장형용 :: 추가>>
+	void PlayClickSound()
+    {
+		if(Input.GetMouseButtonDown(0) && !isClicked)
+        {
+			EffectPlay(Audio_OnMouseDown);
+			isClicked = true;
+		}
+
+		if(isClicked)
+			times += Time.deltaTime;
+
+		if (times > 0.125f && !Input.GetMouseButton(0) && isClicked)
+        {
+			EffectPlay(Audio_OnMouseUp);
+
+			times = 0;
+			isClicked = false;
+		}
+	}
+
+	public void PlayBarrierSound()
+    {
+		EffectPlay(Audio_Barrier);
+	}
+
+	public void PlayShopSound()
+    {
+		EffectPlay(Audio_Shop);
+	}
+
+	public void PlayMyTurnSound()
+    {
+		EffectPlay(Audio_Myturn);
+	}
+
+	public void PlayEnemyTurnSound()
+	{
+		EffectPlay(Audio_Enemyturn);
+	}
+
+	public void PlayBuyingSound()
+    {
+		EffectPlay(Audio_Money);
+	}
+
+	public void PlayCardClickSound()
+	{
+		EffectPlay(Audio_CardClick);
+	}
+
 
 	void EffectPlay(AudioClip clip)
 	{
@@ -92,5 +175,4 @@ public class MusicManager : MonoBehaviour
 		backGruondSource.volume = BGMSound;
 		backGruondSource.Play();
 	}
-
 }

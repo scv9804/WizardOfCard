@@ -69,6 +69,7 @@ public class MagicSpear : Card, IAttack, IRestoreAether
 			_target?.Damaged(Damage, enemyDamageSprite, this);
 
 			StartCoroutine(PlayAttackSprite);
+
 			MusicManager.inst.PlayerDefultSoundEffect();
 		}
 	}
@@ -79,6 +80,8 @@ public class MagicSpear : Card, IAttack, IRestoreAether
 
 		StartCoroutine(PlayAttackSprite);
 		_target?.SetDamagedSprite(enemyDamageSprite);
+
+		MusicManager.inst.PlayerDefultSoundEffect();
 	}
 
     public void RestoreAether()
