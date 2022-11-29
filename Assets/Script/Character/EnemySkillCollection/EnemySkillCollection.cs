@@ -41,10 +41,25 @@ public class EnemySkillCollection : MonoBehaviour
     #region 공통 기본
     IEnumerator AttackMotion(Entity _entity)
 	{
-
 		_entity.entitySkeletonGameObject.SetActive(false);
 		_entity.charater.enabled = true;
 		_entity.charater.sprite = _entity.enemy.EnemyAttackSprite;
+		_entity.transform.DOMove(_entity.originPos + new Vector3(-0.15f, 0, 0), 0.1f);
+		PlayerEntity.Inst.SetDamagedSprite(_entity.enemy.PlayerDamagedEffect);
+		yield return new WaitForSeconds(0.15f);
+		_entity.transform.DOMove(_entity.originPos, 0.2f);
+		yield return new WaitForSeconds(0.05f);
+		yield return new WaitForSeconds(0.1f);
+		_entity.entitySkeletonGameObject.SetActive(true);
+		_entity.charater.enabled = false;
+		_entity.charater.sprite = _entity.enemy.sp_sprite;
+	}
+
+	IEnumerator AttackMotion(Entity _entity, Sprite _sprite)
+	{
+		_entity.entitySkeletonGameObject.SetActive(false);
+		_entity.charater.enabled = true;
+		_entity.charater.sprite = _sprite;
 		_entity.transform.DOMove(_entity.originPos + new Vector3(-0.15f, 0, 0), 0.1f);
 		PlayerEntity.Inst.SetDamagedSprite(_entity.enemy.PlayerDamagedEffect);
 		yield return new WaitForSeconds(0.15f);
@@ -90,33 +105,58 @@ public class EnemySkillCollection : MonoBehaviour
 
 	#region 공통 기본 디버프
 	//부식 (배틀 데미지 감소)  0
-	public IEnumerator RustAccid(Entity _entity)
+	public IEnumerator RustAccid(Entity _entity, Sprite _sprite)
 	{
-		if (EntityManager.Inst.playerEntity.CompareBuffImage(0, 1))
+		if (EntityManager.Inst.playerEntity.CompareBuffImage(0, _entity.debuffValue))
 		{
+			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Battle -= _entity.debuffValue;
+			_entity.attackTime++;
+			if (_sprite != null)
+			{
+				yield return StartCoroutine(AttackMotion(_entity, _sprite));
+			}
+			else
+			{
+				yield return StartCoroutine(AttackMotion(_entity));
+			}
+			MusicManager.inst.SlashSound();
+			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
 			yield return null;
 		}
 		else
 		{
 			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Battle -= _entity.debuffValue;
 			_entity.attackTime++;
-			yield return StartCoroutine(AttackMotion(_entity));
+			if (_sprite != null)
+			{
+				yield return StartCoroutine(AttackMotion(_entity, _sprite));
+			}
+			else
+			{
+				yield return StartCoroutine(AttackMotion(_entity));
+			}
+			MusicManager.inst.SlashSound();
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
 			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.RustAccid, "RustAccid", 0, 1);
 		}
 	}
 
 	//집중력 저하 (턴 데미지 감소)  1
-	public IEnumerable DecreasedConcentration(Entity _entity)
+	public IEnumerator DecreasedConcentration(Entity _entity)
 	{
-		if (EntityManager.Inst.playerEntity.CompareBuffImage(1, 1))
+		if (EntityManager.Inst.playerEntity.CompareBuffImage(1, _entity.debuffValue))
 		{
-			yield return null;
+			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
+			MusicManager.inst.SlashSound();
+			_entity.attackTime++;
+			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
+			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
 		}
 		else
 		{
 			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
 			_entity.attackTime++;
+			MusicManager.inst.SlashSound();
 			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
 			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.DecreasedConcentration, "DecreasedConcentration", 1, 1);
@@ -127,25 +167,42 @@ public class EnemySkillCollection : MonoBehaviour
 	//전투의 함성 100
 	public IEnumerator WarCry(Entity _entity)
 	{
-		if (_entity.CompareBuffImage(0, 1))
-		{
-			MusicManager.inst.WarCrySound();
-			yield return null;
-		}
-		else
+		if (_entity.CompareBuffImage(0, _entity.buffValue))
 		{
 			MusicManager.inst.WarCrySound();
 			yield return StartCoroutine(BuffDebuffManager.Inst.SpawnSkillEffect(_entity, "WarCry"));
 			StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
 			_entity.IncreaseDamage = _entity.buffValue;
+			_entity.attackTime++;
+			yield return null;
+		}
+		else
+		{
+			MusicManager.inst.WarCrySound();
 			_entity.AddBuffImage(BuffDebuffManager.Inst.WarCrySprite, "WarCry", 100, 1);
+			yield return StartCoroutine(BuffDebuffManager.Inst.SpawnSkillEffect(_entity, "WarCry"));
+			StartCoroutine(_entity.SkillNamePopup("전투의 함성"));
+			_entity.IncreaseDamage = _entity.buffValue;
 			_entity.attackTime++;
 			yield return null;
 		}
 	}
 	#endregion
 
+	#region 특수공격
+	//돈 사운드 추가 해야해
+	public IEnumerator StealMoney(Entity _entity)
+	{
+		Debug.Log(1);
+		_entity.attackTime++;
+		MusicManager.inst.SlashSound();
+		PlayerEntity.Inst.Damaged(_entity.FinalAttackValue()-1);
+		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
+		EntityManager.Inst.playerEntity.money -= 5;
+		_entity.attackable = false;
+	}
 
+	#endregion
 
 
 }

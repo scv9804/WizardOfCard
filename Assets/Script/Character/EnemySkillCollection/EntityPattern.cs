@@ -14,6 +14,7 @@ public abstract class EntityPattern : ScriptableObject
 		[Tooltip("필요인수 : Entity , 몬스터 ID")] CallEnemy,
 		[Tooltip("필요인수 : Entity")] RustAccid,
 		[Tooltip("필요인수 : Entity")] DecreasedConcentration,
-		[Tooltip("필요인수 : Entity")] WarCry
+		[Tooltip("필요인수 : Entity")] WarCry,
+		[Tooltip("필요인수 : Entity")] StealMoney
 	};
 }

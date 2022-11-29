@@ -1955,7 +1955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &206478949
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2798,7 +2798,7 @@ MonoBehaviour:
   space: 0
   uiPrefab: {fileID: 4703257573079357050, guid: f144b172449fff643a7af58fe95b7cf5, type: 3}
   contents: {fileID: 1155083015}
-  moneySprite: {fileID: 0}
+  moneySprite: {fileID: 3676746997174181267, guid: 17e015c9e82c12e45afddcb97a2685c4, type: 3}
   uiobjects: []
 --- !u!1 &296745624
 GameObject:
@@ -5588,7 +5588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &586966903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10161,9 +10161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5d0d0676c92c64d9b7e61e057c1a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warCrySprite: {fileID: 21300000, guid: ffd32dad8deeb534c8cfedb0e7b81c2b, type: 3}
-  decreasedConcentration: {fileID: 21300000, guid: e60157e9cf3af6a4eb3af376e95f2957, type: 3}
-  rustAccid: {fileID: 21300000, guid: d910d649e4c328947846f7882b42acb0, type: 3}
+  warCrySprite: {fileID: -8915234574590337941, guid: e7dcf227b77d2404b818cf53fc5dec35, type: 3}
+  decreasedConcentration: {fileID: 1756028246992502660, guid: e7dcf227b77d2404b818cf53fc5dec35, type: 3}
+  rustAccid: {fileID: 4986258515465367289, guid: e7dcf227b77d2404b818cf53fc5dec35, type: 3}
+  burning: {fileID: -2679793885468039853, guid: e7dcf227b77d2404b818cf53fc5dec35, type: 3}
   shieldSprite: {fileID: 21300000, guid: 173c44e528b524549be341a27476461e, type: 3}
   skillEffects:
   - skillName: WarCry
@@ -14634,11 +14635,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardObjectList: []
+  rewardCardList: []
+  rewardCardObjectList: []
   database: {fileID: 1939514123}
   rewardWindow: {fileID: 586966902}
   acceptButton: {fileID: 1316177159}
   rewardSpawn: {fileID: 295584385}
   inven: {fileID: 1939514120}
+  rewardCard: {fileID: 1968729941640213923, guid: d3e5d87b74eeb1247b233a22856e6277, type: 3}
 --- !u!4 &1618926633
 Transform:
   m_ObjectHideFlags: 0
@@ -15144,7 +15148,7 @@ MonoBehaviour:
   enemyAttackDelay: 0.7
   enemySO: {fileID: 11400000, guid: 83361cd622dd5ab4cbc7abd3b4eda090, type: 2}
   enemySpawnPatternSO: {fileID: 11400000, guid: 51b2d8d678773da4b967063aca1d5903, type: 2}
-  enemyBossSO: {fileID: 11400000, guid: de72fc56023ba7a4a9edf70c8a0d8d53, type: 2}
+  enemyBossSO: {fileID: 11400000, guid: c2f8a4612cad2844c971a6503a8bf565, type: 2}
   characterSO: {fileID: 11400000, guid: 84ac19ad0941ac640aa9224ee18adca9, type: 2}
   entitiyPrefab: {fileID: 7799422697148875826, guid: 38d2167c9bd27114bbf3966e5dbb4534, type: 3}
   playerPrefab: {fileID: 2077760302346298912, guid: a5036b0576eb2ac489e5cd2a0127767f, type: 3}

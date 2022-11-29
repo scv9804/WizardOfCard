@@ -15,7 +15,7 @@ MonoBehaviour:
   i_CharCode: 2
   i_health: 4
   i_attackCount: 0
-  i_damage: 3
+  i_damage: 2
   increaseShield: 1
   buffValue: 0
   debuffValue: 1
@@ -23,8 +23,8 @@ MonoBehaviour:
   st_charName: Thief_M
   sp_sprite: {fileID: 4537040107792718912, guid: 49dcfee63b28ccc4388b20d88c191375, type: 3}
   PlayerDamagedEffect: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
-  EnemyDamagedSprite: {fileID: 1068866137524139008, guid: 75d5e214f9a67864cab3898752af5233, type: 3}
-  EnemyAttackSprite: {fileID: -5294702557898580886, guid: 4d9834997056f1b449f81a01569466bf, type: 3}
+  EnemyDamagedSprite: {fileID: -5294702557898580886, guid: 4d9834997056f1b449f81a01569466bf, type: 3}
+  EnemyAttackSprite: {fileID: 1068866137524139008, guid: 75d5e214f9a67864cab3898752af5233, type: 3}
   SpelcialSkillSprite: []
   skeletonDataAsset: {fileID: 11400000, guid: 2ac105a81acaa8b42bcf4232bd774f64, type: 2}
-  entityPattern: {fileID: 11400000, guid: 3e2da79e6962d8343accbdf27d69a533, type: 2}
+  entityPattern: {fileID: 11400000, guid: efcfb6eb7ab26fb43be2eff8153c6b48, type: 2}

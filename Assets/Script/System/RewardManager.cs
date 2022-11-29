@@ -17,6 +17,8 @@ public class RewardManager : MonoBehaviour
 	[SerializeField] List<Item_inven> randomitemList = new List<Item_inven>();
 	[SerializeField] List<GameObject> rewardObjectList = new List<GameObject>();
 	[SerializeField] List<Item_inven> rewardList = new List<Item_inven>();
+	[SerializeField] List<Card> rewardCardList = new List<Card>();
+	[SerializeField] List<GameObject> rewardCardObjectList = new List<GameObject>();
 	GameObject moneyObject;
 	int rewardMoney;
 
@@ -25,6 +27,7 @@ public class RewardManager : MonoBehaviour
 	[SerializeField] Button acceptButton;
 	[SerializeField] RewardScrollView rewardSpawn;
 	[SerializeField] Inventory inven;
+	[SerializeField] GameObject rewardCard;
 
 	private void Start()
 	{
@@ -42,10 +45,13 @@ public class RewardManager : MonoBehaviour
 		{
 			SetRandomReward();
 		}
+		SetCardReward();
 	}
 
+	//모든보상 설정
 	public void AddReward(SpawnPattern _pattern)
 	{
+		// 아이템 설정
 		if (_pattern.Reward_item.Length != 0)
 		{
 			for (int i = 0; i < _pattern.Reward_item.Length; i++)
@@ -54,6 +60,7 @@ public class RewardManager : MonoBehaviour
 			}
 		}
 
+		// 돈설정
 		if (!_pattern.MoneyRandom)
 		{
 			rewardMoney = _pattern.Reward_Money;
@@ -64,13 +71,17 @@ public class RewardManager : MonoBehaviour
 				, _pattern.Reward_Money + _pattern.Reward_Money / 2);
 		}
 
+		//카드설정
+
 	}
 
+	//돈설정
 	void SetMoney()
 	{
 		moneyObject = rewardSpawn.SetReward(rewardMoney);
 	}
 
+	//아이템설정
 	void SetReward()
 	{
 		for (int i = 0;i < itemList.Count ; i++)
@@ -87,6 +98,7 @@ public class RewardManager : MonoBehaviour
 		//tooltip = inv.GetComponent<Tooltip>();
 	}
 
+	//랜덤 아이템 설정
 	public void SetRandomReward()
 	{
 		int  count = UnityEngine.Random.Range(0, 2);
@@ -100,6 +112,7 @@ public class RewardManager : MonoBehaviour
 		SetMoney();
 	}
 
+	//랜덤 테이블 설정
 	void SetRandomRewardTable()
 	{
 		for (int indexCount = 0; indexCount < database.database.Count; indexCount++)
@@ -119,13 +132,28 @@ public class RewardManager : MonoBehaviour
 		}
 	}
 
+	void SetCardReward()
+	{
+		int randcardcount = UnityEngine.Random.Range(0, 2);
+		for (int i = 0; i < randcardcount; i ++)
+		{
+			int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
+			var temt = Instantiate(rewardCard);
+			temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
+			temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
+			temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
+			rewardCardList.Add(CardManager.Inst.itemSO.items[randcardcount].card);
+			rewardCardObjectList.Add(rewardSpawn.SetReward(temt));
+		}
+	}
 
+	//보 상 넣어주기
 	public void GiveReward()
 	{
 		for (int i = 0; i<rewardObjectList.Count; i++)
 		{
 			Toggle temptoggle = rewardObjectList[i].GetComponentInChildren<Toggle>();
-			Debug.Log(temptoggle.isOn);
+
 			if (temptoggle.isOn)
 			{
 				inven.AddItem(rewardList[i].Id);
@@ -140,8 +168,20 @@ public class RewardManager : MonoBehaviour
 			EntityManager.Inst.playerEntity.money = rewardMoney;
 		}
 
+		for (int i = 0; i < rewardCardList.Count; i++)
+		{
+			Toggle cardtoggle = rewardCardObjectList[i].GetComponentInChildren<Toggle>();
+			if (cardtoggle.isOn)
+			{
+				CardManager.Inst.AddSelectCard_Deck(rewardCardList[i]);
+			}
+		}
+
+
 
 		moneyObject = null;
+		rewardCardList.Clear();
+		rewardCardObjectList.Clear();
 		rewardList.Clear();
 		rewardObjectList.Clear();
 		rewardSpawn.ClearViewList();

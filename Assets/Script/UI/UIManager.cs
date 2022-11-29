@@ -130,7 +130,7 @@ public class UIManager : MonoBehaviour
 	// <<22-10-27 장형용 :: 추가>>
 	public IEnumerator TryEndTurn()
 	{
-		CardManager.Inst.e_CardStats = E_CardStats.Cannot;
+		//CardManager.Inst.e_CardStats = E_CardStats.Cannot; 수정함
 
 		yield return new WaitAllCardUsingDone();
 

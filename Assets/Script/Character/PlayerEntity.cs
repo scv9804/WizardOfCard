@@ -26,6 +26,9 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] GameObject spineObeject;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text ShieldTMP;
+    [SerializeField] GameObject shieldEffectObject;
+    [SerializeField] SpriteRenderer shieldEffectSpriteRenderer;
+    [HideInInspector] public Vector3 originShieldEffectScale;
     [SerializeField] Image healthImage_Bar;
     [SerializeField] GameObject AttackEffect;
     [SerializeField] SpriteRenderer AttackEffectSpriteRenderer;
@@ -46,11 +49,13 @@ public class PlayerEntity : MonoBehaviour
     public bool attackable;
 
     bool isTextMove = false; // 버프 텍스트 움직이는거 체크용
-    //bool is_attackAble; // 미사용 더미
+    bool isShieldAnim = false;
     bool is_die = false; // 사용은 되는데 의미는 없음
-    //bool is_canUseSelf; // 미사용 더미
+
 
     public int karma = 0;
+
+    int popupSpeed = 10;
     int i_enhacneVal = 1;
     //int i_calcDamage;
 
@@ -65,9 +70,17 @@ public class PlayerEntity : MonoBehaviour
     private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
+        originShieldEffectScale = shieldEffectObject.transform.localScale;
         SetDefultPS();
     }
 
+    private void FixedUpdate()
+    {
+        if (isTextMove)
+        {
+            skillNameTmp.rectTransform.anchoredPosition3D += popupSpeed * Vector3.up;
+        }
+    }
     // <<22-10-21 장형용 :: 추가>>
     void OnEnable()
     {
@@ -500,7 +513,8 @@ public class PlayerEntity : MonoBehaviour
 
             if (temt.BuffDebuffCode == _code)
             {
-                temt.useTime = _value + temt.useTime;
+                temt.value += _value;
+                temt.SetValue();
                 return true;
             }
         }
@@ -527,7 +541,7 @@ public class PlayerEntity : MonoBehaviour
             ShieldTMP.gameObject.SetActive(true);
         }
 
-
+        originSkillNamePos = skillNameTmp.rectTransform.anchoredPosition3D;
         UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
         charaterSprite.sprite = _playerChar.sp_sprite;
         healthTMP.text = i_health.ToString();
@@ -633,16 +647,32 @@ public class PlayerEntity : MonoBehaviour
         healthTMP.text = i_health.ToString();
         ShieldTMP.text = i_shield.ToString();     
     }
+    public void ShieldEffect()
+    {
+		if (!isShieldAnim)
+		{
+            Sequence sequence1 = DOTween.Sequence()
+            .Append(this.shieldEffectObject.transform.DOScale(originShieldEffectScale * 2, 0f))
+            .Append(this.shieldEffectObject.transform.DOScale(originShieldEffectScale, 0.5f));
+            Sequence sequence2 = DOTween.Sequence()
+           .Append(shieldEffectSpriteRenderer.DOFade(0, 0.0f))
+           .Append(shieldEffectSpriteRenderer.DOFade(1, 0.3f));
+        }
+
+    }
 
     void Set_ShieldActivate()
 	{
         if (0 < i_shield)
         {
             ShieldTMP.gameObject.SetActive(true);
+            isShieldAnim = true;
+            ShieldEffect();
         }
         else
         {
             ShieldTMP.gameObject.SetActive(false);
+            isShieldAnim = false;
         }
     }
 

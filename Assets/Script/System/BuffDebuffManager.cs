@@ -55,6 +55,7 @@ public class BuffDebuffManager : MonoBehaviour
 	[SerializeField] [Tooltip("전투의함성")] Sprite warCrySprite;
 	[SerializeField] [Tooltip("집중력저하")] Sprite decreasedConcentration;
 	[SerializeField] [Tooltip("부식독")] Sprite rustAccid;
+	[SerializeField] [Tooltip("부식독")] Sprite burning;
 	[SerializeField] Sprite shieldSprite;
 
 	[Header("SkillEffectImage")]

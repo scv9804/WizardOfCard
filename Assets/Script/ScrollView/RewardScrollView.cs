@@ -24,7 +24,7 @@ public class RewardScrollView : MonoBehaviour
     public GameObject SetReward(Item_inven item)
     {
         var newUI = Instantiate(uiPrefab);
-        newUI.transform.parent = contents.transform;
+        newUI.transform.SetParent(contents.transform);
 
         //프리팹 내용 설정
         Image itemimage = newUI.GetComponentInChildren<Image>();
@@ -48,7 +48,7 @@ public class RewardScrollView : MonoBehaviour
     public GameObject SetReward(int _money)
     {
         var newUI = Instantiate(uiPrefab);
-        newUI.transform.parent = contents.transform;
+        newUI.transform.SetParent(contents.transform);
 
         //프리팹 내용 설정
         Image itemimage = newUI.GetComponentInChildren<Image>();
@@ -70,5 +70,32 @@ public class RewardScrollView : MonoBehaviour
         return newUI;
     }
 
+    public GameObject SetReward(GameObject _card)
+    {
+        var newUI = Instantiate(uiPrefab);
+        var newCard = Instantiate(_card);
+        newUI.transform.parent = contents.transform;
+        newCard.transform.SetParent(newUI.transform);
 
+        //프리팹 내용 설정
+        Image itemimage = newUI.GetComponentInChildren<Image>();
+        itemimage.enabled = false;
+        newCard.transform.position = itemimage.transform.position;
+
+        TMP_Text tmptext = newUI.GetComponentInChildren<TMP_Text>();
+        tmptext.text = _card.transform.GetChild(1).GetComponent<TMP_Text>().text;
+
+        uiobjects.Add(newUI.GetComponent<RectTransform>());
+
+        float y = 0f;
+
+        for (int i = 0; i <= uiobjects.Count; i++)
+        {
+            y += uiobjects[0].sizeDelta.y + space;
+        }
+        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
+
+
+        return newUI;
+    }
 }

@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce20edd0cae99694ab24cd521d16b496, type: 3}
   m_Name: 6_BigCat
   m_EditorClassIdentifier: 
-  i_CharCode: 0
-  i_health: 0
+  i_CharCode: 6
+  i_health: 15
   i_attackCount: 0
-  i_damage: 0
-  increaseShield: 0
+  i_damage: 2
+  increaseShield: 5
   buffValue: 0
-  debuffValue: 0
+  debuffValue: 2
   f_percentage: 0
-  st_charName: 
-  sp_sprite: {fileID: 0}
-  PlayerDamagedEffect: {fileID: 0}
-  EnemyDamagedSprite: {fileID: 0}
-  EnemyAttackSprite: {fileID: 0}
+  st_charName: MushRoom
+  sp_sprite: {fileID: -5389256392946278163, guid: 61f6f41b05d77244ea4a119b99b471d5, type: 3}
+  PlayerDamagedEffect: {fileID: 9170522266831513912, guid: 5239e907273c5e74bb287e38aa59ca9a, type: 3}
+  EnemyDamagedSprite: {fileID: -8002701667285242670, guid: 32f6113eebe89c14486d1c1f78bfa52f, type: 3}
+  EnemyAttackSprite: {fileID: -6150625234779036627, guid: b1170ae8542cd524cb742b94382b3972, type: 3}
   SpelcialSkillSprite: []
-  skeletonDataAsset: {fileID: 0}
-  entityPattern: {fileID: 0}
+  skeletonDataAsset: {fileID: 11400000, guid: 4b633606792f12a42b8b50c2f55992ff, type: 2}
+  entityPattern: {fileID: 11400000, guid: 3e2da79e6962d8343accbdf27d69a533, type: 2}

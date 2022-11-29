@@ -28,4 +28,4 @@ MonoBehaviour:
   SpelcialSkillSprite:
   - {fileID: -349714067738747638, guid: 823628451d51a764682efa00a0cb9fe2, type: 3}
   skeletonDataAsset: {fileID: 11400000, guid: befc73dffc6b3f542a93ea6d51144da1, type: 2}
-  entityPattern: {fileID: 0}
+  entityPattern: {fileID: 11400000, guid: 4c10b886da0783d4381007ed46877ea8, type: 2}

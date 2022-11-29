@@ -136,15 +136,14 @@ public class ShopScirpt : MonoBehaviour
 				var temt = Instantiate(cardPrefab);
 				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
 				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-				// <<22-11-28 장형용 :: 수정>>
 				temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
 				temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
 				temt.transform.SetParent(cardSpawnParent.transform);
-				//temt.GetComponent<Material>();
-				//temt.GetComponentInChildren<TMP_Text>().text = ;
+				temt.AddComponent<Button>();
+				temt.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(CardManager.Inst.itemSO.items[randCard].card, temt));
 			}
 
-
+			
 			//아이템 세팅
 			Item_inven itemToAdd = database.FetchItemById(id);
 			for (int i = 0; i < 3; i++)
@@ -167,9 +166,20 @@ public class ShopScirpt : MonoBehaviour
 		}
 	}
 
+	void SetBuyCard(Card _card, GameObject _object)
+	{
+		if (75 <= EntityManager.Inst.playerEntity.money)
+		{
+			CardManager.Inst.AddSelectCard_Deck(_card);
+			EntityManager.Inst.playerEntity.money -= 75;
+			UIManager.Inst.PlayerMoneyUIRefresh();
+			
+			Destroy(_object);
+		}
+	}
+
 	void SetBuyItem(int i)
 	{
-		Debug.Log(i);
 		if (int.Parse(priceTMP[i].text) <= EntityManager.Inst.playerEntity.money)
 		{
 			EntityManager.Inst.playerEntity.money -= int.Parse(priceTMP[i].text);

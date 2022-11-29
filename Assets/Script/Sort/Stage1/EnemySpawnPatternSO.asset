@@ -32,7 +32,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 01afddf32dfda6746a4a861501e6ea26, type: 2}
     - {fileID: 11400000, guid: 5db64655860d61243a23d19942937593, type: 2}
     Reward_item: 
-    Reward_Money: 3
+    Reward_Money: 6
     Reward_Card: 
     MoneyRandom: 0
   - enemy:

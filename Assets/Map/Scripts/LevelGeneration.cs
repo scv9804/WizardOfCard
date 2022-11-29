@@ -704,8 +704,6 @@ public class LevelGeneration : MonoBehaviour {
 			mustDisableObject.SetActive(false);
 		// 순서상 어쩔수 없음
 
-
-
 		if (rooms[inPosX + _x, inPosY + _y].Checked != true)
 		{
 			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
@@ -746,7 +744,16 @@ public class LevelGeneration : MonoBehaviour {
 	{
 		if (rooms[inPosX, inPosY].Checked != true)
 		{
-			UIManager.Inst.ButtonDeActivate();
+			if (rooms[inPosX, inPosY].RoomEventType == 2 ||
+				rooms[inPosX, inPosY].RoomEventType == 3)
+			{
+				UIManager.Inst.ButtonDeActivate();
+				UIManager.Inst.ButtonActivate();
+			}
+			else
+			{
+				UIManager.Inst.ButtonDeActivate();
+			}
 			if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
 			{
 				LevelGeneration.Inst.SetMyTurn();

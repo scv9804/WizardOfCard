@@ -455,7 +455,11 @@ public class CardManager : MonoBehaviour
 		myCards.Add(card);
 		setOriginOrder();
         CardAlignment();
-    }
+	}
+	public void AddSelectCard_Deck(Card tempt)
+	{
+		myDeck.Add(tempt);
+	}
 
 	public IEnumerator HandRefresh()
 	{

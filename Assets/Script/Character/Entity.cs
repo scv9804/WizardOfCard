@@ -52,8 +52,7 @@ public class Entity : MonoBehaviour
     [HideInInspector] public int nextPattorn = 0;
     [HideInInspector] public float spriteSize_X = 0;
     [HideInInspector] public float spriteSize_Y = 0;
-  
-
+    [HideInInspector] public Sprite[] specialSkillSprite;
     [HideInInspector] public int i_burning = 0;
 
 
@@ -74,6 +73,7 @@ public class Entity : MonoBehaviour
     public bool attackable = true;
     public bool is_die = false;
     bool isTextMove = false;
+    bool shieldAnim = false;
     int popupSpeed = 25;
 
     [HideInInspector] public Vector3 originPos;
@@ -226,8 +226,9 @@ public class Entity : MonoBehaviour
             var temt = buff.GetComponent<BuffDebuffImageSpawn>();
 
             if (temt.BuffDebuffCode == _code)
-			{
-                temt.useTime = _value + temt.useTime;
+            {
+                temt.value += _value;
+                temt.SetValue();
                 return true;
             }
 		}
@@ -288,8 +289,11 @@ public class Entity : MonoBehaviour
         spriteSize_X = charater.sprite.bounds.size.x;
         spriteSize_Y = charater.sprite.bounds.size.y;
 
+        
         charater.enabled = false;
         entitySkeletonGameObject.transform.localPosition = new Vector3(0,-spriteSize_Y/2, -2);
+
+        specialSkillSprite = _enemy.SpelcialSkillSprite;
     }
 
 
@@ -297,7 +301,8 @@ public class Entity : MonoBehaviour
     void SetSkeletonAnimation(Enemy _enemy)
 	{
         entitySkeletonAnimation.ClearState();
-        entitySkeletonAnimation.skeletonDataAsset = _enemy.skeletonDataAsset;        
+        entitySkeletonAnimation.skeletonDataAsset = _enemy.skeletonDataAsset;
+        entitySkeletonAnimation.timeScale = 0.5f;
         entitySkeletonAnimation.Initialize(true);    
     }
 
@@ -439,12 +444,16 @@ public class Entity : MonoBehaviour
 
     public void ShieldEffect()
 	{
-        Sequence sequence1 = DOTween.Sequence()
-       .Append(this.ShieldObject.transform.DOScale(originShieldScale * 2, 0f))
-       .Append(this.ShieldObject.transform.DOScale(originShieldScale, 0.5f));
-        Sequence sequence2 = DOTween.Sequence()
-       .Append(ShieldSpriteRenderer.DOFade(0, 0.0f))
-       .Append(ShieldSpriteRenderer.DOFade(1, 0.3f));
+		if (!shieldAnim)
+		{
+            Sequence sequence1 = DOTween.Sequence()
+            .Append(this.ShieldObject.transform.DOScale(originShieldScale * 2, 0f))
+            .Append(this.ShieldObject.transform.DOScale(originShieldScale, 0.5f));
+            Sequence sequence2 = DOTween.Sequence()
+           .Append(ShieldSpriteRenderer.DOFade(0, 0.0f))
+           .Append(ShieldSpriteRenderer.DOFade(1, 0.3f));
+        }
+ 
     }
 
     public void RefreshEntity()
@@ -455,12 +464,14 @@ public class Entity : MonoBehaviour
             ShieldObject.SetActive(true);
             ShieldObjectBase.SetActive(true);
             ShieldEffect();
+            shieldAnim = true;
         }
         else
         {
             ShieldTMP.gameObject.SetActive(false);
             ShieldObject.SetActive(false);
             ShieldObjectBase.SetActive(false);
+            shieldAnim = false;
         }
         healthImage.fillAmount = i_health / HEALTHMAX;
         healthTMP.text = i_health.ToString();
@@ -493,14 +504,15 @@ public class Entity : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        entitySkeletonGameObject.SetActive(true);
-        charater.enabled = false;
+
 
         if (i_health > 0)
         {
             yield return new WaitForSeconds(0.15f);
 
             charater.sprite = enemy.sp_sprite;
+            entitySkeletonGameObject.SetActive(true);
+            charater.enabled = false;
         }
 
     }
