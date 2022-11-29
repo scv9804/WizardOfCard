@@ -10,7 +10,7 @@ public class MushRoomAttackPattern : EntityPattern
 		switch (_entity.attackTime)
 		{
 			case 0:
-				EnemySkillCollection.PrototypeFunction(SkillName.Shield.ToString(), _entity, _entity.specialSkillSprite[0]);
+				EnemySkillCollection.PrototypeFunction(SkillName.RustAccid.ToString(), _entity, _entity.specialSkillSprite[0]);
 				break;
 			case 1:
 				EnemySkillCollection.PrototypeFunction(SkillName.Shield.ToString(), _entity);

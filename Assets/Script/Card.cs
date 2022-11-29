@@ -454,25 +454,39 @@ public class Card : MonoBehaviour
     private void OnMouseOver()
     {
         if (is_Useable_Card)
+		{
 			CardManager.Inst.CardMouseOver(this);
+			CardManager.Inst.is_mouseOnCard = true;
+		}
+			
 	}
 
     private void OnMouseExit()
 	{
 		if (is_Useable_Card)
+		{
 			CardManager.Inst.CardMouseExit(this);
+			CardManager.Inst.is_mouseOnCard = false;
+		}
+			
 	}
 
 	private void OnMouseDown()
 	{
 		if (is_Useable_Card)
-			CardManager.Inst.CardMouseDown();
+		{
+			CardManager.Inst.CardMouseDown();	
+		}
 	}
 
 	private void OnMouseUp()
 	{
 		if (is_Useable_Card)
+		{
 			CardManager.Inst.CardMouseUp(this);
+			CardManager.Inst.is_mouseOnCard = false;
+		}
+			
 	}
 
 	#endregion

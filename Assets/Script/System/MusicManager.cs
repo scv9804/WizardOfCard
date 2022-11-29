@@ -103,7 +103,7 @@ public class MusicManager : MonoBehaviour
 	// <<22-11-28 장형용 :: 추가>>
 	void PlayClickSound()
     {
-		if(Input.GetMouseButtonDown(0) && !isClicked)
+		if(Input.GetMouseButtonDown(0) && !isClicked && !CardManager.Inst.is_mouseOnCard)
         {
 			EffectPlay(Audio_OnMouseDown);
 			isClicked = true;
@@ -112,7 +112,7 @@ public class MusicManager : MonoBehaviour
 		if(isClicked)
 			times += Time.deltaTime;
 
-		if (times > 0.125f && !Input.GetMouseButton(0) && isClicked)
+		if (times > 0.125f && !Input.GetMouseButton(0) && isClicked && !CardManager.Inst.is_mouseOnCard)
         {
 			EffectPlay(Audio_OnMouseUp);
 

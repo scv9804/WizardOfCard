@@ -217,11 +217,12 @@ public class UIManager : MonoBehaviour
 		gameClearBack_UI.SetActive(true);
 	}
 
-	public void MapClearUIAccpetButton()
+	public void MinimapActive()
 	{
-	//	RewordManager.Inst.AddClearReword();
-		gameClearBack_UI.SetActive(false);
+		minimapUI.SetActive(true);
+		minimapCancleArea.SetActive(true);
 	}
+
 
 	public void PlayerMoneyUIRefresh()
 	{

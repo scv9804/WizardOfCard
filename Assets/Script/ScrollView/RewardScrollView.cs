@@ -80,7 +80,8 @@ public class RewardScrollView : MonoBehaviour
         //프리팹 내용 설정
         Image itemimage = newUI.GetComponentInChildren<Image>();
         itemimage.enabled = false;
-        newCard.transform.position = itemimage.transform.position;
+        newCard.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(newUI.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition3D.x, 50,0);
+
 
         TMP_Text tmptext = newUI.GetComponentInChildren<TMP_Text>();
         tmptext.text = _card.transform.GetChild(1).GetComponent<TMP_Text>().text;

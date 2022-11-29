@@ -1470,6 +1470,7 @@ MonoBehaviour:
   nextPattorn: 0
   spriteSize_X: 0
   spriteSize_Y: 0
+  specialSkillSprite: []
   i_burning: 0
   debuffValue: 1
   buffValue: 1
@@ -1501,6 +1502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backRenderers:
   - {fileID: 1125794580711498246}
+  - {fileID: 3435853854215648485}
   middleRenderers:
   - {fileID: 8721925173134880900}
   - {fileID: 5806097730585227203}

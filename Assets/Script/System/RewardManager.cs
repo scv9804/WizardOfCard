@@ -134,7 +134,7 @@ public class RewardManager : MonoBehaviour
 
 	void SetCardReward()
 	{
-		int randcardcount = UnityEngine.Random.Range(0, 2);
+		int randcardcount = UnityEngine.Random.Range(1, 2);
 		for (int i = 0; i < randcardcount; i ++)
 		{
 			int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
@@ -177,7 +177,7 @@ public class RewardManager : MonoBehaviour
 			}
 		}
 
-
+		UIManager.Inst.MinimapActive();
 
 		moneyObject = null;
 		rewardCardList.Clear();

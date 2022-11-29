@@ -193,9 +193,9 @@ public class EnemySkillCollection : MonoBehaviour
 	//돈 사운드 추가 해야해
 	public IEnumerator StealMoney(Entity _entity)
 	{
-		Debug.Log(1);
 		_entity.attackTime++;
 		MusicManager.inst.SlashSound();
+		MusicManager.inst.PlayBuyingSound();
 		PlayerEntity.Inst.Damaged(_entity.FinalAttackValue()-1);
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 		EntityManager.Inst.playerEntity.money -= 5;

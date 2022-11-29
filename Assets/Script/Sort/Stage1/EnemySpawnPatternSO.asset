@@ -42,3 +42,10 @@ MonoBehaviour:
     Reward_Money: 5
     Reward_Card: 
     MoneyRandom: 0
+  - enemy:
+    - {fileID: 11400000, guid: 2c01282bec716454aaa27cf8ff8bc4c8, type: 2}
+    - {fileID: 11400000, guid: 2c01282bec716454aaa27cf8ff8bc4c8, type: 2}
+    Reward_item: 
+    Reward_Money: 8
+    Reward_Card: 
+    MoneyRandom: 0

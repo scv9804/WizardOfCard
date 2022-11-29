@@ -82,7 +82,7 @@ public class EntityManager : MonoBehaviour
             float f_Target_X =  sortEnemyPos_Tf.position.x  + i*2.5f;
 
             var targetEntity = enemyEntities[i];
-            targetEntity.originPos = new Vector3(f_Target_X, targetEntity.transform.position.y ,0);
+            targetEntity.originPos = new Vector3(f_Target_X, targetEntity.transform.position.y ,-i);
             targetEntity.MoveTransForm(targetEntity.originPos, true, 0.5f);
             targetEntity.GetComponent<OrderLayer>().SetOriginOrder(i);
         }

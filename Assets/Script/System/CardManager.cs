@@ -48,6 +48,7 @@ public class CardManager : MonoBehaviour
 
 	//[HideInInspector] public int i_ManaCost; // 미사용
 	[HideInInspector] public bool is_myCardDrag;
+	[HideInInspector] public bool is_mouseOnCard;
 	[HideInInspector] public bool is_useCardArea; // 사용은 하는데 용도가 굉장히 한정적
 	[HideInInspector] public bool is_canUseCard = true;
 	[HideInInspector] public bool is_cardUsing;
