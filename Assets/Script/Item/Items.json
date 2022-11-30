@@ -1,87 +1,194 @@
 ﻿[
 	{
 		"id": 0,
-		"title": "Middle Potion",
-		"value": 1,
-		"Healing": 5,
-		"stats": {
-			"power": 0,
-			"defense": 0,
-			"vitality": 0
-		},
-		"description": "just postion?",
+		"title": "회복 물약",
+		"value": 10,
+		"stats": 0,
+		"description": "체력을 10 회복합니다.",
 		"equipable": false,
 		"ItemType": "Consumable",
-		"rarity": 2,
-		"price": 10,
-		"slug": "potion"
+		"rarity": 0,
+		"price": 20,
+		"slug": "회복물약"
 	},
 	{
 		"id": 1,
-		"title": "Potion",
-		"value": 1,
-		"Healing": 10,
-		"stats": {
-			"power": 0,
-			"defense": 0,
-			"vitality": 0
-		},
-		"description": "체력이 10 회복되어요",
+		"title": "엘릭서",
+		"value": 1000,
+		"stats": 0,
+		"description": "체력을 모두 회복합니다.",
 		"equipable": false,
 		"ItemType": "Consumable",
-		"rarity": 2,
-		"price": 10,
-		"slug": "힐엘릭서"
+		"rarity": 0,
+		"price": 60,
+		"slug": "엘릭서"
 	},
 	{
 		"id": 2,
-		"title": "마나엘릭서(무?기)",
-		"value": 1,
-		"Healing": 0,
-		"stats": {
-			"power": 0,
-			"defense": 10,
-			"vitality": 0
-		},
-		"description": "최대체력 +10?",
-		"equipable": true,
-		"ItemType": "Weapon",
-		"rarity": 2,
-		"price": 10,
-		"slug": "마나엘릭서"
+		"title": "마나 물약",
+		"value": 2,
+		"stats": 0,
+		"description": "마나를 2 회복합니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
+		"price": 20,
+		"slug": "마나물약"
 	},
 	{
 		"id": 3,
-		"title": "마나엘릭서(서?브)",
-		"value": 1,
-		"Healing": 0,
-		"stats": {
-			"power": 0,
-			"defense": 10,
-			"vitality": 0
-		},
-		"description": "최대체력 +10?",
-		"equipable": true,
-		"ItemType": "Ear",
-		"rarity": 2,
-		"price": 10,
-		"slug": "마나엘릭서"
+		"title": "마나 가속 물약",
+		"value": 3,
+		"stats": 0,
+		"description": "카드를 3장 드로우합니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
+		"price": 60,
+		"slug": "마나가속물약"
 	},
 	{
 		"id": 4,
-		"title": "힐엘릭서(무?기)",
+		"title": "미치광이 물약",
+		"value": 3,
+		"stats": 0,
+		"description": "마나친화성이 1~3 증가합니다.체력을 5~10 잃습니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
+		"price": 50,
+		"slug": "미치광이물약"
+	},
+	{
+		"id": 5,
+		"title": "연금술사의 실험용 물약",
 		"value": 1,
-		"Healing": 10,
-		"stats": {
-			"power": 0,
-			"defense": 10,
-			"vitality": 0
-		},
-		"description": "최대체력 +10?",
-		"equipable": true,
-		"ItemType": "Weapon",
-		"rarity": 2,
+		"stats": 0,
+		"description": "무작위 카드 1장을 생성합니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
+		"price": 30,
+		"slug": "연금술사의실험용물약"
+	},
+	{
+		"id": 6,
+		"title": "피부 경질화 물약",
+		"value": 5,
+		"stats": 0,
+		"description": "쉴드를 5 생성합니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
 		"price": 10,
-		"slug": "힐엘릭서"
+		"slug": "피부경질화물약"
+	},
+	{
+		"id": 7,
+		"title": "악마의 축복 물약",
+		"value": 1,
+		"stats": 0,
+		"description": "카드를 1장교채합니다. 천사와 전투할 확률이 증가합니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
+		"price": 0,
+		"slug": "악마의축복물약"
+	},
+	{
+		"id": 8,
+		"title": "천사의 축복 물약",
+		"value": 5,
+		"stats": 0,
+		"description": "최대 체력이 5 증가합니다. 악마와 전투할 확률이 증가합니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
+		"price": 0,
+		"slug": "천사의축복물약"
+	},
+	{
+		"id": 9,
+		"title": "마나 폭주의 물약",
+		"value": 20,
+		"stats": 0,
+		"description": "카드의 비용이 전부 0이 되고 체력을 20 잃습니다.",
+		"equipable": false,
+		"ItemType": "Consumable",
+		"rarity": 0,
+		"price": 100,
+		"slug": "마나폭주의물약"
+	},
+	{
+		"id": 10,
+		"title": "자수정 귀걸이",
+		"value": 1,
+		"stats": 0,
+		"description": "전투 시작 시 면역을 1 얻습니다.",
+		"equipable": true,
+		"ItemType": "Ear",
+		"rarity": 0,
+		"price": 150,
+		"slug": "COMMON_자수정 귀걸이"
+	},
+	{
+		"id": 11,
+		"title": "강화의 귀걸이",
+		"value": 4,
+		"stats": 0,
+		"description": "4번째 전투를 승리할 때마다 무작위 카드 1장을 강화합니다.",
+		"equipable": true,
+		"ItemType": "Ear",
+		"rarity": 0,
+		"price": 120,
+		"slug": "COMMON_강화의 귀걸이"
+	},
+	{
+		"id": 12,
+		"title": "실크햇",
+		"value": 1,
+		"stats": 0,
+		"description": "전투 시작 시 덱의 무작위 카드 1장의 효과를 발동합니다.",
+		"equipable": true,
+		"ItemType": "Hat",
+		"rarity": 0,
+		"price": 150,
+		"slug": "COMMON_실크햇"
+	},
+	{
+		"id": 13,
+		"title": "견습 마법사의 모자",
+		"value": 1,
+		"stats": 0,
+		"description": "매 턴마다 카드를 1장 드로우 합니다.",
+		"equipable": true,
+		"ItemType": "Hat",
+		"rarity": 0,
+		"price": 120,
+		"slug": "COMMON_견습 마법사의 모자"
+	},
+	{
+		"id": 14,
+		"title": "견습 마법사의 로브",
+		"value": 1,
+		"stats": 0,
+		"description": "마나가 회복될 때마다 카드를 1장 드로우 합니다.",
+		"equipable": true,
+		"ItemType": "Suit",
+		"rarity": 0,
+		"price": 150,
+		"slug": "견습마법사의 로브"
+	},
+	{
+		"id": 15,
+		"title": "강철 가죽 로브",
+		"value": 1,
+		"stats": 0,
+		"description": "받는 데미지가 1 감소합니다.",
+		"equipable": true,
+		"ItemType": "Suit",
+		"rarity": 0,
+		"price": 170,
+		"slug": "COMMON_강철 가죽 로브"
 	}
 ]

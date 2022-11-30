@@ -5709,7 +5709,6 @@ GameObject:
   - component: {fileID: 602817667}
   - component: {fileID: 602817669}
   - component: {fileID: 602817668}
-  - component: {fileID: 602817670}
   m_Layer: 5
   m_Name: Potion_1
   m_TagString: Untagged
@@ -5774,19 +5773,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602817666}
   m_CullTransparentMesh: 1
---- !u!114 &602817670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602817666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
 --- !u!1 &627814695
 GameObject:
   m_ObjectHideFlags: 0
@@ -5874,7 +5860,6 @@ GameObject:
   - component: {fileID: 633630889}
   - component: {fileID: 633630891}
   - component: {fileID: 633630890}
-  - component: {fileID: 633630892}
   m_Layer: 5
   m_Name: QuickSlot_2
   m_TagString: Untagged
@@ -5939,18 +5924,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633630888}
   m_CullTransparentMesh: 1
---- !u!114 &633630892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 633630888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &641423898
 GameObject:
   m_ObjectHideFlags: 0
@@ -6987,7 +6960,6 @@ GameObject:
   - component: {fileID: 730635549}
   - component: {fileID: 730635551}
   - component: {fileID: 730635550}
-  - component: {fileID: 730635552}
   m_Layer: 5
   m_Name: QuickSlot_3
   m_TagString: Untagged
@@ -7052,18 +7024,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730635548}
   m_CullTransparentMesh: 1
---- !u!114 &730635552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730635548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &739264372
 GameObject:
   m_ObjectHideFlags: 0
@@ -10346,7 +10306,6 @@ GameObject:
   - component: {fileID: 1028100314}
   - component: {fileID: 1028100316}
   - component: {fileID: 1028100315}
-  - component: {fileID: 1028100317}
   m_Layer: 5
   m_Name: QuickSlot_1
   m_TagString: Untagged
@@ -10411,18 +10370,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028100313}
   m_CullTransparentMesh: 1
---- !u!114 &1028100317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1028100313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadac3fa6b2935f4c9b2c4661531fe66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1032628498
 GameObject:
   m_ObjectHideFlags: 0
@@ -14213,7 +14160,6 @@ GameObject:
   - component: {fileID: 1565513878}
   - component: {fileID: 1565513880}
   - component: {fileID: 1565513879}
-  - component: {fileID: 1565513881}
   m_Layer: 5
   m_Name: Potion_2
   m_TagString: Untagged
@@ -14278,19 +14224,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565513877}
   m_CullTransparentMesh: 1
---- !u!114 &1565513881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565513877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
 --- !u!1 &1565842616
 GameObject:
   m_ObjectHideFlags: 0
@@ -17811,12 +17744,15 @@ MonoBehaviour:
   inventoryPanel: {fileID: 730093458}
   slotPanel: {fileID: 88910647}
   equipslotPanel: {fileID: 1177486781}
+  QuickUIPanel: {fileID: 1558591623}
   database: {fileID: 1939514123}
   inventorySlot: {fileID: 8904342169361867188, guid: 438ff174dbd956d47bd47d7bc1052558, type: 3}
+  inventorySlot_q: {fileID: 8904342169361867188, guid: e1a73237444fa6240b852460ebf0de91, type: 3}
   inventoryItem: {fileID: 197196, guid: 1a1731ca39f31b54c9b2ff6a3add0e67, type: 3}
   slots: []
   equipslots: []
   quickslots: []
+  quickslotsUI: []
 --- !u!4 &1939514121
 Transform:
   m_ObjectHideFlags: 0
@@ -19050,7 +18986,6 @@ GameObject:
   - component: {fileID: 2014451740}
   - component: {fileID: 2014451742}
   - component: {fileID: 2014451741}
-  - component: {fileID: 2014451743}
   m_Layer: 5
   m_Name: Potion_3
   m_TagString: Untagged
@@ -19115,19 +19050,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014451739}
   m_CullTransparentMesh: 1
---- !u!114 &2014451743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014451739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9c76254dc285548b06fd3ae4e1a619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
 --- !u!1 &2016737972
 GameObject:
   m_ObjectHideFlags: 0

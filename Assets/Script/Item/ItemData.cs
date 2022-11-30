@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -83,8 +84,16 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	{
 		if (item != null && !item.Equipable && item.OwnPlayer)
 		{
-			HealItemUsed();
-			useAccept.Deactivate();
+			if(this.slotId < 10)
+            {
+				SetQuickSlot();
+				useAccept.Deactivate();
+			}
+			else if(this.slotId >= 15)
+            {
+				HealItemUsed();
+				useAccept.Deactivate();
+			}
 		}
 		else if (item != null && item.Equipable && this.slotId < 10 && item.OwnPlayer)
 		{
@@ -97,18 +106,55 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 			useAccept.Deactivate();
 		}
 	}
+	public void SetQuickSlot()
+    {
+		Item_inven QuickitemAdd = item;
+		for (int i = 0; i < 3; i++)
+		{
+			if (inv.quickitems[i].Id == -1)
+			{
+				this.transform.SetParent(inv.quickslots[i].transform);
+				inv.quickitems[i] = item;
+				this.transform.localPosition = Vector2.zero;
+				inv.items[slotId] = new Item_inven();
+				useAccept.Deactivate();
+				this.slotId = inv.quickslots[i].GetComponent<Slot_q>().id;
+
+				GameObject itemObj = Instantiate(inv.inventoryItem);
+				itemObj.GetComponent<ItemData>().item = QuickitemAdd;
+				itemObj.GetComponent<ItemData>().item.OwnPlayer = true;
+				itemObj.GetComponent<ItemData>().slotId = i+100;
+				itemObj.transform.SetParent(inv.quickslotsUI[i].transform);
+				itemObj.transform.localPosition = Vector2.zero;
+				itemObj.GetComponent<Image>().sprite = QuickitemAdd.Sprite;
+				inv.quickitemsUI[i] = QuickitemAdd;
+				break;
+			}
+
+		}
+	}
 	public void HealItemUsed()
     {
-		PlayerEntity.Inst.Status_Health += item.Healing;
+		PlayerEntity.Inst.Status_Health += item.Value;
 
 		if (PlayerEntity.Inst.Status_Health > PlayerEntity.Inst.Status_MaxHealth)
 		{
 			PlayerEntity.Inst.Status_Health = PlayerEntity.Inst.Status_MaxHealth;
 		}
+        if (slotId < 100)
+        {
+			Destroy(inv.QuickUIPanel.transform.GetChild(slotId-12).transform.GetChild(0).GetChild(0).gameObject);
+			inv.quickitems[slotId - 15] = new Item_inven();
+			inv.quickitemsUI[slotId - 15] = new Item_inven();
+		}
+		else if (slotId >= 100)
+        {
+			Destroy(inv.equipslotPanel.transform.GetChild(slotId - 95).transform.GetChild(0).GetChild(0).gameObject);
+			inv.quickitems[slotId - 100] = new Item_inven();
+			inv.quickitemsUI[slotId - 100] = new Item_inven();
+		}
 		Destroy(gameObject);
-		inv.items[slotId] = new Item_inven();
 		useAccept.Deactivate();
-		inv.AddItem(0);
 	}
 	public void EquipItem()
     {
@@ -150,8 +196,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		this.transform.localPosition = Vector2.zero;
 		inv.items[slotId] = new Item_inven();
 		useAccept.Deactivate();
-		this.slotId = inv.equipslots[targetEquipSlot].GetComponent<Slot>().id;
-
+		this.slotId = inv.equipslots[targetEquipSlot].GetComponent<Slot_q>().id;
 	}
 	public void UnequipItem()
     {

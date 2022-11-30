@@ -14,17 +14,21 @@ public class Inventory : MonoBehaviour
 	public GameObject inventoryPanel;
 	public GameObject slotPanel;
 	public GameObject equipslotPanel;
+	public GameObject QuickUIPanel;
 	[SerializeField]ItemDataBase database;
 	public GameObject inventorySlot;
+	public GameObject inventorySlot_q;
 	public GameObject inventoryItem;
 
 	private int slotAmount;
 	public List<Item_inven> items = new List<Item_inven>();
 	public List<Item_inven> equipitems = new List<Item_inven>();
 	public List<Item_inven> quickitems = new List<Item_inven>();
+	public List<Item_inven> quickitemsUI = new List<Item_inven>();
 	public List<GameObject> slots = new List<GameObject>();
     public List<GameObject> equipslots = new List<GameObject>();
 	public List<GameObject> quickslots = new List<GameObject>();
+	public List<GameObject> quickslotsUI = new List<GameObject>();
 
 	void Start()
 	{
@@ -45,15 +49,6 @@ public class Inventory : MonoBehaviour
 		{
 			MakeQuickSlot(i);
 		}
-
-		//테스트용 아이템 추가
-		AddItem(0);
-		AddItem(1);
-		AddItem(2);
-		AddItem(3);
-		AddItem(4);
-
-		Debug.Log(items[7].Title);
 	}
 
 	public void MakeSlot(int i)
@@ -66,18 +61,23 @@ public class Inventory : MonoBehaviour
 	public void MakeEquipSlot(int i)
 	{
 		equipitems.Add(new Item_inven());
-		equipslots.Add(Instantiate(inventorySlot));
+		equipslots.Add(Instantiate(inventorySlot_q));
 		equipslots[i].transform.SetParent(equipslotPanel.transform.GetChild(i).transform);
 		equipslots[i].transform.localPosition = Vector2.zero;
-		equipslots[i].GetComponent<Slot>().id = i+10;
+		equipslots[i].GetComponent<Slot_q>().id = i+10;
 	}
 	public void MakeQuickSlot(int i)
     {
 		quickitems.Add(new Item_inven());
-		quickslots.Add(Instantiate(inventorySlot));
+		quickslots.Add(Instantiate(inventorySlot_q));
+		quickitemsUI.Add(new Item_inven());
 		quickslots[i].transform.SetParent(equipslotPanel.transform.GetChild(i+5).transform);
 		quickslots[i].transform.localPosition = Vector2.zero;
-		quickslots[i].GetComponent<Slot>().id = i + 15;
+		quickslots[i].GetComponent<Slot_q>().id = i + 15;
+		quickslotsUI.Add(Instantiate(inventorySlot_q));
+		quickslotsUI[i].transform.SetParent(QuickUIPanel.transform.GetChild(i + 3).transform);
+		quickslotsUI[i].transform.localPosition = Vector2.zero;
+		quickslotsUI[i].GetComponent<Slot_q>().id = i + 100;
 	}
 	public void AddItem(int id)
 	{
