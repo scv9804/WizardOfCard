@@ -39,17 +39,14 @@ public class ItemDataBase : MonoBehaviour
 			newItem.Id = (int)itemData[i]["id"];
 			newItem.Title = itemData[i]["title"].ToString();
 			newItem.Value = (int)itemData[i]["value"];
-			newItem.Power = (int)itemData[i]["stats"]["power"];
-			newItem.Defense = (int)itemData[i]["stats"]["defense"];
-			newItem.Vitality = (int)itemData[i]["stats"]["vitality"];
-			newItem.Healing = (int)itemData[i]["Healing"];
+			newItem.Stats = (int)itemData[i]["stats"];
 			newItem.Description = itemData[i]["description"].ToString();
 			newItem.Equipable = (bool)itemData[i]["equipable"];
 			newItem.Type = itemData[i]["ItemType"].ToString();
 			newItem.Rarity = (int)itemData[i]["rarity"];
 			newItem.Price = (int)itemData[i]["price"];
 			newItem.Slug = itemData[i]["slug"].ToString();
-			newItem.Sprite = Resources.Load<Sprite>("potion/" + newItem.Slug);
+			newItem.Sprite = Resources.Load<Sprite>("ItemImages/" + newItem.Slug);
 
 			database.Add(newItem);
 		}
@@ -61,10 +58,7 @@ public class Item_inven
 	public int Id { get; set; }
 	public string Title { get; set; }
 	public int Value { get; set; }
-	public int Power { get; set; }
-	public int Defense { get; set; }
-	public int Vitality { get; set; }
-	public int Healing { get; set; }
+	public int Stats { get; set; }
 	public string Description { get; set; }
 	public bool OwnPlayer { get; set; }
 	public bool Equipable { get; set; }
