@@ -120,9 +120,7 @@ public class UIManager : MonoBehaviour
 	{
 		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == E_CardStats.CanAll)
 		{
-			//LevelGeneration.Inst.EndTurn();
-
-			// <<22-10-27 장형용 :: 추가>>
+			Debug.Log(1111);
 			tryEndTurnCoroutine = StartCoroutine(TryEndTurn());
 		}
 	}

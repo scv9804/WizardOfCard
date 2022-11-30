@@ -47,6 +47,7 @@ public class Card : MonoBehaviour
 	[HideInInspector] public Pos_Rot_Scale originPRS;
 
 	[HideInInspector] public bool is_Useable_Card = true;
+	[HideInInspector] public bool is_UI_Card = false;
 
 	protected StringBuilder sb = new StringBuilder();
 
@@ -177,8 +178,16 @@ public class Card : MonoBehaviour
 	{
 		//sp_card = GetComponent<SpriteRenderer>(); // 이거 스크립트 상에서 색 안 바뀌는데?
 
-		Setup();
-		RefreshCardUI();
+		try 
+		{
+			Setup();
+			RefreshCardUI();
+			is_UI_Card = false;
+		}
+		catch
+		{
+			Debug.Log("카드 셋업 할 수 없어용");
+		}
 	}
 
 	protected virtual void Start() { }
@@ -453,7 +462,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (is_Useable_Card)
+        if (is_Useable_Card && !is_UI_Card)
 		{
 			CardManager.Inst.CardMouseOver(this);
 			CardManager.Inst.is_mouseOnCard = true;
@@ -463,7 +472,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseExit()
 	{
-		if (is_Useable_Card)
+		if (is_Useable_Card && !is_UI_Card)
 		{
 			CardManager.Inst.CardMouseExit(this);
 			CardManager.Inst.is_mouseOnCard = false;
@@ -473,7 +482,7 @@ public class Card : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		if (is_Useable_Card)
+		if (is_Useable_Card && !is_UI_Card)
 		{
 			CardManager.Inst.CardMouseDown();	
 		}
@@ -481,7 +490,7 @@ public class Card : MonoBehaviour
 
 	private void OnMouseUp()
 	{
-		if (is_Useable_Card)
+		if (is_Useable_Card && !is_UI_Card)
 		{
 			CardManager.Inst.CardMouseUp(this);
 			CardManager.Inst.is_mouseOnCard = false;
