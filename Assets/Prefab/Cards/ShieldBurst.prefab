@@ -541,12 +541,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 10
+  m_fontSizeBase: 8
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
+  m_fontSizeMax: 10
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0.16846657, z: 0, w: 0}
+  m_margin: {x: 3.5, y: 0.16846657, z: 3.5, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -691,17 +691,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
-  nameTMP: {fileID: 7395019933344051563}
-  manaCostTMP: {fileID: 7395019933671154985}
-  explainTMP: {fileID: 7395019932878968509}
   enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
   playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
   st_cardName: "\uC274\uB4DC \uD3ED\uBC1C"
   i_itemNum: 27
   f_percentage: 1
   upgraded: 0
+  cardImage:
+  - {fileID: 21300000, guid: fe7b25eb5211f2149a8f0259054303e2, type: 3}
+  - {fileID: 21300000, guid: 2db62b4f235e09141a3cef43389734ca, type: 3}
+  - {fileID: 21300000, guid: bb3b33205114adc46a601e278ad4f746, type: 3}
+  cardIconImage:
+  - {fileID: 5642402472962025011, guid: ffb21ad55a0a01140a83034d6400138e, type: 3}
+  - {fileID: 5642402472962025011, guid: ffb21ad55a0a01140a83034d6400138e, type: 3}
+  - {fileID: 5642402472962025011, guid: ffb21ad55a0a01140a83034d6400138e, type: 3}
   cost: 020000000200000001000000
-  attack: 010000000100000002000000
   isExile: 000000
   cardType: 020000000200000002000000
   AR_attackRange: 020000000000000000000000
@@ -720,6 +724,7 @@ MonoBehaviour:
     rot: {x: 0, y: 0, z: 0, w: 0}
     scale: {x: 0, y: 0, z: 0}
   is_Useable_Card: 1
+  is_UI_Card: 0
   damage: 010000000100000002000000
 --- !u!114 &-2801819417619063475
 MonoBehaviour:

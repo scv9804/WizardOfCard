@@ -40,15 +40,7 @@ public class FireRune : Card, IBurning, IManaAffinity_Turn
         TargetAll(() => AddBurning(_target_enemy), ref _target_enemy);
 		GainManaAffinity_Turn();
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void AddBurning(Entity _target)

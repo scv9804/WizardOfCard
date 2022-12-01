@@ -43,15 +43,7 @@ public class ManaCannon : Card, IAttack
 
 		Player.Debuff_CannotDrawCard = true;
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void Attack(Entity _target)

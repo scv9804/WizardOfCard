@@ -43,15 +43,7 @@ public class ShieldBurst : Card, IAttack
 
 		Player.Status_Shiled = 0;
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void Attack(Entity _target)

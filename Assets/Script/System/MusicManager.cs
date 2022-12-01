@@ -99,11 +99,11 @@ public class MusicManager : MonoBehaviour
 		EffectPlay(enemyDisappear);
 	}
 
-	// 맛없긴 함, 근데 클릭음 구현하라는게 이거 맞음?
 	// <<22-11-28 장형용 :: 추가>>
+	// <<22-12-01 장형용 :: 오류 뜨지 않도록 수정>>
 	void PlayClickSound()
     {
-		if(Input.GetMouseButtonDown(0) && !isClicked && !CardManager.Inst.is_mouseOnCard)
+		if(Input.GetMouseButtonDown(0) && !isClicked && IsMouseOnCard())
         {
 			EffectPlay(Audio_OnMouseDown);
 			isClicked = true;
@@ -112,7 +112,7 @@ public class MusicManager : MonoBehaviour
 		if(isClicked)
 			times += Time.deltaTime;
 
-		if (times > 0.125f && !Input.GetMouseButton(0) && isClicked && !CardManager.Inst.is_mouseOnCard)
+		if (times > 0.125f && !Input.GetMouseButton(0) && isClicked && IsMouseOnCard())
         {
 			EffectPlay(Audio_OnMouseUp);
 
@@ -120,6 +120,17 @@ public class MusicManager : MonoBehaviour
 			isClicked = false;
 		}
 	}
+
+	// <<22-12-01 장형용 :: 추가>>
+	bool IsMouseOnCard()
+    {
+		if (CardManager.Inst == null)
+			return true;
+		else if (!CardManager.Inst.is_mouseOnCard)
+			return true;
+		else
+			return false;
+    }
 
 	public void PlayBarrierSound()
     {

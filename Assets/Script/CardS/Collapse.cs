@@ -49,15 +49,7 @@ public class Collapse : Card, IAttack
 			TargetAll(() => Attack(_target_enemy), ref _target_enemy);
 		}
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void Attack(Entity _target)

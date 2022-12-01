@@ -30,15 +30,7 @@ public class Barrier : Card, IShield
 
         GainShield();
 
-        #region EndUsingCard
-
-        CardManager.i_usingCardCount--;
-
-        RefreshMyHandsExplain();
-
-        yield return null;
-
-        #endregion
+        yield return StartCoroutine(EndUsingCard());
     }
 
     public void GainShield()

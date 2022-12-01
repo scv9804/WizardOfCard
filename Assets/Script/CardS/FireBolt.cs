@@ -53,13 +53,7 @@ public class FireBolt : Card, IBurning, IAttack
 			TargetAll(() => Attack(_target_enemy), ref _target_enemy);
 		}
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void AddBurning(Entity _target)

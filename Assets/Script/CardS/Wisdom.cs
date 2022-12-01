@@ -40,15 +40,7 @@ public class Wisdom : Card, IManaAffinity_Battle, IManaAffinity_Turn
         GainManaAffinity_Battle();
         GainManaAffinity_Turn();
 
-        #region EndUsingCard
-
-        CardManager.i_usingCardCount--;
-
-        RefreshMyHandsExplain();
-
-        yield return null;
-
-        #endregion
+        yield return StartCoroutine(EndUsingCard());
     }
 
     public void GainManaAffinity_Battle()

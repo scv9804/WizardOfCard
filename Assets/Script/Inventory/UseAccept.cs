@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class UseAccept : MonoBehaviour
 {
-	private Item_inven item;
+	public Item_inven item;
 	private string data;
 	public ItemData itemData;
+	public Inventory inv;
 	[SerializeField]
 	private GameObject useAccept;
 
 	void Start()
 	{
+		inv = GameObject.Find("InventorySystem").GetComponent<Inventory>();
 		useAccept.SetActive(false);
 	}
 
@@ -49,6 +51,6 @@ public class UseAccept : MonoBehaviour
 
 	public void Ybutton()
 	{
-		itemData.ItemUse(item);
+		inv.ItemUse(item);
 	}
 }

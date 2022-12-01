@@ -31,21 +31,13 @@ public class Overload : Card
 		{
 			CardManager.Inst.AddCard();
 
-			yield return new WaitForSeconds(0.15f);
+			yield return new WaitForSeconds(0.1f);
 		}
 
 		//yield return StartCoroutine(Repeat(() => CardManager.Inst.AddCard(), i_damage));
 
 		Player.Debuff_CannotDrawCard = true;
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 }

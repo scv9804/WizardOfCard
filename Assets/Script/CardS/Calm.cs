@@ -39,15 +39,7 @@ public class Calm : Card, IManaAffinity_Battle
 
 		GainManaAffinity_Battle();
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void GainManaAffinity_Battle()

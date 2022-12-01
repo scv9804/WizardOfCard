@@ -76,15 +76,7 @@ public class Concentration : Card, IAttack
 
 		ResetDamage();
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void Attack(Entity _target)

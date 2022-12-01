@@ -46,14 +46,6 @@ public class Recycle : Card
 
         CardManager.Inst.DeckShuffle();
 
-        #region EndUsingCard
-
-        CardManager.i_usingCardCount--;
-
-        RefreshMyHandsExplain();
-
-        yield return null;
-
-        #endregion
+        yield return StartCoroutine(EndUsingCard());
     }
 }
