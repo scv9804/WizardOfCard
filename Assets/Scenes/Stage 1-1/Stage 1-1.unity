@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 64859737}
   - component: {fileID: 64859736}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Refuse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6888,20 +6888,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf1a65bd3afa4a48940f05887566b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  devilStatueSprite: {fileID: 21300000, guid: ba6c26365e0c11c4892ab1d27807b096, type: 3}
+  eventWindow: {fileID: 857690063}
+  StatueSprite: {fileID: 21300000, guid: ba6c26365e0c11c4892ab1d27807b096, type: 3}
   changedSpriteRenderer: {fileID: 1233930412}
   changeObject: {fileID: 1233930410}
-  dialogSystem01: {fileID: 677075416}
-  acceptButton: {fileID: 0}
-  refuseButton: {fileID: 0}
-  explainEvent: "\uC545\uB9C8\uC758 \uC11D\uC0C1\uC5D0\uC11C \uC74C\uC0B0\uD55C \uBAA9\uC18C\uB9AC\uAC00
-    \uC81C\uBB3C\uC744 \uC694\uAD6C\uD588\uB2E4.\n\uC5B4\uB9B0 \uC591\uC758 \uD53C\uAC00
-    \uD544\uC694\uD558\uB2E4\uACE0 \uD558\uB294\uB370... \uC5B4\uB5BB\uAC8C \uD558\uB294\uAC8C
-    \uC88B\uC744\uAE4C?"
-  eventReward: "\uBC1B\uB294 \uBCF4\uC0C1 :\n\uCE74\uB4DC \uB79C\uB364 \uAC15\uD654
-    3\uC7A5"
+  explainEvent: "\uC545\uB9C8\uC758 \uC11D\uC0C1\uC5D0\uC11C \uC74C\uC0B0\uD55C \uAE30\uC6B4\uC774
+    \uBEE9\uC5B4\uC838 \uB098\uC628\uB2E4.\n\uC11D\uC0C1\uC5D0 \uC4F0\uC5EC\uC838
+    \uC788\uB294 \uAE00\uC740 \uC81C\uBB3C\uC744 \uC694\uAD6C\uD55C\uB2E4.\n\uC5B4\uB9B0
+    \uC591\uC758 \uD53C\uAC00 \uD544\uC694\uD558\uB2E4\uACE0 \uD558\uB294\uB370...
+    \uC5B4\uB5BB\uAC8C \uD558\uB294\uAC8C \uC88B\uC744\uAE4C?"
+  eventReward: "\uBC1B\uB294 \uBCF4\uC0C1 :\n\uB79C\uB364 \uCE74\uB4DC  2\uC7A5\n\uCE74\uB974\uB9C8
+    - 1"
   eventPay: "\uC9C0\uBD88 \uB300\uAC00 : \n\uCCB4\uB825 - 7"
-  eventWindow: {fileID: 0}
+  dialogSystem01: {fileID: 677075416}
 --- !u!114 &677075416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8141,7 +8140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &857690064
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8186,7 +8185,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -321357260495746489, guid: 85dce3c71ee7d9b439d8801227a6a7a5, type: 3}
+  m_Sprite: {fileID: 3045806101699791410, guid: 85dce3c71ee7d9b439d8801227a6a7a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8474,6 +8473,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46127215c96a4bb4a8d38053da05a2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventWindow: {fileID: 0}
+  StatueSprite: {fileID: 0}
+  changedSpriteRenderer: {fileID: 0}
+  changeObject: {fileID: 0}
+  explainEvent: 
+  eventReward: 
+  eventPay: 
   dialogList:
   - {fileID: 863816444}
   - {fileID: 863816445}
@@ -11690,6 +11696,135 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119435257}
   m_CullTransparentMesh: 1
+--- !u!1 &1120675561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1120675562}
+  - component: {fileID: 1120675564}
+  - component: {fileID: 1120675563}
+  m_Layer: 0
+  m_Name: Engle_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1120675562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120675561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1900152069}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1120675563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120675561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb1dcc541deb2140973f2b48af7f6db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakers:
+  - backGround: {fileID: 1032628498}
+    highlight: {fileID: 0}
+    spriteRenderer: {fileID: 1758136228}
+    imageDialog: {fileID: 1776289216}
+    textName: {fileID: 1934136426}
+    textDialogue: {fileID: 1417348714}
+    objectArrow: {fileID: 476230647}
+  - backGround: {fileID: 1032628498}
+    highlight: {fileID: 0}
+    spriteRenderer: {fileID: 1758136228}
+    imageDialog: {fileID: 1776289216}
+    textName: {fileID: 1934136426}
+    textDialogue: {fileID: 1417348714}
+    objectArrow: {fileID: 476230647}
+  - backGround: {fileID: 1032628498}
+    highlight: {fileID: 0}
+    spriteRenderer: {fileID: 1758136228}
+    imageDialog: {fileID: 1776289216}
+    textName: {fileID: 1934136426}
+    textDialogue: {fileID: 1417348714}
+    objectArrow: {fileID: 476230647}
+  - backGround: {fileID: 1032628498}
+    highlight: {fileID: 0}
+    spriteRenderer: {fileID: 1758136228}
+    imageDialog: {fileID: 1776289216}
+    textName: {fileID: 1934136426}
+    textDialogue: {fileID: 1417348714}
+    objectArrow: {fileID: 476230647}
+  - backGround: {fileID: 1032628498}
+    highlight: {fileID: 0}
+    spriteRenderer: {fileID: 1207373329}
+    imageDialog: {fileID: 1776289216}
+    textName: {fileID: 1934136426}
+    textDialogue: {fileID: 1417348714}
+    objectArrow: {fileID: 476230647}
+  dialogs:
+  - highlight: {fileID: 0}
+    Character: {fileID: 1564355491601752166, guid: 7d78df41d389d994d9ad4025435bac61, type: 3}
+    speakerIndex: 0
+    name: "\uC11D\uC0C1"
+    dialogue: "\uB208 \uC55E\uC5D0 \uAC70\uB300\uD55C \uC11D\uC0C1\uC774 \uB098\uD0C0\uB0AC\uB2E4."
+  - highlight: {fileID: 0}
+    Character: {fileID: 1564355491601752166, guid: 7d78df41d389d994d9ad4025435bac61, type: 3}
+    speakerIndex: 1
+    name: "\uC11D\uC0C1"
+    dialogue: "\uC8FC\uBCC0\uC774 \uC2A4\uC0B0\uD55C \uAE30\uC6B4\uC774 \uB9F4\uB3C8\uB2E4."
+  - highlight: {fileID: 0}
+    Character: {fileID: 1564355491601752166, guid: 7d78df41d389d994d9ad4025435bac61, type: 3}
+    speakerIndex: 2
+    name: "\uC11D\uC0C1"
+    dialogue: "\uC11D\uC0C1\uC5D0 \uAE00\uC774 \uC4F0\uC5EC\uC788\uB2E4."
+  - highlight: {fileID: 0}
+    Character: {fileID: 1564355491601752166, guid: 7d78df41d389d994d9ad4025435bac61, type: 3}
+    speakerIndex: 3
+    name: "\uC11D\uC0C1"
+    dialogue: "\"\uC5B4\uB9B0\uC591\uC758 \uD53C\uC640 \uC7AC\uBB3C\uC744 \uBC14\uCCD0\uB77C.\""
+  - highlight: {fileID: 0}
+    Character: {fileID: -3431627570496334211, guid: 43a0489cb58f4c94ba4a9d94146c33ee, type: 3}
+    speakerIndex: 4
+    name: "\uD50C\uB808\uC774\uC5B4 \uC774\uB984"
+    dialogue: "\uC5B4\uB5A1\uD574\uC57C \uD560\uAE4C?"
+  isAutoStart: 1
+--- !u!114 &1120675564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120675561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae26827caddc7a945ba164003786a8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventWindow: {fileID: 857690063}
+  StatueSprite: {fileID: 21300000, guid: 3151eb2134d33414181e07c42fb14e86, type: 3}
+  changedSpriteRenderer: {fileID: 1233930412}
+  changeObject: {fileID: 1233930410}
+  explainEvent: "\uB2EC\uCF64\uD55C \uD5A5\uAE30\uC5D0 \uBA38\uB9AC\uAC00 \uC544\uD30C\uC628\uB2E4.\n\uB208\uC55E\uC758
+    \uCC9C\uC0AC\uC11D\uC0C1\uC5D0 \uAE00\uC774 \uC4F0\uC5EC\uC838 \uC788\uB2E4.\n\uAE38\uC783\uC740
+    \uC5B4\uB9B0\uC591\uC5D0\uAC8C \uC8FC\uB294 \uC120\uBB3C\uC774\uB77C\uACE0 \uD55C\uB2E4."
+  eventReward: "\uBC1B\uB294 \uBCF4\uC0C1 :\n\uCD5C\uB300 \uCCB4\uB825 + 3"
+  eventPay: "\uC9C0\uBD88 \uB300\uAC00 : "
+  dialogSystem01: {fileID: 0}
 --- !u!1 &1150052632
 GameObject:
   m_ObjectHideFlags: 0
@@ -12516,7 +12651,7 @@ GameObject:
   - component: {fileID: 1238622864}
   - component: {fileID: 1238622863}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Accept
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12635,7 +12770,7 @@ GameObject:
   - component: {fileID: 1253300147}
   - component: {fileID: 1253300146}
   m_Layer: 5
-  m_Name: EventPay (1)
+  m_Name: RewardPay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13335,7 +13470,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -1.7668457, w: 0}
+  m_margin: {x: 15.604492, y: 9.930115, z: 12.418945, w: 11.348694}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -18184,6 +18319,7 @@ Transform:
   m_Children:
   - {fileID: 863816443}
   - {fileID: 677075414}
+  - {fileID: 1120675562}
   - {fileID: 1958462353}
   m_Father: {fileID: 0}
   m_RootOrder: 22
@@ -19128,7 +19264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1900152069}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1958462354
 MonoBehaviour:
@@ -19159,6 +19295,7 @@ MonoBehaviour:
   - "\uC694\uC998 \uBAAC\uC2A4\uD130\uB4E4\uC774 \uC0AC\uB0A9\uB124\uC694..."
   - "\uD749\uD749\uD55C \uC138\uC0C1\uC774\uC5D0\uC694!"
   - "\uBB3C\uAC74 \uD55C\uBC88 \uBCF4\uACE0 \uAC00\uC138\uC694!"
+  allItemData: {fileID: 0}
   cardSpawnParent: {fileID: 917543584}
   itemSapwnParents:
   - {fileID: 1165647929}
@@ -20759,7 +20896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f288b11a4078a5040b0f6657b4b4e36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRooms: 25
+  numberOfRooms: 5
   create: 0
   i_Room_L: 0
   i_Room_R: 0

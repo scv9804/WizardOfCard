@@ -530,7 +530,7 @@ public class PlayerEntity : MonoBehaviour
         playerChar = _playerChar;
         i_health = _playerChar.i_health;
         maxHealth = i_health;
-        money = 200;
+        money = 0;
 		if (i_shield == 0)
         {
             ShieldTMP.gameObject.SetActive(false);

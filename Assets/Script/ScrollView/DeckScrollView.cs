@@ -71,13 +71,12 @@ public class DeckScrollView : MonoBehaviour
 
         foreach (var item in CardManager.Inst.myDeck)
 		{
-            Debug.Log(111);
             var newUI = Instantiate(uiPrefab, scrollRect.content);
             var cardinfo = newUI.AddComponent<Card>();
             cardinfo = item;
 
-            newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();
-            newUI.transform.GetChild(1).GetComponent<TMP_Text>().text = cardinfo.st_cardName;
+            newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.st_cardName;
+            newUI.transform.GetChild(1).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();        
             newUI.transform.GetChild(2).GetComponent<TMP_Text>().text = cardinfo.GetCardExplain();
 
             cardinfo.is_UI_Card = true;

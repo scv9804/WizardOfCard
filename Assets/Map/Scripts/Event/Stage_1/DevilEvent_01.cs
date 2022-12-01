@@ -2,42 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class DevilEvent_01 : RoomEventListScript
 {
-	[SerializeField] Sprite devilStatueSprite;
-	[SerializeField] SpriteRenderer changedSpriteRenderer;
-	[SerializeField] GameObject changeObject;
-	[SerializeField] DialogSystem dialogSystem01;
-	[SerializeField] Button acceptButton;
-	[SerializeField] Button refuseButton;
-
-	[Header("이벤트 설명")]
-	[SerializeField,TextArea] string explainEvent;
-	[SerializeField,TextArea] string eventReward;
-	[SerializeField,TextArea] string eventPay;
-
-	[Header("이벤트 창")]
-	[SerializeField] GameObject eventWindow;
+	[Header("대화문")]
+	[SerializeField] protected DialogSystem dialogSystem01;
 
 	public override GameObject Event()
 	{
-		SpawnDevilstatue();
+		SpawnStatue();
 		StartCoroutine(Diaglog());
-		//acceptButton.onClick.AddListener(Devile_Event);
 		return changeObject;
-	}
-
-	public override void ExitRoom()
-	{
-		changeObject.SetActive(false);
-	}
-
-
-	void Devile_Event()
-	{		
-		EntityManager.Inst.playerEntity.karma += 1;	
-		acceptButton.onClick.RemoveListener(Devile_Event);
 	}
 
 	IEnumerator Diaglog()
@@ -46,12 +21,33 @@ public class DevilEvent_01 : RoomEventListScript
 
 		yield return new WaitUntil(() => dialogSystem01.UpdateDialog());
 
-		eventWindow.SetActive(true);	
+		
+		setEventWindow();
+		SetButton();
 	}
 
-	public void SpawnDevilstatue()
+	public void SetButton()
 	{
-		changedSpriteRenderer.sprite = devilStatueSprite;
-		changeObject.SetActive(true);		
+		refuseButton.onClick.RemoveAllListeners();
+		acceptButton.onClick.RemoveAllListeners();
+
+		refuseButton.onClick.AddListener(()=> eventWindow.SetActive(false));
+		acceptButton.onClick.AddListener(()=> AddReward());
 	}
+	
+	public void AddReward()
+	{
+		EntityManager.Inst.playerEntity.Status_Health -= 7;
+		EntityManager.Inst.playerEntity.karma -= 1;
+
+		for (int i = 0; i < 2; i ++)
+		{
+			int rand = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
+			CardManager.Inst.AddSelectCard_Deck(CardManager.Inst.itemSO.items[rand].card);
+		}
+		
+		eventWindow.SetActive(false);
+	}
+
+
 }
