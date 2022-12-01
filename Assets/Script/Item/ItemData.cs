@@ -8,7 +8,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	public Item_inven item;
 	public int id;
 	public int slotId;
-	private int targetEquipSlot;
+	//private int targetEquipSlot;
 
 	private Inventory inv;
 	private Tooltip tooltip;
@@ -33,12 +33,14 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		if (item != null && item.Equipable == false && item.OwnPlayer) //장비가 아닐시 == 소모품일시
         {
 			useAccept.itemData = this;
+			inv.itemdata = this;
 			useAccept.Activate(item);
 			tooltip.Deactivate();
 		}
 		else if(item != null && item.Equipable == true && item.OwnPlayer)
         {
 			useAccept.itemData = this;
+			inv.itemdata = this;
 			useAccept.Activate(item);
 			tooltip.Deactivate();
 		}
@@ -80,139 +82,5 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	{
 		tooltip.Deactivate();
 	}
-	public void ItemUse(Item_inven item)
-	{
-		if (item != null && !item.Equipable && item.OwnPlayer)
-		{
-			if(this.slotId < 10)
-            {
-				SetQuickSlot();
-				useAccept.Deactivate();
-			}
-			else if(this.slotId >= 15)
-            {
-				HealItemUsed();
-				useAccept.Deactivate();
-			}
-		}
-		else if (item != null && item.Equipable && this.slotId < 10 && item.OwnPlayer)
-		{
-			EquipItem();
-			useAccept.Deactivate();
-		}
-		else if (item != null && item.Equipable && this.slotId >= 10 && item.OwnPlayer)
-		{
-			UnequipItem();
-			useAccept.Deactivate();
-		}
-	}
-	public void SetQuickSlot()
-    {
-		Item_inven QuickitemAdd = item;
-		for (int i = 0; i < 3; i++)
-		{
-			if (inv.quickitems[i].Id == -1)
-			{
-				this.transform.SetParent(inv.quickslots[i].transform);
-				inv.quickitems[i] = item;
-				this.transform.localPosition = Vector2.zero;
-				inv.items[slotId] = new Item_inven();
-				useAccept.Deactivate();
-				this.slotId = inv.quickslots[i].GetComponent<Slot_q>().id;
-
-				GameObject itemObj = Instantiate(inv.inventoryItem);
-				itemObj.GetComponent<ItemData>().item = QuickitemAdd;
-				itemObj.GetComponent<ItemData>().item.OwnPlayer = true;
-				itemObj.GetComponent<ItemData>().slotId = i+100;
-				itemObj.transform.SetParent(inv.quickslotsUI[i].transform);
-				itemObj.transform.localPosition = Vector2.zero;
-				itemObj.GetComponent<Image>().sprite = QuickitemAdd.Sprite;
-				inv.quickitemsUI[i] = QuickitemAdd;
-				break;
-			}
-
-		}
-	}
-	public void HealItemUsed()
-    {
-		PlayerEntity.Inst.Status_Health += item.Value;
-
-		if (PlayerEntity.Inst.Status_Health > PlayerEntity.Inst.Status_MaxHealth)
-		{
-			PlayerEntity.Inst.Status_Health = PlayerEntity.Inst.Status_MaxHealth;
-		}
-        if (slotId < 100)
-        {
-			Destroy(inv.QuickUIPanel.transform.GetChild(slotId-12).transform.GetChild(0).GetChild(0).gameObject);
-			inv.quickitems[slotId - 15] = new Item_inven();
-			inv.quickitemsUI[slotId - 15] = new Item_inven();
-		}
-		else if (slotId >= 100)
-        {
-			Destroy(inv.equipslotPanel.transform.GetChild(slotId - 95).transform.GetChild(0).GetChild(0).gameObject);
-			inv.quickitems[slotId - 100] = new Item_inven();
-			inv.quickitemsUI[slotId - 100] = new Item_inven();
-		}
-		Destroy(gameObject);
-		useAccept.Deactivate();
-	}
-	public void EquipItem()
-    {
-		Debug.Log(item.Id);
-		switch(item.Type){
-			case "Weapon":
-				Debug.Log("무기 장착");
-				targetEquipSlot = 0;
-				Debug.Log(inv.equipitems[0].Id);
-				break;
-			case "Ear":
-				Debug.Log("귀걸이 장착");
-				targetEquipSlot = 1;
-				break;
-			case "Hat":
-				Debug.Log("머리 장착");
-				targetEquipSlot = 2;
-				break;
-			case "Suit":
-				Debug.Log("옷 장착");
-				targetEquipSlot = 3;
-				break;
-			case "Ring":
-				Debug.Log("반지 장착");
-				targetEquipSlot = 4;
-				break;
-		}
-		if(inv.equipitems[targetEquipSlot].Id != -1)
-        {
-			Debug.Log("이미 있는데용");
-			Transform equipeditem = inv.equipslots[targetEquipSlot].transform.GetChild(0);
-			equipeditem.GetComponent<ItemData>().slotId = this.slotId;
-			equipeditem.transform.SetParent(inv.slots[this.slotId].transform);
-			equipeditem.transform.position = inv.slots[this.slotId].transform.position;
-			//inv.equipitems[targetEquipSlot] = item;
-		}
-		this.transform.SetParent(inv.equipslots[targetEquipSlot].transform);
-		inv.equipitems[targetEquipSlot] = item;
-		this.transform.localPosition = Vector2.zero;
-		inv.items[slotId] = new Item_inven();
-		useAccept.Deactivate();
-		this.slotId = inv.equipslots[targetEquipSlot].GetComponent<Slot_q>().id;
-	}
-	public void UnequipItem()
-    {
-		inv.equipitems[this.slotId-10] = new Item_inven();
-		for (int i = 0; i < inv.items.Count; i++)
-        {
-			if (inv.items[i].Id == -1)
-            {
-				Debug.Log(i);
-				this.transform.SetParent(inv.slots[i].transform);
-				this.transform.position = inv.slots[i].transform.position;
-				inv.items[i] = item;
-				this.slotId = i;
-				break;
-			}
-		}
-		useAccept.Deactivate();
-	}
+	
 }
