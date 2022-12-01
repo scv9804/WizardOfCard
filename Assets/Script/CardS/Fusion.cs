@@ -44,15 +44,7 @@ public class Fusion : Card, IBurning
 		if(i_upgraded == 2)
 			CardManager.Inst.AddCard();
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void AddBurning(Entity _target)

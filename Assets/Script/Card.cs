@@ -16,11 +16,6 @@ public class Card : MonoBehaviour
 	[Header("카드 원본 데이터")]
 	[Tooltip("카드 원본 데이터베이스"), SerializeField] ItemSO itemSO;
 
-	[Header("카드 인터페이스")] 
-	[SerializeField] TMP_Text nameTMP;
-	[SerializeField] TMP_Text manaCostTMP;
-	[SerializeField] protected TMP_Text explainTMP;
-
 	[Header("카드 이펙트 스프라이트")]
 	[Tooltip("피격 이펙트")] public Sprite enemyDamageSprite;
 	[Tooltip("공격 이펙트")] public Sprite playerAttackSprite;
@@ -33,16 +28,26 @@ public class Card : MonoBehaviour
 	[Header("카드 강화 횟수")]
 	[Range(0, 2), SerializeField] int upgraded;
 
-    [Header("카드 기본 가변 데이터")]
-    [Tooltip("카드 비용"), SerializeField] int[] cost = new int[3];
-	// <<22-11-24 장형용 :: 삭제>>
-	//[Tooltip("카드 데미지 및 효과 수치"), SerializeField] int[] attack = new int[3];
+    [Header("카드 기본 가변 데이터")] 
+	[Tooltip("카드 프레임 이미지")] public Sprite[] cardImage;
+	[Tooltip("카드 아이콘 이미지")] public Sprite[] cardIconImage;
+
+	[Space(10)]
+	[Tooltip("카드 비용"), SerializeField] int[] cost = new int[3];
+	//int[] attack; // <<22-11-24 장형용 :: 삭제>>
 	[Tooltip("카드 망각 여부"), SerializeField] bool[] isExile = new bool[3];
 	[Tooltip("카드 분류")] public CardType[] cardType = new CardType[3];
 	[Tooltip("카드 대상 범위"), SerializeField] AttackRange[] AR_attackRange = new AttackRange[3];
-	[Tooltip("카드 설명"), TextArea(3, 5)]public string[] explainCard = new string[3]; // 잠시 필요해서 퍼블릭으로 바꿈 메서드추가할까 했는데 일단 그대로둠
+	[Tooltip("카드 설명"), TextArea(3, 5)] public string[] explainCard = new string[3]; // 잠시 필요해서 퍼블릭으로 바꿈 메서드 추가할까 했는데 일단 그대로둠
 
-	//SpriteRenderer sp_card; // 현재 미사용
+	// 카드 인터페이스
+	// <<22-12-01 장형용 :: 동적 할당 추가 후 일괄적으로 보호 레벨 private로 변경>>
+	TMP_Text nameTMP;
+	TMP_Text manaCostTMP;
+	TMP_Text explainTMP;
+
+	SpriteRenderer sr_card;
+	SpriteRenderer sr_cardIcon;
 
 	[HideInInspector] public Pos_Rot_Scale originPRS;
 
@@ -55,15 +60,21 @@ public class Card : MonoBehaviour
 
     // <<22-10-27 장형용 :: 추가>>
     protected int i_enhanceValue_inst = 0;
-    // <<22-11-09 장형용 :: 제거>>
-    //protected int i_magicAffinity_turn_inst = 0;
-    //protected int i_magicAffinity_battle_inst = 0;
-    //protected int i_magicAffinity_permanent_inst = 0;
-    //protected int T_magicResistance_inst = 0;
+	// <<22-11-09 장형용 :: 제거>>
+	//protected int i_magicAffinity_turn_inst = 0;
+	//protected int i_magicAffinity_battle_inst = 0;
+	//protected int i_magicAffinity_permanent_inst = 0;
+	//protected int T_magicResistance_inst = 0;
 
-    #region Job System
+	#region OnlyUnityEditor[protected bool isUsing]
+#if UNITY_EDITOR
+	protected bool isUsing = false;
+#endif
+	#endregion
 
-    MagicAffinityJob myMagicAffinityJob = new MagicAffinityJob();
+	#region Job System
+
+	MagicAffinityJob myMagicAffinityJob = new MagicAffinityJob();
     MagicResistanceJob myMagicResistanceJob = new MagicResistanceJob();
     EnhanceValueJob myEnhanceValueJob = new EnhanceValueJob();
 
@@ -77,7 +88,7 @@ public class Card : MonoBehaviour
     {
 		get { return upgraded; }
 
-		set { upgraded = value; }
+		set { if(value < -1 || value > 3) upgraded = value; }
 	}
 
 	public CardType CardType
@@ -112,23 +123,22 @@ public class Card : MonoBehaviour
 	}
 
 	//// <<22-11-24 장형용 :: 삭제>>
-	//protected int i_damage
-	//{
-	//	get
-	//	{
-	//		return attack[i_upgraded];
-	//	}
+	//protected int i_damage	
 
-	//	// 열어둠
-	//	set
-	//	{
- //           attack[i_upgraded] = value;
- //       }
- //   }
+	// <<22-12-01 장형용 :: 추가>>
+	public Sprite CardImage
+	{
+		get { return cardImage[i_upgraded]; }
+	}
+
+	public Sprite CardIconImage
+	{
+		get { return cardIconImage[i_upgraded]; }
+	}
 
 	#endregion
 
-	// 코드 치기 귀찮아서 단축용 프로퍼티 만듬
+	// 코드 치기 귀찮아서 만든 코드 단축용 프로퍼티
 	#region Code Shortening
 
 	//Card
@@ -167,21 +177,23 @@ public class Card : MonoBehaviour
 		get { return CardManager.Inst.myCemetery; }
 	}
 
-	protected Action RefreshMyHandsExplain
-    {
-		get { return CardManager.Inst.RefreshMyHands; }
-	}
-
 	#endregion
 
 	protected virtual void Awake()
 	{
-		//sp_card = GetComponent<SpriteRenderer>(); // 이거 스크립트 상에서 색 안 바뀌는데?
-
-		try 
+		try
 		{
+			// <<22-12-01 장형용 :: 에라 모르겠다 동적할당 ON>>
+			nameTMP = transform.GetChild(0).GetComponent<TMP_Text>();
+			manaCostTMP = transform.GetChild(2).GetComponent<TMP_Text>();
+			explainTMP = transform.GetChild(3).GetComponent<TMP_Text>();
+
+			sr_card = GetComponent<SpriteRenderer>();
+			sr_cardIcon = transform.GetChild(4).GetComponent<SpriteRenderer>();
+
 			Setup();
 			RefreshCardUI();
+
 			is_UI_Card = false;
 		}
 		catch
@@ -193,6 +205,16 @@ public class Card : MonoBehaviour
 	protected virtual void Start() { }
 
 	protected virtual void OnDisable() { }
+
+	#region OnlyUnityEditor[void Update()]
+#if UNITY_EDITOR
+	void Update()
+	{
+		if (!isUsing)
+			RefreshCardUI();
+	}
+#endif
+	#endregion
 
 	// <<22-11-09 장형용 :: 추가>>
 	public virtual void Setup()
@@ -212,6 +234,7 @@ public class Card : MonoBehaviour
 		manaCostTMP.text = i_manaCost.ToString();
 		CardExplainRefresh();
 		CardNameRefresh();
+		CardImageRefresh();
 	}
 
 	// <<22-11-24 장형용 :: 함수 분리로 삭제>>
@@ -278,6 +301,11 @@ public class Card : MonoBehaviour
 		}
 
 		return sb.ToString();
+	}
+	public void CardImageRefresh()
+	{
+		sr_card.sprite = CardImage;
+		sr_cardIcon.sprite = CardIconImage;
 	}
 
 	#endregion
@@ -399,6 +427,12 @@ public class Card : MonoBehaviour
 	{
 		Player.Status_Aether -= i_manaCost;
 
+		#region OnlyUnityEditor[isUsing = true]
+#if UNITY_EDITOR
+		isUsing = true;
+#endif
+		#endregion
+
 		CardManager.i_usingCardCount++;
 
 		Utility.onCardUsed?.Invoke(this);
@@ -421,7 +455,7 @@ public class Card : MonoBehaviour
 			myMethodName();
 
 			// DoTween 대기시간(1.05f) 인지하면서 작업할 것
-			yield return new WaitForSeconds( FindMin( 1.0f / (float)_count));
+			yield return new WaitForSeconds( FindMin( 1.0f / _count));
 		}
 
 		yield return null;
@@ -439,28 +473,35 @@ public class Card : MonoBehaviour
 	// <<22-10-26 장형용 :: 추가>>
 	protected void TargetAll(Action myMethodName, ref Entity _target)
 	{
-		for (int i = 0; i < EntityManager.Inst.enemyEntities.Count; i++)
+		for (int i = 0; i < Enemies.Count; i++)
 		{
-			_target = EntityManager.Inst.enemyEntities[i];
+			_target = Enemies[i];
 
             if (!_target.is_die)
 				myMethodName();
 		}
 	}
 
-	// <<22-11-24 장형용 :: 삭제(예정)>>
 	protected IEnumerator EndUsingCard()
 	{
 		CardManager.i_usingCardCount--;
 
+		CardManager.Inst.RefreshMyHands();
+
+		#region OnlyUnityEditor[isUsing = false]
+#if UNITY_EDITOR
+		isUsing = false;
+#endif
+		#endregion
+
 		yield return null;
-    }
+	}
 
-    #endregion
+	#endregion
 
-    #region 이벤트트리거
+	#region 이벤트트리거
 
-    private void OnMouseOver()
+	private void OnMouseOver()
     {
         if (is_Useable_Card && !is_UI_Card)
 		{

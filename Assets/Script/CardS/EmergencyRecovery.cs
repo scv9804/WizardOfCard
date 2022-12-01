@@ -33,15 +33,7 @@ public class EmergencyRecovery : Card, IRestoreHealth
         if(i_upgraded == 2)
             CardManager.Inst.AddCard();
 
-        #region EndUsingCard
-
-        CardManager.i_usingCardCount--;
-
-        RefreshMyHandsExplain();
-
-        yield return null;
-
-        #endregion
+        yield return StartCoroutine(EndUsingCard());
     }
 
     public void RestoreHealth()

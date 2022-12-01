@@ -8141,7 +8141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &857690064
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19159,6 +19159,7 @@ MonoBehaviour:
   - "\uC694\uC998 \uBAAC\uC2A4\uD130\uB4E4\uC774 \uC0AC\uB0A9\uB124\uC694..."
   - "\uD749\uD749\uD55C \uC138\uC0C1\uC774\uC5D0\uC694!"
   - "\uBB3C\uAC74 \uD55C\uBC88 \uBCF4\uACE0 \uAC00\uC138\uC694!"
+  allItemData: {fileID: 0}
   cardSpawnParent: {fileID: 917543584}
   itemSapwnParents:
   - {fileID: 1165647929}

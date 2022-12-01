@@ -50,15 +50,7 @@ public class ManaReduction : Card, IRestoreAether
 			CardManager.Inst.RefreshMyHands();
 		}
 
-		#region EndUsingCard
-
-		CardManager.i_usingCardCount--;
-
-		RefreshMyHandsExplain();
-
-		yield return null;
-
-		#endregion
+		yield return StartCoroutine(EndUsingCard());
 	}
 
 	public void RestoreAether()
