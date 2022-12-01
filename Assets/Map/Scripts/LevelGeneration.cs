@@ -46,6 +46,10 @@ public class LevelGeneration : MonoBehaviour {
 	[SerializeField]RoomEventListScript[] eventRoomScript;
 	[SerializeField]RoomEventListScript tutorialRoomScript;
 
+	int eventNumber;
+	bool eventOn;
+	bool shopOn;
+
 	#endregion
 
 	private void Start()
@@ -90,6 +94,8 @@ public class LevelGeneration : MonoBehaviour {
 
 		}
 
+		eventOn = false;
+		shopOn = false;
 
 		UIManager.Inst.ButtonActivate();
 	}
@@ -700,9 +706,17 @@ public class LevelGeneration : MonoBehaviour {
 
 	void SerchRoomEvent(int _x, int _y)
 	{
-		if (mustDisableObject != null)
-			mustDisableObject.SetActive(false);
-		// 순서상 어쩔수 없음
+		if (eventOn)
+		{
+			eventRoomScript[eventNumber].ExitRoom();
+			eventOn = false;
+		}
+		
+		if(shopOn)
+		{
+			shopRoomScript.ExitShop();
+			shopOn = false;
+		}
 
 		if (rooms[inPosX + _x, inPosY + _y].Checked != true)
 		{
@@ -718,18 +732,21 @@ public class LevelGeneration : MonoBehaviour {
 				case 2:
 					shopRoomScript.EnterShop();
 					Debug.Log("상점이벤트");
+					shopOn = true;
 					break;
 				case 3:
 					Debug.Log("그냥 이벤트");
 					mustDisableObject = eventRoomScript[0].Event();
+					eventOn = true;
+					eventNumber = 0;
 					break;
 			}
-
 		}
-		else if(rooms[inPosX + _x, inPosY + _y].RoomEventType == 2)
+		else if (rooms[inPosX + _x, inPosY + _y].RoomEventType == 2)
 		{
-			// 상점 구현
-
+			shopRoomScript.EnterShop();
+			Debug.Log("상점이벤트");
+			shopOn = true;
 		}
 
 

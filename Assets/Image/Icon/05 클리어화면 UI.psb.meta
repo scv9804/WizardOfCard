@@ -113,28 +113,6 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -571, y: -613}
-  - name: "\uC0AC\uAC01\uD615 16 \uBCF5\uC0AC 7"
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 1866
-      y: 230
-      width: 123
-      height: 51
-    spriteID: 6e184205e4c46d64cb655eb221f65840
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 543, y: -1145}
   - name: "\uD655\uC778 \uBCF5\uC0AC"
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -751,6 +729,28 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 2, y: -1391}
+  - name: "\uC0AC\uAC01\uD615 16 \uBCF5\uC0AC 7"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1866
+      y: 230
+      width: 123
+      height: 51
+    spriteID: 9f6db189e12d9654496b497d2e7cd802
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 543, y: -1145}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
@@ -781,7 +781,7 @@ ScriptedImporter:
     spriteName: "\uC0AC\uAC01\uD615 16 \uBCF5\uC0AC 7"
     isGroup: 0
     parentIndex: -1
-    spriteID: 6e184205e4c46d64cb655eb221f65840
+    spriteID: 9f6db189e12d9654496b497d2e7cd802
     layerID: 62
     mosaicPosition: {x: 1866, y: 230}
   - name: "\uD655\uC778 \uBCF5\uC0AC"

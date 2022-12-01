@@ -59,6 +59,11 @@ public class RewardManager : MonoBehaviour
 				itemList.Add(database.database[_pattern.Reward_item[i]]);
 			}
 		}
+		else
+		{
+			int randitem = UnityEngine.Random.Range(0, database.notEquiDataBase.Count);
+			itemList.Add(database.notEquiDataBase[randitem]);
+		}
 
 		// µ·¼³Á¤
 		if (!_pattern.MoneyRandom)

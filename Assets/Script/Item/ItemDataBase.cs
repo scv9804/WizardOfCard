@@ -9,6 +9,8 @@ public class ItemDataBase : MonoBehaviour
 {
 
 	public List<Item_inven> database = new List<Item_inven>();
+	public List<Item_inven> notEquiDataBase = new List<Item_inven>();
+	public List<Item_inven> equiDataBase = new List<Item_inven>();
 	private JsonData itemData;
 
 	void Awake()
@@ -47,6 +49,15 @@ public class ItemDataBase : MonoBehaviour
 			newItem.Price = (int)itemData[i]["price"];
 			newItem.Slug = itemData[i]["slug"].ToString();
 			newItem.Sprite = Resources.Load<Sprite>("ItemImages/" + newItem.Slug);
+
+			if (newItem.Equipable && newItem.Price != 0)
+			{
+				equiDataBase.Add(newItem);
+			}
+			else if(!newItem.Equipable && newItem.Price != 0)
+			{
+				notEquiDataBase.Add(newItem);
+			}
 
 			database.Add(newItem);
 		}

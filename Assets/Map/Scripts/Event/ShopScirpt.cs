@@ -26,6 +26,8 @@ public class ShopScirpt : MonoBehaviour
 	[SerializeField] TMP_Text ManaPriceTMP;
 	[SerializeField] string[] ShopOwnerspeechArray;
 
+	[SerializeField] ItemDataBase allItemData;
+
 	[Header("아이템 관련")]
 	[SerializeField] GameObject cardSpawnParent;
 	[SerializeField] GameObject[] itemSapwnParents;
@@ -56,10 +58,8 @@ public class ShopScirpt : MonoBehaviour
 		shopExitButton.onClick.AddListener(CloseShop);
 		ManaUpPurchaseButton.onClick.AddListener(ManaLevelUp);
 		OriginSize = speechBubble.transform.localScale;
-		SetShop(2);
 		SetManaLevelUp();
 	}
-
 
 	public void EnterShop()
 	{
@@ -75,15 +75,21 @@ public class ShopScirpt : MonoBehaviour
 		shopOwner.SetActive(true);
 		CardManager.Inst.SetCardStateCannot();
 		StartCoroutine(Repeat());
-		SetShop(1);
+
+		SetShop();
 	}
 
 	public void ExitShop()
 	{
 		foreach (var item in shopAllObject)
 		{
-			item.SetActive(true);
+			item.SetActive(false);
 		}
+		for (int i = 0; i < priceTMP.Length; i++)
+		{
+			priceTMP[i].gameObject.SetActive(false);
+		}
+		shopOwner.SetActive(false);
 		CardManager.Inst.SetCardStateBack();
 	}
 
@@ -131,7 +137,7 @@ public class ShopScirpt : MonoBehaviour
 		yield return new WaitForSeconds(5f);
 	}
 
-	void SetShop(int id)
+	void SetShop()
 	{
 		if (!isSettingOver)
 		{
@@ -150,23 +156,47 @@ public class ShopScirpt : MonoBehaviour
 			}
 
 			
-			//아이템 세팅
-			Item_inven itemToAdd = database.FetchItemById(id);
+			//랜덤 아이템 세팅
 			for (int i = 0; i < 3; i++)
 			{
 				int temp = i;
-				GameObject itemObj = Instantiate(itemPrefab);
-				itemObj.GetComponent<ItemData>().item = itemToAdd;
-				itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
-				itemObj.transform.SetParent(itemSapwnParents[i].transform);
-				itemObj.transform.localPosition = Vector2.zero;
-				itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-				itemObj.name = "Item: " + itemToAdd.Title;
-				itemObj.transform.localScale *= 3;
-				itemObj.AddComponent<Button>();
-				itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(temp));
-				solditems.Add(itemObj);
-				priceTMP[i].text = itemToAdd.Price.ToString();
+				if (i < 2)
+				{
+					int rand = UnityEngine.Random.Range(0, database.notEquiDataBase.Count);
+					Item_inven itemToAdd = database.FetchItemById(database.notEquiDataBase[rand].Id);
+
+					GameObject itemObj = Instantiate(itemPrefab);
+					itemObj.GetComponent<ItemData>().item = itemToAdd;
+					itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
+					itemObj.transform.SetParent(itemSapwnParents[i].transform);
+					itemObj.transform.localPosition = Vector2.zero;
+					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+					itemObj.name = "Item: " + itemToAdd.Title;
+					itemObj.transform.localScale *= 3;
+					itemObj.AddComponent<Button>();
+					itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(itemToAdd, temp));
+					solditems.Add(itemObj);
+					priceTMP[i].text = itemToAdd.Price.ToString();
+				}
+				else
+				{
+					int rand = UnityEngine.Random.Range(0, database.equiDataBase.Count);
+					Item_inven itemToAdd = database.FetchItemById(database.equiDataBase[rand].Id);
+
+					GameObject itemObj = Instantiate(itemPrefab);
+					itemObj.GetComponent<ItemData>().item = itemToAdd;
+					itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
+					itemObj.transform.SetParent(itemSapwnParents[i].transform);
+					itemObj.transform.localPosition = Vector2.zero;
+					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+					itemObj.name = "Item: " + itemToAdd.Title;
+					itemObj.transform.localScale *= 3;
+					itemObj.AddComponent<Button>();
+					itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(itemToAdd, temp));
+					solditems.Add(itemObj);
+					priceTMP[i].text = itemToAdd.Price.ToString();
+				}
+
 			}
 			isSettingOver = true;
 		}
@@ -184,13 +214,13 @@ public class ShopScirpt : MonoBehaviour
 		}
 	}
 
-	void SetBuyItem(int i)
+	void SetBuyItem(Item_inven item, int i)
 	{
-		if (int.Parse(priceTMP[i].text) <= EntityManager.Inst.playerEntity.money)
+		if (item.Price <= EntityManager.Inst.playerEntity.money)
 		{
-			EntityManager.Inst.playerEntity.money -= int.Parse(priceTMP[i].text);
+			EntityManager.Inst.playerEntity.money -= item.Price;
 			UIManager.Inst.PlayerMoneyUIRefresh();
-			Inventory.inst.AddItem(solditems[i].GetComponent<ItemData>().id);
+			Inventory.inst.AddItem(item.Id);
 
 			solditems[i].GetComponent<ItemData>().TooltipDeActive();
 			Destroy(solditems[i]);

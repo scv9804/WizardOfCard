@@ -42,7 +42,12 @@ public class TutorialEvent_00 : RoomEventListScript
 		return null;
 	}
 
-	 IEnumerator FadeInOut(GameObject obj)
+	public override void ExitRoom()
+	{
+		throw new System.NotImplementedException();
+	}
+
+	IEnumerator FadeInOut(GameObject obj)
 	{
 		isStart = true;
 		
