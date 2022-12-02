@@ -337,11 +337,14 @@ public class CardManager : MonoBehaviour
 		//}
 
 		// <<22-11-28 장형용 :: 수정>>
-		for (int i = 0; i < 5; i++)
-        {
-			myDeck.Add(itemSO.items[0].card);
-			myDeck.Add(itemSO.items[1].card);
-		}
+		//for (int i = 0; i < 5; i++)
+  //      {
+		//	myDeck.Add(itemSO.items[0].card);
+		//	myDeck.Add(itemSO.items[1].card);
+		//}
+
+		for(int i = 0; i < itemSO.items.Length; i++)
+			myDeck.Add(itemSO.items[i].card);
 
 		DeckShuffle();
 	}

@@ -893,7 +893,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8605336757771133590}
   - component: {fileID: 3951129973429323484}
-  - component: {fileID: 5386196116296748231}
   m_Layer: 0
   m_Name: SkillImage
   m_TagString: Untagged
@@ -966,23 +965,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5386196116296748231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7718830262378487840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b8e8c71ba270b4f95f7e1e6aa95661, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backRenderers:
-  - {fileID: 0}
-  - {fileID: 3951129973429323484}
-  middleRenderers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  sortingLayerName: Card
