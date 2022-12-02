@@ -150,6 +150,7 @@ public class ShopScirpt : MonoBehaviour
 				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
 				temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
 				temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
+				temt.transform.GetChild(4).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card.CardIconImage;
 				temt.transform.SetParent(cardSpawnParent.transform);
 				temt.AddComponent<Button>();
 				temt.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(CardManager.Inst.itemSO.items[randCard].card, temt));

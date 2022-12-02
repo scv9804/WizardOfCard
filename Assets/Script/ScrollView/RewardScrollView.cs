@@ -14,12 +14,21 @@ public class RewardScrollView : MonoBehaviour
     public GameObject contents;
     [SerializeField] Sprite moneySprite;
     public List<RectTransform> uiobjects = new List<RectTransform>();
-
+    List<GameObject> destroyUiObjects = new List<GameObject>();
  
     public void ClearViewList()
 	{
         uiobjects.Clear();
 	}
+
+    public void destroyRewardObejct()
+	{
+        foreach(var item in destroyUiObjects)
+		{
+            Destroy(item);
+		}
+	}
+
 
     public GameObject SetReward(Item_inven item)
     {
@@ -33,6 +42,7 @@ public class RewardScrollView : MonoBehaviour
         tmptext.text = item.Title;
 
         uiobjects.Add(newUI.GetComponent<RectTransform>());
+        destroyUiObjects.Add(newUI);
 
         float y = 0f;
         
@@ -57,6 +67,7 @@ public class RewardScrollView : MonoBehaviour
         tmptext.text = "Á¤¼ö";
 
         uiobjects.Add(newUI.GetComponent<RectTransform>());
+        destroyUiObjects.Add(newUI);
 
         float y = 0f;
 
@@ -87,6 +98,7 @@ public class RewardScrollView : MonoBehaviour
         tmptext.text = _card.transform.GetChild(1).GetComponent<TMP_Text>().text;
 
         uiobjects.Add(newUI.GetComponent<RectTransform>());
+        destroyUiObjects.Add(newUI);
 
         float y = 0f;
 

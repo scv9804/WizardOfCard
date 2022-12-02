@@ -206,15 +206,15 @@ public class Card : MonoBehaviour
 
 	protected virtual void OnDisable() { }
 
-	#region OnlyUnityEditor[void Update()]
-#if UNITY_EDITOR
-	void Update()
-	{
-		if (!isUsing)
-			RefreshCardUI();
-	}
-#endif
-	#endregion
+//	#region OnlyUnityEditor[void Update()]
+//#if UNITY_EDITOR
+//	void Update()
+//	{
+//		if (!isUsing)
+//			RefreshCardUI();
+//	}
+//#endif
+	//#endregion
 
 	// <<22-11-09 장형용 :: 추가>>
 	public virtual void Setup()

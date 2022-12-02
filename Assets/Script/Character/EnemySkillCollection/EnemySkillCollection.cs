@@ -120,7 +120,7 @@ public class EnemySkillCollection : MonoBehaviour
 				yield return StartCoroutine(AttackMotion(_entity));
 			}
 			MusicManager.inst.SlashSound();
-			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
+			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("부식"));
 			yield return null;
 		}
 		else
@@ -136,7 +136,7 @@ public class EnemySkillCollection : MonoBehaviour
 				yield return StartCoroutine(AttackMotion(_entity));
 			}
 			MusicManager.inst.SlashSound();
-			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("집중력 저하"));
+			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("부식"));
 			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.RustAccid, "RustAccid", 0, 1);
 		}
 	}

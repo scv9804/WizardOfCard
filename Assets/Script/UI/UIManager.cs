@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
 	public GameObject inventoryUI;
 	public GameObject deckUI;
 	public GameObject CemeteryUI;
+	public GameObject Reward_UI;
 	public Image turnEndButtonSpriteImage;
 
 	[Header("온오프 UI")]
@@ -48,7 +49,7 @@ public class UIManager : MonoBehaviour
 	public GameObject minimapCancleArea;
 	public GameObject inventoryCancleArea;
 	public GameObject gameClearBack_UI;
-	public GameObject Reward_UI;
+
 
 
 	[Header("옵션 UI")]
@@ -66,6 +67,7 @@ public class UIManager : MonoBehaviour
 	bool isMinimapUse;
 	bool isCemeteryUse;
 	bool isInventoryUse;
+	bool isRewardUse;
 	bool ispostProcessing = true;
 	bool isUIUse;
 
@@ -118,6 +120,7 @@ public class UIManager : MonoBehaviour
 
 	public void TurnEndButton()
 	{
+		Debug.Log(2222);
 		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == E_CardStats.CanAll)
 		{
 			Debug.Log(1111);
@@ -291,6 +294,7 @@ public class UIManager : MonoBehaviour
 		inventoryUI.SetActive(isInventoryUse);
 		deckUI.SetActive(isDeckUse);
 		CemeteryUI.SetActive(isCemeteryUse);
+		Reward_UI.SetActive(isRewardUse);
 
 		optionCancleArea.gameObject.SetActive(isOptionUse);
 		inventoryCancleArea.gameObject.SetActive(isInventoryUse);
@@ -306,6 +310,7 @@ public class UIManager : MonoBehaviour
 		isInventoryUse = false;
 		isCemeteryUse = false;
 		isDeckUse = false;
+		isRewardUse = false;
 
 		SetStateUI();
 		CardManager.Inst.SetCardStateBack();

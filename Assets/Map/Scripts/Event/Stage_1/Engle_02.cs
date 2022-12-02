@@ -20,7 +20,7 @@ public class Engle_02 : RoomEventListScript
 
 		yield return new WaitUntil(() => dialogSystem01.UpdateDialog());
 
-
+		SetObejects();
 		setEventWindow();
 		SetButton();
 	}
@@ -33,15 +33,9 @@ public class Engle_02 : RoomEventListScript
 
 	public void AddReward()
 	{
-		EntityManager.Inst.playerEntity.Status_Health -= 7;
-		EntityManager.Inst.playerEntity.karma -= 1;
-
-		for (int i = 0; i < 2; i++)
-		{
-			int rand = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
-			CardManager.Inst.AddSelectCard_Deck(CardManager.Inst.itemSO.items[rand].card);
-		}
-
+		EntityManager.Inst.playerEntity.Status_MaxHealth += 3;
+		EntityManager.Inst.playerEntity.Status_Health += 3;
+		EntityManager.Inst.playerEntity.karma += 1;
 		eventWindow.SetActive(false);
 	}
 

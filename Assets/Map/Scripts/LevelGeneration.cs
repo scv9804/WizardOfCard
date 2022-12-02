@@ -15,7 +15,7 @@ public class LevelGeneration : MonoBehaviour {
 	Vector2 worldSize = new Vector2(4, 4);
 
 	Room[,] rooms;
-	List<Room> eventRoom;
+	[SerializeField]List<Room> eventRoom;
 	List<Room> EdgeRooms;
 
 	MapSpriteSelector[] DrawMaps;
@@ -43,8 +43,9 @@ public class LevelGeneration : MonoBehaviour {
 
 
 	[SerializeField]ShopScirpt shopRoomScript;
-	[SerializeField]RoomEventListScript[] eventRoomScript;
+	[SerializeField] List<RoomEventListScript> eventRoomScript;
 	[SerializeField]RoomEventListScript tutorialRoomScript;
+	[SerializeField] int eventRoomValue;
 
 	int eventNumber;
 	bool eventOn;
@@ -360,6 +361,7 @@ public class LevelGeneration : MonoBehaviour {
 	//이벤트 룸 일단 하나만 만들도록 해놓음
 	void CreateEventRoom()
 	{
+		int eventRoomCount = 0;
 		do
 		{
 			int randomRoom;
@@ -369,7 +371,11 @@ public class LevelGeneration : MonoBehaviour {
 			{
 				eventRoom[randomRoom].RoomEventType = 3;
 				eventRoom.RemoveAt(randomRoom);
-				break;
+				eventRoomCount++;
+				if (eventRoomCount == eventRoomValue)
+				{
+					break;
+				}
 			}
 
 		} while (true);
@@ -709,6 +715,7 @@ public class LevelGeneration : MonoBehaviour {
 		if (eventOn)
 		{
 			eventRoomScript[eventNumber].ExitRoom();
+			eventRoomScript.RemoveAt(eventNumber); ;
 			eventOn = false;
 		}
 		
@@ -736,9 +743,11 @@ public class LevelGeneration : MonoBehaviour {
 					break;
 				case 3:
 					Debug.Log("그냥 이벤트");
-					mustDisableObject = eventRoomScript[0].Event();
+					int rand = UnityEngine.Random.Range(0, eventRoomScript.Count);
+					eventRoomScript[rand].Event();
+
 					eventOn = true;
-					eventNumber = 0;
+					eventNumber = rand;
 					break;
 			}
 		}

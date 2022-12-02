@@ -147,6 +147,7 @@ public class RewardManager : MonoBehaviour
 			temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
 			temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
 			temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
+			temt.transform.GetChild(3).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card.CardIconImage;
 			rewardCardList.Add(CardManager.Inst.itemSO.items[randcardcount].card);
 			rewardCardObjectList.Add(rewardSpawn.SetReward(temt));
 		}
@@ -184,6 +185,7 @@ public class RewardManager : MonoBehaviour
 
 		UIManager.Inst.MinimapActive();
 
+		rewardSpawn.destroyRewardObejct();
 		moneyObject = null;
 		rewardCardList.Clear();
 		rewardCardObjectList.Clear();

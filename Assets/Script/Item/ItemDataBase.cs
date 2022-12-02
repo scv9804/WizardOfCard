@@ -7,7 +7,7 @@ using System.IO;
 
 public class ItemDataBase : MonoBehaviour
 {
-
+	public static ItemDataBase Inst { get; set; }
 	public List<Item_inven> database = new List<Item_inven>();
 	public List<Item_inven> notEquiDataBase = new List<Item_inven>();
 	public List<Item_inven> equiDataBase = new List<Item_inven>();
@@ -16,6 +16,7 @@ public class ItemDataBase : MonoBehaviour
 	void Awake()
 	{
 		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/Script/Item/Items.json"));
+		Inst = this;
 		ConstructItemDatabase();
 	}
 

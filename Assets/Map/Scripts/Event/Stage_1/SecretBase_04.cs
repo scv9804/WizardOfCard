@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-public class DevilEvent_01 : RoomEventListScript
+
+public class SecretBase_04 : RoomEventListScript
 {
 	[Header("대화문")]
 	[SerializeField] protected DialogSystem dialogSystem01;
+
+	[Header("확률")]
+	[SerializeField, Tooltip("두 개")] float[] percentage;
 
 	public override GameObject Event()
 	{
@@ -17,7 +19,7 @@ public class DevilEvent_01 : RoomEventListScript
 
 	IEnumerator Diaglog()
 	{
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds(0.5f);
 
 		yield return new WaitUntil(() => dialogSystem01.UpdateDialog());
 
@@ -31,23 +33,26 @@ public class DevilEvent_01 : RoomEventListScript
 		refuseButton.onClick.RemoveAllListeners();
 		acceptButton.onClick.RemoveAllListeners();
 
-		refuseButton.onClick.AddListener(()=> eventWindow.SetActive(false));
-		acceptButton.onClick.AddListener(()=> AddReward());
+		refuseButton.onClick.AddListener(() => eventWindow.SetActive(false));
+		acceptButton.onClick.AddListener(() => AddReward());
 	}
-	
+
+
 	public void AddReward()
 	{
-		EntityManager.Inst.playerEntity.Status_Health -= 4;
-		EntityManager.Inst.playerEntity.karma -= 1;
-
-		for (int i = 0; i < 2; i ++)
+		float rand = Utility.Choose(percentage);
+		Debug.Log(rand);
+		//float Random
+		if (rand == 0)
 		{
-			int rand = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
-			CardManager.Inst.AddSelectCard_Deck(CardManager.Inst.itemSO.items[rand].card);
+			int randitem = UnityEngine.Random.Range(0,ItemDataBase.Inst.equiDataBase.Count);
+			Inventory.inst.AddItem(randitem);
 		}
-		
+		else
+		{
+			EntityManager.Inst.playerEntity.Status_Health -= 7;
+		}
+
 		eventWindow.SetActive(false);
 	}
-
-
 }
