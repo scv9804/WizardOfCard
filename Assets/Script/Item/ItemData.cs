@@ -47,7 +47,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	}
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		if (item != null && item.OwnPlayer)
+		if (item != null && item.OwnPlayer && this.slotId <10)
 		{
 			this.transform.SetParent(this.transform.parent.parent);
 			this.transform.position = Input.mousePosition;
@@ -56,14 +56,14 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	}
 	public void OnDrag(PointerEventData eventData)
 	{
-		if (item != null && item.OwnPlayer)
+		if (item != null && item.OwnPlayer && this.slotId < 10)
 		{
 			this.transform.position = Input.mousePosition;	
 		}
 	}
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (item.OwnPlayer)
+		if (item.OwnPlayer && this.slotId < 10)
 		{
 			this.transform.SetParent(inv.slots[slotId].transform);
 			this.transform.position = inv.slots[slotId].transform.position;

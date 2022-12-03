@@ -19,6 +19,10 @@ public class Slot : MonoBehaviour, IDropHandler
 	public void OnDrop(PointerEventData eventData)
 	{
 		ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();
+		if(droppedItem.slotId >= 10)
+        {
+			return;
+        }
 		Debug.Log(id);
 		if (inv.items[id].Id == -1)
 		{

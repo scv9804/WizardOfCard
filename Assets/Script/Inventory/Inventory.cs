@@ -56,6 +56,8 @@ public class Inventory : MonoBehaviour
 		{
 			MakeQuickSlot(i);
 		}
+		AddItem(15);
+		AddItem(0);
 	}
 
 	public void MakeSlot(int i)
@@ -146,6 +148,7 @@ public class Inventory : MonoBehaviour
 			UnequipItem(item);
 			useAccept.Deactivate();
 		}
+		Debug.Log(EntityManager.Inst.playerEntity.Buff_Reduce);
 	}
 	public void SetQuickSlot(Item_inven item)
 	{
@@ -228,6 +231,13 @@ public class Inventory : MonoBehaviour
 			equipeditem.GetComponent<ItemData>().slotId = itemdata.slotId;
 			equipeditem.transform.SetParent(slots[itemdata.slotId].transform);
 			equipeditem.transform.position = slots[itemdata.slotId].transform.position;
+
+			switch (equipitems[targetEquipSlot].Id)
+			{
+				case 15:
+					EntityManager.Inst.playerEntity.Buff_Reduce--;
+					break;
+			}
 		}
 		itemdata.transform.SetParent(equipslots[targetEquipSlot].transform);
 		equipitems[targetEquipSlot] = item;
@@ -236,6 +246,14 @@ public class Inventory : MonoBehaviour
 		useAccept.Deactivate();
 		itemdata.slotId = equipslots[targetEquipSlot].GetComponent<Slot_q>().id;
 		equipslotPanel.transform.GetChild(targetEquipSlot + 8).gameObject.SetActive(false);
+
+        switch (item.Id)
+        {
+			case 15:
+				EntityManager.Inst.playerEntity.Buff_Reduce++;
+				break;
+        }
+
 	}
 	public void UnequipItem(Item_inven item)
 	{
@@ -252,6 +270,12 @@ public class Inventory : MonoBehaviour
 				itemdata.slotId = i;
 				break;
 			}
+		}
+		switch (item.Id)
+		{
+			case 15:
+				EntityManager.Inst.playerEntity.Buff_Reduce--;
+				break;
 		}
 		useAccept.Deactivate();
 	}
