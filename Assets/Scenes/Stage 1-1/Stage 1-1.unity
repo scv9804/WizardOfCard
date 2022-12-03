@@ -4121,10 +4121,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1219490782}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1278654427}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CemeteryToggle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9449,10 +9449,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1780137469}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1278654427}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: DeckToggle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10330,7 +10330,7 @@ MonoBehaviour:
     \uAC83 \uAC19\uB2E4.\n(\uC131\uACF5 \uD655\uB960 30%)"
   eventReward: "\uC131\uACF5 : \n\uB79C\uB364 \uC7A5\uBE44 1"
   eventPay: "\uC2E4\uD328 : \n\uCCB4\uB825 - 8"
-  dialogSystem01: {fileID: 0}
+  dialogSystem01: {fileID: 1013502468}
   percentage:
   - 30
   - 70
@@ -11532,10 +11532,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1565842616}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1278654427}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OptionToggle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19146,7 +19146,7 @@ RectTransform:
   m_GameObject: {fileID: 1994449553}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalScale: {x: 0.039375003, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 264339833}
   m_RootOrder: 0
@@ -20188,7 +20188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventRoom: []
-  numberOfRooms: 25
+  numberOfRooms: 10
   create: 0
   i_Room_L: 0
   i_Room_R: 0
@@ -21031,10 +21031,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6459154056222924719}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1278654427}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: InventoryToggle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

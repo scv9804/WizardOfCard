@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 using DG.Tweening;
 using Unity.Jobs;
 using Unity.Collections;
@@ -40,6 +41,9 @@ public class PlayerEntity : MonoBehaviour
     [SerializeField] TMP_Text skillNameTmp;
     [SerializeField] List<GameObject> buffImageList;
 
+    [SerializeField] public VisualEffect buffEffect;
+    [SerializeField] public VisualEffect debuffEffect;
+
     Image healthImage_UI;
 
     Vector3 originSkillNamePos;
@@ -72,6 +76,8 @@ public class PlayerEntity : MonoBehaviour
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
         originShieldEffectScale = shieldEffectObject.transform.localScale;
         SetDefultPS();
+        debuffEffect.Stop();
+        buffEffect.Stop();
     }
 
     private void FixedUpdate()
@@ -89,6 +95,7 @@ public class PlayerEntity : MonoBehaviour
         Utility.onBattleStart += ResetMagicAffinity_Battle;
         Utility.onBattleStart += ResetProtection;
 
+        
         TurnManager.onStartTurn += ResetValue_Shield;
         TurnManager.onStartTurn += ResetMagicAffinity_Turn;
         TurnManager.onStartTurn += ReduceProtection;
@@ -141,14 +148,26 @@ public class PlayerEntity : MonoBehaviour
 
     int i_magicResistance = 0;
 
-    // <<22-10-21 장형용 :: 추가>>
-    int i_magicAffinity_permanent = 0; // 장비(나 이벤트) 등으로 얻는 계속 유지되는 마나 친화성
-    int i_magicAffinity_stage = 0; // 1번의 스테이지간 유지되는 마나 친화성
-    int i_magicAffinity_battle = 0; // 1번의 전투간 유지되는 마나 친화성
-    int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성
+	// <<22-10-21 장형용 :: 추가>>
+	int i_magicAffinity_permanent = 0; // 장비(나 이벤트) 등으로 얻는 계속 유지되는 마나 친화성
+	int i_magicAffinity_stage = 0; // 1번의 스테이지간 유지되는 마나 친화성
+	int i_magicAffinity_battle = 0; // 1번의 전투간 유지되는 마나 친화성
+	int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성 
 
-    // <<22-11-05 장형용 :: 추가>>
-    int i_protection = 0; // 수치 이하의 데미지를 방어 (수치 이상의 피해는 방어 못함, 쉴드 상위호환으로 겹쳐서 살짝 바꿔봄)
+
+
+	//[HideInInspector] public int DecreaseDamage_Turn = 1;
+	//[HideInInspector] public int DecreaseDamage_Battle = 1;
+	//[HideInInspector] public int DecreaseDamage_Stage = 1;
+	//[HideInInspector] public int DecreaseDamage_Permanent = 1;
+
+	//[HideInInspector] public int damageUpBuff_Turn = 0;
+	//[HideInInspector] public int damageUpBuff_Battle = 0;
+	//[HideInInspector] public int damageUpBuff_Stage = 0;
+	//[HideInInspector] public int damageUpBuff_Permanent = 0;  // 나중에 이걸로 바꾸자 햇갈린다
+
+	// <<22-11-05 장형용 :: 추가>>
+	int i_protection = 0; // 수치 이하의 데미지를 방어 (수치 이상의 피해는 방어 못함, 쉴드 상위호환으로 겹쳐서 살짝 바꿔봄)
 
     // <<22-11-12 장형용 :: 상태이상을 막아주는 면역 효과 추가>>
     int i_emmune;
@@ -376,6 +395,7 @@ public class PlayerEntity : MonoBehaviour
     // 전체 마나 친화성의 총합
     // <<22-11-07 장형용 :: 가시성을 위해 추가>>
     // <<22-11-24 장형용 :: 스테이지 마나 친화성 추가>>
+    // <<22-12-3 이동화 :: 마나친화성 뭔가 입에 안붙어서 그냥 버프디버프로 바꿈 ㅇㅇ
     public int Buff_MagicAffinity
     {
         get
@@ -478,6 +498,7 @@ public class PlayerEntity : MonoBehaviour
 
     #endregion
 
+
     #endregion
 
     public IEnumerator SkillNamePopup(string _skillName)
@@ -497,10 +518,10 @@ public class PlayerEntity : MonoBehaviour
     }
 
     #region 버프 이미지 팝업
-    public void AddBuffImage(Sprite _sprite, string _buffDebuffName, int _code, int _value)
+    public void AddBuffImage(Sprite _sprite, string _buffDebuffName, int _code, int _value ,int _type , bool _isBuff)
     {
         var temt = Instantiate(buffPrefab);
-        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value, _code);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value, _code , _type , _isBuff);
         temt.transform.SetParent(buffImageSlot.transform, false);
         buffImageList.Add(temt);
     }
@@ -684,15 +705,38 @@ public class PlayerEntity : MonoBehaviour
     {
         i_magicAffinity_battle = 0;
 
+        for (int i = buffImageList.Count - 1; i >= 0; i--)
+        {
+            if ((buffImageList[i].GetComponent<BuffDebuffImageSpawn>().type == 1 || buffImageList[i].GetComponent<BuffDebuffImageSpawn>().type == 0) && !buffImageList[i].GetComponent<BuffDebuffImageSpawn>().isbuff)
+            {
+                Destroy(buffImageList[i]);
+                buffImageList.RemoveAt(i);
+            }
+        }
+  
+        debuffEffect.Stop();
+
         CardManager.Inst.RefreshMyHands();
     }
 
     void ResetMagicAffinity_Turn(bool isMyTurn)
     {
-        if (isMyTurn)
+        if (!isMyTurn)
         {
             i_magicAffinity_turn = 0;
+            for (int i = buffImageList.Count - 1; i >= 0; i--)
+            {
+                if (buffImageList[i].GetComponent<BuffDebuffImageSpawn>().type == 0)
+                {
+                    Destroy(buffImageList[i]);
+                    buffImageList.RemoveAt(i);
+                }
+            }
 
+            if (i_magicAffinity_battle <= 0)
+            {
+                debuffEffect.Stop();
+            }
             CardManager.Inst.RefreshMyHands();
         }
     }

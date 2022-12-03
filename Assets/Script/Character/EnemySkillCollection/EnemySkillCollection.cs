@@ -120,12 +120,14 @@ public class EnemySkillCollection : MonoBehaviour
 				yield return StartCoroutine(AttackMotion(_entity));
 			}
 			MusicManager.inst.SlashSound();
+			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("ºÎ½Ä"));
 			yield return null;
 		}
 		else
 		{
 			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Battle -= _entity.debuffValue;
+			
 			_entity.attackTime++;
 			if (_sprite != null)
 			{
@@ -136,8 +138,9 @@ public class EnemySkillCollection : MonoBehaviour
 				yield return StartCoroutine(AttackMotion(_entity));
 			}
 			MusicManager.inst.SlashSound();
+			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("ºÎ½Ä"));
-			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.RustAccid, "RustAccid", 0, 1);
+			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.RustAccid, "RustAccid", 0, 1 ,1, false);
 		}
 	}
 
@@ -147,6 +150,7 @@ public class EnemySkillCollection : MonoBehaviour
 		if (EntityManager.Inst.playerEntity.CompareBuffImage(1, _entity.debuffValue))
 		{
 			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
+			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
 			MusicManager.inst.SlashSound();
 			_entity.attackTime++;
 			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
@@ -157,9 +161,10 @@ public class EnemySkillCollection : MonoBehaviour
 			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
 			_entity.attackTime++;
 			MusicManager.inst.SlashSound();
+			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
 			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("ÁýÁß·Â ÀúÇÏ"));
-			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.DecreasedConcentration, "DecreasedConcentration", 1, 1);
+			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.DecreasedConcentration, "DecreasedConcentration", 1, 1 , 0 , false);
 		}
 	}
 
@@ -179,7 +184,7 @@ public class EnemySkillCollection : MonoBehaviour
 		else
 		{
 			MusicManager.inst.WarCrySound();
-			_entity.AddBuffImage(BuffDebuffManager.Inst.WarCrySprite, "WarCry", 100, 1);
+			_entity.AddBuffImage(BuffDebuffManager.Inst.WarCrySprite, "WarCry", 100, 1 , 1, true);
 			yield return StartCoroutine(BuffDebuffManager.Inst.SpawnSkillEffect(_entity, "WarCry"));
 			StartCoroutine(_entity.SkillNamePopup("ÀüÅõÀÇ ÇÔ¼º"));
 			_entity.IncreaseDamage = _entity.buffValue;
