@@ -116,12 +116,16 @@ public class Entity : MonoBehaviour
     {
         TurnManager.onStartTurn += BuffOff_Turn;
         TurnManager.onStartTurn += DebuffOff_Turn;
+
+        TurnManager.onStartTurn += ResetValue_Shield;
     }
 
     private void OnDisable()
     {
         TurnManager.onStartTurn -= BuffOff_Turn;
         TurnManager.onStartTurn -= DebuffOff_Turn;
+
+        TurnManager.onStartTurn -= ResetValue_Shield;
     }
     private void Update()
     {
@@ -159,7 +163,15 @@ public class Entity : MonoBehaviour
 		if (!isMyTurn)
 		{
             DecreaseDamage_Turn = 0;
-			if (DecreaseDamage_Battle > 0)
+            for (int i = buffImageList.Count-1; i >= 0; i--)
+            {
+                if (buffImageList[i].GetComponent<BuffDebuffImageSpawn>().type == 0 && !buffImageList[i].GetComponent<BuffDebuffImageSpawn>().isbuff)
+                {
+                    Destroy(buffImageList[i]);
+                    buffImageList.RemoveAt(i);
+                }
+            }
+            if (DecreaseDamage_Battle > 0)
 			{
                 debuffEffect.Stop();
 			}
@@ -172,7 +184,15 @@ public class Entity : MonoBehaviour
 		if (!isMyTurn)
 		{
             damageUpBuff_Turn = 0;
-			if (damageUpBuff_Battle > 0)
+            for (int i = buffImageList.Count-1; i >= 0; i--)
+            {
+                if (buffImageList[i].GetComponent<BuffDebuffImageSpawn>().type == 0 && buffImageList[i].GetComponent<BuffDebuffImageSpawn>().isbuff)
+                {
+                    Destroy(buffImageList[i]);
+                    buffImageList.RemoveAt(i);
+                }
+            }
+            if (damageUpBuff_Battle > 0)
 			{
                 buffEffect.Stop();
             }
@@ -211,10 +231,10 @@ public class Entity : MonoBehaviour
         skillNameTmp.gameObject.SetActive(false);
     }   
 
-    public void AddBuffImage(Sprite _sprite, string _buffDebuffName , int _code , int _value)
+    public void AddBuffImage(Sprite _sprite, string _buffDebuffName , int _code , int _value, int _type, bool _isBuff)
 	{
         var temt = Instantiate(buffPrefab);
-        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value , _code);
+        temt.GetComponent<BuffDebuffImageSpawn>().Setup(_sprite, _buffDebuffName, _value , _code, _type, _isBuff);
         temt.transform.SetParent(buffImageSlot.transform, false);
         buffImageList.Add(temt);
 	}
@@ -515,6 +535,15 @@ public class Entity : MonoBehaviour
             charater.enabled = false;
         }
 
+    }
+    void ResetValue_Shield(bool isMyTurn)
+    {
+        if (!isMyTurn)
+        {
+            i_shield = 0;
+
+            RefreshEntity();
+        }
     }
 
     // <<22-10-26 장형용 :: 해결했다>>

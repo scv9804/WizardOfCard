@@ -11,13 +11,13 @@ public class ThiefAttackPattern : EntityPattern
 		{
 			case 0:
 				EnemySkillCollection.PrototypeFunction(SkillName.DecreasedConcentration.ToString(), _entity);
-				//EnemySkillCollection.PrototypeFunction(SkillName.Attack.ToString(), _entity);
+				
 				break;
 			case 1:
-				EnemySkillCollection.PrototypeFunction(SkillName.DecreasedConcentration.ToString(), _entity);
+				EnemySkillCollection.PrototypeFunction(SkillName.StealMoney.ToString(), _entity);
 				break;
 			case 2:
-				EnemySkillCollection.PrototypeFunction(SkillName.StealMoney.ToString(), _entity);
+				EnemySkillCollection.PrototypeFunction(SkillName.Attack.ToString(), _entity);
 				break;
 			case 3:
 				EnemySkillCollection.PrototypeFunction(SkillName.StealMoney.ToString(), _entity);
