@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
 
 	[SerializeField] LevelGeneration levelGeneration;
 
-	Coroutine tryEndTurnCoroutine;
+	//Coroutine tryEndTurnCoroutine;
 
 	public void AntiAliasing_FXAA()
 	{
@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
 		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == E_CardStats.CanAll)
 		{
 			Debug.Log(1111);
-			tryEndTurnCoroutine = StartCoroutine(TryEndTurn());
+			/*tryEndTurnCoroutine = */StartCoroutine(TryEndTurn());
 		}
 	}
 
