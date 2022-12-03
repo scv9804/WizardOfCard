@@ -45,8 +45,11 @@ public class SecretBase_04 : RoomEventListScript
 		//float Random
 		if (rand == 0)
 		{
-			int randitem = UnityEngine.Random.Range(0,ItemDataBase.Inst.equiDataBase.Count);
-			Inventory.inst.AddItem(randitem);
+			for (int i = 0; i < ItemDataBase.Inst.database.Count; i++)
+			{
+				if(ItemDataBase.Inst.database[i].Id == 19)
+				Inventory.inst.AddItem(ItemDataBase.Inst.database[i].Id);
+			}
 		}
 		else
 		{
