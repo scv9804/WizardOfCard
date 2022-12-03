@@ -10327,13 +10327,13 @@ MonoBehaviour:
     \uC9D0\uC774 \uBCF4\uC778\uB2E4.\n\uC544\uBB34\uB798\uB3C4 \uB204\uAD70\uAC00
     \uACB0\uACC4\uB97C \uCCD0 \uB193\uC740 \uAC83 \uAC19\uC740\uB370....\n\uC774\uAC78
     \uD480\uAE30 \uC704\uD574\uC11C\uB294 \uC0C1\uB2F9\uD55C \uC2DC\uAC04\uC774 \uB4E4
-    \uAC83 \uAC19\uB2E4.\n(\uC131\uACF5 \uD655\uB960 30%)"
-  eventReward: "\uC131\uACF5 : \n\uB79C\uB364 \uC7A5\uBE44 1"
-  eventPay: "\uC2E4\uD328 : \n\uCCB4\uB825 - 8"
+    \uAC83 \uAC19\uB2E4.\n(\uC131\uACF5 \uD655\uB960 50%)"
+  eventReward: "\uC131\uACF5 : \n\uC2E0\uB85D\uC758 \uB098\uBB47\uAC00\uC9C0"
+  eventPay: "\uC2E4\uD328 : \n\uCCB4\uB825 - 6"
   dialogSystem01: {fileID: 1013502468}
   percentage:
-  - 30
-  - 70
+  - 50
+  - 50
 --- !u!1 &1026872770
 GameObject:
   m_ObjectHideFlags: 0
