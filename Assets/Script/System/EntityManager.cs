@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+using UnityEngine.SceneManagement;
+
 public class EntityManager : MonoBehaviour
 {
     public static EntityManager Inst { get; private set; }
@@ -312,19 +314,21 @@ public class EntityManager : MonoBehaviour
         {
             Debug.Log("다음방으로");
             UIManager.Inst.ButtonActivate();
-            RewardManager.Inst.GameClear();
             CardManager.Inst.SetCardStateCannot();
+
+            // << 22-12-04 장형용 :: 추가>>
+            if (LevelGeneration.Inst.CurrentRoom.RoomEventType == 1)
+                SceneManager.LoadScene("SorryScene");
+            else
+                RewardManager.Inst.GameClear();
         }
     }
 
+    #endregion
 
+    #region PlayerEntity
 
-
-	#endregion
-
-	#region PlayerEntity
-
-	public void EntityMouseOverPlayer(PlayerEntity _playerEntity)
+    public void EntityMouseOverPlayer(PlayerEntity _playerEntity)
     {
         if (!is_canMouseInput)
             return;

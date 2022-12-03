@@ -51,6 +51,12 @@ public class LevelGeneration : MonoBehaviour {
 	bool eventOn;
 	bool shopOn;
 
+	// <<22-12-04 장형용 :: 편의성>>
+	public Room CurrentRoom
+    {
+		get { return rooms[inPosX, inPosY]; }
+	}
+
 	#endregion
 
 	private void Start()
