@@ -56,10 +56,6 @@ public class Inventory : MonoBehaviour
 		{
 			MakeQuickSlot(i);
 		}
-		AddItem(13);
-		AddItem(15);
-		AddItem(19);
-		AddItem(0);
 	}
 
     private void OnDisable()
