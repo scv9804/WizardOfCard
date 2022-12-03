@@ -38,17 +38,17 @@ public class DebugManager : MonoBehaviour // DamageAnouncer 대체
     {
         Utility.onDamaged += PrintDamage;
 
-        Utility.onBattleStart += ClearDebugConsole;
+        //Utility.onBattleStart += ClearDebugConsole;
     }
 
-    void OnDisable()
-    {
-#if UNITY_EDITOR
-        Utility.onDamaged -= PrintDamage;
+//    void OnDisable()
+//    {
+//#if UNITY_EDITOR
+//        Utility.onDamaged -= PrintDamage;
 
-        Utility.onBattleStart -= ClearDebugConsole;
-#endif
-    }
+//        Utility.onBattleStart -= ClearDebugConsole;
+//#endif
+//    }
 
     void PrintDamage(Card _card, int _damage) // 카드 데미지 디버그
     {
@@ -68,17 +68,17 @@ public class DebugManager : MonoBehaviour // DamageAnouncer 대체
     }
 
 
-    void ClearDebugConsole() // 디버그 창 초기화
-    {
-        if (isClearDebugConsole)
-        {
-            Assembly assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
-            Type type = assembly.GetType("UnityEditor.LogEntries");
-            MethodInfo method = type.GetMethod("Clear");
+    //void ClearDebugConsole() // 디버그 창 초기화
+    //{
+    //    if (isClearDebugConsole)
+    //    {
+    //        Assembly assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+    //        Type type = assembly.GetType("UnityEditor.LogEntries");
+    //        MethodInfo method = type.GetMethod("Clear");
 
-            method.Invoke(new object(), null);
-        }
-    }
+    //        method.Invoke(new object(), null);
+    //    }
+    //}
 
     public void CardMaker() // 카드 생성
     {

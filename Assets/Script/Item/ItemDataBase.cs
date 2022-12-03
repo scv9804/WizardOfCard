@@ -15,10 +15,15 @@ public class ItemDataBase : MonoBehaviour
 
 	void Awake()
 	{
-		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/Script/Item/Items.json"));
+		var jsonTextFile = Resources.Load<TextAsset>("Item/Items");
+;
+		itemData = JsonMapper.ToObject(jsonTextFile.ToString());
 		Inst = this;
 		ConstructItemDatabase();
 	}
+
+	
+
 
 	public Item_inven FetchItemById(int id)
 	{
