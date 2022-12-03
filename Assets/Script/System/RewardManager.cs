@@ -139,16 +139,36 @@ public class RewardManager : MonoBehaviour
 
 	void SetCardReward()
 	{
-		int randcardcount = UnityEngine.Random.Range(1, 2);
-		for (int i = 0; i < randcardcount; i ++)
+		//int randcardcount = UnityEngine.Random.Range(1, 2);
+
+		//for (int i = 0; i < randcardcount; i ++)
+		//{
+		//	int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
+		//	var temt = Instantiate(rewardCard);
+		//	temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
+		//	temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
+		//	temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
+		//	temt.transform.GetChild(3).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card.CardIconImage;
+		//	rewardCardList.Add(CardManager.Inst.itemSO.items[randcardcount].card);
+		//	rewardCardObjectList.Add(rewardSpawn.SetReward(temt));
+		//}
+
+		// <<22-12-03 장형용 :: 수정>>
+		int randcardcount = Random.Range(1, 2);
+
+		for (int i = 0; i < randcardcount; i++)
 		{
-			int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
+			int randCard = Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
 			var temt = Instantiate(rewardCard);
-			temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
-			temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-			temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
-			temt.transform.GetChild(3).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card.CardIconImage;
-			rewardCardList.Add(CardManager.Inst.itemSO.items[randcardcount].card);
+
+			Card card = CardManager.Inst.itemSO.items[randCard].card;
+
+			temt.transform.GetChild(0).GetComponent<TMP_Text>().text = card.i_manaCost.ToString();
+			temt.transform.GetChild(1).GetComponent<TMP_Text>().text = card.GetCardName();
+			temt.transform.GetChild(2).GetComponent<TMP_Text>().text = card.GetCardExplain();
+			temt.transform.GetChild(3).GetComponent<Image>().sprite = card.CardIconImage;
+
+			rewardCardList.Add(card);
 			rewardCardObjectList.Add(rewardSpawn.SetReward(temt));
 		}
 	}
@@ -172,6 +192,8 @@ public class RewardManager : MonoBehaviour
 		if (toggle.isOn)
 		{
 			EntityManager.Inst.playerEntity.money = rewardMoney;
+
+			UIManager.Inst.PlayerMoneyUIRefresh();
 		}
 
 		for (int i = 0; i < rewardCardList.Count; i++)
