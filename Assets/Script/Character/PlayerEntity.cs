@@ -66,6 +66,7 @@ public class PlayerEntity : MonoBehaviour
     #region Job System
 
     ProtectionJob myProtectionJob = new ProtectionJob();
+    DamageReduceJob myDamageReduceJob = new DamageReduceJob();
     ShieldJob myShieldJob = new ShieldJob();
     BurningJob myBurningJob = new BurningJob();
 
@@ -171,6 +172,10 @@ public class PlayerEntity : MonoBehaviour
 
     // <<22-11-12 장형용 :: 상태이상을 막아주는 면역 효과 추가>>
     int i_emmune;
+
+    int i_reduce; // 데미지 감소
+
+    int i_heal; // 회복량 증가
 
     #endregion
 
@@ -456,6 +461,33 @@ public class PlayerEntity : MonoBehaviour
         {
             i_emmune = value;
         }
+    }    
+    
+    // <<22-12-03 장형용 :: 추가>>
+    public int Buff_Reduce
+    {
+        get
+        {
+            return i_reduce;
+        }
+
+        set
+        {
+            i_reduce = value;
+        }
+    }
+
+    public int Buff_Heal
+    {
+        get
+        {
+            return i_heal;
+        }
+
+        set
+        {
+            i_heal = value;
+        }
     }
 
     #endregion
@@ -582,6 +614,7 @@ public class PlayerEntity : MonoBehaviour
         values[2] = Status_Shiled;
         values[3] = (int)Status_Health;
         values[4] = Debuff_Burning;
+        values[5] = Buff_Reduce;
 
         #region 입력 값 디버그
 
@@ -603,23 +636,29 @@ public class PlayerEntity : MonoBehaviour
 
         JobHandle firstJob = myProtectionJob.Schedule();
 
+        myDamageReduceJob.values = values;
+        myDamageReduceJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
+
+        JobHandle secondJob = myShieldJob.Schedule(firstJob);
+
         myShieldJob.values = values;
         myShieldJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
 
-        JobHandle secondJob = myShieldJob.Schedule(firstJob);
+        JobHandle thirdJob = myShieldJob.Schedule(secondJob);
 
         myBurningJob.values = values;
         myBurningJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
 
-        JobHandle thirdJob = myBurningJob.Schedule(secondJob);
+        JobHandle forthJob = myBurningJob.Schedule(thirdJob);
 
-        thirdJob.Complete();
+        forthJob.Complete();
 
         _damage = values[0];
         Buff_Protection = values[1];
         Status_Shiled = values[2];
         Status_Health = values[3];
         Debuff_Burning = values[4];
+        //Buff_Reduce = values[5]; // 값 변동 X
 
         #region 결과 값 디버그
 

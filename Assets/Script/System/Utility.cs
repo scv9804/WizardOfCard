@@ -203,6 +203,44 @@ public struct ProtectionJob : IJob
     }
 }
 
+// <<22-11-12 장형용 :: 보호 계산 Job>>
+public struct DamageReduceJob : IJob
+{
+    public NativeArray<int> values; // 0: Damage, 5: Reduce
+
+    public bool isPrint;
+
+    public void Execute()
+    {
+        #region 디버그
+
+        if (isPrint)
+        {
+            Debug.Log("보호 연산 전 데미지 : " + values[0]);
+            Debug.Log("보호 연산 전 데미지 감소 : " + values[5]);
+            Debug.Log("-------------------------------------");
+        }
+
+        #endregion
+
+        values[0] -= values[5];
+
+        if (values[0] < 0)
+            values[0] = 0;
+
+        #region 디버그
+
+        if (isPrint)
+        {
+            Debug.Log("보호 연산 후 데미지 : " + values[0]);
+            Debug.Log("보호 연산 후 데미지 감소 : " + values[5]);
+            Debug.Log("-------------------------------------");
+        }
+
+        #endregion
+    }
+}
+
 // <<22-11-12 장형용 :: 쉴드 계산 Job>>
 public struct ShieldJob : IJob
 {

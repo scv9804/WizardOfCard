@@ -370,6 +370,7 @@ public class Entity : MonoBehaviour
         values[2] = i_shield;
         values[3] = (int) i_health;
         values[4] = i_burning;
+        //values[5] = Buff_Reduce; // Entity는 해당 사항 없음
 
         #region 입력 값 디버그
 
@@ -405,6 +406,7 @@ public class Entity : MonoBehaviour
         i_shield = values[2];
         i_health = values[3];
         i_burning = values[4];
+        //Buff_Reduce = values[5]; // Entity는 해당 사항 없음
 
         #region 결과 값 디버그
 
