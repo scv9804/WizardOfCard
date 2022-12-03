@@ -10,7 +10,7 @@ public class CatchBreath : Card, IRestoreHealth, IRestoreAether
 
     public int Health
     {
-        get { return ApplyEnhanceValue(health[i_upgraded]); }
+        get { return ApplyHealValue(health[i_upgraded]); }
     }
 
     public int Aether

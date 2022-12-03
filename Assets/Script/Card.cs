@@ -77,6 +77,7 @@ public class Card : MonoBehaviour
 	MagicAffinityJob myMagicAffinityJob = new MagicAffinityJob();
     MagicResistanceJob myMagicResistanceJob = new MagicResistanceJob();
     EnhanceValueJob myEnhanceValueJob = new EnhanceValueJob();
+	HealValueJob myHealValueJob = new HealValueJob();
 
 	#endregion
 
@@ -416,6 +417,30 @@ public class Card : MonoBehaviour
         #endregion
 
         return _value;
+	}
+
+	// <<22-12-03 장형용 :: 수정>>
+	protected int ApplyHealValue(int _value)
+	{
+		#region _value += Player.Buff_Heal;
+
+		NativeArray<int> result = new NativeArray<int>(1, Allocator.TempJob);
+		result[0] = _value;
+
+		myHealValueJob.value = result;
+		myHealValueJob.heal = Player.Buff_Heal;
+
+		JobHandle firstJob = myHealValueJob.Schedule();
+
+		firstJob.Complete();
+
+		_value = result[0];
+
+		result.Dispose();
+
+		#endregion
+
+		return ApplyEnhanceValue(_value);
 	}
 
 	#endregion

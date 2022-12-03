@@ -364,7 +364,7 @@ public class Entity : MonoBehaviour
 
         #region i_health -= _damage;
 
-        NativeArray<int> values = new NativeArray<int>(5, Allocator.TempJob);
+        NativeArray<int> values = new NativeArray<int>(6, Allocator.TempJob);
         values[0] = _damage;
         //values[1] = i_protection; // Entity는 해당 사항 없음
         values[2] = i_shield;

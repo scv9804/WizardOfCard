@@ -203,7 +203,7 @@ public struct ProtectionJob : IJob
     }
 }
 
-// <<22-11-12 장형용 :: 보호 계산 Job>>
+// <<22-12-03 장형용 :: 데미지 감소 계산 Job>>
 public struct DamageReduceJob : IJob
 {
     public NativeArray<int> values; // 0: Damage, 5: Reduce
@@ -382,6 +382,22 @@ public struct EnhanceValueJob : IJob
     public void Execute()
     {
         value[0] *= enhanceValue;
+
+        if (value[0] < 0)
+            value[0] = 0;
+    }
+}
+
+// <<22-12-03 장형용 :: 힐 수치 계산 Job>>
+public struct HealValueJob : IJob
+{
+    public NativeArray<int> value;
+
+    public int heal;
+
+    public void Execute()
+    {
+        value[0] += heal;
 
         if (value[0] < 0)
             value[0] = 0;

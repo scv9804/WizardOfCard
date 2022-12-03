@@ -9,7 +9,7 @@ public class EmergencyRecovery : Card, IRestoreHealth
 
     public int Health
     {
-        get { return ApplyEnhanceValue(health[i_upgraded]); }
+        get { return ApplyHealValue(health[i_upgraded]); }
     }
 
     public override string GetCardExplain()

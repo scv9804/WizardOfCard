@@ -56,11 +56,18 @@ public class Inventory : MonoBehaviour
 		{
 			MakeQuickSlot(i);
 		}
+		AddItem(13);
 		AddItem(15);
+		AddItem(19);
 		AddItem(0);
 	}
 
-	public void MakeSlot(int i)
+    private void OnDisable()
+    {
+		TurnManager.onAddCard -= CardManager.Inst.AddCard;
+	}
+
+    public void MakeSlot(int i)
     {
 		items.Add(new Item_inven());
 		slots.Add(Instantiate(inventorySlot));
@@ -248,11 +255,17 @@ public class Inventory : MonoBehaviour
 		equipslotPanel.transform.GetChild(targetEquipSlot + 8).gameObject.SetActive(false);
 
         switch (item.Id)
-        {
+		{
+			case 13:
+				TurnManager.onAddCard += CardManager.Inst.AddCard;
+				break;
 			case 15:
 				EntityManager.Inst.playerEntity.Buff_Reduce++;
 				break;
-        }
+			case 19:
+				EntityManager.Inst.playerEntity.Buff_Heal += 2;
+				break;
+		}
 
 	}
 	public void UnequipItem(Item_inven item)
@@ -273,10 +286,17 @@ public class Inventory : MonoBehaviour
 		}
 		switch (item.Id)
 		{
+			case 13:
+				TurnManager.onAddCard -= CardManager.Inst.AddCard;
+				break;
 			case 15:
 				EntityManager.Inst.playerEntity.Buff_Reduce--;
 				break;
+			case 19:
+				EntityManager.Inst.playerEntity.Buff_Heal -= 2;
+				break;
 		}
+
 		useAccept.Deactivate();
 	}
 }

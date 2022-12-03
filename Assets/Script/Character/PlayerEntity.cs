@@ -608,7 +608,7 @@ public class PlayerEntity : MonoBehaviour
     {
         #region Status_Health -= _damage;
 
-        NativeArray<int> values = new NativeArray<int>(5, Allocator.TempJob);
+        NativeArray<int> values = new NativeArray<int>(6, Allocator.TempJob);
         values[0] = _damage;
         values[1] = Buff_Protection;
         values[2] = Status_Shiled;
@@ -626,6 +626,7 @@ public class PlayerEntity : MonoBehaviour
             Debug.Log("입력 - 쉴드 : " + values[2]);
             Debug.Log("입력 - 체력 : " + values[3]);
             Debug.Log("입력 - 화상 : " + values[4]);
+            Debug.Log("입력 - 데미지 감소 : " + values[5]);
             Debug.Log("-------------------------------------");
         }
 
@@ -639,7 +640,7 @@ public class PlayerEntity : MonoBehaviour
         myDamageReduceJob.values = values;
         myDamageReduceJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
 
-        JobHandle secondJob = myShieldJob.Schedule(firstJob);
+        JobHandle secondJob = myDamageReduceJob.Schedule(firstJob);
 
         myShieldJob.values = values;
         myShieldJob.isPrint = DebugManager.instance.isPrintDamageCalculating;
@@ -668,7 +669,7 @@ public class PlayerEntity : MonoBehaviour
             Debug.Log("출력 - 보호 : " + values[1]);
             Debug.Log("출력 - 쉴드 : " + values[2]);
             Debug.Log("출력 - 체력 : " + values[3]);
-            Debug.Log("출력 - 화상 : " + values[4]);
+            Debug.Log("출력 - 데미지 감소 : " + values[5]);
             Debug.Log("-------------------------------------");
         }
 
