@@ -17,7 +17,7 @@ MonoBehaviour:
   i_attackCount: 0
   i_damage: 3
   increaseShield: 3
-  buffValue: 0
+  buffValue: 2
   debuffValue: 2
   f_percentage: 0
   st_charName: Wolf
