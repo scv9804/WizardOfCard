@@ -739,9 +739,9 @@ public class PlayerEntity : MonoBehaviour
 
     #region StatusValueChange
 
-    #region 마나 친화성
+    #region 마나 친화성 수정필요
 
-    void ResetMagicAffinity_Battle()
+    public void ResetMagicAffinity_Battle()
     {
         i_magicAffinity_battle = 0;
 
@@ -759,7 +759,7 @@ public class PlayerEntity : MonoBehaviour
         CardManager.Inst.RefreshMyHands();
     }
 
-    void ResetMagicAffinity_Turn(bool isMyTurn)
+    public void ResetMagicAffinity_Turn(bool isMyTurn)
     {
         if (!isMyTurn)
         {

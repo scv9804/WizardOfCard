@@ -20188,7 +20188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventRoom: []
-  numberOfRooms: 25
+  numberOfRooms: 10
   create: 0
   i_Room_L: 0
   i_Room_R: 0
@@ -20204,7 +20204,7 @@ MonoBehaviour:
   - {fileID: 1199606630}
   - {fileID: 1013502469}
   tutorialRoomScript: {fileID: 863816447}
-  eventRoomValue: 4
+  eventRoomValue: 1
 --- !u!4 &2133263563
 Transform:
   m_ObjectHideFlags: 0

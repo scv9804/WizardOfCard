@@ -36,8 +36,8 @@ public class DeckScrollView : MonoBehaviour
             var cardinfo = newUI.AddComponent<Card>();
             cardinfo = item;
 
-            newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();
             newUI.transform.GetChild(1).GetComponent<TMP_Text>().text = cardinfo.st_cardName;
+            newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();
             newUI.transform.GetChild(2).GetComponent<TMP_Text>().text = cardinfo.GetCardExplain();
             newUI.transform.GetChild(3).GetComponent<Image>().sprite = cardinfo.CardIconImage;
 

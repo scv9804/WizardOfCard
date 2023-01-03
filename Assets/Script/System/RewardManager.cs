@@ -191,7 +191,7 @@ public class RewardManager : MonoBehaviour
 
 		if (toggle.isOn)
 		{
-			EntityManager.Inst.playerEntity.money = rewardMoney;
+			EntityManager.Inst.playerEntity.money += rewardMoney;
 
 			UIManager.Inst.PlayerMoneyUIRefresh();
 		}
