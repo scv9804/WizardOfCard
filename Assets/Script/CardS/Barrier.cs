@@ -37,6 +37,6 @@ public class Barrier : Card, IShield
     {
         Player.Status_Shiled += Shield;
 
-        MusicManager.inst.PlayBarrierSound();
+        MusicManager.inst?.PlayBarrierSound();
     }
 }

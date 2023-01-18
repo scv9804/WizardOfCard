@@ -57,7 +57,7 @@ public class StormRune : Card, IAttack
 
 			StartCoroutine(PlayAttackSprite);
 
-			MusicManager.inst.PlayerDefultSoundEffect();
+			//MusicManager.inst?.PlayerDefultSoundEffect();
 		}
 	}
 

@@ -75,7 +75,7 @@ public class EnemySkillCollection : MonoBehaviour
 	public IEnumerator Attack(Entity _entity)
 	{
 		_entity.attackTime++;
-		MusicManager.inst.SlashSound();
+		MusicManager.inst?.SlashSound();
 		PlayerEntity.Inst.Damaged(_entity.FinalAttackValue());
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 		_entity.attackable = false;
@@ -119,7 +119,7 @@ public class EnemySkillCollection : MonoBehaviour
 			{
 				yield return StartCoroutine(AttackMotion(_entity));
 			}
-			MusicManager.inst.SlashSound();
+			MusicManager.inst?.SlashSound();
 			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("ºÎ½Ä"));
 			yield return null;
@@ -137,7 +137,7 @@ public class EnemySkillCollection : MonoBehaviour
 			{
 				yield return StartCoroutine(AttackMotion(_entity));
 			}
-			MusicManager.inst.SlashSound();
+			MusicManager.inst?.SlashSound();
 			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("ºÎ½Ä"));
 			EntityManager.Inst.playerEntity.AddBuffImage(BuffDebuffManager.Inst.RustAccid, "RustAccid", 0, 1 ,1, false);
@@ -151,7 +151,7 @@ public class EnemySkillCollection : MonoBehaviour
 		{
 			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
 			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
-			MusicManager.inst.SlashSound();
+			MusicManager.inst?.SlashSound();
 			_entity.attackTime++;
 			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("ÁýÁß·Â ÀúÇÏ"));
@@ -160,7 +160,7 @@ public class EnemySkillCollection : MonoBehaviour
 		{
 			EntityManager.Inst.playerEntity.Buff_MagicAffinity_Turn -= _entity.debuffValue;
 			_entity.attackTime++;
-			MusicManager.inst.SlashSound();
+			MusicManager.inst?.SlashSound();
 			EntityManager.Inst.playerEntity.debuffEffect.Play(); // ÀÌÆåÆ® ¶«»§ ¤µ¤² 
 			yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 			StartCoroutine(EntityManager.Inst.playerEntity.SkillNamePopup("ÁýÁß·Â ÀúÇÏ"));
@@ -174,7 +174,7 @@ public class EnemySkillCollection : MonoBehaviour
 	{
 		if (_entity.CompareBuffImage(0, _entity.buffValue))
 		{
-			MusicManager.inst.WarCrySound();
+			MusicManager.inst?.WarCrySound();
 			yield return StartCoroutine(BuffDebuffManager.Inst.SpawnSkillEffect(_entity, "WarCry"));
 			StartCoroutine(_entity.SkillNamePopup("ÀüÅõÀÇ ÇÔ¼º"));
 			_entity.IncreaseDamage = _entity.buffValue;
@@ -183,7 +183,7 @@ public class EnemySkillCollection : MonoBehaviour
 		}
 		else
 		{
-			MusicManager.inst.WarCrySound();
+			MusicManager.inst?.WarCrySound();
 			_entity.AddBuffImage(BuffDebuffManager.Inst.WarCrySprite, "WarCry", 100, 1 , 1, true);
 			yield return StartCoroutine(BuffDebuffManager.Inst.SpawnSkillEffect(_entity, "WarCry"));
 			StartCoroutine(_entity.SkillNamePopup("ÀüÅõÀÇ ÇÔ¼º"));
@@ -199,8 +199,8 @@ public class EnemySkillCollection : MonoBehaviour
 	public IEnumerator StealMoney(Entity _entity)
 	{
 		_entity.attackTime++;
-		MusicManager.inst.SlashSound();
-		MusicManager.inst.PlayBuyingSound();
+		MusicManager.inst?.SlashSound();
+		MusicManager.inst?.PlayBuyingSound();
 		PlayerEntity.Inst.Damaged(_entity.FinalAttackValue()-1);
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
 		EntityManager.Inst.playerEntity.money -= 5;

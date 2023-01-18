@@ -109,19 +109,13 @@ public class EntityManager : MonoBehaviour
 
     public bool IsAlreadyAllDead()
     {
-        bool _value = true;
-
         for(int i = 0; i < enemyEntities.Count; i++)
         {
             if(!enemyEntities[i].is_die)
-            {
-                _value = false;
-
-                break;
-            }
+                return false;
         }
 
-        return _value;
+        return true;
     }
 
     public Entity SelectRandomTarget()

@@ -52,7 +52,7 @@ public class MagicBolt : Card, IAttack
 
             StartCoroutine(PlayAttackSprite);
 
-            MusicManager.inst.PlayerDefultSoundEffect();
+            MusicManager.inst?.PlayerDefultSoundEffect();
         }
     }
 
@@ -63,6 +63,6 @@ public class MagicBolt : Card, IAttack
         StartCoroutine(PlayAttackSprite);
         _target?.SetDamagedSprite(enemyDamageSprite);
 
-        MusicManager.inst.PlayerDefultSoundEffect();
+        MusicManager.inst?.PlayerDefultSoundEffect();
     } 
 }

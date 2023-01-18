@@ -382,6 +382,7 @@ public class Entity : MonoBehaviour
             Debug.Log("입력 - 쉴드 : " + values[2]);
             Debug.Log("입력 - 체력 : " + values[3]);
             Debug.Log("입력 - 화상 : " + values[4]);
+            // Debug.Log("입력 - 데미지 감소 : " + values[5]); // Entity는 해당 사항 없음
             Debug.Log("-------------------------------------");
         }
 
@@ -553,7 +554,7 @@ public class Entity : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
 
-        MusicManager.inst.EnemyDisappear();
+        MusicManager.inst?.EnemyDisappear();
 
         dissolveEffect.Play();
         dissolveEffect.playRate = 2.5f;

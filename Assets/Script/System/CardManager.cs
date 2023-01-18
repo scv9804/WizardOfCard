@@ -539,8 +539,8 @@ public class CardManager : MonoBehaviour
 		}
 		is_myCardDrag = true;
 
-		MusicManager.inst.PlayCardClickSound();
-	}
+        MusicManager.inst?.PlayCardClickSound();
+    }
 
 	//카드 놓기 (카드사용)
 	public void CardMouseUp(Card _card)
@@ -595,8 +595,6 @@ public class CardManager : MonoBehaviour
 			SetCardDisable();
 			Debug.Log("카드 미사용");
 		}
-
-
 	}
 
 	#region AttackRange Bool
