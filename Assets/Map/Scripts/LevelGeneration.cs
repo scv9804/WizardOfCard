@@ -736,11 +736,12 @@ public class LevelGeneration : MonoBehaviour {
 			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
 			{
 				case 0:
-					EntityManager.Inst.SpawnEnemyEntity();
+					
+					//EntityManager.Inst.SpawnEnemyEntity();
 					break;
 				case 1:
 					Debug.Log("보스소환시도");
-					EntityManager.Inst.SpawnEnemyBossEntity();
+					//EntityManager.Inst.SpawnEnemyBossEntity();
 					break;
 				case 2:
 					shopRoomScript.EnterShop();

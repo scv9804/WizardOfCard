@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+//using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using TMPro;
 
@@ -58,8 +58,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] Camera mainCam;
 	[SerializeField] Camera mapCam;
 
-	[SerializeField] CameraData mainCamera;
-	[SerializeField] CameraData mapCamera;
+/*	[SerializeField] CameraData mainCamera;
+	[SerializeField] CameraData mapCamera;*/
 
 	bool isDeckUse;
 	bool isCardUse;
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
 
 	//Coroutine tryEndTurnCoroutine;
 
-	public void AntiAliasing_FXAA()
+/*	public void AntiAliasing_FXAA()
 	{
 		mainCamera.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
 		mapCamera.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
@@ -93,7 +93,7 @@ public class UIManager : MonoBehaviour
 	{
 		mapCamera.antialiasing = AntialiasingMode.None;
 		mainCamera.antialiasing = AntialiasingMode.None;
-	}
+	}*/
 
 	public void PostProcessing()
 	{
@@ -120,11 +120,11 @@ public class UIManager : MonoBehaviour
 
 	public void TurnEndButton()
 	{
-		Debug.Log(2222);
-		if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == E_CardStats.CanAll)
+		//임시
+		//if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == E_CardStats.CanAll)
 		{
-			Debug.Log(1111);
-			/*tryEndTurnCoroutine = */StartCoroutine(TryEndTurn());
+			Debug.Log("턴 종료");
+			StartCoroutine(TryEndTurn());
 		}
 	}
 
@@ -135,7 +135,7 @@ public class UIManager : MonoBehaviour
 
 		yield return new WaitAllCardUsingDone();
 
-		if(!EntityManager.Inst.IsAlreadyAllDead())
+		//if(!EntityManager.Inst.IsAlreadyAllDead()) 일단 필요없어져서 지움 
         {
 			LevelGeneration.Inst.EndTurn();
 		}

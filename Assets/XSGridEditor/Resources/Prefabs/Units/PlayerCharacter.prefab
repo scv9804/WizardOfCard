@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2317606363393048659}
   - component: {fileID: 6251731492556014974}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117247199365949242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.060000658, z: 1}
+  m_LocalPosition: {x: -0.1, y: -0.060000658, z: 0.01}
   m_LocalScale: {x: 1.6, y: 1.6, z: 1.6128}
   m_Children: []
   m_Father: {fileID: 2077760302755530906}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1470221799749866912}
   - component: {fileID: 7327307813527588599}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttackEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527547225080638419}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 107.7, y: -147.7, z: 0.60848737}
+  m_LocalPosition: {x: 107.7, y: -147.7, z: 0}
   m_LocalScale: {x: 43.589108, y: 42.411026, z: 6.544264}
   m_Children: []
   m_Father: {fileID: 2077760304029203794}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 6089814875845399052}
   - component: {fileID: 2960051080514244098}
   - component: {fileID: 2103114554507658704}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,8 +250,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2077760302346298914}
   - component: {fileID: 2077760302346298915}
+  - component: {fileID: 8632410183465665093}
   - component: {fileID: 2077760302346298941}
-  - component: {fileID: 6157782240726249842}
+  - component: {fileID: 4880041760462919614}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -267,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077760302346298912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.14, y: -0.047, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 2184591512726163220}
@@ -329,6 +330,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8632410183465665093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077760302346298912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e73f2abca2f914ba64712ff3e6ca6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2077760302346298941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,6 +354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ab879887b40fa4ea830613c7b595f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
+  move: 2
   playerChar:
     i_CharCode: 0
     i_health: 0
@@ -369,38 +384,21 @@ MonoBehaviour:
   buffImageList: []
   buffEffect: {fileID: 4507628846511766853}
   debuffEffect: {fileID: 1393441535751402122}
-  DecreaseDamage_Turn: 1
-  DecreaseDamage_Battle: 1
-  damageUpBuff_Turn: 0
-  damageUpBuff_Battle: 0
   attackable: 0
   karma: 0
---- !u!61 &6157782240726249842
-BoxCollider2D:
+--- !u!65 &4880041760462919614
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077760302346298912}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.8750458, y: 2.9561996}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 12.24, y: 14.72}
-    newSize: {x: 12.24, y: 14.72}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 17.57186, y: 23.937843}
-  m_EdgeRadius: 0
+  m_Size: {x: 6.703827, y: 14.684477, z: 0.19999999}
+  m_Center: {x: 0.34707576, y: 6.3420153, z: 0}
 --- !u!1 &2077760302748284326
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +411,7 @@ GameObject:
   - component: {fileID: 2077760302748284323}
   - component: {fileID: 2077760302748284320}
   - component: {fileID: 927183586971140821}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HPTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +426,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077760302748284326}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.098}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 2077760304073330689}
@@ -594,7 +592,7 @@ GameObject:
   - component: {fileID: 2077760302755530906}
   - component: {fileID: 2077760302755530900}
   - component: {fileID: 2077760302755530901}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShieldTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +607,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077760302755530907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.60848737}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 2317606363393048659}
@@ -765,7 +763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2077760303579437140}
   - component: {fileID: 2077760303579437143}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,7 +847,7 @@ GameObject:
   - component: {fileID: 2077760304018420794}
   - component: {fileID: 2077760304018420795}
   - component: {fileID: 6732544001385130844}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HP_Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +934,7 @@ GameObject:
   - component: {fileID: 2077760304029203759}
   - component: {fileID: 2077760304029203756}
   - component: {fileID: 2077760304029203757}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: InPlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -951,7 +949,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077760304029203795}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.60848737}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 1}
   m_Children:
   - {fileID: 2077760302755530906}
@@ -964,7 +962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.86, y: 11.5}
+  m_AnchoredPosition: {x: 1.6, y: 19.73}
   m_SizeDelta: {x: 346.2662, y: 139.3236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2077760304029203759
@@ -1037,7 +1035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2077760304073330689}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1078,7 +1076,7 @@ GameObject:
   - component: {fileID: 2929933767938025971}
   - component: {fileID: 2350134735970959927}
   - component: {fileID: 6661157804994035530}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HP_Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1164,7 +1162,7 @@ GameObject:
   - component: {fileID: 8469962939947284095}
   - component: {fileID: 4507628846511766853}
   - component: {fileID: 59798970172938419}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: buffParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1179,7 +1177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4629357517029162591}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.6084874}
+  m_LocalPosition: {x: 1.4499998, y: 8.2300005, z: -2.6084874}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 2077760302346298914}
@@ -1271,7 +1269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2036866350483560391}
   - component: {fileID: 2801722425889879363}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: BuffImageSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1333,7 +1331,7 @@ GameObject:
   - component: {fileID: 33865678860405100}
   - component: {fileID: 6420066742080717943}
   - component: {fileID: 2178275714780374714}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "Spine GameObject (sd \uAD00\uC808\uB098\uB208\uAC702)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1348,7 +1346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7556468839633654502}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.49, y: -7.68, z: 0}
+  m_LocalPosition: {x: -0.0400002, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2077760302346298914}
@@ -1454,7 +1452,7 @@ GameObject:
   - component: {fileID: 5079448573055302625}
   - component: {fileID: 8282029368935582847}
   - component: {fileID: 1336348511745594407}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: SkillNameTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1588,7 +1586,7 @@ GameObject:
   - component: {fileID: 7948578472548813179}
   - component: {fileID: 1393441535751402122}
   - component: {fileID: 4563789859228687666}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DebuffParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1603,7 +1601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8922120027678633934}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.6084874}
+  m_LocalPosition: {x: 1.4499998, y: 8.2300005, z: -2.6084874}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 2077760302346298914}
@@ -1695,7 +1693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8899927148529051932}
   - component: {fileID: 3309542439751420591}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Damaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1710,7 +1708,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9071613002331062482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.05, y: 0.15, z: 0}
+  m_LocalPosition: {x: 0.39999962, y: 8.380001, z: 0}
   m_LocalScale: {x: 2.759, y: 2.28, z: 1}
   m_Children: []
   m_Father: {fileID: 2077760302346298914}

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using XSSLG;
 using UnityEngine.SceneManagement;
 
-public class EntityManager : MonoBehaviour
+public class EntityManager : XSUnitNode
 {
     public static EntityManager Inst { get; private set; }
     // 인스턴스화 및 로드시 Destroy 안시키기.
@@ -49,7 +49,7 @@ public class EntityManager : MonoBehaviour
     PlayerChar playerChar;
 
 
-    LevelGeneration levelGeneration;
+  //  LevelGeneration levelGeneration;
 
 
     const int MAX_ENEMY_COUNT = 3;
@@ -73,7 +73,7 @@ public class EntityManager : MonoBehaviour
 
     private void Start()
     {
-        levelGeneration = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+        //levelGeneration = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
         TurnManager.onStartTurn += OnTurnStarted;
     }
 

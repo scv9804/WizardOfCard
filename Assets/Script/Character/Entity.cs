@@ -10,8 +10,9 @@ using System.Text;
 using System;
 using Unity.Jobs;
 using Unity.Collections;
+using XSSLG;
 
-public class Entity : MonoBehaviour
+public class Entity : XSUnitNode
 {
     [Header("기본 설정")]
     [SerializeField] EntityPattern entitiyPattern;
@@ -105,7 +106,7 @@ public class Entity : MonoBehaviour
     #region 시작 생성 종료 업데이트
     private void Start()
     {
-        entitiyPattern.ShowNextPattern(this);
+       //entitiyPattern.ShowNextPattern(this);
         dissolveMaterial = GetComponent<SpriteRenderer>().material;
         Debug.Log(charater.sprite.bounds.size.y);
         //켄버스 위치 스프라이트 사이즈에 따라 조절. (체력바 위치)

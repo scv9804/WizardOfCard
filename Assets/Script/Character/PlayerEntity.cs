@@ -8,8 +8,9 @@ using UnityEngine.VFX;
 using DG.Tweening;
 using Unity.Jobs;
 using Unity.Collections;
+using XSSLG;
 
-public class PlayerEntity : MonoBehaviour
+public class PlayerEntity : XSUnitNode
 {
     public static PlayerEntity Inst { get; private set; }
 
@@ -88,7 +89,7 @@ public class PlayerEntity : MonoBehaviour
             skillNameTmp.rectTransform.anchoredPosition3D += popupSpeed * Vector3.up;
         }
     }
-    // <<22-10-21 장형용 :: 추가>>
+
     void OnEnable()
     {
         #region 액션 등록
@@ -127,7 +128,6 @@ public class PlayerEntity : MonoBehaviour
     #region Status
 
     int maxAether = 5; // 최대 코스트
-    // <<22-11-12 장형용 :: 전투 간 추가되는 임시 최대 코스트 추가>>
     int maxAether_battle;
     int i_aether; // 코스트
 

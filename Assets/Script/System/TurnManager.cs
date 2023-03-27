@@ -41,50 +41,71 @@ public class TurnManager : MonoBehaviour
         isLoding = true;
         onStartTurn?.Invoke(myTurn);
 
-        if ((room.RoomEventType == 1 || room.RoomEventType == 0) && !room.isStartRoom)
-        {
-            if (myTurn == true)
-            {
-                UIManager.Inst.TurnEndButtonActivae();
-                //GameManager.Inst.Notification("내 턴");
-                TurnNotification_Bool(true);
-                CardManager.Inst.SetCardStateCannot();
-                yield return delay_07;
-                onAddCard?.Invoke();
-                yield return delay_07;
-                EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
-                UIManager.Inst.IsUIUse = true;
-                isLoding = false;
-            }
-            else
-            {
-                UIManager.Inst.TurnEndButtonActivae();
-                // GameManager.Inst.Notification("상대 턴");
-                TurnNotification_Bool(false);
-                yield return delay_07;
-                yield return delay_07;
-                StartCoroutine(EntityManager.Inst.EnemyEntityAttack());
-                Debug.Log("Attack");
-                UIManager.Inst.IsUIUse = false;
-                isLoding = false;
-            }
-            CardManager.Inst.SetECardState();
-
-        }
-        else
-        {
-            CardManager.Inst.e_CardStats = E_CardStats.CanMouseOver;
-            EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
-            UIManager.Inst.IsUIUse = true;
-            isLoding = false;
-            Debug.Log("전투방아님 //TurnManager");
-        }
+		if (myTurn == true)
+		{
+			UIManager.Inst.TurnEndButtonActivae();
+			//GameManager.Inst.Notification("내 턴");
+			TurnNotification_Bool(true);
+			CardManager.Inst.SetCardStateCannot();
+			yield return delay_07;
+			onAddCard?.Invoke();
+			yield return delay_07;
+			EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
+			UIManager.Inst.IsUIUse = true;
+			isLoding = false;
+		}
+		else
+		{
+			TurnNotification_Bool(false);
+			// 적 패턴 구현해야함 ㅇㅇ
+			UIManager.Inst.IsUIUse = false;
+			isLoding = false;
+		}
+		CardManager.Inst.SetECardState();
 
 
-    }
 
-    // 턴종료시 호출, 턴 바꾸려면 얘호출하면 줄줄이 호출임
-    public void OnAddCard()
+		/* ㅇㅇ 좆댐 다뿌숴그냥 뿌숴뿌숴
+		if ((room.RoomEventType == 1 || room.RoomEventType == 0) && !room.isStartRoom)
+		{
+			if (myTurn == true)
+			{
+				UIManager.Inst.TurnEndButtonActivae();
+				//GameManager.Inst.Notification("내 턴");
+				TurnNotification_Bool(true);
+				CardManager.Inst.SetCardStateCannot();
+				yield return delay_07;
+				onAddCard?.Invoke();
+				yield return delay_07;
+				EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
+				UIManager.Inst.IsUIUse = true;
+				isLoding = false;
+			}
+			else
+			{
+				TurnNotification_Bool(false);
+				yield return delay_07;
+				yield return delay_07;
+				UIManager.Inst.IsUIUse = false;
+				isLoding = false;
+			}
+			CardManager.Inst.SetECardState();
+
+		}
+		else
+		{
+			CardManager.Inst.e_CardStats = E_CardStats.CanMouseOver;
+			EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
+			UIManager.Inst.IsUIUse = true;
+			isLoding = false;
+			Debug.Log("전투방아님 //TurnManager");
+		}
+		*/
+
+	}
+
+	// 턴종료시 호출, 턴 바꾸려면 얘호출하면 줄줄이 호출임
+	public void OnAddCard()
 	{
         onAddCard?.Invoke();
     }
