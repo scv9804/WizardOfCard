@@ -34,6 +34,8 @@ public class TurnManager : MonoBehaviour
     //event 안붙임, GameManager에서 관리하기 편하게 하기 위해
     public static Action onAddCard;
     public static Action <bool> onStartTurn;
+	public static Action enemyActions;
+
 
     // 턴시작
     public IEnumerator Co_StartTurn(Room room)
@@ -58,6 +60,7 @@ public class TurnManager : MonoBehaviour
 		{
 			TurnNotification_Bool(false);
 			// 적 패턴 구현해야함 ㅇㅇ
+			enemyActions?.Invoke();
 			UIManager.Inst.IsUIUse = false;
 			isLoding = false;
 		}

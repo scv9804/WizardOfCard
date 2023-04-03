@@ -76,8 +76,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(LevelGeneration.Inst.Co_StartGame());
         EntityManager.Inst.SpawnPlayerEntity();
+        StartCoroutine(LevelGeneration.Inst.Co_StartGame());        
     }
 
     public void GameTick()

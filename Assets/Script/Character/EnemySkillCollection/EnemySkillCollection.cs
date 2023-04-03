@@ -20,6 +20,7 @@ public class EnemySkillCollection : MonoBehaviour
 	public static void PrototypeFunction(string _name, params object[] _parameters)
 	{
 		inst.methodInfo = inst.GetType().GetMethod(_name);
+		Debug.Log("Àû ½ºÅ³");
 
 		inst.StartCoroutine((IEnumerator) inst.methodInfo.Invoke(inst, _parameters));
 	}
