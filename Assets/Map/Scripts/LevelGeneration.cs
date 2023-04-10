@@ -716,6 +716,8 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
+
+	//방 체크 최종임. 여기서 진입.
 	void SerchRoomEvent(int _x, int _y)
 	{
 		if (eventOn)
@@ -736,25 +738,33 @@ public class LevelGeneration : MonoBehaviour {
 			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
 			{
 				case 0:
-					
+					LoadSceneManager.LoadScene("CopyScene");
+
 					//EntityManager.Inst.SpawnEnemyEntity();
 					break;
 				case 1:
+					LoadSceneManager.LoadScene("CopyScene");
+
 					Debug.Log("보스소환시도");
+					
+
 					//EntityManager.Inst.SpawnEnemyBossEntity();
 					break;
 				case 2:
-					shopRoomScript.EnterShop();
+					LoadSceneManager.LoadScene("CopyScene");
+
+					//		shopRoomScript.EnterShop();
 					Debug.Log("상점이벤트");
-					shopOn = true;
+			//		shopOn = true;
 					break;
 				case 3:
-					Debug.Log("그냥 이벤트");
-					int rand = UnityEngine.Random.Range(0, eventRoomScript.Count);
-					eventRoomScript[rand].Event();
+					LoadSceneManager.LoadScene("CopyScene");
 
-					eventOn = true;
-					eventNumber = rand;
+					Debug.Log("그냥 이벤트");
+					//int rand = UnityEngine.Random.Range(0, eventRoomScript.Count);
+					//eventRoomScript[rand].Event();
+					//eventOn = true;
+					//eventNumber = rand;
 					break;
 			}
 		}

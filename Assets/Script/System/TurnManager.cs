@@ -21,7 +21,7 @@ public class TurnManager : MonoBehaviour
     NotificationPanel notificationPanel;
 
     [Header("Properties")]
-    [HideInInspector]
+    [SerializeField]
     //특수전일때만 false로 할 생각임. 항상 선공일 수도 있음.
     public bool myTurn = true;
     // 게임이 끝나면 True로 바꿔서 Entity 클릭 방지.

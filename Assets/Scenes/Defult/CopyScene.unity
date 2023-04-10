@@ -11288,22 +11288,21 @@ Transform:
   - {fileID: 1968582884}
   - {fileID: 29154667}
   - {fileID: 1982558496}
-  - {fileID: 1803969901}
-  - {fileID: 812439857}
-  - {fileID: 1386042125}
+  - {fileID: 2077724455}
   - {fileID: 277371842}
   - {fileID: 2137651260}
-  - {fileID: 35662809}
-  - {fileID: 1506142825}
   - {fileID: 2010656909}
   - {fileID: 426505768}
-  - {fileID: 377604604}
-  - {fileID: 1206558379}
-  - {fileID: 236860326}
-  - {fileID: 2077724455}
+  - {fileID: 1506142825}
+  - {fileID: 35662809}
   - {fileID: 1275622497}
+  - {fileID: 377604604}
+  - {fileID: 236860326}
+  - {fileID: 812439857}
   - {fileID: 789427556}
+  - {fileID: 1206558379}
   - {fileID: 1111274129}
+  - {fileID: 1803969901}
   - {fileID: 1978878656}
   - {fileID: 458248924}
   - {fileID: 1290263236}
@@ -11312,6 +11311,7 @@ Transform:
   - {fileID: 47414897}
   - {fileID: 649820374}
   - {fileID: 748331688}
+  - {fileID: 1386042125}
   - {fileID: 958800415}
   - {fileID: 1110320128}
   - {fileID: 781279779}
@@ -11320,27 +11320,27 @@ Transform:
   - {fileID: 218971420}
   - {fileID: 656843939}
   - {fileID: 1076005975}
-  - {fileID: 511439835}
   - {fileID: 837885643}
-  - {fileID: 1288834573}
   - {fileID: 612692279}
+  - {fileID: 511439835}
+  - {fileID: 1288834573}
   - {fileID: 1181867520}
   - {fileID: 414528271}
   - {fileID: 2087850630}
   - {fileID: 488929313}
-  - {fileID: 135805386}
   - {fileID: 1283353005}
   - {fileID: 490125047}
   - {fileID: 1528946258}
-  - {fileID: 1329121703}
   - {fileID: 1447222282}
   - {fileID: 1841199422}
-  - {fileID: 13106432}
-  - {fileID: 51974475}
-  - {fileID: 2065252192}
-  - {fileID: 2123596712}
-  - {fileID: 1650199599}
   - {fileID: 1939055322}
+  - {fileID: 13106432}
+  - {fileID: 2065252192}
+  - {fileID: 51974475}
+  - {fileID: 2123596712}
+  - {fileID: 1329121703}
+  - {fileID: 135805386}
+  - {fileID: 1650199599}
   m_Father: {fileID: 511220638}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23661,6 +23661,10 @@ PrefabInstance:
     - target: {fileID: 7799422697148875826, guid: 38d2167c9bd27114bbf3966e5dbb4534, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799422697148875826, guid: 38d2167c9bd27114bbf3966e5dbb4534, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 7799422697148875853, guid: 38d2167c9bd27114bbf3966e5dbb4534, type: 3}
       propertyPath: m_RootOrder

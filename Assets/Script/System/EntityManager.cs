@@ -261,10 +261,13 @@ public class EntityManager : XSUnitNode
 
 	public void SetPlayerEntity(PlayerChar _playerChar)
     {
-        //var entityObject = Instantiate(playerPrefab, spawnPlayerChar_Tf.position, Quaternion.identity);
-        var playerEntityTemp = GameObject.FindWithTag("Player").GetComponent<PlayerEntity>();
+		var entityObject = Instantiate(playerPrefab, spawnPlayerChar_Tf.position, Quaternion.identity);
+        var playerEntityTemp = entityObject.GetComponent<PlayerEntity>(); ;
 
-        playerEntityTemp.SetupPlayerChar(_playerChar);
+		//var entityObject = Instantiate(playerPrefab, spawnPlayerChar_Tf.position, Quaternion.identity);
+		//var playerEntityTemp = GameObject.FindWithTag("Player").GetComponent<PlayerEntity>();
+
+		playerEntityTemp.SetupPlayerChar(_playerChar);
         playerEntity = playerEntityTemp;
     }
 
