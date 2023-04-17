@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Inst { get; private set; }
     void Awake() 
-    { Inst = this; 
+    { 
+		Inst = this; 
       DontDestroyOnLoad(this.gameObject); // 이 부분이 씬 로드하면서 버그가 걸림 ... 왜인지는 조금 더 연구해 볼 필요가 있음.
     }
 
@@ -36,35 +38,41 @@ public class TurnManager : MonoBehaviour
     public static Action <bool> onStartTurn;
 	public static Action enemyActions;
 
+	public bool IsCombatScene = false;
+
 
     // 턴시작
     public IEnumerator Co_StartTurn(Room room)
     {
-        isLoding = true;
-        onStartTurn?.Invoke(myTurn);
+		if (IsCombatScene)
+		{
+			isLoding = true;
+			onStartTurn?.Invoke(myTurn);
 
-		if (myTurn == true)
-		{
-			UIManager.Inst.TurnEndButtonActivae();
-			//GameManager.Inst.Notification("내 턴");
-			TurnNotification_Bool(true);
-			CardManager.Inst.SetCardStateCannot();
-			yield return delay_07;
-			onAddCard?.Invoke();
-			yield return delay_07;
-			EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
-			UIManager.Inst.IsUIUse = true;
-			isLoding = false;
+			if (myTurn == true)
+			{
+				UIManager.Inst.TurnEndButtonActivae();
+				//GameManager.Inst.Notification("내 턴");
+				TurnNotification_Bool(true);
+				CardManager.Inst.SetCardStateCannot();
+				yield return delay_07;
+				onAddCard?.Invoke();
+				yield return delay_07;
+				EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
+				UIManager.Inst.IsUIUse = true;
+				isLoding = false;
+			}
+			else
+			{
+				TurnNotification_Bool(false);
+				// 적 패턴 구현해야함 ㅇㅇ
+				enemyActions?.Invoke();
+				UIManager.Inst.IsUIUse = false;
+				isLoding = false;
+			}
+			CardManager.Inst.SetECardState();
 		}
-		else
-		{
-			TurnNotification_Bool(false);
-			// 적 패턴 구현해야함 ㅇㅇ
-			enemyActions?.Invoke();
-			UIManager.Inst.IsUIUse = false;
-			isLoding = false;
-		}
-		CardManager.Inst.SetECardState();
+
 
 
 
@@ -115,6 +123,7 @@ public class TurnManager : MonoBehaviour
 
     public void TurnNotification_Bool(bool _myTurn)
     {
-        notificationPanel.Show(_myTurn);
+		notificationPanel = GameObject.Find("Notification Panel").GetComponent<NotificationPanel>();
+		notificationPanel.Show(_myTurn);
     }
 }

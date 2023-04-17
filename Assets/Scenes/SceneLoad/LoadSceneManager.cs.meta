@@ -3,7 +3,9 @@ guid: 416db0c377b815d46946f9003270f435
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - sceneLoaderCanvasGroup: {fileID: 5088442884917642213, guid: 121789205a2f3e64ea9a018839c1be19, type: 3}
+  - progressBar: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

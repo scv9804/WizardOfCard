@@ -17,12 +17,9 @@ public class PlayerEntity : XSUnitNode
     private void Awake()
     {
         Inst = this;
-
-        //DontDestroyOnLoad(this);
     }
 
     [HideInInspector] public PlayerChar playerChar;
-    [HideInInspector] public int money;
     [HideInInspector] public int manaInchentValue = 0;
     [SerializeField] SpriteRenderer charaterSprite;
     [SerializeField] GameObject spineObeject;
@@ -127,7 +124,7 @@ public class PlayerEntity : XSUnitNode
     // Ex) Health, Aether, Shield, ...
     #region Status
 
-    int maxAether = 5; // 최대 코스트
+    int maxAether; // 최대 코스트
     int maxAether_battle;
     int i_aether; // 코스트
 
@@ -583,7 +580,6 @@ public class PlayerEntity : XSUnitNode
         playerChar = _playerChar;
         i_health = _playerChar.i_health;
         maxHealth = i_health;
-        money = 0;
 		if (i_shield == 0)
         {
             ShieldTMP.gameObject.SetActive(false);
@@ -594,11 +590,13 @@ public class PlayerEntity : XSUnitNode
             ShieldTMP.gameObject.SetActive(true);
         }
 
+        Status_MaxAether = CharacterStateStorage.Inst.aether;
+        Status_Aether = CharacterStateStorage.Inst.aether;
+
         originSkillNamePos = skillNameTmp.rectTransform.anchoredPosition3D;
         UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
         charaterSprite.sprite = _playerChar.sp_sprite;
         healthTMP.text = i_health.ToString();
-        UIManager.Inst.money_TMP.text = money.ToString("D3");
     }
 
     // <<22-10-21 장형용 :: 수정>>

@@ -93,15 +93,15 @@ ScriptedImporter:
   rigSpriteImportData:
   - name: "\uC624\uB978\uD314\uBAA9"
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.40497872, y: -0.001556595}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 0
       width: 1224
-      height: 1472
+      height: 1476
     spriteID: a9d2ee0873e0d9348971a92291929b27
     internalID: 0
     spriteBone: []

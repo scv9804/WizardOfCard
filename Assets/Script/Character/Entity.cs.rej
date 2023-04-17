@@ -1,0 +1,9 @@
+diff a/Assets/Script/Character/Entity.cs b/Assets/Script/Character/Entity.cs	(rejected hunks)
+@@ -121,6 +121,7 @@
+         dissolveMaterial = GetComponentInChildren<SpriteRenderer>().material;
+         Debug.Log(charater.sprite.bounds.size.y);
+         //�˹��� ��ġ ��������Ʈ ����� ���� ����. (ü�¹� ��ġ)
++        inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y * charater.transform.localScale.y + 0.1f ) ;
+         AllEffectOff();
+     }
+     private void OnEnable()

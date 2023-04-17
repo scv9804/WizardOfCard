@@ -105,6 +105,8 @@ public class LevelGeneration : MonoBehaviour {
 		shopOn = false;
 
 		UIManager.Inst.ButtonActivate();
+
+		DontDestroyOnLoad(this);
 	}
 
 	#region 절 대 건 들 지 마

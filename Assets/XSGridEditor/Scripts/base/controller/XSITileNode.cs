@@ -22,7 +22,7 @@ namespace XSSLG
 
         void UpdateEditModePrevPos();
 
-        void AddBoxCollider(Vector3 tileSize);
+       // void AddBoxCollider(Vector3 tileSize);
 
         void RemoveNode();
 

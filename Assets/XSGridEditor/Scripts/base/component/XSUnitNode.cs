@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace XSSLG
@@ -65,7 +66,7 @@ namespace XSSLG
             var gridMgr = XSInstance.Instance.GridMgr; // 이게 프리팹 생성이잖아
             gridMgr.GetXSTile(this.transform.position, out var srcTile); //이걸로 캐릭터 현재 타일 값 받기 가능
             // first cache
-            this.CachedPaths = gridMgr.FindAllPath(srcTile, this.Move); // 여기수치로 범위 설정
+            this.CachedPaths = gridMgr.FindAllPath(srcTile, Move); // 여기수치로 범위 설정
                                                                         // Accumulate this.CachedPaths
             var ret = this.CachedPaths.Aggregate(new List<Vector3>(), (ret, pair) =>
             {
@@ -96,15 +97,22 @@ namespace XSSLG
         public virtual List<Vector3> playerRegionRoute()
         {
             var gridMgr = XSInstance.Instance.GridMgr;
-            gridMgr.GetXSTile(this.transform.position, out var srcTile);
-            // first cache
-            this.CachedPaths = gridMgr.FindAllPath(srcTile, 1);// 여기에 범위 설정 수치 어떻게든 입력하면 될 것 같음
+            gridMgr.GetXSTile(this.WorldPos, out var srcTile);
+            //gridMgr.GetXSTile(EntityManager.Inst.playerEntity.transform.position, out var playerTile);
+
+            gridMgr.GetXSTile(PlayerEntity.Inst.WorldPos , out var playerTile); // 위치값        
+
+			var sum = Mathf.Abs(playerTile.TilePos.x - srcTile.TilePos.x) + Mathf.Abs(playerTile.TilePos.y - srcTile.TilePos.y);
+
+            this.CachedPaths = gridMgr.FindAllPath(srcTile, sum);// 여기에 범위 설정 수치 어떻게든 입력하면 될 것 같음
+ 
             var ret = this.CachedPaths.Aggregate(new List<Vector3>(), (ret, pair) =>
             {
                 // deduplication
                 ret.AddRange(pair.Value.Distinct());
                 return ret;
             }).Distinct().ToList(); // deduplication
+
             return ret;
         }
 

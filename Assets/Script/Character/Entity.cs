@@ -14,6 +14,9 @@ using XSSLG;
 
 public class Entity : XSUnitNode
 {
+    [Header("필수 요소")]
+    public Enemy enemy;
+
     [Header("기본 설정")]
     [SerializeField] EntityPattern entitiyPattern;
     [SerializeField] EnemyBoss enemyBoss;
@@ -42,7 +45,6 @@ public class Entity : XSUnitNode
 
     //능력치 등
     [HideInInspector] Sprite playerDamagedEffect;
-    [HideInInspector] public Enemy enemy;
     [HideInInspector] public float i_health; // <<장형용 :: i가 아니라고 ㅡㅡ>>
     [HideInInspector] public float HEALTHMAX;
     [HideInInspector] public int increaseShield;
@@ -77,7 +79,8 @@ public class Entity : XSUnitNode
     bool shieldAnim = false;
     int popupSpeed = 25;
 
-    [HideInInspector] public Vector3 originPos;
+
+	[HideInInspector] public Vector3 originPos;
     [HideInInspector] public Vector3 originSkillNamePos;
     [HideInInspector] public Vector3 originShieldScale = new Vector3(60,60,0);
     
@@ -103,14 +106,14 @@ public class Entity : XSUnitNode
 
     #endregion
 
+   
+
+
     #region 시작 생성 종료 업데이트
     private void Start()
     {
        //entitiyPattern.ShowNextPattern(this);
-        dissolveMaterial = GetComponent<SpriteRenderer>().material;
-        Debug.Log(charater.sprite.bounds.size.y);
-        //켄버스 위치 스프라이트 사이즈에 따라 조절. (체력바 위치)
-        inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y / 2 + 2f) ;
+        dissolveMaterial = GetComponentInChildren<SpriteRenderer>().material;  
         AllEffectOff();
     }
     private void OnEnable()
@@ -123,6 +126,7 @@ public class Entity : XSUnitNode
 
     private void OnDisable()
     {
+        Debug.Log("왜 나만 슈~발것..."); 
         TurnManager.onStartTurn -= BuffOff_Turn;
         TurnManager.onStartTurn -= DebuffOff_Turn;
 
@@ -284,41 +288,43 @@ public class Entity : XSUnitNode
         spriteSize_Y = charater.sprite.bounds.size.y;
 
         charater.enabled = false;
-        entitySkeletonGameObject.transform.localPosition = new Vector3(0, -spriteSize_Y / 2, -2);
+        entitySkeletonGameObject.transform.localPosition = new Vector3(0, 0, 0);
+        //켄버스 위치 스프라이트 사이즈에 따라 조절. (체력바 위치)
+        inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y + 2.0f);
     }
 
-    public void SetupEnemy(Enemy _enemy)
+    public void SetupEnemy()
     {
-        enemy = _enemy;
-        i_health = _enemy.i_health;
-        i_attackCount = _enemy.i_attackCount;
-        i_damage = _enemy.i_damage;
-        increaseShield = _enemy.increaseShield;
-        debuffValue = _enemy.debuffValue;
-        buffValue = _enemy.buffValue;
-        SetSkeletonAnimation(_enemy);
+        Debug.Log("실행되었다");
+        i_health = enemy.i_health;
+        i_attackCount = enemy.i_attackCount;
+        i_damage = enemy.i_damage;
+        increaseShield = enemy.increaseShield;
+        debuffValue = enemy.debuffValue;
+        buffValue = enemy.buffValue;
 
-        entitiyPattern = _enemy.entityPattern;
+        entitiyPattern = enemy.entityPattern;
         HEALTHMAX = i_health ;
         healthImage.fillAmount = i_health / HEALTHMAX;
         originSkillNamePos = skillNameTmp.rectTransform.anchoredPosition3D;
 
         RefreshEntity();
 
-        charater.sprite = _enemy.sp_sprite;
+        charater.sprite = enemy.sp_sprite;
         healthTMP.text = i_health.ToString();
         spriteSize_X = charater.sprite.bounds.size.x;
         spriteSize_Y = charater.sprite.bounds.size.y;
 
         
         charater.enabled = false;
-        entitySkeletonGameObject.transform.localPosition = new Vector3(0,-spriteSize_Y/2, -2);
+        entitySkeletonGameObject.transform.localPosition = new Vector3(0,0,0);
 
-        specialSkillSprite = _enemy.SpelcialSkillSprite;
+        specialSkillSprite = enemy.SpelcialSkillSprite;
+
+        SetSkeletonAnimation(enemy);
     }
 
-
-    //초기화 필수입니당
+    //스파인 초기화 필수입니당
     void SetSkeletonAnimation(Enemy _enemy)
 	{
         entitySkeletonAnimation.ClearState();

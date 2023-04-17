@@ -10,11 +10,12 @@ namespace XSSLG
 {
     public interface XSIUnitNode : XSINode
     {
-        void AddBoxCollider();
 
         List<Vector3> GetMoveRegion();
 
         List<Vector3> GetAttackRegionTest_00();
+
+        List<Vector3> playerRegionRoute();
 
         void UpdatePos();
     }

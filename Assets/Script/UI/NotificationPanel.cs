@@ -12,7 +12,15 @@ public class NotificationPanel : MonoBehaviour
 
     public void Show(bool _myTurn)
     {
-		if (_myTurn)
+		if (turnImage == null)
+		{
+            turnImage = GameObject.Find("Notification Panel").GetComponent<Image>();
+        }
+
+
+
+
+        if (_myTurn)
 		{
             turnImage.sprite = turnSprite[0];
 		}
@@ -20,6 +28,7 @@ public class NotificationPanel : MonoBehaviour
         {
             turnImage.sprite = turnSprite[1];
         }
+
         //Ease Google ÂüÁ¶.
         Sequence sequence = DOTween.Sequence()
             .Append(transform.DOScale(Vector3.one *0.7f , 0.3f).SetEase(Ease.InOutQuad))
@@ -27,10 +36,7 @@ public class NotificationPanel : MonoBehaviour
             .Append(transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InOutQuad));
     }
 
-    private void Start()
-    {
-        turnImage = GetComponent<Image>();
-    }
+  
 
     [ContextMenu("SclaeOne")]
     void ScaleOne()

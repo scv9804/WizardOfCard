@@ -21,6 +21,8 @@ public class LoadSceneManager : MonoBehaviour
 	{		
 		nextScene = sceneName;
 		SceneManager.LoadScene("LoadScene");
+
+		TurnManager.Inst.IsCombatScene = false;
 	}
 
 	IEnumerator LoadScene()

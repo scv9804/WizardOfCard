@@ -33,7 +33,6 @@ namespace XSSLG
                 else
                 {
                     // add the total collider where js caculated by all collider，used to raycast
-                    node.AddBoxCollider();
                 }
             }
             return ret;

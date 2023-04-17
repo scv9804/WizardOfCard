@@ -254,8 +254,8 @@ GameObject:
   - component: {fileID: 2077760302346298941}
   - component: {fileID: 4880041760462919614}
   m_Layer: 0
-  m_Name: PlayerCharacter
-  m_TagString: Player
+  m_Name: PlayerCharacter 1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -365,6 +365,7 @@ MonoBehaviour:
     damagedSprite: {fileID: 0}
     MagicBoltSprite: {fileID: 0}
     WandAttackEffect: {fileID: 0}
+  money: 0
   manaInchentValue: 0
   charaterSprite: {fileID: 2077760302346298915}
   spineObeject: {fileID: 7556468839633654502}
@@ -982,8 +983,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 2038262887
-  m_SortingOrder: 10
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2077760304029203756
 MonoBehaviour:
@@ -1398,7 +1399,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2178275714780374714
 MonoBehaviour:

@@ -209,7 +209,14 @@ public class UIManager : MonoBehaviour
 
 	public void SetManaUI()
 	{
-		ManaTMP_UI.text = EntityManager.Inst.playerEntity.Status_Aether.ToString() + "/" + EntityManager.Inst.playerEntity.Status_MaxAether.ToString();
+		if (EntityManager.Inst.playerEntity != null)
+		{
+			ManaTMP_UI.text = EntityManager.Inst.playerEntity.Status_Aether.ToString() + "/" + EntityManager.Inst.playerEntity.Status_MaxAether.ToString();
+		}
+		else
+		{
+			ManaTMP_UI.text = CharacterStateStorage.Inst.aether.ToString() + "/" + CharacterStateStorage.Inst.aether.ToString();
+		}
 	}
 
 
@@ -227,7 +234,7 @@ public class UIManager : MonoBehaviour
 
 	public void PlayerMoneyUIRefresh()
 	{
-		money_TMP.text = EntityManager.Inst.playerEntity.money.ToString("D3");
+		money_TMP.text = CharacterStateStorage.Inst.money.ToString("D3");
 	}
 
 	#region minimaps

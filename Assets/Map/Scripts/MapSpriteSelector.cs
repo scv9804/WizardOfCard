@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MapSpriteSelector : MonoBehaviour {
 	
+	
+
 	public Sprite 	spU, spD, spR, spL,
 			spUD, spRL, spUR, spUL, spDR, spDL,
 			spULD, spRUL, spDRU, spLDR, spUDRL;
@@ -40,6 +42,8 @@ public class MapSpriteSelector : MonoBehaviour {
 		mainColor = normalColor;
 		PickSprite();
 		PickColor();
+
+		DontDestroyOnLoad(this);
 	}
 
 	//스프라이트 비교하여 문 선택하기.

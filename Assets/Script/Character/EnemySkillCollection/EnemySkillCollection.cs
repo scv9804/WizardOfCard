@@ -204,7 +204,7 @@ public class EnemySkillCollection : MonoBehaviour
 		MusicManager.inst?.PlayBuyingSound();
 		PlayerEntity.Inst.Damaged(_entity.FinalAttackValue()-1);
 		yield return (EntityManager.Inst.StartCoroutine(AttackMotion(_entity)));
-		EntityManager.Inst.playerEntity.money -= 5;
+		CharacterStateStorage.Inst.money -= 5;
 		_entity.attackable = false;
 	}
 

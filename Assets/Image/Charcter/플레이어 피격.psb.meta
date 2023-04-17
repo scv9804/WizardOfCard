@@ -93,8 +93,8 @@ ScriptedImporter:
   rigSpriteImportData:
   - name: "\uC624\uB978\uD314\uBAA9"
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.4429209, y: 0.0030340264}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2

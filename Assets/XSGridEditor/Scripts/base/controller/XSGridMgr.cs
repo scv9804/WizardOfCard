@@ -129,7 +129,7 @@ namespace XSSLG
             // setting the camera range
             if (!XSUnityUtils.IsEditor())
             {
-                tileNode.AddBoxCollider(this.TileSize);
+               // tileNode.AddBoxCollider(this.TileSize);
             }
 
             var tile = tileNode.CreateXSTile(tilePos);

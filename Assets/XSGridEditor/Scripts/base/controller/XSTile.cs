@@ -69,7 +69,7 @@ namespace XSSLG
             }
         }
 
-        public XSTile(Vector3Int tilePos, XSITileNode node, TileFunc isWalkable, TileFunc canBeDustFunc) : this(tilePos,  node, isWalkable)
+        public XSTile(Vector3Int tilePos, XSITileNode node, TileFunc isWalkable, TileFunc canBeDustFunc) : this(tilePos,  node, isWalkable)  // 이거사용해서 안겹치게 해야함
         {
             if (canBeDustFunc != null)
             {

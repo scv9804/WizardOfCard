@@ -205,10 +205,10 @@ public class ShopScirpt : MonoBehaviour
 
 	void SetBuyCard(Card _card, GameObject _object)
 	{
-		if (75 <= EntityManager.Inst.playerEntity.money)
+		if (75 <= CharacterStateStorage.Inst.money)
 		{
 			CardManager.Inst.AddSelectCard_Deck(_card);
-			EntityManager.Inst.playerEntity.money -= 75;
+			CharacterStateStorage.Inst.money -= 75;
 			UIManager.Inst.PlayerMoneyUIRefresh();
 			
 			Destroy(_object);
@@ -217,9 +217,9 @@ public class ShopScirpt : MonoBehaviour
 
 	void SetBuyItem(Item_inven item, int i)
 	{
-		if (item.Price <= EntityManager.Inst.playerEntity.money)
+		if (item.Price <=  CharacterStateStorage.Inst.money)
 		{
-			EntityManager.Inst.playerEntity.money -= item.Price;
+			CharacterStateStorage.Inst.money -= item.Price;
 			UIManager.Inst.PlayerMoneyUIRefresh();
 			Inventory.inst.AddItem(item.Id);
 
@@ -235,11 +235,10 @@ public class ShopScirpt : MonoBehaviour
 	//마나 업그레이드 비용은 10원부터 시작해서 10원씩 증가함 대충 1300골드 정도 들어감 일부러 좀 적은 가격으로 구성함
 	void ManaLevelUp()
 	{
-		if (EntityManager.Inst.playerEntity.money >= manaPrice)
+		if (CharacterStateStorage.Inst.money >= manaPrice)
 		{
-			EntityManager.Inst.playerEntity.money -= manaPrice;
-			EntityManager.Inst.playerEntity.Status_MaxAether = EntityManager.Inst.playerEntity.Status_MaxAether + 1;
-			EntityManager.Inst.playerEntity.manaInchentValue++;
+			CharacterStateStorage.Inst.money -= manaPrice;
+			CharacterStateStorage.Inst.aether++;
 			UIManager.Inst.PlayerMoneyUIRefresh();
 			SetManaLevelUp();
 
@@ -250,7 +249,7 @@ public class ShopScirpt : MonoBehaviour
 
 	void SetManaLevelUp()
 	{
-		manaPrice = EntityManager.Inst.playerEntity.manaInchentValue * 10 + 10;
+		manaPrice = CharacterStateStorage.Inst.aether * 10 + 10;
 		if (manaPrice >= 170)
 		{
 			ManaUpPurchaseButton.onClick.RemoveAllListeners();

@@ -62,14 +62,7 @@ public class CardManager : MonoBehaviour
 
 	private void Start()
 	{
-		SetupMyDeck();
 
-		v3_cardPaths_onHand = new Vector3[3];
-
-		for (int i = 0; i < 6; i++)
-		{
-			AddDeck();
-		}
 
         #region 액션 등록
 
@@ -420,18 +413,25 @@ public class CardManager : MonoBehaviour
 	// 손패추가 (추가) 강화카드 사용 시 damage 0을 보내서 데미지 수치를 기본 값으로 변경 <<왜이렇게 만듦? 나 병신인가봄;;
 	public void AddCard()
 	{
-		if (PlayerEntity.Inst.Debuff_CannotDrawCard)
-			return;
-
-		var tempt = PopDeck();
-
-		if (tempt == null)
+		if (PlayerEntity.Inst != null)
 		{
-			Debug.Log("Please Refresh Deck");
+			if (PlayerEntity.Inst.Debuff_CannotDrawCard)
+				return;
+
+			var tempt = PopDeck();
+
+			if (tempt == null)
+			{
+				Debug.Log("Please Refresh Deck");
+			}
+			else
+			{
+				InstantinateCard(tempt);
+			}
 		}
 		else
 		{
-			InstantinateCard(tempt);
+			Debug.Log("!__플레이어 엔티티가 비어있습니다__!");
 		}
 	}
 
