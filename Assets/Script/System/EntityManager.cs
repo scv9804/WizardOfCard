@@ -5,17 +5,18 @@ using TMPro;
 using XSSLG;
 using UnityEngine.SceneManagement;
 
-public class EntityManager : XSUnitNode
+public class EntityManager : MonoBehaviour
 {
     public static EntityManager Inst { get; private set; }
     // 인스턴스화 및 로드시 Destroy 안시키기.
     private void Awake()
     {
         Inst = this;
+        DontDestroyOnLoad(this);
     }
 
-	#region 변수등등
-	[Header("DefultSettings")]
+    #region 변수등등
+    [Header("DefultSettings")]
     [SerializeField] float enemyAttackDelay;
     [SerializeField] EnemySO enemySO;
     [SerializeField] EnemySpawnPatternSO enemySpawnPatternSO;
@@ -50,7 +51,7 @@ public class EntityManager : XSUnitNode
     PlayerChar playerChar;
 
 
-  //  LevelGeneration levelGeneration;
+    //  LevelGeneration levelGeneration;
 
 
     const int MAX_ENEMY_COUNT = 3;
@@ -83,20 +84,20 @@ public class EntityManager : XSUnitNode
     {
         for (int i = 0; i < enemyEntities.Count; i++)
         {
-            float f_Target_X =  sortEnemyPos_Tf.position.x  + i*2.5f;
+            float f_Target_X = sortEnemyPos_Tf.position.x + i * 2.5f;
 
             var targetEntity = enemyEntities[i];
-            targetEntity.originPos = new Vector3(f_Target_X, targetEntity.transform.position.y ,-i);
+            targetEntity.originPos = new Vector3(f_Target_X, targetEntity.transform.position.y, -i);
             targetEntity.MoveTransForm(targetEntity.originPos, true, 0.5f);
             targetEntity.GetComponent<OrderLayer>().SetOriginOrder(i);
         }
     }
 
     public IEnumerator EnemyEntityAttack()
-	{
+    {
         //foreach 사용금지 :: 전투 중 몬스터 추가 스폰시 오류걸림
-		for (int i = 0; i< enemyEntities.Count; i++)
-		{
+        for (int i = 0; i < enemyEntities.Count; i++)
+        {
             if (enemyEntities[i].attackable)
             {
                 enemyEntities[i].Attack();
@@ -111,9 +112,9 @@ public class EntityManager : XSUnitNode
 
     public bool IsAlreadyAllDead()
     {
-        for(int i = 0; i < enemyEntities.Count; i++)
+        for (int i = 0; i < enemyEntities.Count; i++)
         {
-            if(!enemyEntities[i].is_die)
+            if (!enemyEntities[i].is_die)
                 return false;
         }
 
@@ -122,30 +123,30 @@ public class EntityManager : XSUnitNode
 
     public Entity SelectRandomTarget()
     {
-        if(IsAlreadyAllDead())
+        if (IsAlreadyAllDead())
         {
             return null;
         }
 
-		#region 옛날코드
-		//int _index = Random.Range(0, enemyEntities.Count);
+        #region 옛날코드
+        //int _index = Random.Range(0, enemyEntities.Count);
 
-		//while(enemyEntities[_index].is_die)
-		//{
-		//    _index = Random.Range(0, enemyEntities.Count);
-		//}
+        //while(enemyEntities[_index].is_die)
+        //{
+        //    _index = Random.Range(0, enemyEntities.Count);
+        //}
 
-		//if(enemyEntities[_index].is_die)
-		//{
-		//    return SelectRandomTarget();
-		//}
-		//else
-		//{
-		//    return enemyEntities[_index];
-		//}
-		#endregion
+        //if(enemyEntities[_index].is_die)
+        //{
+        //    return SelectRandomTarget();
+        //}
+        //else
+        //{
+        //    return enemyEntities[_index];
+        //}
+        #endregion
 
-		int _index;
+        int _index;
 
         do
         {
@@ -173,7 +174,7 @@ public class EntityManager : XSUnitNode
         }*/
     #endregion
 
- 
+
 
     #region 보상설정하기
     //void SetReward(SpawnPattern _pattern)
@@ -188,17 +189,17 @@ public class EntityManager : XSUnitNode
         var entityObject = Instantiate(entitiyPrefab, spawnEnemy_Tf.position, Quaternion.identity);
         var entity = entityObject.GetComponent<Entity>();
         entity.attackable = false;
-        
+
         enemyEntities.Add(entity);
         //entity.SetupEnemy(enemySO.enemy[ID]);
         EnemyEntityAlignment();
     }
-    
+
     // 이거 호출하면 다 호출
     public void SpawnEnemyEntity()
     {
-		#region 옛날코드 
-		/*
+        #region 옛날코드 
+        /*
 		int rand = UnityEngine.Random.Range(0, MAX_ENEMY_COUNT) + 1;
 
 		if (enemyBuffer.Count == 0)
@@ -211,7 +212,7 @@ public class EntityManager : XSUnitNode
 			enemyBuffer.RemoveAt(0);
 		}*/
 
-		/*
+        /*
 		int randomPattern = UnityEngine.Random.Range(0, enemySpawnPatternSO.spawnPattern.Length);
 
 		for (int i = 0; enemySpawnPatternSO.spawnPattern[randomPattern].enemy.Length > i; i++)
@@ -220,11 +221,15 @@ public class EntityManager : XSUnitNode
 		}
         SetReward(enemySpawnPatternSO.spawnPattern[randomPattern]);
         */
-		#endregion
+        #endregion
 
-		for (int i =0; i < enemyEntitiesObjcet.Length ; i++) 
+        for (int i = 0; i < enemyEntitiesObjcet.Length; i++)
         {
-            SetEnemyEntity(enemyEntitiesObjcet[i].GetComponent<Entity>());            
+            if (enemyEntitiesObjcet[i].GetComponent<Entity>() == null)
+            {
+
+            }
+            SetEnemyEntity(enemyEntitiesObjcet[i].GetComponent<Entity>());
         }
     }
     public void SetEnemyEntity(Entity _entity)
@@ -237,50 +242,50 @@ public class EntityManager : XSUnitNode
     }
 
     void SetEnemyList()
-	{
-		foreach (var enemy in enemyEntitiesObjcet)
-		{
+    {
+        foreach (var enemy in enemyEntitiesObjcet)
+        {
             enemyEntities.Add(enemy.GetComponent<Entity>());
         }
-        
-	}
+
+    }
 
     void EnemyEntitiesSet()
-	{
+    {
         enemyEntitiesObjcet = GameObject.FindGameObjectsWithTag("Enemy");
         Debug.Log(enemyEntitiesObjcet.Length);
-/*        foreach (var entity in enemyEntitiesObjcet)
-        {            
-            enemyEntities.Add(entity.GetComponent<Entity>());
-            Debug.Log("뭐가문제임 : " + entity.transform.position); 
-        }*/
+        /*        foreach (var entity in enemyEntitiesObjcet)
+                {            
+                    enemyEntities.Add(entity.GetComponent<Entity>());
+                    Debug.Log("뭐가문제임 : " + entity.transform.position); 
+                }*/
     }
 
 
     public void SpawnEnemyBossEntity()
-	{
+    {
         SetEnemyBossEntity();
-	}
+    }
 
     //사실상없는거
     public void SetEnemyBossEntity()
     {
-        int rand = UnityEngine.Random.Range(0, enemyBossSO.spawnPattern.Length);       
-        foreach(var item in enemyBossSO.spawnPattern[rand].enemy)
-		{
+        int rand = UnityEngine.Random.Range(0, enemyBossSO.spawnPattern.Length);
+        foreach (var item in enemyBossSO.spawnPattern[rand].enemy)
+        {
             var Boss = item;
             var entityObject = Instantiate(entitiyPrefab, spawnEnemy_Tf.position, Quaternion.identity);
             var entity = entityObject.GetComponent<Entity>();
             entity.attackable = true;
             enemyEntities.Insert(0, entity);
-        //    entity.SetupEnemy(Boss);
+            //    entity.SetupEnemy(Boss);
         }
-        
+
         EnemyEntityAlignment();
     }
 
-   
-# region 이젠 더미가 되어버린 적 버퍼에 추가하기.....
+
+    #region 이젠 더미가 되어버린 적 버퍼에 추가하기.....
     //void SetupEnemyBuffer()
     //{
     //    enemyBuffer = new List<Enemy>(100);
@@ -308,19 +313,19 @@ public class EntityManager : XSUnitNode
     #endregion
 
 
-#endregion
+    #endregion
 
     #region PlayerSpawn
 
     public void SetPlayerEntity(PlayerChar _playerChar)
     {
-		/*	var entityObject = Instantiate(playerPrefab, spawnPlayerChar_Tf.position, Quaternion.identity);
+        /*	var entityObject = Instantiate(playerPrefab, spawnPlayerChar_Tf.position, Quaternion.identity);
 			var playerEntityTemp = entityObject.GetComponent<PlayerEntity>(); ;*/
 
-		//var entityObject = Instantiate(playerPrefab, spawnPlayerChar_Tf.position, Quaternion.identity);
-		var playerEntityTemp = GameObject.FindWithTag("Player").GetComponent<PlayerEntity>();
+        //var entityObject = Instantiate(playerPrefab, spawnPlayerChar_Tf.position, Quaternion.identity);
+        var playerEntityTemp = GameObject.FindWithTag("Player").GetComponent<PlayerEntity>();
 
-		playerEntityTemp.SetupPlayerChar(_playerChar);
+        playerEntityTemp.SetupPlayerChar(_playerChar);
         playerEntity = playerEntityTemp;
     }
 
@@ -345,6 +350,20 @@ public class EntityManager : XSUnitNode
 
     #region TurnManger
 
+    public void SetEnemyObjectArray()
+    {
+        if (enemyEntitiesObjcet.Length == 0)
+        {
+            EnemyEntitiesSet();
+
+            Debug.Log("설정나옴");
+        }
+        if (enemyEntitiesObjcet.Length != 0)
+        {
+            SpawnEnemyEntity();
+        }
+    }
+
     void OnTurnStarted(bool _myTurn)
     {
 		if (playerEntity != null)
@@ -357,17 +376,7 @@ public class EntityManager : XSUnitNode
             SpawnPlayerEntity();
         }
 
-		if (enemyEntitiesObjcet.Length == 0)
-		{
-            EnemyEntitiesSet();
-            
-            Debug.Log("설정나옴");
-		}
-		if (enemyEntitiesObjcet.Length != 0)
-		{
-            SpawnEnemyEntity();
-        }
-
+       // Debug.Log(enemyEntitiesObjcet.Length);
     }
 
     // <<22-11-09 장형용 :: 함수 안 거치고 직접 제거>>

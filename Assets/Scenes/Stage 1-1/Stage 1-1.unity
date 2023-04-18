@@ -15954,8 +15954,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2066f67a0c9f4a9eebec2ecd6bc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -1
-  move: 6
   enemyAttackDelay: 0.7
   enemySO: {fileID: 11400000, guid: 83361cd622dd5ab4cbc7abd3b4eda090, type: 2}
   enemySpawnPatternSO: {fileID: 11400000, guid: 51b2d8d678773da4b967063aca1d5903, type: 2}
@@ -15965,6 +15963,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 2077760302346298912, guid: a5036b0576eb2ac489e5cd2a0127767f, type: 3}
   targetSelector: {fileID: 389184190}
   enemyEntities: []
+  enemyEntitiesObjcet: []
   bossEntity: {fileID: 0}
   spawnPlayerChar_Tf: {fileID: 2058073973}
   spawnEnemy_Tf: {fileID: 1349807753}
