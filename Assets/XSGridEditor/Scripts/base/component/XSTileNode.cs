@@ -36,7 +36,13 @@ namespace XSSLG
         /// <summary> move cost </summary>
         [SerializeField]
         protected int cost = 1;
+
+        [SerializeField]
+        protected bool isEntity = false;
+
         public int Cost { get => this.cost; }
+
+        public bool IsEntity { get => this.isEntity; }
 
         /// <summary> walk passable </summary>
         [SerializeField]

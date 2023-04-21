@@ -106,7 +106,7 @@ public class EntityManager : MonoBehaviour
         }
         LevelGeneration.Inst.EndTurn();
     }
-
+    
     // <<22-10-28 장형용 :: 추가>>
     #region 타겟 랜덤 지정 / 살아있는 개체 확인
 
@@ -404,7 +404,7 @@ public class EntityManager : MonoBehaviour
                 RewardManager.Inst.GameClear();
         }
     }
-
+    
     #endregion
 
     #region PlayerEntity
@@ -598,17 +598,18 @@ public class EntityManager : MonoBehaviour
 
 
     //턴 넘어갈때 공격 가능 여부 변경.
+    //수정필요
     public void SetAttackable(bool _isMine)
     {
         if (_isMine)
         {
-            enemyEntities.ForEach(x => x.attackable = false);
-            playerEntity.attackable = true;
+            enemyEntities.ForEach(x => x.Is_attackable = false);
+            playerEntity.Is_attackable = false;
         }
         else
         {
-            enemyEntities.ForEach(x => x.attackable = true);
-            playerEntity.attackable = false;
+            enemyEntities.ForEach(x => x.Is_attackable = true);
+            playerEntity.Is_attackable = false;
         }
         // 턴 넘어갈 때 공격인터페이스 끄기 //버그 수정 코드임. 
         try

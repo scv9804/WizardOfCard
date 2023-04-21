@@ -36,6 +36,8 @@ namespace XSSLG
         /// <summary> tile move cost </summary>
         public int Cost { get; }
 
+        public bool IsEntity { get; set; }
+
         public Accessibility Access { get; }
 
         /// <summary> this node in scene </summary>
@@ -57,6 +59,7 @@ namespace XSSLG
                 this.WorldPos = node.WorldPos;
                 this.Cost = node.Cost;
                 this.Access = node.Access;
+                this.IsEntity = node.IsEntity;
             }
 
         }

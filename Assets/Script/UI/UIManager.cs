@@ -337,8 +337,8 @@ public class UIManager : MonoBehaviour
 		{
 			SetClose();
 		}
-		else if (isUIUse)
-		{
+		//else if (isUIUse)
+	//	{
 			isMinimapUse = !isMinimapUse;
 
 			if (optionUI.activeSelf == true)
@@ -361,7 +361,7 @@ public class UIManager : MonoBehaviour
 			isCardUse = false;
 			SetStateUI();
 			CardManager.Inst.SetCardStateCannot();
-		}
+	//	}
 	}
 
 	public void OptionToggle()

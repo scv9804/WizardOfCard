@@ -12,6 +12,8 @@ namespace XSSLG
     {
         int Cost { get; }
 
+        bool IsEntity { get;}
+
         Accessibility Access { get; }
 
         Vector3 WorldPos { get; set; }

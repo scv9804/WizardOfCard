@@ -144,7 +144,7 @@ public class ShopScirpt : MonoBehaviour
 			//카드 세팅
 			for (int i = 0; i < 5; i++)
 			{
-				int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
+/*				int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
 				var temt = Instantiate(cardPrefab);
 				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
 				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
@@ -153,7 +153,7 @@ public class ShopScirpt : MonoBehaviour
 				temt.transform.GetChild(4).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card.CardIconImage;
 				temt.transform.SetParent(cardSpawnParent.transform);
 				temt.AddComponent<Button>();
-				temt.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(CardManager.Inst.itemSO.items[randCard].card, temt));
+				temt.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(CardManager.Inst.itemSO.items[randCard].card, temt));*/
 			}
 
 			

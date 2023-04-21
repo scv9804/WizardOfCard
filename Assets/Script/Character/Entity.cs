@@ -126,7 +126,6 @@ public class Entity : XSUnitNode
 
     private void OnDisable()
     {
-        Debug.Log("왜 나만 슈~발것..."); 
         TurnManager.onStartTurn -= BuffOff_Turn;
         TurnManager.onStartTurn -= DebuffOff_Turn;
 

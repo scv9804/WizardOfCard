@@ -51,8 +51,7 @@ public class TurnManager : MonoBehaviour
 
 			if (myTurn == true)
 			{
-				UIManager.Inst.TurnEndButtonActivae();
-				//GameManager.Inst.Notification("≥ª ≈œ");
+				UIManager.Inst.TurnEndButtonActivae();				
 				TurnNotification_Bool(true);
 				CardManager.Inst.SetCardStateCannot();
 				yield return delay_07;

@@ -741,26 +741,20 @@ public class LevelGeneration : MonoBehaviour {
 			{
 				case 0:
 					LoadSceneManager.LoadScene("CopyScene");
-
-					//EntityManager.Inst.SpawnEnemyEntity();
 					break;
 				case 1:
-					LoadSceneManager.LoadScene("CopyScene");
-
+					//LoadSceneManager.LoadScene("CopyScene");
 					Debug.Log("보스소환시도");
-					
-
-					//EntityManager.Inst.SpawnEnemyBossEntity();
 					break;
 				case 2:
-					LoadSceneManager.LoadScene("CopyScene");
+					//LoadSceneManager.LoadScene("CopyScene");
 
-					//		shopRoomScript.EnterShop();
+					shopRoomScript.EnterShop();
 					Debug.Log("상점이벤트");
-			//		shopOn = true;
+					shopOn = true;
 					break;
 				case 3:
-					LoadSceneManager.LoadScene("CopyScene");
+					//LoadSceneManager.LoadScene("CopyScene");
 
 					Debug.Log("그냥 이벤트");
 					//int rand = UnityEngine.Random.Range(0, eventRoomScript.Count);

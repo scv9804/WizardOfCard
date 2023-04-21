@@ -56,7 +56,15 @@ namespace XSSLG
                 var moveRegionCpt = XSGridShowRegionCpt.Create(XSGridDefine.SCENE_GRID_MOVE, gridHelper.MoveTilePrefab, 10);
                 this.GridShowMgr = new XSGridShowMgr(moveRegionCpt);
             }
+
+            TurnManager.onStartTurn += SelectUnitClear;
         }
+
+        void SelectUnitClear(bool _myTurn) 
+        {
+            SelectedUnit = null;
+        }
+
 
         // Update is called once per frame
         void Update()
@@ -64,8 +72,10 @@ namespace XSSLG
             /************************* 움직임 제어문  ***********************/
             if (!this.IsMoving)
             {
-				if (TurnManager.Inst.myTurn)
+                IsEnemyMoving = false;
+                if (TurnManager.Inst.myTurn)
 				{
+                    Debug.Log("내턴");
                     // click mouse left buton to move
                     if (Mouse.current.leftButton.wasPressedThisFrame)
                     {
@@ -96,14 +106,15 @@ namespace XSSLG
 							else      //공격 임시 Test
 							{
                                 var tile = XSUG.GetMouseTargetTile();
+
                                 if (this.MoveRegion.Contains(tile.WorldPos))
                                 {
                                     this.GridShowMgr.ClearMoveRegion();
                                     this.MoveRegion = null;
-                                    // cache
+                                    // 공격
                                     if (this.SelectedUnit.CachedPaths != null && this.SelectedUnit.CachedPaths.ContainsKey(tile.WorldPos))
                                     {
-                                        this.WalkTo(this.SelectedUnit.CachedPaths[tile.WorldPos]);
+                                        PlayerAttack(tile.WorldPos);
                                     }
                                     else
                                     {
@@ -131,7 +142,7 @@ namespace XSSLG
                             }
 
                         }
-                        /************************* deal unit select, and move  end  ***********************/
+                        /************************* 여기서 움직임 끝임  ***********************/
                     }
                     else if (Mouse.current.rightButton.wasPressedThisFrame) // 취소
                     {
@@ -145,32 +156,42 @@ namespace XSSLG
 				else
 				{
                     var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Enemy").GetComponent<XSIUnitNode>();
+                    //이거 적 공격 트리
                     if (unit != null && !unit.IsNull())
                     {
                         this.SelectedUnit = unit;
                         Debug.Log(IsEnemyMoving);
-                        if (!this.SelectedUnit.Is_attackable && !IsEnemyMoving)
-                        {
-                           
-                            this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
+                        if (this.SelectedUnit.Is_attackable && !IsEnemyMoving)
+                        {							
+                            var cheackAttackRegion = this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
 
                             this.MoveRegion = unit.playerRegionRoute();
 
                             var tile = PlayerEntity.Inst ;
 
                             IsEnemyMoving = true;
+                            SelectedUnit.Is_attackable = false;
 
                             Vector3 temtVect = new Vector3(tile.WorldPos.x,0, tile.WorldPos.z);
 
-                            if (this.MoveRegion.Contains(temtVect))
+                            if (cheackAttackRegion.Contains(temtVect))
+                            {
+                                EntityManager.Inst.playerEntity.Status_Health -= 1;
+
+                                this.GridShowMgr.ClearMoveRegion();
+                                this.MoveRegion = null;
+                                this.SelectedUnit = null;
+                            }
+                            else if (this.MoveRegion.Contains(temtVect))
 							{
                                 this.GridShowMgr.ClearMoveRegion();
                                 this.MoveRegion = null;
                                                          
                                 if (this.SelectedUnit.CachedPaths != null)
-                                    this.WalkTo_Enemy(this.SelectedUnit.CachedPaths[temtVect], unit.Move);                       
-                            }
-
+                                    this.WalkTo_Enemy(this.SelectedUnit.CachedPaths[temtVect], unit.Move);
+								else								
+                                    this.SelectedUnit = null;                                
+                            }                          
                         }
                     }
                 }
@@ -211,6 +232,14 @@ namespace XSSLG
             }
         }
 
+        public void PlayerAttack(Vector3 AttackPos)
+		{
+			if (PlayerEntity.Inst.WorldPos == AttackPos)
+            {
+                PlayerEntity.Inst.Status_Health -=1 ;
+			}
+		}
+
 
         /// <summary> Coroutine to deal move </summary>
         public virtual IEnumerator MovementAnimation(List<Vector3> path)
@@ -246,6 +275,8 @@ namespace XSSLG
                     yield return 0;
                 }
             }
+            this.SelectedUnit = null;
+            this.IsMoving = false;
         }
 
 /*        public virtual IEnumerator Setbool()
