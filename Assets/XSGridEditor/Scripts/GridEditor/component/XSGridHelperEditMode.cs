@@ -6,7 +6,9 @@
 using System;
 using TMPro;
 using UnityEditor;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 
 namespace XSSLG
@@ -235,9 +237,11 @@ namespace XSSLG
 
                 XSInstance.Instance.GridMgr?.UpdateTileSize(this.PrevTileSize);
 
+#if UNITY_EDITOR
                 StageHandle currentStageHandle = StageUtility.GetCurrentStageHandle();
                 var main = currentStageHandle.FindComponentOfType<XSMain>();
                 main.UnitMgr?.UpdateUnitPos();
+#endif
             }
         }
     }

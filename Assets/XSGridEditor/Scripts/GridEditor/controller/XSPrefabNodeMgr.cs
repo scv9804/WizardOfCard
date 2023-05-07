@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Vector3Int = UnityEngine.Vector3Int;
 using Vector3 = UnityEngine.Vector3;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 using System.Linq;
 
 namespace XSSLG
@@ -15,9 +17,11 @@ namespace XSSLG
         /************************* variable  end  ***********************/
         public XSPrefabNodeMgr()
         {
+#if UNITY_EDITOR
             StageHandle currentStageHandle = StageUtility.GetCurrentStageHandle();
             var prefabList = currentStageHandle.FindComponentsOfType<XSPrefabNode>().ToList();
             this.CreateDict(prefabList);
+#endif
         }
 
         public virtual void CreateDict(List<XSPrefabNode> nodeList)

@@ -16,6 +16,7 @@ public class Entity : XSUnitNode
 {
     [Header("필수 요소")]
     public Enemy enemy;
+    public EnemyAttackTest attackTest;
 
     [Header("기본 설정")]
     [SerializeField] EntityPattern entitiyPattern;

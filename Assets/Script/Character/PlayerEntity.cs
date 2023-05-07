@@ -19,6 +19,10 @@ public class PlayerEntity : XSUnitNode
         Inst = this;
     }
 
+    [Header("저장 SO")]
+    [SerializeField] PlayerStateSO stateSO;
+
+    [Header("기본 SO")]
     [HideInInspector] public PlayerChar playerChar;
     [HideInInspector] public int manaInchentValue = 0;
     [SerializeField] SpriteRenderer charaterSprite;
@@ -88,7 +92,7 @@ public class PlayerEntity : XSUnitNode
     }
 
     void OnEnable()
-    {
+    {      
         #region 액션 등록
 
         Utility.onBattleStart += ResetMagicAffinity_Battle;
@@ -700,6 +704,7 @@ public class PlayerEntity : XSUnitNode
     public void RefreshPlayer()
     {
         Set_ShieldActivate();
+    //    stateSO.Update_State(this);
         healthImage_Bar.fillAmount = i_health / maxHealth;
         healthImage_UI.fillAmount = i_health / maxHealth;
         UIManager.Inst.HealthTMP_UI.text = i_health.ToString();
