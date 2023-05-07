@@ -1,0 +1,27 @@
+슬라임.png
+size:2048,2048
+filter:Linear,Linear
+pma:true
+뒷머리
+bounds:624,130,521,615
+offsets:1,1,523,617
+레이어 1
+bounds:2,747,631,1272
+offsets:1,1,633,1274
+머리
+bounds:2,2,620,743
+offsets:1,1,622,745
+오른팔
+bounds:635,1322,232,294
+offsets:1,1,234,296
+오른팔목
+bounds:635,990,330,204
+offsets:1,1,332,206
+rotate:90
+왼팔
+bounds:635,1618,401,381
+offsets:1,1,403,383
+rotate:90
+왼팔목
+bounds:635,809,312,179
+offsets:1,1,314,181
