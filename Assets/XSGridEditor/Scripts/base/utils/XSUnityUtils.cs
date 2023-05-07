@@ -44,9 +44,7 @@ namespace XSSLG
         {
             if (XSUnityUtils.IsEditor())
             {
-#if UNITY_EDITOR
                 ActionChildren(obj, child => Undo.DestroyObjectImmediate(child));
-#endif
             }
             else
             {
@@ -58,9 +56,7 @@ namespace XSSLG
         {
             if (XSUnityUtils.IsEditor())
             {
-#if UNITY_EDITOR
                 Undo.DestroyObjectImmediate(obj);
-#endif
             }
             else
             {

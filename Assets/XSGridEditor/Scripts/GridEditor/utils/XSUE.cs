@@ -40,10 +40,7 @@ public class XSUE : XSUnityUtils
     public static List<GameObject> LoadGameObjAtPath<T>(string[] pathArray, string filter)
     {
         var unitObjList = new List<GameObject>();
-
-#if UNITY_EDITOR
         var guids = AssetDatabase.FindAssets(filter, pathArray);
-
         foreach (var guid in guids)
         {
             var path = AssetDatabase.GUIDToAssetPath(guid);
@@ -53,8 +50,6 @@ public class XSUE : XSUnityUtils
                 unitObjList.Add(unitObj);
             }
         }
-#endif
         return unitObjList;
-
     }
 }

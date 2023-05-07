@@ -18,8 +18,6 @@ namespace XSSLG
         [SerializeField]
         protected XSCamera xsCamera;
 
-        public bool isEnemyAttacking = false;
-
         public bool isEnemyWork { get; set; }
 
         public XSIGridMgr GridMgr { get; set; }
@@ -34,9 +32,9 @@ namespace XSSLG
         public bool IsEnemyMoving { get; set; }
         
 
-        public List<Vector3> MoveRegion { get; set; }
+        public List<Vector3> MoveRegion { get; private set; }
 
-        public XSUnitNode SelectedUnit { get; set; }
+        protected XSUnitNode SelectedUnit { get; set; }
 
         void Start()
         {
@@ -77,6 +75,7 @@ namespace XSSLG
                 IsEnemyMoving = false;
                 if (TurnManager.Inst.myTurn)
 				{
+                    Debug.Log("내턴");
                     // click mouse left buton to move
                     if (Mouse.current.leftButton.wasPressedThisFrame)
                     {
@@ -156,83 +155,51 @@ namespace XSSLG
 				}
 				else
 				{
-                    if(isEnemyAttacking == false)
-					{
-                        StartCoroutine(SelectedUnit.GetComponent<Entity>().attackTest.attackNewOne(this));
+                    var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Enemy").GetComponent<XSIUnitNode>();
+                    //이거 적 공격 트리
+                    if (unit != null && !unit.IsNull())
+                    {
+                        this.SelectedUnit = unit;
+                        Debug.Log(IsEnemyMoving);
+                        if (this.SelectedUnit.Is_attackable && !IsEnemyMoving)
+                        {							
+                            var cheackAttackRegion = this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
+
+                            this.MoveRegion = unit.playerRegionRoute();
+
+                            var tile = PlayerEntity.Inst ;
+
+                            IsEnemyMoving = true;
+                            SelectedUnit.Is_attackable = false;
+
+                            Vector3 temtVect = new Vector3(tile.WorldPos.x,0, tile.WorldPos.z);
+
+                            if (cheackAttackRegion.Contains(temtVect))
+                            {
+                                EntityManager.Inst.playerEntity.Status_Health -= 1;
+
+                                this.GridShowMgr.ClearMoveRegion();
+                                this.MoveRegion = null;
+                                this.SelectedUnit = null;
+                            }
+                            else if (this.MoveRegion.Contains(temtVect))
+							{
+                                this.GridShowMgr.ClearMoveRegion();
+                                this.MoveRegion = null;
+                                                         
+                                if (this.SelectedUnit.CachedPaths != null)
+                                    this.WalkTo_Enemy(this.SelectedUnit.CachedPaths[temtVect], unit.Move);
+								else								
+                                    this.SelectedUnit = null;                                
+                            }                          
+                        }
                     }
                 }
             }
               
         }
 
-        public IEnumerator Attack()
-		{
-            isEnemyAttacking = true;
-            //var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Enemy").GetComponent<XSIUnitNode>();
-            var units = GameObject.FindGameObjectsWithTag("Enemy");
 
-			foreach (var temp in units )
-			{
-                var unit = (XSUnitNode)temp.GetComponent<XSIUnitNode>();
-
-                //이거 적 공격 트리
-                if (unit != null && !unit.IsNull())
-                {
-                    this.SelectedUnit = unit;
-#if UNITY_EDITOR
-                    Debug.Log("Enemy_Moving_editer_ : " + this.SelectedUnit.Is_attackable);
-#endif
-                    if (this.SelectedUnit.Is_attackable && !IsEnemyMoving)
-                    {
-                        var cheackAttackRegion = this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
-
-#if UNITY_EDITOR
-                        Debug.Log("if문 진입");
-#endif
-                        this.MoveRegion = unit.playerRegionRoute();
-
-                        var tile = PlayerEntity.Inst;
-
-                        IsEnemyMoving = true;
-                        SelectedUnit.Is_attackable = false;
-
-                        Vector3 temtVect = new Vector3(tile.WorldPos.x, 0, tile.WorldPos.z);
-
-                        if (cheackAttackRegion.Contains(temtVect))
-                        {
-                            EntityManager.Inst.playerEntity.Status_Health -= 1;
-#if UNITY_EDITOR
-                            Debug.Log("공격진입");
-#endif
-                            this.GridShowMgr.ClearMoveRegion();
-                            yield return new WaitForSeconds(0.3f);
-                            this.MoveRegion = null;
-                            this.SelectedUnit = null;
-                        }else if (this.MoveRegion.Contains(temtVect))
-                        {
-                            this.GridShowMgr.ClearMoveRegion();
-                            this.MoveRegion = null;
-
-                            if (this.SelectedUnit.CachedPaths != null)
-                                yield return StartCoroutine(this.WalkTo_Enemy(this.SelectedUnit.CachedPaths[temtVect], unit.Move));
-                            else
-                                this.SelectedUnit = null;
-#if UNITY_EDITOR
-                            Debug.Log("컨테인진입");
-#endif
-                        }
-                    }
-                }
-            }
-
-            Debug.Log("코루틴 탈출");
-
-            isEnemyAttacking = false;
-
-            yield break;
-        }
-
-        
 
 
         /// <summary>
@@ -257,13 +224,12 @@ namespace XSSLG
             }
         }
 
-        public IEnumerator WalkTo_Enemy(List<Vector3> path, int move)
+        public void WalkTo_Enemy(List<Vector3> path, int move)
         {
             if (this.movementAnimationSpeed > 0)
             {
-                yield return StartCoroutine(MovementAnimation_Enemy(path, move));
+                StartCoroutine(MovementAnimation_Enemy(path, move));
             }
-            yield break;
         }
 
         public void PlayerAttack(Vector3 AttackPos)

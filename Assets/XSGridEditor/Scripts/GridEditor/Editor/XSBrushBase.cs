@@ -126,10 +126,8 @@ namespace XSSLG
 
         public virtual void LoadBrushObjList()
         {
-#if UNITY_EDITOR
             this.tempObjPath = this.Instance.ObjPath;
             this.BrushObjList = XSUE.LoadGameObjAtPath<TCOMP>(new string[] { this.tempObjPath }, "t:Prefab");
-#endif
         }
 
         public override void OnPaintInspectorGUI()
