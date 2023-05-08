@@ -30,11 +30,13 @@ namespace XSSLG
         public bool IsMoving { get; private set; } = false;
 
         public bool IsEnemyMoving { get; set; }
-        
 
-        public List<Vector3> MoveRegion { get; private set; }
 
-        protected XSUnitNode SelectedUnit { get; set; }
+        public List<Vector3> MoveRegion { get; set; }
+
+        public XSUnitNode SelectedUnit { get; set; }
+
+        public bool isEnemyAttacking = false;
 
         void Start()
         {
@@ -60,7 +62,7 @@ namespace XSSLG
             TurnManager.onStartTurn += SelectUnitClear;
         }
 
-        void SelectUnitClear(bool _myTurn) 
+        void SelectUnitClear(bool _myTurn)
         {
             SelectedUnit = null;
         }
@@ -74,14 +76,13 @@ namespace XSSLG
             {
                 IsEnemyMoving = false;
                 if (TurnManager.Inst.myTurn)
-				{
-                    Debug.Log("내턴");
+                {
                     // click mouse left buton to move
                     if (Mouse.current.leftButton.wasPressedThisFrame)
                     {
                         if (this.SelectedUnit)
                         {
-                            if (!this.SelectedUnit.Is_attackable) 
+                            if (!this.SelectedUnit.Is_attackable)
                             {
                                 var tile = XSUG.GetMouseTargetTile();
                                 Debug.Log("tilePos: " + tile.TilePos);
@@ -93,7 +94,7 @@ namespace XSSLG
                                     // cache
                                     if (this.SelectedUnit.CachedPaths != null && this.SelectedUnit.CachedPaths.ContainsKey(tile.WorldPos))
                                     {
-                                  
+
                                         this.WalkTo(this.SelectedUnit.CachedPaths[tile.WorldPos]);//움직임
                                         this.SelectedUnit.Is_attackable = true;
                                     }
@@ -102,9 +103,9 @@ namespace XSSLG
                                         this.SelectedUnit = null;
                                     }
                                 }
-							}
-							else      //공격 임시 Test
-							{
+                            }
+                            else      //공격 임시 Test
+                            {
                                 var tile = XSUG.GetMouseTargetTile();
 
                                 if (this.MoveRegion.Contains(tile.WorldPos))
@@ -121,7 +122,7 @@ namespace XSSLG
                                         this.SelectedUnit = null;
                                     }
                                 }
-                            }                           
+                            }
                         }
                         else
                         {
@@ -133,12 +134,12 @@ namespace XSSLG
                                 {
                                     Debug.Log("SelectedUnit: " + unit.name);
                                     this.MoveRegion = this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
-								}
-								else
-								{
+                                }
+                                else
+                                {
                                     Debug.Log("SelectedUnit_Attack: " + unit.name);
                                     this.MoveRegion = this.GridShowMgr.ShowAttackRegion(unit); // 이 부분 수정해서 공격으로 수정가능 
-                                }                         
+                                }
                             }
 
                         }
@@ -152,63 +153,16 @@ namespace XSSLG
                             this.SelectedUnit = null;
                         }
                     }
-				}
-				else
-				{
-                    var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Enemy").GetComponent<XSIUnitNode>();
-                    //이거 적 공격 트리
-                    if (unit != null && !unit.IsNull())
-                    {
-                        this.SelectedUnit = unit;
-                        Debug.Log(IsEnemyMoving);
-                        if (this.SelectedUnit.Is_attackable && !IsEnemyMoving)
-                        {							
-                            var cheackAttackRegion = this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
-
-                            this.MoveRegion = unit.playerRegionRoute();
-
-                            var tile = PlayerEntity.Inst ;
-
-                            IsEnemyMoving = true;
-                            SelectedUnit.Is_attackable = false;
-
-                            Vector3 temtVect = new Vector3(tile.WorldPos.x,0, tile.WorldPos.z);
-
-                            if (cheackAttackRegion.Contains(temtVect))
-                            {
-                                EntityManager.Inst.playerEntity.Status_Health -= 1;
-
-                                this.GridShowMgr.ClearMoveRegion();
-                                this.MoveRegion = null;
-                                this.SelectedUnit = null;
-                            }
-                            else if (this.MoveRegion.Contains(temtVect))
-							{
-                                this.GridShowMgr.ClearMoveRegion();
-                                this.MoveRegion = null;
-                                                         
-                                if (this.SelectedUnit.CachedPaths != null)
-                                    this.WalkTo_Enemy(this.SelectedUnit.CachedPaths[temtVect], unit.Move);
-								else								
-                                    this.SelectedUnit = null;                                
-                            }                          
-                        }
-                    }
+                }
+                else
+                {
+					if (!isEnemyAttacking)
+					{
+                        StartCoroutine(EnemyBehavior());
+					}
                 }
             }
-              
-        }
 
-
-
-
-        /// <summary>
-        /// 공격 메서드
-        /// </summary>
-        /// <param name = "Attack">attack range</param>>
-        public void AttackTo(List<Vector3> range)
-        {
- 
         }
 
 
@@ -216,6 +170,72 @@ namespace XSSLG
         /// move to the destination
         /// </summary>
         /// <param name="path">move path</param>
+     
+        public IEnumerator EnemyBehavior()
+		{
+            isEnemyAttacking = true;
+            var units = GameObject.FindGameObjectsWithTag("Enemy");
+
+            foreach (var temp in units)
+            {
+                var unit = (XSUnitNode)temp.GetComponent<XSIUnitNode>();
+
+                //
+                if (unit != null && !unit.IsNull())
+                {
+                    SelectedUnit = unit;
+#if UNITY_EDITOR
+                    Debug.Log("Enemy_Moving_editer_ : " + SelectedUnit.Is_attackable);
+#endif
+                    if (SelectedUnit.Is_attackable && !IsEnemyMoving)
+                    {
+                        var cheackAttackRegion = GridShowMgr.ShowMoveRegion(unit);
+
+#if UNITY_EDITOR
+                        Debug.Log("if진입");
+#endif
+                        MoveRegion = unit.playerRegionRoute();
+
+                        var tile = PlayerEntity.Inst;
+
+                        IsEnemyMoving = true;
+                        SelectedUnit.Is_attackable = false;
+
+                        Vector3 temtVect = new Vector3(tile.WorldPos.x, 0, tile.WorldPos.z);
+
+                        if (cheackAttackRegion.Contains(temtVect))
+                        {
+#if UNITY_EDITOR
+                            Debug.Log("공격");
+#endif
+                            yield return new WaitForSeconds(0.3f);
+                            GridShowMgr.ClearMoveRegion();
+
+                            yield return StartCoroutine(SelectedUnit.GetComponent<Entity>().attack.attackNewOne());
+                            MoveRegion = null;
+                            SelectedUnit = null;
+                        }
+                        else if (MoveRegion.Contains(temtVect))
+                        {
+                            GridShowMgr.ClearMoveRegion();
+                            MoveRegion = null;
+
+                            if (SelectedUnit.CachedPaths != null)
+                                yield return StartCoroutine(WalkTo_Enemy(SelectedUnit.CachedPaths[temtVect], unit.Move));
+                            else
+                                SelectedUnit = null;
+#if UNITY_EDITOR
+                            Debug.Log("컨테인");
+#endif
+                        }
+                    }
+                }
+
+            }
+            isEnemyAttacking = false;
+
+        }
+
         public void WalkTo(List<Vector3> path)
         {
             if (this.movementAnimationSpeed > 0)
@@ -224,21 +244,21 @@ namespace XSSLG
             }
         }
 
-        public void WalkTo_Enemy(List<Vector3> path, int move)
+        public IEnumerator WalkTo_Enemy(List<Vector3> path, int move)
         {
             if (this.movementAnimationSpeed > 0)
             {
-                StartCoroutine(MovementAnimation_Enemy(path, move));
+                yield return StartCoroutine(MovementAnimation_Enemy(path, move));
             }
         }
 
         public void PlayerAttack(Vector3 AttackPos)
-		{
-			if (PlayerEntity.Inst.WorldPos == AttackPos)
+        {
+            if (PlayerEntity.Inst.WorldPos == AttackPos)
             {
-                PlayerEntity.Inst.Status_Health -=1 ;
-			}
-		}
+                PlayerEntity.Inst.Status_Health -= 1;
+            }
+        }
 
 
         /// <summary> Coroutine to deal move </summary>
@@ -260,17 +280,17 @@ namespace XSSLG
 
         public virtual IEnumerator MovementAnimation_Enemy(List<Vector3> path, int move)
         {
-        /*    this.GridShowMgr.ClearMoveRegion();
-            this.MoveRegion = null;*/
+            /*    this.GridShowMgr.ClearMoveRegion();
+                this.MoveRegion = null;*/
 
             this.IsMoving = true;
             path.Reverse(); // reverse the path
 
-			for (int i =0; i < move; i++)
-			{
+            for (int i = 0; i < move; i++)
+            {
                 while (this.SelectedUnit.transform.position != path[i])
                 {
-                    this.SelectedUnit.transform.position = Vector3.MoveTowards(this.SelectedUnit.transform.position, path[i] , Time.deltaTime * movementAnimationSpeed);
+                    this.SelectedUnit.transform.position = Vector3.MoveTowards(this.SelectedUnit.transform.position, path[i], Time.deltaTime * movementAnimationSpeed);
 
                     yield return 0;
                 }
@@ -279,18 +299,18 @@ namespace XSSLG
             this.IsMoving = false;
         }
 
-/*        public virtual IEnumerator Setbool()
-		{
-            this.SelectedUnit = null;
-            this.IsMoving = false;
+        /*        public virtual IEnumerator Setbool()
+                {
+                    this.SelectedUnit = null;
+                    this.IsMoving = false;
 
-            IsEnemyMoving = false;
-        }
+                    IsEnemyMoving = false;
+                }
 
-        public virtual IEnumerator EnemyPattern()
-		{
+                public virtual IEnumerator EnemyPattern()
+                {
 
-		}*/
+                }*/
 
 
     }

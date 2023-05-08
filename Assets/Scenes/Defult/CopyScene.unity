@@ -7672,7 +7672,11 @@ PrefabInstance:
     - target: {fileID: 6732213302119645433, guid: 11c6e8e4c7c9f6147907ff901cbeb69f, type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 11400000, guid: 0b3722501f229c34a8cf5f676f761960, type: 2}
+      objectReference: {fileID: 11400000, guid: 2c01282bec716454aaa27cf8ff8bc4c8, type: 2}
+    - target: {fileID: 6732213302119645433, guid: 11c6e8e4c7c9f6147907ff901cbeb69f, type: 3}
+      propertyPath: attack
+      value: 
+      objectReference: {fileID: 11400000, guid: 7090671af04dda443ae950da41c19008, type: 2}
     - target: {fileID: 7799422697148875826, guid: 11c6e8e4c7c9f6147907ff901cbeb69f, type: 3}
       propertyPath: m_Name
       value: Enemy_Entity
@@ -25629,6 +25633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xsCamera: {fileID: 1252256263}
+  isEnemyAttacking: 0
 --- !u!4 &1883885353
 Transform:
   m_ObjectHideFlags: 0

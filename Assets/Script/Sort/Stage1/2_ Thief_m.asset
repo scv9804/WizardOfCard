@@ -26,5 +26,5 @@ MonoBehaviour:
   EnemyDamagedSprite: {fileID: -5294702557898580886, guid: 4d9834997056f1b449f81a01569466bf, type: 3}
   EnemyAttackSprite: {fileID: 1068866137524139008, guid: 75d5e214f9a67864cab3898752af5233, type: 3}
   SpelcialSkillSprite: []
-  skeletonDataAsset: {fileID: 11400000, guid: 2ac105a81acaa8b42bcf4232bd774f64, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 1c14f9f34f2246f46a33461f28d6342b, type: 2}
   entityPattern: {fileID: 11400000, guid: efcfb6eb7ab26fb43be2eff8153c6b48, type: 2}
