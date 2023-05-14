@@ -16,7 +16,7 @@ public class Entity : XSUnitNode
 {
     [Header("필수 요소")]
     public Enemy enemy;
-    public TestAttack2 attack;
+    public AttackPatternSO attack;
 
     [Header("기본 설정")]
     [SerializeField] EntityPattern entitiyPattern;
@@ -46,6 +46,7 @@ public class Entity : XSUnitNode
 
     //능력치 등
     [HideInInspector] Sprite playerDamagedEffect;
+    [HideInInspector] public int patternCount = -1;
     [HideInInspector] public float i_health; // <<장형용 :: i가 아니라고 ㅡㅡ>>
     [HideInInspector] public float HEALTHMAX;
     [HideInInspector] public int increaseShield;
@@ -579,10 +580,11 @@ public class Entity : XSUnitNode
         EntityManager.Inst.CheckDieEnemy(this);
     }
 
-    #endregion
+	#endregion
 
- 
-    private void OnMouseOver()
+
+	#region 마우스클릭 과거의잔재
+	/*private void OnMouseOver()
     {
         EntityManager.Inst.EntityMouseOver(this);
     }
@@ -590,8 +592,9 @@ public class Entity : XSUnitNode
     private void OnMouseExit()
     {
         EntityManager.Inst.EntityMouseExit();
-    }
+    }*/
 
+/*
     private void OnMouseUp()
     {
         EntityManager.Inst.EntityMouseUp();
@@ -600,6 +603,6 @@ public class Entity : XSUnitNode
     private void OnMouseDown()
     {
         EntityManager.Inst.EntityMouseDown();
-    }
-
+    }*/
+	#endregion
 }

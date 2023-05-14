@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27b4d73a94849948a99fa1cc0285d38, type: 3}
   m_Name: EnemyTest
   m_EditorClassIdentifier: 
+  damage: 3

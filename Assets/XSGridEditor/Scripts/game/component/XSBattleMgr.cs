@@ -211,7 +211,9 @@ namespace XSSLG
                             yield return new WaitForSeconds(0.3f);
                             GridShowMgr.ClearMoveRegion();
 
-                            yield return StartCoroutine(SelectedUnit.GetComponent<Entity>().attack.attackNewOne());
+                            var entity = SelectedUnit.GetComponent<Entity>();
+
+                            yield return StartCoroutine(entity.attack.AttackPattern(entity).DefultAttack());
                             MoveRegion = null;
                             SelectedUnit = null;
                         }

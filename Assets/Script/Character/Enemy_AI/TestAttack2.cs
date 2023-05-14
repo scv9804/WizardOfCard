@@ -5,14 +5,7 @@ using XSSLG;
 
 
 [CreateAssetMenu(fileName = "EnemyTest", menuName = "TestModules/EnemyAttack")]
-public class TestAttack2 : TestAttack
+public class TestAttack2 : EnemyAttackBase
 {
-    public int damage = 3;
-    public override IEnumerator attackNewOne()
-    {
-        PlayerEntity.Inst.Status_Health -= damage;
-        yield return null;
-
-
-    }
+	
 }
