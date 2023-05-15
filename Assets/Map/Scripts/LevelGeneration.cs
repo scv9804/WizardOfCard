@@ -871,7 +871,7 @@ public class LevelGeneration : MonoBehaviour {
 		for (int i = 0; i < TurnManager.Inst.i_StartCardsCount; i++)
 		{
 			yield return delay_01;
-			TurnManager.Inst.OnAddCard();
+			//TurnManager.Inst.OnAddCard();
 		}
 		StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX,inPosY]));
 	}

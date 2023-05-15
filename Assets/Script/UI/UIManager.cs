@@ -269,22 +269,18 @@ public class UIManager : MonoBehaviour
 		if (levelGeneration.i_Room_L)
 		{
 			roomMoveButton_L.gameObject.SetActive(true);
-			Debug.Log("방선택");
 		}
 		if (levelGeneration.i_Room_R)
 		{
 			roomMoveButton_R.gameObject.SetActive(true);
-			Debug.Log("방선택");
 		}
 		if (levelGeneration.i_Room_U)
 		{
 			roomMoveButton_U.gameObject.SetActive(true);
-			Debug.Log("방선택");
 		}
 		if (levelGeneration.i_Room_D)
 		{
 			roomMoveButton_D.gameObject.SetActive(true);
-			Debug.Log("방선택");
 		}
 	}
 

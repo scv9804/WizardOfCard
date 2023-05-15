@@ -20,11 +20,12 @@ public class Enemy : ScriptableObject
 	public string st_charName;
 	public Sprite sp_sprite;
 	public Sprite PlayerDamagedEffect;
-	public Sprite EnemyDamagedSprite;
 	public Sprite EnemyAttackSprite;
 	public Sprite []SpelcialSkillSprite;
 
 	public SkeletonDataAsset skeletonDataAsset;
+	public SkeletonDataAsset damagedSkeletonDataAssets;
+	public SkeletonDataAsset attackSkeletonDataAssets;
 
 	public EntityPattern entityPattern;
 }

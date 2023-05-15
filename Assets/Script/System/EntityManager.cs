@@ -31,7 +31,7 @@ public class EntityManager : MonoBehaviour
 
     //[SerializeField] List<Entity> myEntities;
     [SerializeField] public List<Entity> enemyEntities; // << 22-10-21 장형용 :: 접근 제한 public으로 변경>>
-    [SerializeField] public GameObject[] enemyEntitiesObjcet; // << 22-10-21 장형용 :: 접근 제한 public으로 변경>>
+    [SerializeField] public GameObject[] enemyEntitiesObjcet; 
     [SerializeField] Entity bossEntity;
 
     [SerializeField] Transform spawnPlayerChar_Tf;
@@ -225,10 +225,6 @@ public class EntityManager : MonoBehaviour
 
         for (int i = 0; i < enemyEntitiesObjcet.Length; i++)
         {
-            if (enemyEntitiesObjcet[i].GetComponent<Entity>() == null)
-            {
-
-            }
             SetEnemyEntity(enemyEntitiesObjcet[i].GetComponent<Entity>());
         }
     }
@@ -253,7 +249,6 @@ public class EntityManager : MonoBehaviour
     void EnemyEntitiesSet()
     {
         enemyEntitiesObjcet = GameObject.FindGameObjectsWithTag("Enemy");
-        Debug.Log(enemyEntitiesObjcet.Length);
         /*        foreach (var entity in enemyEntitiesObjcet)
                 {            
                     enemyEntities.Add(entity.GetComponent<Entity>());

@@ -19,6 +19,7 @@ public class Entity : XSUnitNode
     public AttackPatternSO attack;
 
     [Header("기본 설정")]
+    public int AttackPattern = 0;
     [SerializeField] EntityPattern entitiyPattern;
     [SerializeField] EnemyBoss enemyBoss;
     [SerializeField] public SpriteRenderer charater;
@@ -107,8 +108,6 @@ public class Entity : XSUnitNode
     BurningJob myBurningJob = new BurningJob();
 
     #endregion
-
-   
 
 
     #region 시작 생성 종료 업데이트
@@ -265,7 +264,8 @@ public class Entity : XSUnitNode
 
     #region Entity Base
 
-    public void SetupEnemyBoss(Enemy _enemy)
+    //더미가 되었네요 ㅎㅎ
+    /*public void SetupEnemyBoss(Enemy _enemy)
     {
         enemy = _enemy;
         i_health = _enemy.i_health;
@@ -274,7 +274,7 @@ public class Entity : XSUnitNode
         increaseShield = _enemy.increaseShield;
         debuffValue = _enemy.debuffValue;
         buffValue = _enemy.buffValue;
-        SetSkeletonAnimation(_enemy);
+        SetSkeletonAnimation(_enemy.skeletonDataAsset);
 
         entitiyPattern = _enemy.entityPattern;
         HEALTHMAX = i_health;
@@ -292,7 +292,7 @@ public class Entity : XSUnitNode
         entitySkeletonGameObject.transform.localPosition = new Vector3(0, 0, 0);
         //켄버스 위치 스프라이트 사이즈에 따라 조절. (체력바 위치)
         inPlayerCanvas.transform.localPosition = new Vector3(0, charater.sprite.bounds.size.y + 2.0f);
-    }
+    }*/
 
     public void SetupEnemy()
     {
@@ -322,14 +322,14 @@ public class Entity : XSUnitNode
 
         specialSkillSprite = enemy.SpelcialSkillSprite;
 
-        SetSkeletonAnimation(enemy);
+        SetSkeletonAnimation(enemy.skeletonDataAsset);
     }
 
     //스파인 초기화 필수입니당
-    void SetSkeletonAnimation(Enemy _enemy)
+    void SetSkeletonAnimation(SkeletonDataAsset dataAsset)
 	{
         entitySkeletonAnimation.ClearState();
-        entitySkeletonAnimation.skeletonDataAsset = _enemy.skeletonDataAsset;
+        entitySkeletonAnimation.skeletonDataAsset = dataAsset;
         entitySkeletonAnimation.timeScale = 0.5f;
         entitySkeletonAnimation.Initialize(true);    
     }
@@ -518,6 +518,7 @@ public class Entity : XSUnitNode
     {
         DamagedSpriteRenederer.sprite = _sprite;
 
+        this.originPos = transform.position;
 
         Sequence sequence1 = DOTween.Sequence()
         .Append(DamagedSpriteRenederer.DOFade(1, 0.15f))
@@ -525,9 +526,10 @@ public class Entity : XSUnitNode
 
         this.transform.DOMove(this.originPos + new Vector3(0.15f, 0, 0), 0.1f);
 
-        entitySkeletonGameObject.SetActive(false);
-        charater.enabled = true;
-        charater.sprite = enemy.EnemyDamagedSprite;
+      //entitySkeletonGameObject.SetActive(false);
+      // charater.enabled = true;
+        SetSkeletonAnimation(enemy.damagedSkeletonDataAssets);
+      //charater.sprite = enemy.EnemyDamagedSprite;
 
         yield return new WaitForSeconds(0.15f);
 
@@ -541,9 +543,10 @@ public class Entity : XSUnitNode
         {
             yield return new WaitForSeconds(0.15f);
 
-            charater.sprite = enemy.sp_sprite;
-            entitySkeletonGameObject.SetActive(true);
-            charater.enabled = false;
+            /*            charater.sprite = enemy.sp_sprite;
+                        entitySkeletonGameObject.SetActive(true);
+                        charater.enabled = false;*/
+            SetSkeletonAnimation(enemy.skeletonDataAsset);
         }
 
     }

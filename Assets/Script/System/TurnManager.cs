@@ -56,6 +56,7 @@ public class TurnManager : MonoBehaviour
 				CardManager.Inst.SetCardStateCannot();
 				yield return delay_07;
 				onAddCard?.Invoke();
+				Debug.Log("ㅇㄴㅇㄴㅇ");
 				yield return delay_07;
 				EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
 				UIManager.Inst.IsUIUse = true;
@@ -64,7 +65,6 @@ public class TurnManager : MonoBehaviour
 			else
 			{
 				TurnNotification_Bool(false);
-				// 적 패턴 구현해야함 ㅇㅇ
 				enemyActions?.Invoke();
 				UIManager.Inst.IsUIUse = false;
 				isLoding = false;
@@ -115,10 +115,10 @@ public class TurnManager : MonoBehaviour
 	}
 
 	// 턴종료시 호출, 턴 바꾸려면 얘호출하면 줄줄이 호출임
-	public void OnAddCard()
+/*	public void OnAddCard()
 	{
         onAddCard?.Invoke();
-    }
+    }*/
 
     public void TurnNotification_Bool(bool _myTurn)
     {

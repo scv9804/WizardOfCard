@@ -5,15 +5,13 @@ using XSSLG;
 
 public class EnemyAttackBase : ScriptableObject
 {
-    public int damage = 3;
-    public virtual IEnumerator DefultAttack()
+    public int damage ;
+
+	public virtual IEnumerator DefultAttack(Entity entity)
     {
+		damage = entity.FinalAttackValue();
+       
         PlayerEntity.Inst.Status_Health -= damage;
         yield return null;
     }
-
-    protected virtual IEnumerator AttackAnime()
-	{
-        yield return null;
-	}
 }

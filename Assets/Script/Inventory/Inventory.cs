@@ -60,7 +60,7 @@ public class Inventory : MonoBehaviour
 
     private void OnDisable()
     {
-		TurnManager.onAddCard -= CardManager.Inst.AddCard;
+	//	TurnManager.onAddCard -= CardManager.Inst.AddCard;
 	}
 
     public void MakeSlot(int i)

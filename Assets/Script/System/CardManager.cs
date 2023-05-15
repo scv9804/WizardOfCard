@@ -62,7 +62,7 @@ public class CardManager : MonoBehaviour
 
 	private void Start()
 	{
-
+		SetupMyDeck();
 
         #region 액션 등록
 
@@ -460,6 +460,7 @@ public class CardManager : MonoBehaviour
 		setOriginOrder();
         CardAlignment();
 	}
+
 	public void AddSelectCard_Deck(Card tempt)
 	{
 		myDeck.Add(tempt);

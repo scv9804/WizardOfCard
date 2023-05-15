@@ -922,7 +922,7 @@ public class PlayerEntity : XSUnitNode
 	#endregion
 
 	#region MouseControlle
-	private void OnMouseOver()
+/*	private void OnMouseOver()
     {
        EntityManager.Inst.EntityMouseOverPlayer(this);
     }
@@ -940,7 +940,7 @@ public class PlayerEntity : XSUnitNode
     private void OnMouseDown()
     {
         EntityManager.Inst.PlayerEntityMouseDown();
-    }
+    }*/
 
 	#endregion
 }

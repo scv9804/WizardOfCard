@@ -38,6 +38,8 @@ namespace XSSLG
 
         public bool isEnemyAttacking = false;
 
+        public GameObject[]units;
+
         void Start()
         {
             if (XSUnityUtils.IsEditor())
@@ -46,6 +48,7 @@ namespace XSSLG
             }
             else
             {
+                units = GameObject.FindGameObjectsWithTag("Enemy");
                 this.GridMgr = XSInstance.Instance.GridMgr;
                 var gridHelper = XSInstance.Instance.GridHelper;
                 if (gridHelper)
@@ -104,12 +107,12 @@ namespace XSSLG
                                     }
                                 }
                             }
-                            else      //공격 임시 Test
+                            else
                             {
                                 var tile = XSUG.GetMouseTargetTile();
 
                                 if (this.MoveRegion.Contains(tile.WorldPos))
-                                {
+                                {                                    
                                     this.GridShowMgr.ClearMoveRegion();
                                     this.MoveRegion = null;
                                     // 공격
@@ -127,12 +130,12 @@ namespace XSSLG
                         else
                         {
                             var unit = (XSUnitNode)XSUG.GetMouseTargetUnit();
-                            if (unit != null && !unit.IsNull() && unit.Id == "0") // 제발 바꿔주세요 누군가여...!!
+                            if (unit != null && !unit.IsNull() && unit.Id == "0") 
                             {
                                 this.SelectedUnit = unit;
                                 if (!this.SelectedUnit.Is_attackable)
                                 {
-                                    Debug.Log("SelectedUnit: " + unit.name);
+                                     Debug.Log("SelectedUnit: " + unit.name);
                                     this.MoveRegion = this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
                                 }
                                 else
@@ -213,7 +216,7 @@ namespace XSSLG
 
                             var entity = SelectedUnit.GetComponent<Entity>();
 
-                            yield return StartCoroutine(entity.attack.AttackPattern(entity).DefultAttack());
+                            yield return StartCoroutine(entity.attack.AttackPattern(entity).DefultAttack(entity));
                             MoveRegion = null;
                             SelectedUnit = null;
                         }
@@ -254,12 +257,18 @@ namespace XSSLG
             }
         }
 
+        // 플레이어 공격
         public void PlayerAttack(Vector3 AttackPos)
-        {
-            if (PlayerEntity.Inst.WorldPos == AttackPos)
-            {
-                PlayerEntity.Inst.Status_Health -= 1;
-            }
+        {           
+            foreach (var unit in units)
+			{      
+                if (unit.transform.position.x == AttackPos.x && unit.transform.position.z == AttackPos.z)
+				{
+                 
+                    unit.GetComponent<Entity>().Damaged(1, null) ;
+				}
+			}
+
         }
 
 
