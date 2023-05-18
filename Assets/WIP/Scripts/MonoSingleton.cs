@@ -12,9 +12,9 @@ namespace WIP
 
         // =========================================================================== Singleton
 
-        public const string SINGLETON_GROUP_NAME = "===== Managers =====";
-
         private static TSingleton s_instance;
+
+        private static object s_lock = new object();
 
         // ==================================================================================================== Property
 
@@ -24,12 +24,15 @@ namespace WIP
         {
             get
             {
-                if (s_instance is null)
+                lock (s_lock)
                 {
-                    Create();
-                }
+                    if (s_instance is null)
+                    {
+                        Create();
+                    }
 
-                return s_instance;
+                    return s_instance;
+                }
             }
 
             private set
@@ -46,8 +49,6 @@ namespace WIP
         // ==================================================================================================== Method
 
         // =========================================================================== Event
-
-        // ================================================== Life Cycle
 
         protected virtual void Awake()
         {
@@ -80,8 +81,6 @@ namespace WIP
         public virtual void Initialize()
         {
             Instance = this as TSingleton;
-
-            transform.SetParent(Utility.GetObjectGroup(SINGLETON_GROUP_NAME, (instance) => DontDestroyOnLoad(instance)));
         }
     }
 }

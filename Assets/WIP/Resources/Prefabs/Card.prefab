@@ -404,7 +404,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6951262311783607771}
-  - component: {fileID: 8199154238915196886}
+  - component: {fileID: 5623713490616192654}
+  - component: {fileID: 8111365054620295061}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -433,7 +434,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 637, y: 902}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8199154238915196886
+--- !u!114 &5623713490616192654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -442,11 +443,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6951262311783607768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e01c30ab9bd5d34ca849bcb6309857a, type: 3}
+  m_Script: {fileID: 11500000, guid: b810bf27a1fdaf34494975e89335fefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instanceID: 
-  _state: 1
+  _originPosition: {x: 0, y: 0, z: 0}
+  _originSiblingIndex: 0
+  _state: 0
+  _components: {fileID: 8111365054620295061}
+--- !u!114 &8111365054620295061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951262311783607768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb87254187a48c4faafd9158013e2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _frameImage: {fileID: 9100837317214770706}
   _artworkImage: {fileID: 387321517000916493}
   _nameTMP: {fileID: 8127051579329579413}
@@ -664,8 +679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "No I can never let him go\r\nHe's right there for me 24\r\n\uB09C \uD589\uC6B4\uC544\uC57C
-    \uC815\uB9D0\uB85C\n I know, I know\r"
+  m_text: "\uB370\uBBF8\uC9C0\uB97C 0 \uC90D\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}
   m_sharedMaterial: {fileID: -5906256737900837030, guid: 26c80cb18533b8d48b6440ab99f643ba, type: 2}
@@ -692,7 +706,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.85
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
