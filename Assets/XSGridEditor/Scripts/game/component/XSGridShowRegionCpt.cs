@@ -46,6 +46,7 @@ namespace XSSLG
         /// show range
         /// </summary>
         /// <param name="worldPosList">a list of world position to show range </param>
+        /// 이새기가 문제였습니다. 디엑티브 되있는거 엑티브 되게하는듯?
         public virtual void ShowRegion(List<Vector3> worldPosList)
         {
             if (this.Prefab == null)
@@ -72,6 +73,7 @@ namespace XSSLG
                 spr.sortingOrder = this.SortOrder;
             });
             XSUnityUtils.ActionChildren(XSInstance.Instance.GridHelper.UnitRoot?.gameObject, (child) => child.SetActive(true));
+            //XSInstance.Instance.GridHelper.UnitRoot?.gameObject.GetComponent<Entity>().CheckBuffEffect();
         }
 
         /// <summary> clear range </summary>

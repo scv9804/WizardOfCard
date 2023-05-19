@@ -162,6 +162,37 @@ public class Entity : XSUnitNode
         buffEffect.Stop();
     }
 
+/// <summary>
+/// 이거 vfx버그 생긴이유 찾긴했는데.... 흠....
+/// </summary>
+    public void CheckBuffEffect()
+	{
+		if (buffImageList.Count == 0)
+		{
+            buffEffect.Stop();
+            debuffEffect.Stop();
+		}
+		else
+		{
+			foreach (var buff in buffImageList )
+			{
+				if (buff.GetComponent<BuffDebuffImageSpawn>().isbuff)
+				{
+                    if(buffEffect.pause)
+                    buffEffect.Play();
+				}
+				else
+				{
+                    if (debuffEffect.pause)
+                        debuffEffect.Play();
+                }
+                
+            }
+
+        }
+	}
+
+
     //턴 디버프 종료 
     public void DebuffOff_Turn(bool isMyTurn)
 	{

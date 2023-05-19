@@ -157,6 +157,15 @@ public class CardManager : MonoBehaviour
 		e_CardStats = E_CardStats.Cannot;
 	}
 
+	public void SetCardSpawnPos()
+	{
+		cardSpawnPos = GameObject.Find("CardSapwnPos").transform;
+		LeftCard_Tf = GameObject.Find("MyCardRight").transform;
+		RightCard_Tf = GameObject.Find("MyCardLeft").transform;
+		UseCard_Tf = GameObject.Find("UseCardArea").transform;
+		cardGarbage_Tf = GameObject.Find("CardGarbagePos").transform;
+	}
+
 	public void SetCardStateBack()
 	{
 		e_CardStats = tempt;

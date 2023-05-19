@@ -9,6 +9,7 @@ public class CombatSceneCheaker : MonoBehaviour
 		TurnManager.Inst.IsCombatScene = true;
 		StartCoroutine(LevelGeneration.Inst.Co_StartGame());
 		EntityManager.Inst.SetEnemyObjectArray();
+		CardManager.Inst.SetCardSpawnPos();
 	}
 
 }

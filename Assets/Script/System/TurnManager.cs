@@ -56,7 +56,6 @@ public class TurnManager : MonoBehaviour
 				CardManager.Inst.SetCardStateCannot();
 				yield return delay_07;
 				onAddCard?.Invoke();
-				Debug.Log("しいしいし");
 				yield return delay_07;
 				EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
 				UIManager.Inst.IsUIUse = true;

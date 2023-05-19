@@ -23,6 +23,7 @@ public class LoadSceneManager : MonoBehaviour
 		SceneManager.LoadScene("LoadScene");
 
 		TurnManager.Inst.IsCombatScene = false;
+
 	}
 
 	IEnumerator LoadScene()
