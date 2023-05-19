@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b117b675cac4b3f47b8c03506a255db8, type: 3}
-  m_Name: C000_AttackBlackBoard
+  m_Script: {fileID: 11500000, guid: a52e6c7e589f81f47b268cb4f7aebec5, type: 3}
+  m_Name: C000_CardSkill_Temp
   m_EditorClassIdentifier: 
   _damage: 060000000800000009000000
-  _damageOption: ffffffffffffffffffffffff
+  _playerEffectSprite: {fileID: 21300000, guid: 004759733ceab5c4ab7e77bd6f7a99d2, type: 3}
+  _targetEffectSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}

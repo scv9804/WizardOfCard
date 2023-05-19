@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System;
+using System.Text;
 
 namespace WIP
 {
@@ -10,22 +11,10 @@ namespace WIP
 
     public static class Utility
     {
-        // ==================================================================================================== Method
+        // ==================================================================================================== Field
 
-        // =========================================================================== Object Group
+        // =========================================================================== StringBuilder
 
-        public static Transform GetObjectGroup(string name, Action<GameObject> option = null)
-        {
-            GameObject gameObject = GameObject.Find(name);
-
-            if (gameObject is null)
-            {
-                gameObject = new GameObject(name);
-
-                option?.Invoke(gameObject);
-            }
-
-            return gameObject.transform;
-        }
+        public static StringBuilder StringBuilder = new StringBuilder();
     }
 }

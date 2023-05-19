@@ -2,85 +2,89 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Newtonsoft.Json;
+
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 using UnityEngine.EventSystems;
 
 namespace WIP
 {
-    // ==================================================================================================== CardDelegate
-
-    public delegate void CardDelegate(ICommand<Card, CardObject> command);
-
     // ==================================================================================================== CardManager
 
     public class CardManager : MonoSingleton<CardManager>
     {
         // ==================================================================================================== Field
-         
-        // =========================================================================== CardObject
-
-        public const string CARD_GROUP_NAME = "===== Cards =====";
-        public const string CARD_SELECTED_NAME = "===== Selected =====";
-
-        public const float CARD_SPACING_MARGIN = 100.0f;
-
-        [Header("선택 중 카드")]
-        public CardObject Selected;
 
         // =========================================================================== Card
 
-        // ================================================== Own
-
-        [Header("보유 중 카드")]
-        [SerializeField] private List<Card> _myOwnedCards = new List<Card>();
-
         // ================================================== Deck
 
-        [Header("덱 내 카드")]
+        [Header("덱 카드 리스트")]
         [SerializeField] private List<Card> _myDeckCards = new List<Card>();
 
         // ================================================== Hand
 
-        public const int MAX_HAND_SIZE = 9;
-
-        [Header("손패 내 카드")]
+        [Header("손패 카드 리스트")]
         [SerializeField] private List<Card> _myHandCards = new List<Card>();
 
         // ================================================== Use
 
-        [Header("사용 중 카드")]
-        [SerializeField] private List<Card> _myUsingCards = new List<Card>();
+        [Header("사용 중 카드 리스트")]
+        [SerializeField] private List<Card> _myUsedCards = new List<Card>();
 
         // ================================================== Cemetery
 
-        [Header("묘지 내 카드")]
+        [Header("묘지 카드 리스트")]
         [SerializeField] private List<Card> _myCemeteryCards = new List<Card>();
 
-        // ================================================== Exiled
+        // ================================================== Exile
 
-        [Header("제외된 카드")]
+        [Header("제외 카드 리스트")]
         [SerializeField] private List<Card> _myExiledCards = new List<Card>();
+
+        // ================================================== Action
+
+        // =========================================================================== CardObject
+
+        // ================================================== Instance
+
+        [Header("선택 중인 카드")]
+        [SerializeField] private CardObject _selected;
+
+        // ================================================== Deck
+
+        // ================================================== Hand
+
+        // ================================================== Use
+
+        // ================================================== Cemetery
+
+        // ================================================== Exile
+
+        // ================================================== Action
+
+        private EventHandler _onEnlarge;
+        private EventHandler _onArrange;
+        private EventHandler _onEmphasize;
+
+        private EventHandler<CardRefreshEventArgs> _onRefresh;
 
         // =========================================================================== CardManager
 
         // ================================================== State
 
-        [Header("상태")]
-        [SerializeField] public CardManagerState _state = CardManagerState.CanPointerOver | CardManagerState.CanDraging | CardManagerState.CanUsing;
+        [Header("카드매니저 상태")]
+        [SerializeField] private CardManagerState _state = CardManagerState.CanUse;
 
         // ================================================== Resource
 
-        private GameObject _cardPrefab;
+        [Header("카드 프리팹")]
+        [SerializeField] private GameObject _cardPrefab;
 
-        private CardDatabase _cardDatabase;
-
-        // ================================================== Command
-
-        public Dictionary<string, CardDelegate> Subscribers = new Dictionary<string, CardDelegate>();
+        [Header("데이터베이스")]
+        [SerializeField] private CardDatabase _database;
 
         // ==================================================================================================== Property
 
@@ -96,208 +100,78 @@ namespace WIP
 
         // =========================================================================== Card
 
-        // ================================================== Own
-
-        public ReadOnlyCollection<Card> MyOwnedCards
-        {
-            get
-            {
-                return _myOwnedCards.AsReadOnly();
-            }
-        }
-
         // ================================================== Deck
 
-        public ReadOnlyCollection<Card> MyDeckCards
+        public List<Card> MyDeckCards
         {
             get
             {
-                return _myDeckCards.AsReadOnly();
+                return _myDeckCards;
+            }
+
+            private set
+            {
+                _myDeckCards = value;
             }
         }
 
         // ================================================== Hand
 
-        public ReadOnlyCollection<Card> MyHandCards
+        public List<Card> MyHandCards
         {
             get
             {
-                return _myHandCards.AsReadOnly();
+                return _myHandCards;
+            }
+
+            private set
+            {
+                _myHandCards = value;
             }
         }
 
         // ================================================== Use
 
-        public ReadOnlyCollection<Card> MyUsingCards
+        public List<Card> MyUsedCards
         {
             get
             {
-                return _myUsingCards.AsReadOnly();
+                return _myUsedCards;
+            }
+
+            private set
+            {
+                _myUsedCards = value;
             }
         }
 
         // ================================================== Cemetery
 
-        public ReadOnlyCollection<Card> MyCemeteryCards
+        public List<Card> MyCemeteryCards
         {
             get
             {
-                return _myCemeteryCards.AsReadOnly();
-            }
-        }
-
-        // ================================================== Exiled
-
-        public ReadOnlyCollection<Card> MyExiledCards
-        {
-            get
-            {
-                return _myExiledCards.AsReadOnly();
-            }
-        }
-
-        // =========================================================================== CardManager
-
-        // ================================================== State
-
-        public bool CanPointerOver
-        {
-            get
-            {
-                return (_state & CardManagerState.CanPointerOver) != 0;
-            }
-        }
-
-        public bool CanDraging
-        {
-            get
-            {
-                return (_state & CardManagerState.CanDraging) != 0;
-            }
-        }
-
-        public bool CanUsing
-        {
-            get
-            {
-                return (_state & CardManagerState.CanUsing) != 0;
-            }
-        }
-
-        public bool OnPointerOver
-        {
-            get
-            {
-                return (_state & CardManagerState.OnPointerOver) != 0;
-            }
-        }
-
-        public bool OnDraging
-        {
-            get
-            {
-                return (_state & CardManagerState.OnDraging) != 0;
-            }
-        }
-
-        public bool OnUsing
-        {
-            get
-            {
-                return (_state & CardManagerState.OnUsing) != 0;
-            }
-        }
-
-        // ================================================== Resource
-
-        public CardDatabase CardDatabase
-        {
-            get
-            {
-                return _cardDatabase;
+                return _myCemeteryCards;
             }
 
             private set
             {
-                _cardDatabase = value;
+                _myCemeteryCards = value;
             }
         }
 
-        // ==================================================================================================== Method
+        // ================================================== Exile
 
-        // =========================================================================== Event
-
-        // ================================================== Life Cycle
-
-        protected override void Awake()
+        public List<Card> MyExiledCards
         {
-            base.Awake();
-
-            LoadResources();
-        }
-
-        private void Update()
-        {
-            InputFunction(Input.GetKeyDown(KeyCode.Space), TempCreateCardSet);
-        }
-
-        // ================================================== Pointer
-
-        public void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
-        {
-            if (!(OnDraging && !cardObject.IsSelected))
+            get
             {
-                Selected = cardObject;
-
-                cardObject.SetState(CardState.OnPointerOver, true);
-
-                SetState(CardManagerState.OnPointerOver, true);
+                return _myExiledCards;
             }
-        }
 
-        public void OnPointerExit(PointerEventData eventData, CardObject cardObject)
-        {
-            if (!(OnDraging && !cardObject.IsSelected))
+            private set
             {
-                Selected = null;
-
-                cardObject.SetState(CardState.OnPointerOver, false);
-
-                SetState(CardManagerState.OnPointerOver, false);
-            }
-        }
-
-        // ================================================== Drag
-
-        public void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
-        {
-            if (CanDraging && cardObject.IsPlayable)
-            {
-                cardObject.SetState(CardState.OnPointerOver, false);
-                cardObject.SetState(CardState.OnDraging, true);
-
-                SetState(CardManagerState.OnPointerOver, false);
-                SetState(CardManagerState.OnDraging, true);
-            }
-        }
-
-        public void OnDrag(PointerEventData eventData, CardObject cardObject)
-        {
-            if (CanDraging && cardObject.IsPlayable)
-            {
-                cardObject.MoveTo(eventData.position);
-            }
-        }
-
-        public void OnEndDrag(PointerEventData eventData, CardObject cardObject)
-        {
-            if (CanDraging && cardObject.IsPlayable)
-            {
-                cardObject.MoveTo(cardObject.OriginalPosition);
-
-                cardObject.SetState(CardState.OnDraging, false);
-
-                SetState(CardManagerState.OnDraging, false);
+                _myExiledCards = value;
             }
         }
 
@@ -305,171 +179,391 @@ namespace WIP
 
         // ================================================== Instance
 
-        public CardObject CreateCardObject(string instanceID)
+        public CardObject Selected
         {
-            GameObject gameObject = Instantiate(_cardPrefab);
-
-            var cardObject = gameObject.GetComponent<CardObject>();
-            cardObject.InstanceID = instanceID;
-
-            cardObject.OnCreate();
-
-            return cardObject;
-        }
-
-        // ================================================== Command
-
-        public void Refresh(string instanceID)
-        {
-            Subscribers[instanceID].Invoke(new CardRefreshCommand());
-        }
-
-        public void Arrange(string instanceID)
-        {
-            Subscribers[instanceID].Invoke(new CardArrangeCommand());
-        }
-
-        // ================================================== Hand
-
-        public void AllHandCards(Action<string> callback)
-        {
-            for (int i = 0; i < MyHandCards.Count; i++)
+            get
             {
-                callback(MyHandCards[i].InstanceID);
+                return _selected;
+            }
+
+            set
+            {
+                _selected = value;
             }
         }
 
-        // =========================================================================== Card
+        // ================================================== Action
 
-        // ================================================== Instance
-
-        public Card CreateCard(string instanceID, int serialID)
+        public event EventHandler OnEnlarge
         {
-            var card = new Card()
+            add
             {
-                InstanceID = instanceID,
-                SerialID = serialID
-            };
-
-            card.OnCreate();
-
-            return card;
-        }
-
-        // ================================================== Own
-
-        public void AddOwnedCard(Card card)
-        {
-            _myOwnedCards.Add(card);
-        }
-
-        // ================================================== Deck
-
-        public void AddDeckCard(Card card)
-        {
-            _myDeckCards.Add(card);
-        }
-
-        public void RemoveDeckCard(Card card)
-        {
-            _myOwnedCards.Remove(card);
-        }
-
-        // ================================================== Hand
-
-        public void AddHandCard(Card card)
-        {
-            _myHandCards.Add(card);
-        }
-
-        public void Draw()
-        {
-            if (_myDeckCards.Count is 0 || MyHandCards.Count is MAX_HAND_SIZE)
-            {
-                return;
+                _onEnlarge += value;
             }
 
-            // TODO: Card Search Option
-            Card card = _myDeckCards.Last();
-
-            Move(_myDeckCards, _myHandCards, card);
-
-            CreateCardObject(card.InstanceID);
+            remove
+            {
+                _onEnlarge -= value;
+            }
         }
 
-        // ================================================== Move
-
-        private void Move(List<Card> from, List<Card> to, Card card)
+        public event EventHandler OnArrange
         {
-            from.Remove(card);
+            add
+            {
+                _onArrange += value;
+            }
 
-            to.Add(card);
+            remove
+            {
+                _onArrange -= value;
+            }
+        }
+
+        public event EventHandler OnEmphasize
+        {
+            add
+            {
+                _onEmphasize += value;
+            }
+
+            remove
+            {
+                _onEmphasize -= value;
+            }
         }
 
         // =========================================================================== CardManager
 
         // ================================================== State
 
-        public void SetState(CardManagerState state, bool isActive)
+        public CardManagerState State
         {
-            if (isActive)
+            get
             {
-                _state |= state;
+                return _state;
             }
-            else
+
+            private set
             {
-                _state &= ~state;
+                _state = value;
             }
         }
 
         // ================================================== Resource
 
-        private void LoadResources()
+        public GameObject CardPrefab
         {
-            _cardPrefab = Resources.Load<GameObject>("Prefabs/Card");
-
-            CardDatabase = Resources.Load<CardDatabase>("Data/CardDatabase");
-        }
-
-        // =========================================================================== Temp
-
-        private void InputFunction(bool input, Action callback)
-        {
-            if (input)
+            get
             {
-                callback();
+                return _cardPrefab;
+            }
+
+            private set
+            {
+                _cardPrefab = value;
             }
         }
 
-        private void TempCreateCardSet()
+        public CardDatabase Database
         {
-            string instanceID = InstanceAllocator.Allocate(InstanceType.Card);
+            get
+            {
+                return _database;
+            }
 
-            Card card = CreateCard(instanceID, 0);
+            private set
+            {
+                _database = value;
+            }
+        }
 
-            AddOwnedCard(card);
-            AddDeckCard(card);
+        // ==================================================================================================== Method
 
-            Draw();
+        // =========================================================================== Event
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            LoadResource();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                GetCard(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), 0));
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Draw();
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                Suffle();
+            }
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                Recycle();
+            }
+        }
+
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+            if (Selected != null || State < CardManagerState.CanPointerOver)
+            {
+                return;
+            }
+
+            Selected = cardObject;
+
+            Selected.State = CardState.IsPointerOver;
+
+            EnlargeAll();
+            EmphasizeAll();
+        }
+
+        public void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+            if (Selected != cardObject || Selected.State != CardState.IsPointerOver)
+            {
+                return;
+            }
+
+            Selected.State = CardState.None;
+
+            EnlargeAll();
+            EmphasizeAll();
+
+            Selected = null;
+        }
+
+        // ================================================== Drag
+
+        public void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+            if (Selected != cardObject || State < CardManagerState.CanUse || !Selected.IsUsable)
+            {
+                return;
+            }
+
+            Selected.State = CardState.IsDrag;
+
+            EnlargeAll();
+        }
+
+        public void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+            if (Selected != cardObject || State < CardManagerState.CanUse)
+            {
+                return;
+            }
+
+            Selected.Move(eventData.position);
+        }
+
+        public void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+            if (Selected != cardObject)
+            {
+                return;
+            }
+
+            if (State == CardManagerState.CanUse && Selected.transform.position.y > Screen.height / 2)
+            {
+                // TODO: Use Card
+                //Destroy(Selected.gameObject);
+
+                //_myHandCards.Remove(Selected.Card);
+
+                Selected.Move(new Vector3(0.0f, 0.0f, 0.0f));
+
+                Selected.State = CardState.IsUse;
+
+                TryUse(Selected);
+
+                ArrangeAll();
+            }
+            else
+            {
+                Selected.Move(Selected.OriginPosition);
+
+                Selected.State = CardState.None;
+
+                EmphasizeAll();
+            }
+
+            Selected = null;
+        }
+
+        // =========================================================================== Singleton
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            DontDestroyOnLoad(gameObject);
+        }
+
+        // =========================================================================== Card
+
+        public Card GetCard(Card card)
+        {
+            MyDeckCards.Add(card);
+
+            return card;
+        }
+
+        public void Draw()
+        {
+            if (MyDeckCards.Count == 0 || MyHandCards.Count == Card.MAX_HAND_COUNT || false)
+            {
+                return;
+            }
+
+            Card card = MyDeckCards.Last();
+
+            MyDeckCards.Remove(card);
+            MyHandCards.Add(card);
+
+            CardObject.Create(card, new CardHandModule());
+
+            ArrangeAll();
+        }
+
+        public void Recycle()
+        {
+            MyDeckCards.AddRange(MyCemeteryCards);
+
+            MyCemeteryCards.Clear();
+        }
+
+        public void ReRoll()
+        {
+            int count = MyHandCards.Count;
+
+            MyCemeteryCards.AddRange(MyHandCards);
+
+            MyHandCards.Clear();
+
+            for (int i = 0; i < count; i++)
+            {
+                Draw();
+            }
+        }
+
+        public void Suffle()
+        {
+            int index;
+
+            for (int i = 0; i < MyDeckCards.Count; i++)
+            {
+                index = UnityEngine.Random.Range(i, MyDeckCards.Count);
+
+                (MyDeckCards[i], MyDeckCards[index]) = (MyDeckCards[index], MyDeckCards[i]);
+            }
+        }
+
+        // ================================================== ????????
+
+        public void TryUse(CardObject cardObject)
+        {
+            // TODO: Use Mana Cost
+
+            CardTarget_Temp targets = new CardTarget_Temp();
+
+            //OnCardTargetSet?.Invoke(targets);
+
+            if (targets.PlayerTarget == null && targets.EnemyTargets.Count == 0 && false) // false는 임시로 걸어둠
+            {
+                Selected.Move(Selected.OriginPosition);
+
+                Selected.State = CardState.None;
+
+                EmphasizeAll();
+            }
+            else
+            {
+                Destroy(cardObject.gameObject);
+
+                MyCemeteryCards.Add(cardObject.Card); // Temp
+                MyHandCards.Remove(cardObject.Card);
+
+                cardObject.Card.Use(targets);
+            }
+
+            Selected = null;
+        }
+
+        // =========================================================================== CardObject
+
+        // ================================================== Action
+
+        public void EnlargeAll()
+        {
+            _onEnlarge?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void ArrangeAll()
+        {
+            _onArrange?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void EmphasizeAll()
+        {
+            _onEmphasize?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void RefreshAll()
+        {
+            _onRefresh?.Invoke(this, CardRefreshEventArgs.Empty);
+        }
+
+        // =========================================================================== CardManager
+
+        // ================================================== Resource
+
+        private void LoadResource()
+        {
+            CardPrefab = Resources.Load<GameObject>("Prefabs/Card");
+
+            Database = Resources.Load<CardDatabase>("Data/CardDatabase");
         }
     }
 
     // ==================================================================================================== CardManagerState
 
-    [Flags] public enum CardManagerState
+    public enum CardManagerState
     {
-        Nothing         = 0,
+        None,
 
-        CanPointerOver  = 1 << 0,
+        CanPointerOver,
 
-        CanDraging      = 1 << 1,
+        CanUse
+    }
 
-        CanUsing        = 1 << 2,
+    // ==================================================================================================== CardLocation
 
-        OnPointerOver   = 1 << 3,
+    public enum CardLocation
+    {
+        None,
 
-        OnDraging       = 1 << 4,
+        Deck,
 
-        OnUsing         = 1 << 5
+        Hand,
+
+        Use,
+
+        Cemetery,
+
+        Exile
     }
 }

@@ -2,71 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Newtonsoft.Json;
-
 using System;
-using System.Text;
 
-using TMPro;
-
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace WIP
 {
     // ==================================================================================================== CardObject
 
-    public class CardObject : MonoBehaviour, IUnitObject, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class CardObject : MonoBehaviour, ICardObject, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         // ==================================================================================================== Field
 
-        // =========================================================================== Data
-
-        // ================================================== Identifier
+        // =========================================================================== Identifier
 
         [Header("인스턴스 ID")]
         [SerializeField] private string _instanceID;
 
+        // =========================================================================== Card
+
+        private Card _card;
+
         // =========================================================================== Transform
-
-        // ================================================== Scale
-
-        public const float DEFAULT_CARD_SIZE = 0.25f;
-        public const float ENLARGEMENT_CARD_SIZE = 0.4f;
 
         // ================================================== Position
 
-        private Vector3 _originalPosition;
+        [Header("원래 위치")]
+        [SerializeField] private Vector3 _originPosition;
 
         // ================================================== Sibling Index
 
-        private int _originalSiblingIndex;
+        [Header("원래 하이어라키 순서")]
+        [SerializeField] private int _originSiblingIndex;
 
         // =========================================================================== State
 
         [Header("상태")]
-        [SerializeField] private CardState _state = CardState.Playable;
+        [SerializeField] private CardState _state = CardState.None;
+
+        [Header("사용 가능 여부")]
+        [SerializeField] private bool _isUsable = true;
+
+        // =========================================================================== Module
+
+        private ICardLocationModule _locationModule;
 
         // =========================================================================== Component
 
-        // ================================================== Image
-
-        [Header("이미지 컴포넌트")]
-        [SerializeField] private Image _frameImage;
-        [SerializeField] private Image _artworkImage;
-
-        // ================================================== Text
-
-        [Header("텍스트 컴포넌트")]
-        [SerializeField] private TMP_Text _nameTMP;
-        [SerializeField] private TMP_Text _costTMP;
-        [SerializeField] private TMP_Text _descriptionTMP;
+        [Header("컴포넌트")]
+        [SerializeField] private CardComponents _components;
 
         // ==================================================================================================== Property
 
-        // =========================================================================== Data
-
-        // ================================================== Identifier
+        // =========================================================================== Identifier
 
         public string InstanceID
         {
@@ -81,531 +69,286 @@ namespace WIP
             }
         }
 
+        // =========================================================================== Module
+
+        public Card Card
+        {
+            get
+            {
+                return _card;
+            }
+
+            set
+            {
+                _card = value;
+            }
+        }
+
         // =========================================================================== Transform
 
         // ================================================== Position
 
-        public Vector3 OriginalPosition
+        public Vector3 OriginPosition
         {
             get
             {
-                return _originalPosition;
+                return _originPosition;
             }
 
             private set
             {
-                _originalPosition = value;
+                _originPosition = value;
             }
         }
 
         // ================================================== Sibling Index
 
-        public int OriginalSiblingIndex
+        public int OriginSiblingIndex
         {
             get
             {
-                return _originalSiblingIndex;
+                return _originSiblingIndex;
             }
 
             private set
             {
-                _originalSiblingIndex = value;
+                _originSiblingIndex = value;
             }
         }
 
         // =========================================================================== State
 
-        public bool IsSelected
+        public CardState State
         {
             get
             {
-                return CardManager.Instance.Selected == this;
+                return _state;
+            }
+
+            set
+            {
+                _state = value;
             }
         }
 
-        public bool IsPlayable
+        public bool IsUsable
         {
             get
             {
-                return (_state & CardState.Playable) != 0;
+                return _isUsable;
+            }
+
+            set
+            {
+                _isUsable = value;
             }
         }
 
-        public bool OnPointerOver
-        {
-            get
-            {
-                return (_state & CardState.OnPointerOver) != 0;
-            }
-        }
+        // =========================================================================== Module
 
-        public bool OnDraging
+        public ICardLocationModule LocationModule
         {
             get
             {
-                return (_state & CardState.OnDraging) != 0;
+                return _locationModule;
             }
-        }
 
-        public bool OnUsing
-        {
-            get
+            set
             {
-                return (_state & CardState.OnUsing) != 0;
+                _locationModule = value;
             }
         }
 
         // ==================================================================================================== Method
 
-        // =========================================================================== Event
-
-        // ================================================== Life Cycle
-
-        private void Update()
-        {
-            Enlarge();
-            Emphasize();
-        }
+        // =========================================================================== EventSystem
 
         // ================================================== Pointer
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            IsPlayableCallBack(() =>
-            {
-                CardManager.Instance.OnPointerEnter(eventData, this);
-            });
+            CardManager.Instance.OnPointerEnter(eventData, this);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            IsPlayableCallBack(() =>
-            {
-                CardManager.Instance.OnPointerExit(eventData, this);
-            });
+            CardManager.Instance.OnPointerExit(eventData, this);
         }
 
         // ================================================== Drag
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            IsPlayableCallBack(() =>
-            {
-                CardManager.Instance.OnBeginDrag(eventData, this);
-            });
+            CardManager.Instance.OnBeginDrag(eventData, this);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            IsPlayableCallBack(() =>
-            {
-                CardManager.Instance.OnDrag(eventData, this);
-            });
+            CardManager.Instance.OnDrag(eventData, this);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            IsPlayableCallBack(() =>
-            {
-                CardManager.Instance.OnEndDrag(eventData, this);
-            });
+            CardManager.Instance.OnEndDrag(eventData, this);
+        }
+
+        // =========================================================================== ????
+
+        public static CardObject Create(Card card, ICardLocationModule locationModule)
+        {
+            GameObject gameObject = Instantiate(CardManager.Instance.CardPrefab);
+            gameObject.name = card.InstanceID;
+
+            var cardObject = gameObject.GetComponent<CardObject>();
+
+            cardObject.InstanceID = card.InstanceID;
+            cardObject.Card = card;
+            cardObject.LocationModule = locationModule;
+
+            //
+            cardObject.OnInitialize();
+
+            return cardObject;
         }
 
         // =========================================================================== Transform
 
         // ================================================== Scale
 
-        private void Enlarge()
+        private void Enlarge(object sender, EventArgs e)
         {
-            float size = OnPointerOver && !OnDraging && IsSelected ? ENLARGEMENT_CARD_SIZE : DEFAULT_CARD_SIZE;
+            float size = LocationModule.Size(State);
 
             transform.localScale = new Vector3(size, size, 1.0f);
         }
 
         // ================================================== Position
 
-        public void Arrange(int count, int index)
+        private void Arrange(object sender, EventArgs e)
         {
-            IsPlayableCallBack(() =>
+            (int Count, int Index) element = LocationModule.GetElement(Card);
+
+            Vector3 position = LocationModule.GetPosition(element.Count, element.Index);
+
+            SetOriginPosition(position);
+            SetOriginSiblingIndex(element.Index);
+
+            if (State < CardState.IsDrag)
             {
-                OriginalSiblingIndex = index;
-
-                float x = (index * 2 - count) * CardManager.CARD_SPACING_MARGIN / 2 + Screen.width / 2;
-                float y = Screen.height / 4;
-
-                OriginalPosition = new Vector3(x, y, 0.0f);
-
-                if (!OnDraging)
-                {
-                    MoveTo(OriginalPosition);
-                }
-            });
+                Move(OriginPosition);
+            }
         }
 
-        public void MoveTo(Vector3 position)
+        private void SetOriginPosition(Vector3 position)
         {
-            // TODO: Convert DoTween Sequence
+            OriginPosition = position;
+        }
+
+        public void Move(Vector3 position)
+        {
             transform.position = position;
         }
 
         // ================================================== Sibling Index
 
-        public void Emphasize()
+        private void Emphasize(object sender, EventArgs e)
         {
-            IsPlayableCallBack(() =>
+            if (State > CardState.None)
             {
-                bool selected = OnPointerOver || OnDraging;
-
-                string parentName = selected ? CardManager.CARD_SELECTED_NAME : CardManager.CARD_GROUP_NAME;
-
-                transform.SetParent(GameObject.Find(parentName).transform);
-
-                if (!selected)
-                {
-                    transform.SetSiblingIndex(OriginalSiblingIndex);
-                }
-            });
-        }
-
-        // =========================================================================== State
-
-        public void SetState(CardState state, bool isActive)
-        {
-            if (isActive)
-            {
-                _state |= state;
+                transform.SetParent(GameObject.Find(Card.SELECTED_GROUP_NAME).transform);
             }
             else
             {
-                _state &= ~state;
+                transform.SetParent(GameObject.Find(LocationModule.GroupName).transform);
+
+                transform.SetSiblingIndex(OriginSiblingIndex);
             }
         }
 
-        private void IsPlayableCallBack(Action callback)
+        private void SetOriginSiblingIndex(int index)
         {
-            if (IsPlayable)
-            {
-                callback();
-            }
-        }
-
-        // =========================================================================== Component
-
-        public void Refresh(Card card)
-        {
-            _frameImage.sprite = card.FrameSprite;
-            _artworkImage.sprite = card.ArtworkSprite;
-
-            _nameTMP.text = card.Name;
-            _costTMP.text = card.Cost.ToString();
-            _descriptionTMP.text = card.Description;
+            OriginSiblingIndex = index;
         }
 
         // =========================================================================== Instance
 
-        public void OnCreate()
+        public void OnInitialize()
         {
-            CardManager.Instance.Subscribers[InstanceID] += Receive;
+            CardManager.Instance.OnEnlarge += Enlarge;
+            CardManager.Instance.OnArrange += Arrange;
+            CardManager.Instance.OnEmphasize += Emphasize;
 
-            CardManager.Instance.AllHandCards(CardManager.Instance.Refresh);
-            CardManager.Instance.AllHandCards(CardManager.Instance.Arrange);
+            CardManager.Instance.EnlargeAll();
+            CardManager.Instance.ArrangeAll();
+            CardManager.Instance.EmphasizeAll();
         }
 
-        public void OnRemove()
+        public void OnDispose()
         {
-            CardManager.Instance.Subscribers[InstanceID] -= Receive;
+            CardManager.Instance.OnEnlarge -= Enlarge;
+            CardManager.Instance.OnArrange -= Arrange;
+            CardManager.Instance.OnEmphasize -= Emphasize;
 
-            CardManager.Instance.AllHandCards(CardManager.Instance.Refresh);
-            CardManager.Instance.AllHandCards(CardManager.Instance.Arrange);
+            CardManager.Instance.EnlargeAll();
+            CardManager.Instance.ArrangeAll();
+            CardManager.Instance.EmphasizeAll();
         }
-
-        // =========================================================================== Command
-
-        private void Receive(ICommand<Card, CardObject> command)
-        {
-            command.View = this;
-
-            command.Invoke();
-        }
-    }
-
-    // ==================================================================================================== Card
-
-    [Serializable] public class Card : IUnit
-    {
-        // ==================================================================================================== Field
-
-        // =========================================================================== Data
-
-        // ================================================== Model
-
-        [Header("현재 데이터")]
-        [SerializeField, JsonProperty("CurrentData")] private CardCurrentData _currentData = new CardCurrentData();
-
-        [Header("원본 데이터")]
-        [SerializeField, JsonIgnore] private CardOriginalData _originalData;
-
-        [Header("구현 데이터")]
-        [SerializeField, JsonIgnore] private CardHandlerData _handlerData;
-
-        // ================================================== Upgraded
-
-        public const int MAX_UPGRADE_LEVEL = 2;
-
-        // =========================================================================== Asset
-
-        // ================================================== Model
-
-        [Header("에셋 데이터")]
-        [SerializeField, JsonIgnore] private CardAssetData _assetData;
-
-        // =========================================================================== StringBuilder
-
-        private StringBuilder _stringBuilder = new StringBuilder();
-
-        // ==================================================================================================== Property
-
-        // =========================================================================== Data
-
-        // ================================================== Identifier
-
-        [JsonIgnore] public string InstanceID
-        {
-            get
-            {
-                return _currentData.InstanceID;
-            }
-
-            set
-            {
-                _currentData.InstanceID = value;
-            }
-        }
-
-        [JsonIgnore] public int SerialID
-        {
-            get
-            {
-                return _currentData.SerialID;
-            }
-
-            set
-            {
-                _currentData.SerialID = value;
-            }
-        }
-
-        // ================================================== Base
-
-        [JsonIgnore] public string Name
-        {
-            get
-            {
-                return GetName(_originalData.Name);
-            }
-        }
-
-        [JsonIgnore] public int Cost
-        {
-            get
-            {
-                return Math.Max(_originalData.Cost[Upgraded] + _currentData.Cost, 0);
-            }
-        }
-
-        [JsonIgnore] public bool IsExile
-        {
-            get
-            {
-                return _originalData.IsExile[Upgraded];
-            }
-        }
-
-        [JsonIgnore] public string Description
-        {
-            get
-            {
-                return GetDescription(_originalData.Description[Upgraded]);
-            }
-        }
-
-        // ================================================== Upgrade
-
-        [JsonIgnore] public int Upgraded
-        {
-            get
-            {
-                return _currentData.Upgraded;
-            }
-
-            private set
-            {
-                _currentData.Upgraded = value;
-            }
-        }
-
-        // =========================================================================== Asset
 
         // ================================================== Component
 
-        [JsonIgnore] public Sprite FrameSprite
+        private void Refresh(object sender, CardRefreshEventArgs e)
         {
-            get
-            {
-                return _assetData.FrameSprite[Upgraded];
-            }
-        }
 
-        [JsonIgnore] public Sprite ArtworkSprite
-        {
-            get
-            {
-                return _assetData.ArtworkSprite[Upgraded];
-            }
-        }
-
-        // ================================================== Effect
-
-        [JsonIgnore] public Sprite AttackEffectSprite
-        {
-            get
-            {
-                return _assetData.AttackEffectSprite;
-            }
-        }
-
-        [JsonIgnore] public Sprite HitEffectSprite
-        {
-            get
-            {
-                return _assetData.HitEffectSprite;
-            }
-        }
-
-        // ==================================================================================================== Method
-
-        // =========================================================================== Instance
-
-        public void OnCreate()
-        {
-            // Initializing
-
-            // TODO: Take Apart OnLoaded Method
-            LoadResources();
-
-            CardManager.Instance.Subscribers.Add(InstanceID, Receive);
-        }
-
-        public void OnRemove()
-        {
-            CardManager.Instance.Subscribers.Remove(InstanceID);
-        }
-
-        // =========================================================================== Command
-
-        private void Receive(ICommand<Card, CardObject> command)
-        {
-            command.Controller = this;
-        }
-
-        // =========================================================================== Data
-
-        // ================================================== Model
-
-        private void LoadResources()
-        {
-            CardDatabase database = CardManager.Instance.CardDatabase;
-
-            _originalData = database.Originals[SerialID];
-
-            _assetData = database.Assets[SerialID];
-
-            _handlerData = database.Handlers[SerialID];
-        }
-
-        // ================================================== Base
-
-        private string GetName(string name)
-        {
-            _stringBuilder.Clear();
-            _stringBuilder.Append($"{name} I");
-
-            for (int i = 0; i < Upgraded; i++)
-            {
-                _stringBuilder.Append("I");
-            }
-
-            return _stringBuilder.ToString();
-        }
-
-        private string GetDescription(string description)
-        {
-            _stringBuilder.Clear();
-
-            if (IsExile)
-            {
-                _stringBuilder.Append("망각\n");
-            }
-
-            // TODO: Card Handler Description Assemble
-            _stringBuilder.Append(description);
-
-            _stringBuilder.Replace("망각", "<color=#ff88ff>망각</color>");
-
-            return _stringBuilder.ToString();
-        }
-
-        // ================================================== Upgraded
-
-        public void Upgrade()
-        {
-            Upgraded = Math.Min(Upgraded + 1, MAX_UPGRADE_LEVEL);
-
-            CardManager.Instance.Refresh(InstanceID);
         }
     }
 
-    // ==================================================================================================== CardCurrentData
+    // ==================================================================================================== CardObjectHandler
 
-    [Serializable] public class CardCurrentData
+    public class CardObjectHandler : ICardObjectHandler
+    {
+
+    }
+
+    // ==================================================================================================== CardRefreshEventArgs
+
+    [Serializable] public class CardRefreshEventArgs : EventArgs
     {
         // ==================================================================================================== Field
 
-        // =========================================================================== Identifier
+        // =========================================================================== Argument
 
-        [Header("인스턴스 ID")]
-        public string InstanceID;
+        public new static readonly CardRefreshEventArgs Empty = default;
 
-        [Header("시리얼 ID")]
-        public int SerialID;
+        // =========================================================================== Status
 
-        // =========================================================================== Base
+        public string Name;
 
-        [Header("비용")]
         public int Cost;
 
-        // =========================================================================== Upgrade
+        public string Description;
 
-        [Header("강화 횟수")]
-        [Range(0, Card.MAX_UPGRADE_LEVEL)] public int Upgraded = 0;
+        // =========================================================================== Asset
 
-        // =========================================================================== BuffHandler
-
-        // TODO: Card Buff Handler
+        public Sprite FrameSprite;
+        public Sprite ArtworkSprite;
     }
 
-    // ==================================================================================================== CardState
+    // ==================================================================================================== ICardObjectHandler
 
-    [Flags] public enum CardState
+    public interface ICardObjectHandler
     {
-        None            = 0,
 
-        Playable        = 1 << 0,
+    }
 
-        OnPointerOver   = 1 << 1,
+    // ==================================================================================================== ICardObject
 
-        OnDraging       = 1 << 2,
+    public interface ICardObject
+    {
+        // ==================================================================================================== Property
 
-        OnUsing         = 1 << 3
+        // =========================================================================== Transform
+
+        // ================================================== Scale
+
     }
 }
