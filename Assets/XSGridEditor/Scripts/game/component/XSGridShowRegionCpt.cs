@@ -73,7 +73,7 @@ namespace XSSLG
                 spr.sortingOrder = this.SortOrder;
             });
             XSUnityUtils.ActionChildren(XSInstance.Instance.GridHelper.UnitRoot?.gameObject, (child) => child.SetActive(true));
-            //XSInstance.Instance.GridHelper.UnitRoot?.gameObject.GetComponent<Entity>().CheckBuffEffect();
+            EntityManager.Inst.SetEntitiesVFX();
         }
 
         /// <summary> clear range </summary>

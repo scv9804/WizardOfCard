@@ -492,11 +492,20 @@ public class EntityManager : MonoBehaviour
     {
         UseCard_Singel();
     }
+
+    public void SetEntitiesVFX() 
+    {
+		foreach (var enemy in enemyEntities)
+		{
+            enemy.CheckBuffEffect();
+        }
+        playerEntity.CheckBuffEffect();
+    }
+
     #endregion
 
     #region CardUseSet
     //적 클릭후 마우스 업 시 적용됨.
-
 
     void UseCard_Singel()
     {
@@ -537,12 +546,10 @@ public class EntityManager : MonoBehaviour
         SetSelectedCardNull();
     }
 
-
     void SetSelectedCardNull()
     {
         CardManager.Inst.selectCard = null;
     }
-
 
     public void UseCard_AllEnemy()
     {
@@ -587,8 +594,6 @@ public class EntityManager : MonoBehaviour
             Debug.Log("SelectCard가 비었습니다.");
         }
     }
-
-
 
 
 

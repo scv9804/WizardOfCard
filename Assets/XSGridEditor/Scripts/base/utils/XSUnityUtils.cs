@@ -28,12 +28,13 @@ namespace XSSLG
             {
                 return;
             }
-                
+
             int childCount = obj.transform.childCount;
             for (int i = childCount - 1; i >= 0; i--)
             {
                 action(obj.transform.GetChild(i).gameObject);
             }
+         
         }
 
         /// <summary>

@@ -169,6 +169,7 @@ public class Entity : XSUnitNode
 	{
 		if (buffImageList.Count == 0)
 		{
+            dissolveEffect.Stop();
             buffEffect.Stop();
             debuffEffect.Stop();
 		}

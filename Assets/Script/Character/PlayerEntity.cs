@@ -152,7 +152,7 @@ public class PlayerEntity : XSUnitNode
 	int i_magicAffinity_battle = 0; // 1번의 전투간 유지되는 마나 친화성
 	int i_magicAffinity_turn = 0; // 1턴간 유지되는 마나 친화성 
 
-
+	#region 더미
 
 	//[HideInInspector] public int DecreaseDamage_Turn = 1;
 	//[HideInInspector] public int DecreaseDamage_Battle = 1;
@@ -163,6 +163,8 @@ public class PlayerEntity : XSUnitNode
 	//[HideInInspector] public int damageUpBuff_Battle = 0;
 	//[HideInInspector] public int damageUpBuff_Stage = 0;
 	//[HideInInspector] public int damageUpBuff_Permanent = 0;  // 나중에 이걸로 바꾸자 햇갈린다
+
+	#endregion
 
 	// <<22-11-05 장형용 :: 추가>>
 	int i_protection = 0; // 수치 이하의 데미지를 방어 (수치 이상의 피해는 방어 못함, 쉴드 상위호환으로 겹쳐서 살짝 바꿔봄)
@@ -735,9 +737,36 @@ public class PlayerEntity : XSUnitNode
         }
     }
 
-    #region StatusValueChange
+    #region StatusValueChange And VFX
 
     #region 마나 친화성 수정필요
+
+    public void CheckBuffEffect()
+    {
+        if (buffImageList.Count == 0)
+        {
+            buffEffect.Stop();
+            debuffEffect.Stop();
+        }
+        else
+        {
+            foreach (var buff in buffImageList)
+            {
+                if (buff.GetComponent<BuffDebuffImageSpawn>().isbuff)
+                {
+                    if (buffEffect.pause)
+                        buffEffect.Play();
+                }
+                else
+                {
+                    if (debuffEffect.pause)
+                        debuffEffect.Play();
+                }
+
+            }
+
+        }
+    }
 
     public void ResetMagicAffinity_Battle()
     {
