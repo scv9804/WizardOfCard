@@ -12,14 +12,19 @@ public class UIManager : MonoBehaviour
 	private void Awake()
 	{
 		Inst = this;
+		DontDestroyOnLoad(this);
 	}
 	private void Start()
 	{
 		//mainCamera = mainCam.GetComponent<CameraData>();
 		//mapCamera = mapCam.GetComponent<CameraData>();
 		SetClose();
+		DontDestroyOnLoad(maincanvas);
 		Reward_UI.gameObject.SetActive(false);
 	}
+	[Header("메인 켄버스")]
+	public Canvas maincanvas;
+	public GameObject maincanvas2;
 
 	[Header("방이동 버튼")]
 	public Button roomMoveButton_L;

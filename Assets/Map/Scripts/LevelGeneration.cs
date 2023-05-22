@@ -658,15 +658,15 @@ public class LevelGeneration : MonoBehaviour {
 	//방이동하기
 	public void MoveRoom(int _moveDir)
 	{
-
-		try
+		ChoiseRoom(_moveDir);
+	/*	try
 		{
-			ChoiseRoom(_moveDir);
+			
 		}
 		catch
 		{
 			Debug.Log("방이없습니다.");
-		}
+		}*/
 		RoomRefersh();
 	}
 
@@ -793,10 +793,12 @@ public class LevelGeneration : MonoBehaviour {
 			{
 				UIManager.Inst.ButtonDeActivate();
 			}
-			if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
+
+			//게임 바뀌면서 이거 일단 지움. 맵이 안바껴 ㅅㅂ
+			/*if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
 			{
 				LevelGeneration.Inst.SetMyTurn();
-			}
+			}*/
 
 			rooms[inPosX, inPosY].Checked = true;
 		}

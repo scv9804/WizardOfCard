@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CombatSceneCheaker : MonoBehaviour
 {
-	private void Start()
+	private void OnEnable()
 	{
-		TurnManager.Inst.IsCombatScene = true;
+		TurnManager.Inst.isCombatScene = true;
+		UIManager.Inst.maincanvas.enabled = true;
 		StartCoroutine(LevelGeneration.Inst.Co_StartGame());
 		EntityManager.Inst.SetEnemyObjectArray();
 		CardManager.Inst.SetCardSpawnPos();

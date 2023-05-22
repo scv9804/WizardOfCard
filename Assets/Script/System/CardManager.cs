@@ -805,7 +805,7 @@ public class CardManager : MonoBehaviour
 	{
 		for (int i = 0; i < myCards.Count; i++)
 		{
-			myCards[i].CardExplainRefresh();
+			myCards[i]?.CardExplainRefresh();
 		}
 	}
 

@@ -188,14 +188,14 @@ namespace XSSLG
                 {
                     SelectedUnit = unit;
 #if UNITY_EDITOR
-                    Debug.Log("Enemy_Moving_editer_ : " + SelectedUnit.Is_attackable);
+                   // Debug.Log("Enemy_Moving_editer_ : " + SelectedUnit.Is_attackable);
 #endif
                     if (SelectedUnit.Is_attackable && !IsEnemyMoving)
                     {
                         var cheackAttackRegion = GridShowMgr.ShowMoveRegion(unit);
 
 #if UNITY_EDITOR
-                        Debug.Log("if진입");
+                     //   Debug.Log("if진입");
 #endif
                         MoveRegion = unit.playerRegionRoute();
 
@@ -209,7 +209,7 @@ namespace XSSLG
                         if (cheackAttackRegion.Contains(temtVect))
                         {
 #if UNITY_EDITOR
-                            Debug.Log("공격");
+                       //   Debug.Log("공격");
 #endif
                             yield return new WaitForSeconds(0.3f);
                             GridShowMgr.ClearMoveRegion();
@@ -230,7 +230,7 @@ namespace XSSLG
                             else
                                 SelectedUnit = null;
 #if UNITY_EDITOR
-                            Debug.Log("컨테인");
+                        //    Debug.Log("컨테인");
 #endif
                         }
                     }
@@ -265,7 +265,7 @@ namespace XSSLG
                 if (unit.transform.position.x == AttackPos.x && unit.transform.position.z == AttackPos.z)
 				{
                  
-                    unit.GetComponent<Entity>().Damaged(1, null) ;
+                    unit.GetComponent<Entity>().Damaged(10, null) ;
 				}
 			}
 

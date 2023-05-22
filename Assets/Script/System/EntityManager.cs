@@ -31,7 +31,7 @@ public class EntityManager : MonoBehaviour
 
     //[SerializeField] List<Entity> myEntities;
     [SerializeField] public List<Entity> enemyEntities; // << 22-10-21 장형용 :: 접근 제한 public으로 변경>>
-    [SerializeField] public GameObject[] enemyEntitiesObjcet; 
+    [SerializeField] public List<GameObject> enemyEntitiesObjcet; 
     [SerializeField] Entity bossEntity;
 
     [SerializeField] Transform spawnPlayerChar_Tf;
@@ -223,7 +223,7 @@ public class EntityManager : MonoBehaviour
         */
         #endregion
 
-        for (int i = 0; i < enemyEntitiesObjcet.Length; i++)
+        for (int i = 0; i < enemyEntitiesObjcet.Count; i++)
         {
             SetEnemyEntity(enemyEntitiesObjcet[i].GetComponent<Entity>());
         }
@@ -248,7 +248,10 @@ public class EntityManager : MonoBehaviour
 
     void EnemyEntitiesSet()
     {
-        enemyEntitiesObjcet = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+		{
+            enemyEntitiesObjcet.Add(enemy);
+		}
         /*        foreach (var entity in enemyEntitiesObjcet)
                 {            
                     enemyEntities.Add(entity.GetComponent<Entity>());
@@ -347,13 +350,13 @@ public class EntityManager : MonoBehaviour
 
     public void SetEnemyObjectArray()
     {
-        if (enemyEntitiesObjcet.Length == 0)
+        if (enemyEntitiesObjcet.Count == 0)
         {
             EnemyEntitiesSet();
 
             Debug.Log("설정나옴");
         }
-        if (enemyEntitiesObjcet.Length != 0)
+        if (enemyEntitiesObjcet.Count != 0)
         {
             SpawnEnemyEntity();
         }
@@ -383,11 +386,12 @@ public class EntityManager : MonoBehaviour
             enemyEntities.Remove(_entity);
             Debug.Log("하나죽었다.");
         }
-
         if (enemyEntities.Count == 0)
         {
             Debug.Log("다음방으로");
+            LoadSceneManager.LoadScene("Stage 1-1 Load");
             UIManager.Inst.ButtonActivate();
+            enemyEntitiesObjcet.Clear();
             CardManager.Inst.SetCardStateCannot();
             playerEntity.ResetMagicAffinity_Battle();
             playerEntity.ResetMagicAffinity_Turn(false);
@@ -395,8 +399,8 @@ public class EntityManager : MonoBehaviour
             // << 22-12-04 장형용 :: 추가>>
             if (LevelGeneration.Inst.CurrentRoom.RoomEventType == 1)
                 SceneManager.LoadScene("SorryScene");
-            else
-                RewardManager.Inst.GameClear();
+           // else
+             //   RewardManager.Inst.GameClear();
         }
     }
     

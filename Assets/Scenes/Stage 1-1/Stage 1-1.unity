@@ -12880,6 +12880,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4c11b2064de2848bb2c01b65e80431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maincanvas: {fileID: 1940144894}
+  maincanvas2: {fileID: 1940144891}
   roomMoveButton_L: {fileID: 783054691}
   roomMoveButton_R: {fileID: 139432260}
   roomMoveButton_U: {fileID: 576135797}
@@ -16418,7 +16420,6 @@ MonoBehaviour:
   notificationPanel: {fileID: 973607952}
   myTurn: 1
   isLoding: 0
-  IsCombatScene: 0
 --- !u!4 &1683188088
 Transform:
   m_ObjectHideFlags: 0

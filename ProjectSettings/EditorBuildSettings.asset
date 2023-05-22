@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage 1-1/Stage 1-1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Stage 1-1/Stage 1-1 Load.unity
+    guid: 00e6c726fed3c284a9d9bd22d509dc4a
+  - enabled: 1
     path: Assets/Scenes/GameOverScene.unity
     guid: 8fc2d19e38e87444e8b6b64e35e677c0
   - enabled: 1

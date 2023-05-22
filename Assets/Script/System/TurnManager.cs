@@ -38,8 +38,9 @@ public class TurnManager : MonoBehaviour
     public static Action <bool> onStartTurn;
 	public static Action enemyActions;
 
-	public bool IsCombatScene = false;
+	bool IsCombatScene = false;
 
+	public bool isCombatScene { get { return IsCombatScene; } set { IsCombatScene = value; } }
 
     // ≈œΩ√¿€
     public IEnumerator Co_StartTurn(Room room)
@@ -70,9 +71,6 @@ public class TurnManager : MonoBehaviour
 			}
 			CardManager.Inst.SetECardState();
 		}
-
-
-
 
 		/* §∑§∑ ¡ø¥Ô ¥Ÿª—Ω§±◊≥… ª—Ω§ª—Ω§
 		if ((room.RoomEventType == 1 || room.RoomEventType == 0) && !room.isStartRoom)
