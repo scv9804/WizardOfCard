@@ -21946,6 +21946,12 @@ MonoBehaviour:
   xsCamera: {fileID: 1252256263}
   isEnemyAttacking: 0
   units: []
+  mouseVector: []
+  VectTest:
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: -1, y: 0, z: 0}
+  - {x: -1, y: 0, z: -1}
 --- !u!4 &1883885353
 Transform:
   m_ObjectHideFlags: 0

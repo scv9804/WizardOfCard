@@ -244,7 +244,7 @@ public class Card : MonoBehaviour
 	// <<22-11-24 장형용 :: 변경>>
 	public void CardExplainRefresh()
     {
-		explainTMP.text = GetCardExplain();
+	//		explainTMP.text = GetCardExplain();
 	}
 
 	#region  // <<22-11-24 장형용 :: 추가, 수치 별 텍스트 갱신 처리는 통합적으로 처리하지 않고 각 카드에서 개별적으로 수행함, 수치 별 명명 규칙 변경>>

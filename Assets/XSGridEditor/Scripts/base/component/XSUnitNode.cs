@@ -63,7 +63,7 @@ namespace XSSLG
         /// <returns></returns>
         public virtual List<Vector3> GetMoveRegion()
         {
-            var gridMgr = XSInstance.Instance.GridMgr; // 이게 프리팹 생성이잖아
+            var gridMgr = XSInstance.Instance.GridMgr; // 그리드매니저 파싱하고
             gridMgr.GetXSTile(this.transform.position, out var srcTile); //이걸로 캐릭터 현재 타일 값 받기 가능
             // first cache
             this.CachedPaths = gridMgr.FindAllPath(srcTile, Move); // 여기수치로 범위 설정

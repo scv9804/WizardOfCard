@@ -84,6 +84,7 @@ namespace XSSLG
         public virtual void RemoveNode() => XSUnityUtils.RemoveObj(this.gameObject);
 
         public bool IsNull() => this == null;
-    }
+
+	}
 
 }
