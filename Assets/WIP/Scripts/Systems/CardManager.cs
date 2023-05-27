@@ -19,32 +19,25 @@ namespace WIP
 
         // =========================================================================== Card
 
-        // ================================================== Deck
+        // ================================================== Collection
 
         [Header("덱 카드 리스트")]
         [SerializeField] private List<Card> _myDeckCards = new List<Card>();
 
-        // ================================================== Hand
-
         [Header("손패 카드 리스트")]
         [SerializeField] private List<Card> _myHandCards = new List<Card>();
-
-        // ================================================== Use
-
-        [Header("사용 중 카드 리스트")]
-        [SerializeField] private List<Card> _myUsedCards = new List<Card>();
-
-        // ================================================== Cemetery
 
         [Header("묘지 카드 리스트")]
         [SerializeField] private List<Card> _myCemeteryCards = new List<Card>();
 
-        // ================================================== Exile
-
         [Header("제외 카드 리스트")]
         [SerializeField] private List<Card> _myExiledCards = new List<Card>();
 
+        // Deck, Hand, Discard, Exiled
+
         // ================================================== Action
+
+        private Action _onRefresh;
 
         // =========================================================================== CardObject
 
@@ -53,30 +46,29 @@ namespace WIP
         [Header("선택 중인 카드")]
         [SerializeField] private CardObject _selected;
 
-        // ================================================== Deck
-
-        // ================================================== Hand
-
-        // ================================================== Use
-
-        // ================================================== Cemetery
-
-        // ================================================== Exile
-
         // ================================================== Action
 
-        private EventHandler _onEnlarge;
-        private EventHandler _onArrange;
-        private EventHandler _onEmphasize;
-
-        private EventHandler<CardRefreshEventArgs> _onRefresh;
+        private Action _onEnlarge;
+        private Action _onArrange;
+        private Action _onEmphasize;
 
         // =========================================================================== CardManager
+
+        // 마나를 여기서 관리해야 하나
 
         // ================================================== State
 
         [Header("카드매니저 상태")]
         [SerializeField] private CardManagerState _state = CardManagerState.CanUse;
+
+        // ================================================== Module
+
+        private CardManagerCostModule _costModule = new CardManagerCostModule();
+
+        // ================================================== Data
+
+        [Header("데이터")]
+        [SerializeField] private CardManagerData _data = new CardManagerData();
 
         // ================================================== Resource
 
@@ -85,6 +77,9 @@ namespace WIP
 
         [Header("데이터베이스")]
         [SerializeField] private CardDatabase _database;
+
+        [Header("규칙 설정")]
+        [SerializeField] private CardSettings _settings;
 
         // ==================================================================================================== Property
 
@@ -100,7 +95,7 @@ namespace WIP
 
         // =========================================================================== Card
 
-        // ================================================== Deck
+        // ================================================== Collection
 
         public List<Card> MyDeckCards
         {
@@ -115,8 +110,6 @@ namespace WIP
             }
         }
 
-        // ================================================== Hand
-
         public List<Card> MyHandCards
         {
             get
@@ -129,23 +122,6 @@ namespace WIP
                 _myHandCards = value;
             }
         }
-
-        // ================================================== Use
-
-        public List<Card> MyUsedCards
-        {
-            get
-            {
-                return _myUsedCards;
-            }
-
-            private set
-            {
-                _myUsedCards = value;
-            }
-        }
-
-        // ================================================== Cemetery
 
         public List<Card> MyCemeteryCards
         {
@@ -160,8 +136,6 @@ namespace WIP
             }
         }
 
-        // ================================================== Exile
-
         public List<Card> MyExiledCards
         {
             get
@@ -172,6 +146,21 @@ namespace WIP
             private set
             {
                 _myExiledCards = value;
+            }
+        }
+
+        // ================================================== Action
+
+        public event Action OnRefresh
+        {
+            add
+            {
+                _onRefresh += value;
+            }
+
+            remove
+            {
+                _onRefresh -= value;
             }
         }
 
@@ -194,7 +183,7 @@ namespace WIP
 
         // ================================================== Action
 
-        public event EventHandler OnEnlarge
+        public event Action OnEnlarge
         {
             add
             {
@@ -207,7 +196,7 @@ namespace WIP
             }
         }
 
-        public event EventHandler OnArrange
+        public event Action OnArrange
         {
             add
             {
@@ -220,7 +209,7 @@ namespace WIP
             }
         }
 
-        public event EventHandler OnEmphasize
+        public event Action OnEmphasize
         {
             add
             {
@@ -247,6 +236,21 @@ namespace WIP
             private set
             {
                 _state = value;
+            }
+        }
+
+        // ================================================== Module
+
+        public CardManagerCostModule CostModule
+        {
+            get
+            {
+                return _costModule;
+            }
+
+            private set
+            {
+                _costModule = value;
             }
         }
 
@@ -278,6 +282,19 @@ namespace WIP
             }
         }
 
+        public CardSettings Settings
+        {
+            get
+            {
+                return _settings;
+            }
+
+            private set
+            {
+                _settings = value;
+            }
+        }
+
         // ==================================================================================================== Method
 
         // =========================================================================== Event
@@ -286,11 +303,13 @@ namespace WIP
         {
             base.Awake();
 
-            LoadResource();
+            LoadData();
         }
 
         private void Update()
         {
+            //////////////////////////////////////////////////
+
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 GetCard(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), 0));
@@ -308,8 +327,15 @@ namespace WIP
 
             if (Input.GetKeyDown(KeyCode.V))
             {
-                Recycle();
+                StartCoroutine(Recycle());
             }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                StartCoroutine(ProcessManager.Instance.Terminate()); // 이거 옮기기 귀찮아...
+            }
+
+            //////////////////////////////////////////////////
         }
 
         // =========================================================================== EventSystem
@@ -355,9 +381,15 @@ namespace WIP
                 return;
             }
 
-            Selected.State = CardState.IsDrag;
+            CostModule.Cost = Selected.Card.Cost;
+            CostModule.Estimate();
 
-            EnlargeAll();
+            if (CostModule.IsEnough)
+            {
+                Selected.State = CardState.IsDrag;
+
+                EnlargeAll();
+            }
         }
 
         public void OnDrag(PointerEventData eventData, CardObject cardObject)
@@ -379,16 +411,11 @@ namespace WIP
 
             if (State == CardManagerState.CanUse && Selected.transform.position.y > Screen.height / 2)
             {
-                // TODO: Use Card
-                //Destroy(Selected.gameObject);
-
-                //_myHandCards.Remove(Selected.Card);
-
                 Selected.Move(new Vector3(0.0f, 0.0f, 0.0f));
 
                 Selected.State = CardState.IsUse;
 
-                TryUse(Selected);
+                SetCardTarget();
 
                 ArrangeAll();
             }
@@ -419,48 +446,54 @@ namespace WIP
         {
             MyDeckCards.Add(card);
 
+            Suffle();
+
             return card;
         }
 
-        public void Draw()
+        public Card Draw()
         {
-            if (MyDeckCards.Count == 0 || MyHandCards.Count == Card.MAX_HAND_COUNT || false)
+            if (MyDeckCards.Count > 0 && MyHandCards.Count < Settings.MaxHandCount && true)
             {
-                return;
+                Card card = MyDeckCards.Last();
+
+                MyDeckCards.Remove(card);
+                MyHandCards.Add(card);
+
+                CardObject.Create(card, new CardHandModule());
+
+                ArrangeAll();
+
+                return card;
             }
-
-            Card card = MyDeckCards.Last();
-
-            MyDeckCards.Remove(card);
-            MyHandCards.Add(card);
-
-            CardObject.Create(card, new CardHandModule());
-
-            ArrangeAll();
-        }
-
-        public void Recycle()
-        {
-            MyDeckCards.AddRange(MyCemeteryCards);
-
-            MyCemeteryCards.Clear();
-        }
-
-        public void ReRoll()
-        {
-            int count = MyHandCards.Count;
-
-            MyCemeteryCards.AddRange(MyHandCards);
-
-            MyHandCards.Clear();
-
-            for (int i = 0; i < count; i++)
+            else
             {
-                Draw();
+                return null;
             }
         }
 
-        public void Suffle()
+        public IEnumerator Recycle()
+        {
+            yield return ProcessManager.Instance.AddTask(null, Main());
+
+            IEnumerator Main()
+            {
+                if (MyCemeteryCards.Count > 0)
+                {
+                    MyDeckCards.AddRange(MyCemeteryCards);
+
+                    // TODO: Destroy All Cemetery CardObjects
+
+                    MyCemeteryCards.Clear();
+
+                    Suffle();
+                }
+
+                yield return null;
+            }
+        }
+
+        private void Suffle()
         {
             int index;
 
@@ -474,33 +507,71 @@ namespace WIP
 
         // ================================================== ????????
 
-        public void TryUse(CardObject cardObject)
+        private void SetCardTarget()
         {
-            // TODO: Use Mana Cost
+            CardTarget targets = new CardTarget();
 
-            CardTarget_Temp targets = new CardTarget_Temp();
+            //////////////////////////////////////////////////
+            targets.IsActive = true;
+            //////////////////////////////////////////////////
 
-            //OnCardTargetSet?.Invoke(targets);
+            Selected.enabled = false;
 
-            if (targets.PlayerTarget == null && targets.EnemyTargets.Count == 0 && false) // false는 임시로 걸어둠
+            if (!targets.IsActive)
             {
-                Selected.Move(Selected.OriginPosition);
+                Selected.enabled = true;
 
                 Selected.State = CardState.None;
+
+                Selected.Move(Selected.OriginPosition);
 
                 EmphasizeAll();
             }
             else
             {
-                Destroy(cardObject.gameObject);
+                StartCoroutine(Use(Selected.Card, targets));
 
-                MyCemeteryCards.Add(cardObject.Card); // Temp
-                MyHandCards.Remove(cardObject.Card);
-
-                cardObject.Card.Use(targets);
+                Selected.Dispose();
             }
 
             Selected = null;
+        }
+
+        public IEnumerator Use(Card card, CardTarget targets)
+        {
+            yield return ProcessManager.Instance.AddTask(Prework(), Main());
+
+            IEnumerator Prework()
+            {
+                CostModule.Execute();
+
+                MyHandCards.Remove(card);
+
+                yield return null;
+            }
+
+            IEnumerator Main()
+            {
+                yield return StartCoroutine(card.Use(targets));
+
+                if ((card.Keyword & CardKeyword.Exile) != 0)
+                {
+                    MyExiledCards.Add(card);
+                }
+                else
+                {
+                    MyCemeteryCards.Add(card);
+                }
+
+                yield return null;
+            }
+        }
+
+        // ================================================== Action
+
+        public void RefreshAll()
+        {
+            _onRefresh?.Invoke();
         }
 
         // =========================================================================== CardObject
@@ -509,33 +580,192 @@ namespace WIP
 
         public void EnlargeAll()
         {
-            _onEnlarge?.Invoke(this, EventArgs.Empty);
+            _onEnlarge?.Invoke();
         }
 
         public void ArrangeAll()
         {
-            _onArrange?.Invoke(this, EventArgs.Empty);
+            _onArrange?.Invoke();
         }
 
         public void EmphasizeAll()
         {
-            _onEmphasize?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void RefreshAll()
-        {
-            _onRefresh?.Invoke(this, CardRefreshEventArgs.Empty);
+            _onEmphasize?.Invoke();
         }
 
         // =========================================================================== CardManager
 
+        // ================================================== Process
+
+        //public void AddTask(IEnumerator task) // 이거 턴 매니저나 게임 매니저나 태스크 매니저 3개 중 하나로 옮겨야 되나
+        //{
+        //    if (!_isRunning)
+        //    {
+        //        return;
+        //    }
+
+        //    Process.Add(task);
+
+        //    StartCoroutine(task);
+        //}
+
+        //public IEnumerator WaitForProcess(string task) // string은 조만간 지울 예정
+        //{
+        //    int standby = Process.Count - 1;
+
+        //    Debug.Log($"{task}의 처리 순번: {standby}");
+
+        //    yield return new WaitUntil(() =>
+        //    {
+        //        return standby == Standby;
+        //    });
+        //}
+
+        //public IEnumerator Terminate()
+        //{
+        //    _isRunning = false;
+
+        //    yield return StartCoroutine(WaitForProcess("작업 대기열 초기화"));
+
+        //    Process.Clear();
+
+        //    Standby = 0;
+
+        //    _isRunning = true;
+
+        //    yield return null;
+        //}
+
         // ================================================== Resource
 
-        private void LoadResource()
+        private void LoadData()
         {
             CardPrefab = Resources.Load<GameObject>("Prefabs/Card");
 
             Database = Resources.Load<CardDatabase>("Data/CardDatabase");
+
+            Settings = Resources.Load<CardSettings>("Data/CardSettings");
+        }
+    }
+
+    // ==================================================================================================== CardManagerData
+
+    [Serializable] public class CardManagerData
+    {
+
+    }
+
+    // ==================================================================================================== CardPile
+
+    [Serializable] public class CardPile
+    {
+        // ==================================================================================================== Field
+
+        // =========================================================================== Card
+
+        [Header("카드 리스트")]
+        [SerializeField, JsonProperty("Cards")] private List<Card> _cards = new List<Card>();
+
+        // =========================================================================== CardObject
+
+        [Header("카드 오브젝트 리스트")]
+        [SerializeField, JsonIgnore] private List<CardObject> _cardObjects = new List<CardObject>();
+
+        [Header("카드 오브젝트 활성화 여부")]
+        [SerializeField, JsonIgnore] private bool _isDisplay;
+
+        // =========================================================================== Transform
+
+        // ================================================== Sibling Index
+
+        [Header("카드 그룹 이름")]
+        [SerializeField, JsonProperty("GroupName")] private string _groupName;
+
+        // ================================================== Position
+
+        private Func<int, int, float> _getX;
+        private Func<int, int, float> _getY;
+
+        // ==================================================================================================== Property
+
+        // =========================================================================== Card
+
+        public List<Card> Cards
+        {
+            get
+            {
+                return _cards;
+            }
+        }
+
+        // =========================================================================== CardObject
+
+        public List<CardObject> CardsObjects
+        {
+            get
+            {
+                return _cardObjects;
+            }
+        }
+
+        public bool IsDisplay
+        {
+            get
+            {
+                return _isDisplay;
+            }
+
+            set
+            {
+                _isDisplay = value;
+            }
+        }
+
+        // =========================================================================== Transform
+
+        // ================================================== Position
+
+        public event Func<int, int, float> GetX
+        {
+            add
+            {
+                _getX = value;
+            }
+
+            remove
+            {
+                _getX -= value;
+            }
+        }
+
+        public event Func<int, int, float> GetY
+        {
+            add
+            {
+                _getY = value;
+            }
+
+            remove
+            {
+                _getY -= value;
+            }
+        }
+
+        // ==================================================================================================== Method
+
+        // ================================================== Position
+
+        public (int Count, int Index) GetIndexElement(CardObject cardObject)
+        {
+            return (Cards.Count, CardsObjects.IndexOf(cardObject));
+        }
+
+        public Vector3 GetPosition(int count, int index)
+        {
+            float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
+            float y = Screen.height / 4;
+
+            return new Vector3(x, y, 0.0f);
         }
     }
 
@@ -548,22 +778,5 @@ namespace WIP
         CanPointerOver,
 
         CanUse
-    }
-
-    // ==================================================================================================== CardLocation
-
-    public enum CardLocation
-    {
-        None,
-
-        Deck,
-
-        Hand,
-
-        Use,
-
-        Cemetery,
-
-        Exile
     }
 }

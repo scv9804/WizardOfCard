@@ -68,7 +68,7 @@ namespace WIP
             return skillModel;
         }
 
-        public override IEnumerator Execute(CardTarget_Temp target, CardModel model, ICardSkillModel_Temp skillModel)
+        public override IEnumerator Execute(CardTarget_Temp target, Card card, ICardSkillModel_Temp skillModel)
         {
             ICardAttackProperty_Temp skillModel_C000 = skillModel as ICardAttackProperty_Temp;
 
@@ -109,13 +109,13 @@ namespace WIP
 
         // =========================================================================== Status
 
-        public override string RefreshDescription(CardModel model, ICardSkillModel_Temp skill)
+        public override string RefreshDescription(Card card, ICardSkillModel_Temp skill)
         {
             Utility.StringBuilder.Clear();
-            Utility.StringBuilder.Append(model.Description);
+            Utility.StringBuilder.Append(card.Description);
 
             Utility.StringBuilder.Replace("{0}", "<color=#FF0000>{0}</color>");
-            Utility.StringBuilder.Replace("{0}", model.ApplyAttackPower(Damage[model.Upgraded]).ToString());
+            Utility.StringBuilder.Replace("{0}", Damage[card.Upgraded].ToString());
 
             return Utility.StringBuilder.ToString();
         }

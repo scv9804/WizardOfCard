@@ -282,10 +282,10 @@ namespace XSSLG
                 {
                     foreach (var t in VectTest)
 					{
-                        if (GridMgr.GetAllTiles().Contains(GridMgr.GetXSTile(t)))
-						{
+                        //if (GridMgr.GetAllTiles().Contains(GridMgr.GetXSTile(t)))
+                        //{
 
-						}
+                        //}
                         mouseVector.Add(tile.WorldPos + t);
                     }
                     testbool = true;
