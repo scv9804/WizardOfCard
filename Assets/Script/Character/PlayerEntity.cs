@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Spine.Unity;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 using DG.Tweening;
@@ -42,6 +43,9 @@ public class PlayerEntity : XSUnitNode
     [SerializeField] public VisualEffect buffEffect;
     [SerializeField] public VisualEffect debuffEffect;
 
+    [Header("스파인")]
+    [SerializeField] SkeletonAnimation skeletonAnimation;
+
     Image healthImage_UI;
 
     Vector3 originSkillNamePos;
@@ -73,7 +77,6 @@ public class PlayerEntity : XSUnitNode
     private void Start()
 	{
         healthImage_UI = GameObject.Find("UI_Left_Health").GetComponent<Image>();
-        originShieldEffectScale = shieldEffectObject.transform.localScale;
         SetDefultPS();
         debuffEffect.Stop();
         buffEffect.Stop();
@@ -99,7 +102,6 @@ public class PlayerEntity : XSUnitNode
         TurnManager.onStartTurn += ResetMagicAffinity_Turn;
         TurnManager.onStartTurn += ReduceProtection;
         TurnManager.onStartTurn += ResetCannotDrawCard;
-
         #endregion
     }
 
@@ -115,7 +117,6 @@ public class PlayerEntity : XSUnitNode
         TurnManager.onStartTurn -= ResetMagicAffinity_Turn;
         TurnManager.onStartTurn -= ReduceProtection;
         TurnManager.onStartTurn -= ResetCannotDrawCard;
-
         #endregion
     }
 
@@ -939,8 +940,6 @@ public class PlayerEntity : XSUnitNode
 	}
 
 
-
-
     public void SetDefultPS()
 	{
         originScale = this.transform.localScale;
@@ -948,28 +947,46 @@ public class PlayerEntity : XSUnitNode
 	}
 
 
-	#endregion
+    #endregion
 
-	#region MouseControlle
-/*	private void OnMouseOver()
+    #region MouseControlle
+    /*	private void OnMouseOver()
+        {
+           EntityManager.Inst.EntityMouseOverPlayer(this);
+        }
+
+        private void OnMouseExit()
+        {
+            EntityManager.Inst.PlayerEntityMouseExit();
+        }
+
+        private void OnMouseUp()
+        {
+            EntityManager.Inst.PlayerEntityMouseUp();
+        }
+
+        private void OnMouseDown()
+        {
+            EntityManager.Inst.PlayerEntityMouseDown();
+        }*/
+
+    #endregion
+
+    #region 스파인 애니메이션
+
+    void SetSkeletonAnimation(SkeletonDataAsset dataAsset)
     {
-       EntityManager.Inst.EntityMouseOverPlayer(this);
+        skeletonAnimation.ClearState();
+        skeletonAnimation.skeletonDataAsset = dataAsset;
+        skeletonAnimation.timeScale = 0.5f;
+        skeletonAnimation.Initialize(true);
     }
 
-    private void OnMouseExit()
+    public void StartSkeletonAnimation()
     {
-        EntityManager.Inst.PlayerEntityMouseExit();
+        skeletonAnimation.Start();
     }
 
-    private void OnMouseUp()
-    {
-        EntityManager.Inst.PlayerEntityMouseUp();
-    }
+    #endregion
 
-    private void OnMouseDown()
-    {
-        EntityManager.Inst.PlayerEntityMouseDown();
-    }*/
-
-	#endregion
 }

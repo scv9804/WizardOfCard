@@ -15,6 +15,8 @@ namespace XSSLG
 
         List<XSTile> GetAllTiles();
 
+        List<Vector3> GetTileVect();
+
         void ClearAllTiles();
 
         void Init(XSGridHelper helper);
@@ -43,8 +45,10 @@ namespace XSSLG
         /// <param name="worldPos">unity`s world position</param>
         bool GetXSTile(Vector3 worldPos);
 
-       bool GetXSTile(Vector3 worldPos, out XSTile tile);
-        
+        bool GetXSTile(Vector3 worldPos, out XSTile tile);
+
+        bool IsEntityXSTile(Vector3 worldPos);
+
         bool GetXSTile(Vector3 worldPos, out XSTile tile, out Vector3Int tilePos);
 
         void UpdateTileSize(Vector3 tileSize);

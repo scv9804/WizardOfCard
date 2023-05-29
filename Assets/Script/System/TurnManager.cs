@@ -30,6 +30,7 @@ public class TurnManager : MonoBehaviour
     public bool isLoding;
 
     WaitForSeconds delay_07 = new WaitForSeconds(0.7f);
+    WaitForSeconds enemyDelay = new WaitForSeconds(1.7f);
 
 
 
@@ -43,7 +44,7 @@ public class TurnManager : MonoBehaviour
 	public bool isCombatScene { get { return IsCombatScene; } set { IsCombatScene = value; } }
 
     // ≈œΩ√¿€
-    public IEnumerator Co_StartTurn(Room room)
+    public IEnumerator Co_StartTurn()
     {
 		if (IsCombatScene)
 		{
@@ -54,7 +55,7 @@ public class TurnManager : MonoBehaviour
 			{
 				UIManager.Inst.TurnEndButtonActivae();				
 				TurnNotification_Bool(true);
-				CardManager.Inst.SetCardStateCannot();
+				CardManager.Inst.SetCardStateCannot();			
 				yield return delay_07;
 				onAddCard?.Invoke();
 				yield return delay_07;
@@ -65,10 +66,12 @@ public class TurnManager : MonoBehaviour
 			else
 			{
 				TurnNotification_Bool(false);
+				yield return enemyDelay;
 				enemyActions?.Invoke();
 				UIManager.Inst.IsUIUse = false;
 				isLoding = false;
 			}
+			EntityManager.Inst.StartAllSpineAnimation();
 			CardManager.Inst.SetECardState();
 		}
 

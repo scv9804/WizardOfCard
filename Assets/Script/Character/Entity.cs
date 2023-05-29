@@ -121,7 +121,6 @@ public class Entity : XSUnitNode
     {
         TurnManager.onStartTurn += BuffOff_Turn;
         TurnManager.onStartTurn += DebuffOff_Turn;
-
         TurnManager.onStartTurn += ResetValue_Shield;
     }
 
@@ -357,14 +356,7 @@ public class Entity : XSUnitNode
         SetSkeletonAnimation(enemy.skeletonDataAsset);
     }
 
-    //스파인 초기화 필수입니당
-    void SetSkeletonAnimation(SkeletonDataAsset dataAsset)
-	{
-        entitySkeletonAnimation.ClearState();
-        entitySkeletonAnimation.skeletonDataAsset = dataAsset;
-        entitySkeletonAnimation.timeScale = 0.5f;
-        entitySkeletonAnimation.Initialize(true);    
-    }
+
 
     public void MoveTransForm(Vector3 _pos, bool _isUseDotween, float _DotweenTime = 0)
     {
@@ -574,7 +566,6 @@ public class Entity : XSUnitNode
         if (i_health > 0)
         {
             yield return new WaitForSeconds(0.15f);
-
             /*            charater.sprite = enemy.sp_sprite;
                         entitySkeletonGameObject.SetActive(true);
                         charater.enabled = false;*/
@@ -615,11 +606,11 @@ public class Entity : XSUnitNode
         EntityManager.Inst.CheckDieEnemy(this);
     }
 
-	#endregion
+    #endregion
 
 
-	#region 마우스클릭 과거의잔재
-	/*private void OnMouseOver()
+    #region 마우스클릭 과거의잔재
+    /*private void OnMouseOver()
     {
         EntityManager.Inst.EntityMouseOver(this);
     }
@@ -629,15 +620,35 @@ public class Entity : XSUnitNode
         EntityManager.Inst.EntityMouseExit();
     }*/
 
-/*
-    private void OnMouseUp()
+    /*
+        private void OnMouseUp()
+        {
+            EntityManager.Inst.EntityMouseUp();
+        }
+
+        private void OnMouseDown()
+        {
+            EntityManager.Inst.EntityMouseDown();
+        }*/
+    #endregion
+
+
+    #region 스파인 애니메이션
+
+    //스파인 초기화 필수입니당
+    void SetSkeletonAnimation(SkeletonDataAsset dataAsset)
     {
-        EntityManager.Inst.EntityMouseUp();
+        entitySkeletonAnimation.ClearState();
+        entitySkeletonAnimation.skeletonDataAsset = dataAsset;
+        entitySkeletonAnimation.timeScale = 0.5f;
+        entitySkeletonAnimation.Initialize(true);
     }
 
-    private void OnMouseDown()
+    public void StartSkeletonAnimation()
     {
-        EntityManager.Inst.EntityMouseDown();
-    }*/
-	#endregion
+        SetSkeletonAnimation(enemy.skeletonDataAsset);
+    //    entitySkeletonAnimation.Start();
+    }
+
+    #endregion
 }

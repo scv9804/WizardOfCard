@@ -36,7 +36,7 @@ namespace XSSLG
 
         public XSUnitNode SelectedUnit { get; set; }
 
-        public bool isEnemyAttacking = false;
+        bool isEnemyAttacking = true;
 
         public GameObject[] units;
 
@@ -44,7 +44,7 @@ namespace XSSLG
 
         public List<Vector3> VectTest;
 
-        bool testbool= false;
+        bool SelectTile= false;
 /*
         /// <summary>
         /// 일단 테스트용
@@ -83,7 +83,7 @@ namespace XSSLG
                 var moveRegionCpt = XSGridShowRegionCpt.Create(XSGridDefine.SCENE_GRID_MOVE, gridHelper.MoveTilePrefab, 10);
                 this.GridShowMgr = new XSGridShowMgr(moveRegionCpt);
             }
-
+            TurnManager.enemyActions += SetEnemyAttack;
             TurnManager.onStartTurn += SelectUnitClear;
         }
 
@@ -116,22 +116,26 @@ namespace XSSLG
                             if (!this.SelectedUnit.Is_attackable)
                             {
                                 var tile = XSUG.GetMouseTargetTile();
-                                Debug.Log("tilePos: " + tile.TilePos);
-                                // tile must be in the move range
-                                if (this.MoveRegion.Contains(tile.WorldPos))
+                                if (tile.IsEntity == false)
                                 {
-                                    this.GridShowMgr.ClearMoveRegion();
-                                    this.MoveRegion = null;
-                                    // cache
-                                    if (this.SelectedUnit.CachedPaths != null && this.SelectedUnit.CachedPaths.ContainsKey(tile.WorldPos))
+                                    if (this.MoveRegion.Contains(tile.WorldPos))
                                     {
+                                        GridMgr.GetXSTile(new Vector3(SelectedUnit.WorldPos.x, 0, SelectedUnit.WorldPos.z), out var nowXStile);
+                                        nowXStile.IsEntity = false;
+                                        this.GridShowMgr.ClearMoveRegion();
+                                        this.MoveRegion = null;
+                                        // cache
+                                        if (this.SelectedUnit.CachedPaths != null && this.SelectedUnit.CachedPaths.ContainsKey(tile.WorldPos))
+                                        {
 
-                                        this.WalkTo(this.SelectedUnit.CachedPaths[tile.WorldPos]);//움직임
-                                        this.SelectedUnit.Is_attackable = true;
-                                    }
-                                    else
-                                    {
-                                        this.SelectedUnit = null;
+                                            this.WalkTo(this.SelectedUnit.CachedPaths[tile.WorldPos]);//움직임
+                                            tile.IsEntity = true;
+                                            this.SelectedUnit.Is_attackable = true;
+                                        }
+                                        else
+                                        {
+                                            this.SelectedUnit = null;
+                                        }
                                     }
                                 }
                             }
@@ -184,9 +188,10 @@ namespace XSSLG
                             this.SelectedUnit = null;
                         }
                     }
-                }
+                }//내턴 종료시
                 else
                 {
+                    Debug.Log(isEnemyAttacking);
 					if (!isEnemyAttacking)
 					{
                         StartCoroutine(EnemyBehavior());
@@ -202,6 +207,13 @@ namespace XSSLG
         /// </summary>
         /// <param name="path">move path</param>
      
+        public void SetEnemyAttack()
+		{
+            Debug.Log("dse");
+            isEnemyAttacking = false;
+		}
+        
+
         public IEnumerator EnemyBehavior()
 		{
             isEnemyAttacking = true;
@@ -220,10 +232,9 @@ namespace XSSLG
 #endif
                     if (SelectedUnit.Is_attackable && !IsEnemyMoving)
                     {
-                        var cheackAttackRegion = GridShowMgr.ShowMoveRegion(unit);
-
+                        var cheackAttackRegion = GridShowMgr.ShowMoveRegion(unit);                        
 #if UNITY_EDITOR
-                     //   Debug.Log("if진입");
+                        Debug.Log("if진입");
 #endif
                         MoveRegion = unit.playerRegionRoute();
 
@@ -258,15 +269,16 @@ namespace XSSLG
                             else
                                 SelectedUnit = null;
 #if UNITY_EDITOR
-                        //    Debug.Log("컨테인");
+                            Debug.Log("컨테인");
 #endif
                         }
                     }
+
                 }
 
             }
-            isEnemyAttacking = false;
-
+            yield return new WaitForSeconds(0.5f);
+            LevelGeneration.Inst.EndTurn();
         }
 
         //적 선택하는거 테스트
@@ -276,20 +288,31 @@ namespace XSSLG
             {
                 var tile = XSUG.GetMouseTargetTile();
 
+                //첫 타일 값 삽입.
                 mouseVector.Add(tile.WorldPos);
 
-                if (!testbool)
+
+
+                //타일 주변값 비교
+                if (!SelectTile)
                 {
+                    SelectTile = true;
                     foreach (var t in VectTest)
 					{
-                        if (GridMgr.GetAllTiles().Contains(GridMgr.GetXSTile(t)))
+                        if (GridMgr.GetTileVect().Contains(tile.WorldPos + t))
 						{
-
-						}
-                        mouseVector.Add(tile.WorldPos + t);
+                            mouseVector.Add(tile.WorldPos + t);
+                        }                        
                     }
-                    testbool = true;
                 }
+                //타일위치 바뀌었는지 확인하기
+                if (tile.WorldPos != mouseVector[0])
+                {
+                    SelectTile = false;
+                    GridShowMgr.ClearMoveRegion();
+                    mouseVector.Clear();
+                }
+
 
                 try
                 {
@@ -302,13 +325,7 @@ namespace XSSLG
 #endif
                 }
 
-                if (tile.WorldPos != mouseVector[0])
-                {
-                    GridShowMgr.ClearMoveRegion();
-                    mouseVector.Clear();
-                    testbool = false;
-				}				
-                
+
                 if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
                 {
                     List<Vector3> returnVect = new List<Vector3>();
@@ -385,6 +402,7 @@ namespace XSSLG
                 while (this.SelectedUnit.transform.position != pos)
                 {
                     this.SelectedUnit.transform.position = Vector3.MoveTowards(this.SelectedUnit.transform.position, pos, Time.deltaTime * movementAnimationSpeed);
+                   
                     yield return 0;
                 }
             }
@@ -394,21 +412,26 @@ namespace XSSLG
 
         public virtual IEnumerator MovementAnimation_Enemy(List<Vector3> path, int move)
         {
-            /*    this.GridShowMgr.ClearMoveRegion();
-                this.MoveRegion = null;*/
-
             this.IsMoving = true;
             path.Reverse(); // reverse the path
+
+            GridMgr.GetXSTile(new Vector3(SelectedUnit.WorldPos.x, 0, SelectedUnit.WorldPos.z), out var nowXStile_1);
+            nowXStile_1.IsEntity = false;
 
             for (int i = 0; i < move; i++)
             {
                 while (this.SelectedUnit.transform.position != path[i])
                 {
-                    this.SelectedUnit.transform.position = Vector3.MoveTowards(this.SelectedUnit.transform.position, path[i], Time.deltaTime * movementAnimationSpeed);
-
+					if (GridMgr.IsEntityXSTile(path[i]))
+                    {
+                        this.SelectedUnit.transform.position = Vector3.MoveTowards(this.SelectedUnit.transform.position, path[i], Time.deltaTime * movementAnimationSpeed); 
+                    }
                     yield return 0;
                 }
             }
+            GridMgr.GetXSTile(new Vector3(SelectedUnit.WorldPos.x, 0, SelectedUnit.WorldPos.z), out var nowXStile_2);
+            nowXStile_2.IsEntity = true;
+
             this.SelectedUnit = null;
             this.IsMoving = false;
         }

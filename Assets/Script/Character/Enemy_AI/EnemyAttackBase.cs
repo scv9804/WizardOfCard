@@ -9,9 +9,6 @@ public class EnemyAttackBase : ScriptableObject
 
 	public virtual IEnumerator DefultAttack(Entity entity)
     {
-		damage = entity.FinalAttackValue();
-       
-        PlayerEntity.Inst.Status_Health -= damage;
-        yield return null;
+        yield return EntityManager.Inst.playerEntity.Damaged(damage);
     }
 }

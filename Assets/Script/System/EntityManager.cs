@@ -37,22 +37,15 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Transform spawnPlayerChar_Tf;
     [SerializeField] Transform spawnEnemy_Tf;
     [SerializeField] Transform sortEnemyPos_Tf;
-    //[SerializeField] Card myUseCard; // 미사용
 
 
-    //[SerializeField] EnemyAttackList enemyAttackList; // 미사용
     [SerializeField] List<Enemy> enemyBuffer;
-    //[SerializeField] short Length; // 미사용
     [SerializeField] private float f_targetSelectorUpPos;
 
     [HideInInspector] public PlayerEntity playerEntity;
 
 
     PlayerChar playerChar;
-
-
-    //  LevelGeneration levelGeneration;
-
 
     const int MAX_ENEMY_COUNT = 3;
 
@@ -68,9 +61,6 @@ public class EntityManager : MonoBehaviour
 
     [SerializeField] PlayerEntity selectPlayerEntity;
     [SerializeField] PlayerEntity targetPickPlayerEntity;
-
-    //WaitForSeconds delay10 = new WaitForSeconds(1.0f); // 미사용
-
     #endregion
 
     private void Start()
@@ -80,7 +70,12 @@ public class EntityManager : MonoBehaviour
         //이거 꼭수정
     }
 
-    void EnemyEntityAlignment()
+	private void Update()
+	{
+        //StartAllSpineAnimation();
+    }
+
+	void EnemyEntityAlignment()
     {
         for (int i = 0; i < enemyEntities.Count; i++)
         {
@@ -373,8 +368,6 @@ public class EntityManager : MonoBehaviour
             playerEntity = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerEntity>();            
             SpawnPlayerEntity();
         }
-
-       // Debug.Log(enemyEntitiesObjcet.Length);
     }
 
     // <<22-11-09 장형용 :: 함수 안 거치고 직접 제거>>
@@ -631,22 +624,32 @@ public class EntityManager : MonoBehaviour
 
 	#region Card
 
-    // 이거 뭐하는 애들이야
+	// 이거 뭐하는 애들이야
 
 	//public void SetUseCard(Card _card)
- //   {
- //       myUseCard = _card;
- //   }
+	//   {
+	//       myUseCard = _card;
+	//   }
 
- //   public void DelectUseCard()
- //   {
- //       myUseCard = null;
- //   }
+	//   public void DelectUseCard()
+	//   {
+	//       myUseCard = null;
+	//   }
 
-    #endregion
-
-
+	#endregion
 
 
+	#region 스파인 애니메이션 실행하기.
+
+    public void StartAllSpineAnimation()
+	{
+        playerEntity.StartSkeletonAnimation();
+		foreach (var enemy in enemyEntities)
+		{
+            enemy.StartSkeletonAnimation();
+		}        
+	}
+
+	#endregion
 
 }

@@ -23,8 +23,9 @@ MonoBehaviour:
   st_charName: Goblin
   sp_sprite: {fileID: 21300000, guid: ba695732d62ff89419571e5cf66fab74, type: 3}
   PlayerDamagedEffect: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
-  EnemyDamagedSprite: {fileID: -5325963939312181888, guid: e995934d0100ee449b4d9f62d4c964ba, type: 3}
   EnemyAttackSprite: {fileID: -6966766722647859134, guid: 5a9b605897ba29b4b997cdcb1b0cdccb, type: 3}
   SpelcialSkillSprite: []
   skeletonDataAsset: {fileID: 11400000, guid: 497ad115a02a0ff44b111dd777a63c2f, type: 2}
+  damagedSkeletonDataAssets: {fileID: 11400000, guid: 494d9fbd23c125c4f8e1c3acf98fd2ec, type: 2}
+  attackSkeletonDataAssets: {fileID: 11400000, guid: 233c018d939ebaa4ab119ad2cbdf4d54, type: 2}
   entityPattern: {fileID: 11400000, guid: 115de6aef811b474fb4599a85a6ae804, type: 2}

@@ -26,6 +26,20 @@ namespace XSSLG
 
         public virtual List<XSTile> GetAllTiles() => this.TileDict.Values.ToList();
 
+        List<Vector3> vectors = new List<Vector3>();
+
+        public virtual List<Vector3> GetTileVect()
+		{
+            if (vectors.Count == 0)
+            {
+                foreach (var tile in TileDict)
+                {
+                    vectors.Add(tile.Value.WorldPos);
+                }
+            }         
+            return vectors;
+		}
+
         public virtual void ClearAllTiles()
         {
            this.TileDict.Clear();
@@ -156,6 +170,20 @@ namespace XSSLG
                 return false;
             }
         }
+
+        public virtual bool IsEntityXSTile(Vector3 worldPos)
+        {
+            var vect = this.WorldToTile(worldPos);
+            this.TileDict.TryGetValue(vect, out var temp);
+            if (temp.IsEntity)
+            {
+                return false;
+            }
+			else
+			{
+                return true;
+            }            
+		}
 
         public virtual bool GetXSTile(Vector3 worldPos) => this.GetXSTile(worldPos, out var tile);
 
