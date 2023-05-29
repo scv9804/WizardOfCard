@@ -10,7 +10,7 @@ namespace WIP
 {
     // ==================================================================================================== CardObject
 
-    public class CardObject : MonoBehaviour, ICardObject, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class CardObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         // ==================================================================================================== Field
 
@@ -46,6 +46,8 @@ namespace WIP
         // =========================================================================== Module
 
         private ICardLocationModule _locationModule;
+
+        private ICardObjectHandler _handler;
 
         // =========================================================================== Component
 
@@ -192,11 +194,12 @@ namespace WIP
             CardManager.Instance.OnEndDrag(eventData, this);
         }
 
-        // =========================================================================== ????
+        // =========================================================================== Instance
 
         public static CardObject Create(Card card, ICardLocationModule locationModule)
         {
             GameObject gameObject = Instantiate(CardManager.Instance.CardPrefab);
+
             gameObject.name = card.InstanceID;
 
             var cardObject = gameObject.GetComponent<CardObject>();
@@ -206,27 +209,65 @@ namespace WIP
             cardObject.LocationModule = locationModule;
 
             //
-            cardObject.OnInitialize();
+            cardObject.Initialize();
+
+            card.OnRefresh += new EventHandler<CardRefreshEventArgs>(cardObject.Refresh);
 
             return cardObject;
+        }
+
+        public void Initialize()
+        {
+            Subscribe();
+        }
+
+        public void Dispose()
+        {
+            Unsubscribe();
+
+            Destroy(gameObject);
+        }
+
+        private void Subscribe()
+        {
+            CardManager.Instance.OnEnlarge += new Action(Enlarge);
+            CardManager.Instance.OnArrange += new Action(Arrange);
+            CardManager.Instance.OnEmphasize += new Action(Emphasize);
+
+            Card.OnRefresh += new EventHandler<CardRefreshEventArgs>(Refresh);
+
+            CardManager.Instance.EnlargeAll();
+            CardManager.Instance.ArrangeAll();
+            CardManager.Instance.EmphasizeAll();
+
+            CardManager.Instance.RefreshAll();
+        }
+
+        private void Unsubscribe()
+        {
+            CardManager.Instance.OnEnlarge -= new Action(Enlarge);
+            CardManager.Instance.OnArrange -= new Action(Arrange);
+            CardManager.Instance.OnEmphasize -= new Action(Emphasize);
+
+            Card.OnRefresh -= new EventHandler<CardRefreshEventArgs>(Refresh);
         }
 
         // =========================================================================== Transform
 
         // ================================================== Scale
 
-        private void Enlarge(object sender, EventArgs e)
+        private void Enlarge()
         {
-            float size = LocationModule.Size(State);
+            float size = LocationModule.GetSize(State);
 
             transform.localScale = new Vector3(size, size, 1.0f);
         }
 
         // ================================================== Position
 
-        private void Arrange(object sender, EventArgs e)
+        private void Arrange()
         {
-            (int Count, int Index) element = LocationModule.GetElement(Card);
+            var element = LocationModule.GetElement(Card);
 
             Vector3 position = LocationModule.GetPosition(element.Count, element.Index);
 
@@ -251,7 +292,7 @@ namespace WIP
 
         // ================================================== Sibling Index
 
-        private void Emphasize(object sender, EventArgs e)
+        private void Emphasize()
         {
             if (State > CardState.None)
             {
@@ -270,44 +311,25 @@ namespace WIP
             OriginSiblingIndex = index;
         }
 
-        // =========================================================================== Instance
-
-        public void OnInitialize()
-        {
-            CardManager.Instance.OnEnlarge += Enlarge;
-            CardManager.Instance.OnArrange += Arrange;
-            CardManager.Instance.OnEmphasize += Emphasize;
-
-            CardManager.Instance.EnlargeAll();
-            CardManager.Instance.ArrangeAll();
-            CardManager.Instance.EmphasizeAll();
-        }
-
-        public void OnDispose()
-        {
-            CardManager.Instance.OnEnlarge -= Enlarge;
-            CardManager.Instance.OnArrange -= Arrange;
-            CardManager.Instance.OnEmphasize -= Emphasize;
-
-            CardManager.Instance.EnlargeAll();
-            CardManager.Instance.ArrangeAll();
-            CardManager.Instance.EmphasizeAll();
-        }
-
-        // ================================================== Component
+        // =========================================================================== Component
 
         private void Refresh(object sender, CardRefreshEventArgs e)
         {
+            _components.FrameImage.sprite = e.FrameSprite;
+            _components.ArtworkImage.sprite = e.ArtworkSprite;
 
+            _components.NameTMP.text = e.Name;
+            _components.CostTMP.text = e.Cost.ToString();
+            _components.DescriptionTMP.text = e.Description;
         }
     }
 
     // ==================================================================================================== CardObjectHandler
 
-    public class CardObjectHandler : ICardObjectHandler
-    {
+    //public class CardObjectHandler : ICardObjectHandler
+    //{
 
-    }
+    //}
 
     // ==================================================================================================== CardRefreshEventArgs
 
@@ -337,18 +359,36 @@ namespace WIP
 
     public interface ICardObjectHandler
     {
-
-    }
-
-    // ==================================================================================================== ICardObject
-
-    public interface ICardObject
-    {
         // ==================================================================================================== Property
+
+        // =========================================================================== Location
+
+        public List<Card> Cards
+        {
+            get;
+        }
+
+        // =========================================================================== Transform
+
+        // ================================================== Sibling Index
+
+        public string GroupName
+        {
+            get;
+        }
+
+        // ==================================================================================================== Method
 
         // =========================================================================== Transform
 
         // ================================================== Scale
 
+        public float GetSize(CardState state);
+
+        // ================================================== Position
+
+        public (int Count, int Index) GetElement(Card card);
+
+        public Vector3 GetPosition(int count, int index);
     }
 }

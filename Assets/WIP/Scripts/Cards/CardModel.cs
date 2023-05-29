@@ -30,9 +30,18 @@ namespace WIP
 
         // =========================================================================== Upgrade
 
-        // Savable
         [Header("강화 횟수")]
         [SerializeField, JsonProperty("Upgraded"), Range(0, Card.MAX_UPGRADE_LEVEL)] private int _upgraded = 0;
+
+        // =========================================================================== Aggresive
+
+        //[Header("데미지")]
+        //[SerializeField, JsonIgnore] private int _damage;
+
+        // =========================================================================== Defensive
+
+        //[Header("쉴드")]
+        //[SerializeField, JsonIgnore] private int _shield;
 
         // =========================================================================== Power
 
@@ -42,16 +51,11 @@ namespace WIP
         [Header("방어력")]
         [SerializeField, JsonIgnore] private int _defensePower;
 
-        [Header("위력")]
-        [SerializeField, JsonIgnore] private int _enhancePower = 1;
-
-        // =========================================================================== Skill
-
-        //
+        [Header("최종 위력")]
+        [SerializeField, JsonIgnore] private int _modifier = 1;
 
         // =========================================================================== Buff
 
-        // Savable
         //
 
         // ==================================================================================================== Property
@@ -125,6 +129,36 @@ namespace WIP
             }
         }
 
+        // =========================================================================== Aggresive
+
+        //[JsonIgnore] public int Damage
+        //{
+        //    get
+        //    {
+        //        return _damage;
+        //    }
+
+        //    set
+        //    {
+        //        _damage = value;
+        //    }
+        //}
+
+        // =========================================================================== Defensive
+
+        //[JsonIgnore] public int Shield
+        //{
+        //    get
+        //    {
+        //        return _shield;
+        //    }
+
+        //    set
+        //    {
+        //        _shield = value;
+        //    }
+        //}
+
         // =========================================================================== Power
 
         [JsonIgnore] public int AttackPower
@@ -153,45 +187,22 @@ namespace WIP
             }
         }
 
-        [JsonIgnore] public int EnhancePower
+        [JsonIgnore] public int Modifier
         {
             get
             {
-                return _enhancePower;
+                return _modifier;
             }
 
             set
             {
-                _enhancePower = value;
+                _modifier = value;
             }
         }
-
-        // =========================================================================== Skill
-
-        //
 
         // =========================================================================== Buff
 
         //
-
-        // ==================================================================================================== Method
-
-        // =========================================================================== Power
-
-        public int ApplyAttackPower(int value)
-        {
-            return ApplyEnhancePower(value + AttackPower);
-        }
-
-        public int ApplyDefensePower(int value)
-        {
-            return ApplyEnhancePower(value + DefensePower);
-        }
-
-        public int ApplyEnhancePower(int value)
-        {
-            return value * Math.Max(EnhancePower, 1);
-        }
     }
 
     // ==================================================================================================== CardKeyword
@@ -203,3 +214,21 @@ namespace WIP
         Exile   = 1 << 0
     }
 }
+
+// 타겟 시 범위 설정
+
+// CardTargetAreaDrawer
+
+// 1. 범위 넓이 = n
+// 2. 범위 높이 = m
+
+// Tile? input = 마우스 올라가있는 타일 정보
+
+// 그냥 다 list에 저장?
+
+// bool isStartPlayerPostion >> 설정 시 플레이어의 위치에서 출발
+
+// 방향
+
+// bool isEast(temp) = return mouse.position.x > player.position.x
+// bool isNorth(temp) = return mouse.position.y > player.position.y

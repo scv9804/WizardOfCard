@@ -19,11 +19,11 @@ namespace WIP
 
         public abstract ICardSkillModel_Temp Create(int upgraded);
 
-        public abstract IEnumerator Execute(CardTarget_Temp target, CardModel model, ICardSkillModel_Temp skillModel);
+        public abstract IEnumerator Execute(CardTarget_Temp target, Card card, ICardSkillModel_Temp skillModel);
 
         // =========================================================================== Status
 
-        public abstract string RefreshDescription(CardModel model, ICardSkillModel_Temp skill);
+        public abstract string RefreshDescription(Card card, ICardSkillModel_Temp skill);
     }
 
     // ==================================================================================================== CardTarget_Temp
@@ -81,11 +81,11 @@ namespace WIP
 
         public ICardSkillModel_Temp Create(int upgraded);
 
-        public IEnumerator Execute(CardTarget_Temp target, CardModel model, ICardSkillModel_Temp skillModel);
+        public IEnumerator Execute(CardTarget_Temp target, Card card, ICardSkillModel_Temp skillModel);
 
         // =========================================================================== Status
 
-        public string RefreshDescription(CardModel model, ICardSkillModel_Temp skill);
+        public string RefreshDescription(Card card, ICardSkillModel_Temp skill);
     }
 
     // ==================================================================================================== ICardSkillModel_Temp

@@ -22,26 +22,26 @@ namespace WIP
         [SerializeField] private CardRarity _rarity;
 
         [Header("비용")]
-        [SerializeField] private List<int> _cost = new List<int>(Card.MAX_STATUS_SIZE);
+        [SerializeField] private int[] _cost = new int[Card.MAX_UPGRADE_LEVEL + 1];
 
         [Header("키워드")]
-        [SerializeField] private List<CardKeyword> _keyword = new List<CardKeyword>(Card.MAX_STATUS_SIZE);
+        [SerializeField] private CardKeyword[] _keyword = new CardKeyword[Card.MAX_UPGRADE_LEVEL + 1];
 
         [Header("설명")]
-        [SerializeField, TextArea(3, 5)] private List<string> _description = new List<string>(Card.MAX_STATUS_SIZE);
+        [SerializeField, TextArea(3, 5)] private string[] _description = new string[Card.MAX_UPGRADE_LEVEL + 1];
 
         // =========================================================================== Asset
 
         [Header("프레임 스프라이트")]
-        [SerializeField] private List<Sprite> _frameSprite = new List<Sprite>(Card.MAX_STATUS_SIZE);
+        [SerializeField] private Sprite[] _frameSprite = new Sprite[Card.MAX_UPGRADE_LEVEL + 1];
 
         [Header("아이콘 스프라이트")]
-        [SerializeField] private List<Sprite> _artworkSprite = new List<Sprite>(Card.MAX_STATUS_SIZE);
+        [SerializeField] private Sprite[] _artworkSprite = new Sprite[Card.MAX_UPGRADE_LEVEL + 1];
 
         // =========================================================================== Skill
 
-        [Header("스킬 데이터")]
-        [SerializeField] private CardSkill_Temp _skillData;
+        [Header("효과 데이터")]
+        [SerializeField] private CardHandlerData _handlerData;
 
         // ==================================================================================================== Property
 
@@ -63,7 +63,7 @@ namespace WIP
             }
         }
 
-        public List<int> Cost
+        public int[] Cost
         {
             get
             {
@@ -71,7 +71,7 @@ namespace WIP
             }
         }
 
-        public List<CardKeyword> Keyword
+        public CardKeyword[] Keyword
         {
             get
             {
@@ -79,7 +79,7 @@ namespace WIP
             }
         }
 
-        public List<string> Description
+        public string[] Description
         {
             get
             {
@@ -89,7 +89,7 @@ namespace WIP
 
         // =========================================================================== Asset
 
-        public List<Sprite> FrameSprite
+        public Sprite[] FrameSprite
         {
             get
             {
@@ -97,7 +97,7 @@ namespace WIP
             }
         }
 
-        public List<Sprite> ArtworkSprite
+        public Sprite[] ArtworkSprite
         {
             get
             {
@@ -107,11 +107,11 @@ namespace WIP
 
         // =========================================================================== Skill
 
-        public CardSkill_Temp SkillData
+        public CardHandlerData HandlerData
         {
             get
             {
-                return _skillData;
+                return _handlerData;
             }
         }
     }

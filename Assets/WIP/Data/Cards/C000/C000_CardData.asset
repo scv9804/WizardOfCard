@@ -30,4 +30,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7aad607257365fa4594962ba0f51382e, type: 3}
   - {fileID: 21300000, guid: 5c637e92f5805b043b7322a8efc3105a, type: 3}
   - {fileID: 21300000, guid: b816c3e4391156040b03465f53d7f4c2, type: 3}
-  _skillData: {fileID: 11400000, guid: 8789b6386ce506b4ea6dad03ec414cb7, type: 2}
+  _handlerData: {fileID: 11400000, guid: 9ebd3396606ec1f47ac025bc51a03cf4, type: 2}

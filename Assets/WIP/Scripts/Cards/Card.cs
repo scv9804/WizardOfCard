@@ -25,21 +25,14 @@ namespace WIP
         [Header("시리얼 ID")]
         [SerializeField, JsonProperty("SerialID")] private int _serialID;
 
-        // =========================================================================== CardModel
+        // =========================================================================== Upgrade
 
-        [Header("데이터 모델")]
-        [SerializeField, JsonProperty("Model")] private CardModel _model = new CardModel();
+        [Header("강화 횟수")]
+        [SerializeField, JsonProperty("Upgraded"), Range(0, MAX_UPGRADE_LEVEL)] private int _upgraded = 0;
 
-        // =========================================================================== Data
-
-        [Header("원본 데이터")]
-        [SerializeField, JsonIgnore] private CardData _data;
-
-        // ================================================== Action
+        // =========================================================================== Action
 
         [JsonIgnore] private EventHandler<CardRefreshEventArgs> _onRefresh;
-
-        [JsonIgnore] private EventHandler _onDestroy;
 
         // =========================================================================== Constant
 
@@ -57,10 +50,6 @@ namespace WIP
 
         public const string HAND_GROUP_NAME = "===== Hands =====";
         public const string SELECTED_GROUP_NAME = "===== Selected =====";
-
-        // ================================================== Hand
-
-        public const int MAX_HAND_COUNT = 9;
 
         // ==================================================================================================== Property
 
@@ -94,18 +83,11 @@ namespace WIP
 
         // =========================================================================== Status
 
-        // ================================================== Base
-
         [JsonIgnore] public string Name
         {
             get
             {
-                return _model.Name;
-            }
-
-            private set
-            {
-                _model.Name = value;
+                return RefreshName(GetCardData());
             }
         }
 
@@ -113,12 +95,7 @@ namespace WIP
         {
             get
             {
-                return _model.Cost;
-            }
-
-            private set
-            {
-                _model.Cost = value;
+                return RefreshCost(GetCardData());
             }
         }
 
@@ -126,12 +103,7 @@ namespace WIP
         {
             get
             {
-                return _model.Keyword;
-            }
-
-            private set
-            {
-                _model.Keyword = value;
+                return RefreshKeyword(GetCardData());
             }
         }
 
@@ -139,72 +111,43 @@ namespace WIP
         {
             get
             {
-                return _model.Description;
-            }
-
-            private set
-            {
-                _model.Description = value;
+                return RefreshDescription(GetCardData());
             }
         }
 
-        // ================================================== Upgraded
+        // =========================================================================== Upgrade
 
         [JsonIgnore] public int Upgraded
         {
             get
             {
-                return _model.Upgraded;
+                return _upgraded;
             }
 
             private set
             {
-                _model.Upgraded = value;
+                _upgraded = value;
             }
         }
 
-        // ================================================== Power
+        // =========================================================================== Power
 
         [JsonIgnore] public int AttackPower
         {
-            get
-            {
-                return _model.AttackPower;
-            }
-
-            private set
-            {
-                _model.AttackPower = value;
-            }
+            get; set;
         }
 
         [JsonIgnore] public int DefensePower
         {
-            get
-            {
-                return _model.DefensePower;
-            }
-
-            private set
-            {
-                _model.DefensePower = value;
-            }
+            get; set;
         }
 
         [JsonIgnore] public int EnhancePower
         {
-            get
-            {
-                return _model.EnhancePower;
-            }
-
-            private set
-            {
-                _model.EnhancePower = value;
-            }
+            get; set;
         }
 
-        // ================================================== Action
+        // =========================================================================== Action
 
         public event EventHandler<CardRefreshEventArgs> OnRefresh
         {
@@ -219,22 +162,9 @@ namespace WIP
             }
         }
 
-        public event EventHandler OnDestroy
-        {
-            add
-            {
-                _onDestroy += value;
-            }
-
-            remove
-            {
-                _onDestroy -= value;
-            }
-        }
-
         // ==================================================================================================== Method
 
-        // =========================================================================== ??????
+        // =========================================================================== Instance
 
         public static Card Create(string instanceID, int serialID)
         {
@@ -243,44 +173,136 @@ namespace WIP
             card.InstanceID = instanceID;
             card.SerialID = serialID;
 
-            card.OnInitialize();
+            card.Initialize();
 
+            //////////////////////////////////////////////////
+            card.Upgrade();
+            card.Upgrade();
+            //////////////////////////////////////////////////
+            
             return card;
         }
 
-        // =========================================================================== Instance
-
-        public void OnInitialize()
+        public void Initialize()
         {
-            _data = CardManager.Instance.Database.Cards[SerialID];
+            AddEventHandler();
+
+            CardManager.Instance.RefreshAll();
         }
 
-        public void OnDispose()
+        public void Dispose()
         {
-
+            RemoveEventHandler();
         }
 
-        // =========================================================================== ????
-
-        public void Use(CardTarget_Temp targets)
+        private void AddEventHandler()
         {
-            ICardSkillModel_Temp skillModel = _data.SkillData.Create(Upgraded);
-
-            // TODO: Apply Buff Effects
-
-            CardManager.Instance.StartCoroutine(_data.SkillData.Execute(targets, _model, skillModel));
+            CardManager.Instance.OnRefresh += Refresh;
         }
 
-        private void Refresh(object sender, CardRefreshEventArgs e)
+        private void RemoveEventHandler()
         {
-            //
-            //
+            CardManager.Instance.OnRefresh -= Refresh;
+        }
 
-            //
-            //
-            //
+        // =========================================================================== Upgrade
 
-            _onRefresh?.Invoke(this, e);
+        public void Upgrade()
+        {
+            Upgraded += 1;
+        }
+
+        // =========================================================================== Status
+
+        private string RefreshName(CardData data)
+        {
+            string name = $"{data.Name} I";
+
+            Utility.StringBuilder.Clear();
+            Utility.StringBuilder.Append(name);
+
+            for (int i = 0; i < Upgraded; i++)
+            {
+                Utility.StringBuilder.Append("I");
+            }
+
+            return Utility.StringBuilder.ToString();
+        }
+
+        private int RefreshCost(CardData data)
+        {
+            int cost = data.Cost[Upgraded];
+
+            return cost;
+        }
+
+        private CardKeyword RefreshKeyword(CardData data)
+        {
+            CardKeyword keyword = data.Keyword[Upgraded];
+
+            return keyword;
+        }
+
+        private string RefreshDescription(CardData data)
+        {
+            string description = data.HandlerData.GetDescription(data.Description[Upgraded], Upgraded);
+
+            Utility.StringBuilder.Clear();
+            Utility.StringBuilder.Append(description);
+
+            if ((RefreshKeyword(data) & CardKeyword.Exile) != 0)
+            {
+                Utility.StringBuilder.Append("망각\n");
+            }
+
+            Utility.StringBuilder.Replace("망각", "<color=#ff88ff>망각</color>");
+
+            return Utility.StringBuilder.ToString();
+        }
+
+        // =========================================================================== Use
+
+        public IEnumerator Use(CardTarget targets)
+        {
+            CardData data = GetCardData();
+
+            //////////////////////////////////////////////////
+            data.HandlerData.Execute(this, null);
+            //////////////////////////////////////////////////
+
+            for (int i = 0; i < targets.Targets.Count; i++)
+            {
+                data.HandlerData.Execute(this, targets.Targets[i]);
+            }
+
+            yield return null;
+        }
+
+        private void Refresh()
+        {
+            // Refresh card status
+
+            CardData data = GetCardData();
+
+            // 설계 잘못함 다시 수정 필요
+
+            CardRefreshEventArgs eventArgs = new CardRefreshEventArgs();
+
+            eventArgs.FrameSprite = data.FrameSprite[Upgraded];
+            eventArgs.ArtworkSprite = data.ArtworkSprite[Upgraded];
+
+            eventArgs.Name = RefreshName(data);
+            eventArgs.Cost = RefreshCost(data);
+            eventArgs.Description = RefreshDescription(data);
+
+            _onRefresh?.Invoke(this, eventArgs);
+        }
+
+        // =========================================================================== Data
+
+        private CardData GetCardData()
+        {
+            return CardManager.Instance.Database.Cards[SerialID];
         }
     }
 
@@ -318,7 +340,7 @@ namespace WIP
 
         // ================================================== Scale
 
-        public float Size(CardState state)
+        public float GetSize(CardState state)
         {
             return state == CardState.IsPointerOver ? Card.ENLARGEMENT_CARD_SIZE : Card.DEFAULT_CARD_SIZE;
         }
@@ -336,6 +358,49 @@ namespace WIP
             float y = Screen.height / 4;
 
             return new Vector3(x, y, 0.0f);
+        }
+    }
+
+    // ==================================================================================================== CardTarget
+
+    public class CardTarget
+    {
+        // ==================================================================================================== Field
+
+        // =========================================================================== Target
+
+        private List<Entity> _targets = new List<Entity>();
+
+        private bool _isActive;
+
+        // ==================================================================================================== Property
+
+        // =========================================================================== Target
+
+        public List<Entity> Targets
+        {
+            get
+            {
+                return _targets;
+            }
+
+            set
+            {
+                _targets = value;
+            }
+        }
+
+        public bool IsActive
+        {
+            get
+            {
+                return _isActive;
+            }
+
+            set
+            {
+                _isActive = value;
+            }
         }
     }
 
@@ -361,19 +426,33 @@ namespace WIP
             get;
         }
 
-        // ==================================================================================================== Property
+        // ==================================================================================================== Method
 
         // =========================================================================== Transform
 
         // ================================================== Scale
 
-        public float Size(CardState state);
+        public float GetSize(CardState state);
 
         // ================================================== Position
 
         public (int Count, int Index) GetElement(Card card);
 
         public Vector3 GetPosition(int count, int index);
+    }
+
+    // ==================================================================================================== ICardHandler
+
+    public interface ICardHandler
+    {
+
+    }
+
+    // ==================================================================================================== ICardStateModule
+
+    public interface ICardStateModule
+    {
+
     }
 
     // ==================================================================================================== CardState

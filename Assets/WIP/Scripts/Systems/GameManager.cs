@@ -92,13 +92,13 @@ namespace WIP
 
     // ==================================================================================================== GameManagerData
 
-    [Serializable]
-    public class GameManagerData
+    [Serializable] public class GameManagerData
     {
         // ==================================================================================================== Field
 
         // =========================================================================== Identifier
 
+        [Header("할당 예정 ID")]
         [SerializeField, JsonProperty("Allocated")] private int _allocated = 0;
 
         // ==================================================================================================== Property
