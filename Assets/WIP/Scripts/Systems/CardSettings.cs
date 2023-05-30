@@ -14,7 +14,16 @@ namespace WIP
         // =========================================================================== Card
 
         [Header("최대 손패 카드 수")]
-        [SerializeField] public int _maxHandCount;
+        [SerializeField] private int _maxHandCount;
+
+        // =========================================================================== Transform
+
+        // ================================================== Scale
+
+        [Header("카드오브젝트 크기")]
+        [SerializeField] private float _defaultCardSize;
+        [SerializeField] private float _enlargedCardSize;
+        [SerializeField] private float _usedCardSize;
 
         // ==================================================================================================== Property
 
@@ -25,6 +34,26 @@ namespace WIP
             get
             {
                 return _maxHandCount;
+            }
+        }
+
+        // =========================================================================== Transform
+
+        // ================================================== Scale
+
+        public float DefaultCardSize
+        {
+            get
+            {
+                return _defaultCardSize;
+            }
+        }
+
+        public float EnlargedCardSize
+        {
+            get
+            {
+                return _enlargedCardSize;
             }
         }
     }

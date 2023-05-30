@@ -19,7 +19,7 @@ namespace WIP
 
     // ==================================================================================================== EntityAttackCommand
 
-    public class EntityAttackCommand : EntityActionCommand
+    public class EntityAttackCommand : EntityActionCommand, IAggresive
     {
         // ==================================================================================================== Field
 
@@ -172,12 +172,12 @@ namespace WIP
 
         // ================================================== Power
 
-        public int AttackPower
+        public List<int> AttackPowers
         {
             get; set;
         }
 
-        public int Modifier
+        public List<int> Modifiers
         {
             get; set;
         }

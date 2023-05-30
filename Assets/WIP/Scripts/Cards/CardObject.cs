@@ -19,10 +19,6 @@ namespace WIP
         [Header("인스턴스 ID")]
         [SerializeField] private string _instanceID;
 
-        // =========================================================================== Card
-
-        private Card _card;
-
         // =========================================================================== Transform
 
         // ================================================== Position
@@ -41,13 +37,11 @@ namespace WIP
         [SerializeField] private CardState _state = CardState.None;
 
         [Header("사용 가능 여부")]
-        [SerializeField] private bool _isUsable = true;
+        [SerializeField] private bool _isUsable = true; // 이거는 위치 따라서 설정 ㄱㄴ할듯
 
-        // =========================================================================== Module
+        // =========================================================================== Pile
 
-        private ICardLocationModule _locationModule;
-
-        private ICardObjectHandler _handler;
+        [NonSerialized] private CardPile _pile;
 
         // =========================================================================== Component
 
@@ -68,21 +62,6 @@ namespace WIP
             set
             {
                 _instanceID = value;
-            }
-        }
-
-        // =========================================================================== Module
-
-        public Card Card
-        {
-            get
-            {
-                return _card;
-            }
-
-            set
-            {
-                _card = value;
             }
         }
 
@@ -146,22 +125,30 @@ namespace WIP
             }
         }
 
-        // =========================================================================== Module
+        // =========================================================================== Pile
 
-        public ICardLocationModule LocationModule
+        public CardPile Pile
         {
             get
             {
-                return _locationModule;
+                return _pile;
             }
 
             set
             {
-                _locationModule = value;
+                _pile = value;
             }
         }
 
         // ==================================================================================================== Method
+
+        // =========================================================================== Event
+
+        public void Update()
+        {
+            Enlarge();
+            Emphasize();
+        }
 
         // =========================================================================== EventSystem
 
@@ -196,83 +183,47 @@ namespace WIP
 
         // =========================================================================== Instance
 
-        public static CardObject Create(Card card, ICardLocationModule locationModule)
+        public static CardObject Create(string instanceID, CardPile pile)
         {
             GameObject gameObject = Instantiate(CardManager.Instance.CardPrefab);
 
-            gameObject.name = card.InstanceID;
-
             var cardObject = gameObject.GetComponent<CardObject>();
 
-            cardObject.InstanceID = card.InstanceID;
-            cardObject.Card = card;
-            cardObject.LocationModule = locationModule;
-
-            //
-            cardObject.Initialize();
-
-            card.OnRefresh += new EventHandler<CardRefreshEventArgs>(cardObject.Refresh);
+            cardObject.Initialize(instanceID, pile);
 
             return cardObject;
         }
 
-        public void Initialize()
+        public void Initialize(string instanceID, CardPile pile)
         {
-            Subscribe();
+            name = instanceID;
+
+            InstanceID = instanceID;
+            Pile = pile;
         }
 
         public void Dispose()
         {
-            Unsubscribe();
-
-            Destroy(gameObject);
-        }
-
-        private void Subscribe()
-        {
-            CardManager.Instance.OnEnlarge += new Action(Enlarge);
-            CardManager.Instance.OnArrange += new Action(Arrange);
-            CardManager.Instance.OnEmphasize += new Action(Emphasize);
-
-            Card.OnRefresh += new EventHandler<CardRefreshEventArgs>(Refresh);
-
-            CardManager.Instance.EnlargeAll();
-            CardManager.Instance.ArrangeAll();
-            CardManager.Instance.EmphasizeAll();
-
-            CardManager.Instance.RefreshAll();
-        }
-
-        private void Unsubscribe()
-        {
-            CardManager.Instance.OnEnlarge -= new Action(Enlarge);
-            CardManager.Instance.OnArrange -= new Action(Arrange);
-            CardManager.Instance.OnEmphasize -= new Action(Emphasize);
-
-            Card.OnRefresh -= new EventHandler<CardRefreshEventArgs>(Refresh);
+            Destroy(gameObject); // 풀 매니저 만들면 수정여지 있음
         }
 
         // =========================================================================== Transform
 
         // ================================================== Scale
 
-        private void Enlarge()
+        public void Enlarge()
         {
-            float size = LocationModule.GetSize(State);
+            float size = State == CardState.IsPointerOver ? CardManager.Instance.Settings.EnlargedCardSize : CardManager.Instance.Settings.DefaultCardSize;
 
             transform.localScale = new Vector3(size, size, 1.0f);
         }
 
         // ================================================== Position
 
-        private void Arrange()
+        public void Arrange(Vector3 position, int index)
         {
-            var element = LocationModule.GetElement(Card);
-
-            Vector3 position = LocationModule.GetPosition(element.Count, element.Index);
-
             SetOriginPosition(position);
-            SetOriginSiblingIndex(element.Index);
+            SetOriginSiblingIndex(index);
 
             if (State < CardState.IsDrag)
             {
@@ -292,7 +243,7 @@ namespace WIP
 
         // ================================================== Sibling Index
 
-        private void Emphasize()
+        public void Emphasize()
         {
             if (State > CardState.None)
             {
@@ -300,7 +251,7 @@ namespace WIP
             }
             else
             {
-                transform.SetParent(GameObject.Find(LocationModule.GroupName).transform);
+                transform.SetParent(GameObject.Find(Pile.Name).transform);
 
                 transform.SetSiblingIndex(OriginSiblingIndex);
             }
@@ -311,84 +262,114 @@ namespace WIP
             OriginSiblingIndex = index;
         }
 
+        // =========================================================================== Card
+
+        public Card GetCard()
+        {
+            return Pile.GetCard(InstanceID);
+        }
+
         // =========================================================================== Component
 
-        private void Refresh(object sender, CardRefreshEventArgs e)
+        public void Refresh((Sprite FrameSprite, Sprite ArtworkSprite, string Name, int Cost, string Description) information)
         {
-            _components.FrameImage.sprite = e.FrameSprite;
-            _components.ArtworkImage.sprite = e.ArtworkSprite;
+            _components.FrameImage.sprite = information.FrameSprite;
+            _components.ArtworkImage.sprite = information.ArtworkSprite;
 
-            _components.NameTMP.text = e.Name;
-            _components.CostTMP.text = e.Cost.ToString();
-            _components.DescriptionTMP.text = e.Description;
+            _components.NameTMP.text = information.Name;
+            _components.CostTMP.text = information.Cost.ToString();
+            _components.DescriptionTMP.text = information.Description;
         }
     }
-
-    // ==================================================================================================== CardObjectHandler
-
-    //public class CardObjectHandler : ICardObjectHandler
-    //{
-
-    //}
 
     // ==================================================================================================== CardRefreshEventArgs
 
-    [Serializable] public class CardRefreshEventArgs : EventArgs
+    [Serializable] public class CardComponentData
     {
         // ==================================================================================================== Field
 
-        // =========================================================================== Argument
-
-        public new static readonly CardRefreshEventArgs Empty = default;
-
         // =========================================================================== Status
 
-        public string Name;
+        public string _name;
 
-        public int Cost;
+        public int _cost;
 
-        public string Description;
+        public string _description;
 
         // =========================================================================== Asset
 
-        public Sprite FrameSprite;
-        public Sprite ArtworkSprite;
-    }
+        public Sprite _frameSprite;
+        public Sprite _artworkSprite;
 
-    // ==================================================================================================== ICardObjectHandler
+        // ==================================================================================================== Field
 
-    public interface ICardObjectHandler
-    {
-        // ==================================================================================================== Property
+        // =========================================================================== Status
 
-        // =========================================================================== Location
-
-        public List<Card> Cards
+        public string Name
         {
-            get;
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                _name = value;
+            }
         }
 
-        // =========================================================================== Transform
-
-        // ================================================== Sibling Index
-
-        public string GroupName
+        public int Cost
         {
-            get;
+            get
+            {
+                return _cost;
+            }
+
+            set
+            {
+                _cost = value;
+            }
         }
 
-        // ==================================================================================================== Method
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
 
-        // =========================================================================== Transform
+            set
+            {
+                _description = value;
+            }
+        }
 
-        // ================================================== Scale
+        // =========================================================================== Asset
 
-        public float GetSize(CardState state);
+        public Sprite FrameSprite
+        {
+            get
+            {
+                return _frameSprite;
+            }
 
-        // ================================================== Position
+            set
+            {
+                _frameSprite = value;
+            }
+        }
 
-        public (int Count, int Index) GetElement(Card card);
+        public Sprite ArtworkSprite
+        {
+            get
+            {
+                return _artworkSprite;
+            }
 
-        public Vector3 GetPosition(int count, int index);
+            set
+            {
+                _artworkSprite = value;
+            }
+        }
     }
 }

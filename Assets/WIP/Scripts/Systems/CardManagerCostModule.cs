@@ -108,7 +108,14 @@ namespace WIP
 
         public void Estimate(CardManagerCostModule module)
         {
+            ////////////////////////////////////////////////// BETA
             module.IsEnough = true;
+            ////////////////////////////////////////////////// BETA
+
+            //if (module.Cost >= EntityManager.Inst.playerEntity.Status_Aether)
+            //{
+            //    module.IsEnough = true;
+            //}
         }
     }
 

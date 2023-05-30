@@ -11,6 +11,10 @@ using UnityEngine.EventSystems;
 
 namespace WIP
 {
+    // ==================================================================================================== Delegate
+
+    public delegate void OnCardRefresh(Sprite frameSprite, Sprite artworkSprite, string name, int cost, string description);
+
     // ==================================================================================================== Card
 
     [Serializable] public class Card
@@ -30,9 +34,9 @@ namespace WIP
         [Header("강화 횟수")]
         [SerializeField, JsonProperty("Upgraded"), Range(0, MAX_UPGRADE_LEVEL)] private int _upgraded = 0;
 
-        // =========================================================================== Action
+        // =========================================================================== Delegate
 
-        [JsonIgnore] private EventHandler<CardRefreshEventArgs> _onRefresh;
+        [JsonIgnore] private OnCardRefresh _onRefresh;
 
         // =========================================================================== Constant
 
@@ -43,12 +47,17 @@ namespace WIP
 
         // ================================================== Scale
 
-        public const float DEFAULT_CARD_SIZE = 0.25f;
-        public const float ENLARGEMENT_CARD_SIZE = 0.4f;
+        public const float HAND_CARD_SIZE = 0.2f;
+
+        public const float ENLARGEMENT_CARD_SIZE = 2f;
 
         // ================================================== Sibling Index
 
+        public const string DECK_GROUP_NAME = "===== Decks =====";
         public const string HAND_GROUP_NAME = "===== Hands =====";
+        public const string DISCARD_GROUP_NAME = "===== Discards =====";
+        public const string EXILED_GROUP_NAME = "===== Exiled =====";
+
         public const string SELECTED_GROUP_NAME = "===== Selected =====";
 
         // ==================================================================================================== Property
@@ -147,9 +156,9 @@ namespace WIP
             get; set;
         }
 
-        // =========================================================================== Action
+        // =========================================================================== Delegate
 
-        public event EventHandler<CardRefreshEventArgs> OnRefresh
+        public event OnCardRefresh OnRefresh
         {
             add
             {
@@ -170,46 +179,27 @@ namespace WIP
         {
             var card = new Card();
 
-            card.InstanceID = instanceID;
-            card.SerialID = serialID;
+            card.Initialize(instanceID, serialID);
 
-            card.Initialize();
-
-            //////////////////////////////////////////////////
-            card.Upgrade();
-            card.Upgrade();
-            //////////////////////////////////////////////////
-            
             return card;
         }
 
-        public void Initialize()
+        public void Initialize(string instanceID, int serialID)
         {
-            AddEventHandler();
+            InstanceID = instanceID;
+            SerialID = serialID;
 
-            CardManager.Instance.RefreshAll();
+            ////////////////////////////////////////////////// BETA
+            Upgrade();
+            Upgrade();
+            ////////////////////////////////////////////////// BETA
+
+            CardManager.Instance.Refresh();
         }
 
         public void Dispose()
         {
-            RemoveEventHandler();
-        }
 
-        private void AddEventHandler()
-        {
-            CardManager.Instance.OnRefresh += Refresh;
-        }
-
-        private void RemoveEventHandler()
-        {
-            CardManager.Instance.OnRefresh -= Refresh;
-        }
-
-        // =========================================================================== Upgrade
-
-        public void Upgrade()
-        {
-            Upgraded += 1;
         }
 
         // =========================================================================== Status
@@ -260,15 +250,22 @@ namespace WIP
             return Utility.StringBuilder.ToString();
         }
 
+        // =========================================================================== Upgrade
+
+        public void Upgrade()
+        {
+            Upgraded += 1;
+        }
+
         // =========================================================================== Use
 
         public IEnumerator Use(CardTarget targets)
         {
             CardData data = GetCardData();
 
-            //////////////////////////////////////////////////
+            ////////////////////////////////////////////////// BETA
             data.HandlerData.Execute(this, null);
-            //////////////////////////////////////////////////
+            ////////////////////////////////////////////////// BETA
 
             for (int i = 0; i < targets.Targets.Count; i++)
             {
@@ -278,24 +275,18 @@ namespace WIP
             yield return null;
         }
 
-        private void Refresh()
+        public void Refresh()
         {
-            // Refresh card status
-
             CardData data = GetCardData();
 
-            // 설계 잘못함 다시 수정 필요
+            Sprite frameSprite = data.FrameSprite[Upgraded];
+            Sprite artworkSprite = data.FrameSprite[Upgraded];
 
-            CardRefreshEventArgs eventArgs = new CardRefreshEventArgs();
+            string name = RefreshName(data);
+            int cost = RefreshCost(data);
+            string description = RefreshDescription(data);
 
-            eventArgs.FrameSprite = data.FrameSprite[Upgraded];
-            eventArgs.ArtworkSprite = data.ArtworkSprite[Upgraded];
-
-            eventArgs.Name = RefreshName(data);
-            eventArgs.Cost = RefreshCost(data);
-            eventArgs.Description = RefreshDescription(data);
-
-            _onRefresh?.Invoke(this, eventArgs);
+            _onRefresh?.Invoke(frameSprite, artworkSprite, name, cost, description);
         }
 
         // =========================================================================== Data
@@ -303,61 +294,6 @@ namespace WIP
         private CardData GetCardData()
         {
             return CardManager.Instance.Database.Cards[SerialID];
-        }
-    }
-
-    // ==================================================================================================== CardHandler
-
-    public class CardHandModule : ICardLocationModule
-    {
-        // ==================================================================================================== Property
-
-        // =========================================================================== Location
-
-        public List<Card> Cards
-        {
-            get
-            {
-                return CardManager.Instance.MyHandCards;
-            }
-        }
-
-        // =========================================================================== Transform
-
-        // ================================================== Sibling Index
-
-        public string GroupName
-        {
-            get
-            {
-                return Card.HAND_GROUP_NAME;
-            }
-        }
-
-        // ==================================================================================================== Property
-
-        // =========================================================================== Transform
-
-        // ================================================== Scale
-
-        public float GetSize(CardState state)
-        {
-            return state == CardState.IsPointerOver ? Card.ENLARGEMENT_CARD_SIZE : Card.DEFAULT_CARD_SIZE;
-        }
-
-        // ================================================== Position
-
-        public (int Count, int Index) GetElement(Card card)
-        {
-            return (CardManager.Instance.MyHandCards.Count, CardManager.Instance.MyHandCards.IndexOf(card));
-        }
-
-        public Vector3 GetPosition(int count, int index)
-        {
-            float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 4;
-
-            return new Vector3(x, y, 0.0f);
         }
     }
 
@@ -404,55 +340,13 @@ namespace WIP
         }
     }
 
-    // ==================================================================================================== ICardLocationModule
+    // ==================================================================================================== CardKeyword
 
-    public interface ICardLocationModule
+    [Flags] public enum CardKeyword
     {
-        // ==================================================================================================== Property
+        None    = 0,
 
-        // =========================================================================== Location
-
-        public List<Card> Cards
-        {
-            get;
-        }
-
-        // =========================================================================== Transform
-
-        // ================================================== Sibling Index
-
-        public string GroupName
-        {
-            get;
-        }
-
-        // ==================================================================================================== Method
-
-        // =========================================================================== Transform
-
-        // ================================================== Scale
-
-        public float GetSize(CardState state);
-
-        // ================================================== Position
-
-        public (int Count, int Index) GetElement(Card card);
-
-        public Vector3 GetPosition(int count, int index);
-    }
-
-    // ==================================================================================================== ICardHandler
-
-    public interface ICardHandler
-    {
-
-    }
-
-    // ==================================================================================================== ICardStateModule
-
-    public interface ICardStateModule
-    {
-
+        Exile   = 1 << 0
     }
 
     // ==================================================================================================== CardState
@@ -468,3 +362,9 @@ namespace WIP
         IsUse
     }
 }
+
+// Buff
+
+// 1. Base Value
+// 2. Player Buff Value
+// 3. Card Buff Value

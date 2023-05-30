@@ -19,23 +19,7 @@ namespace WIP
 
         // =========================================================================== Card
 
-        // ================================================== Collection
-
-        [Header("덱 카드 리스트")]
-        [SerializeField] private List<Card> _myDeckCards = new List<Card>();
-
-        [Header("손패 카드 리스트")]
-        [SerializeField] private List<Card> _myHandCards = new List<Card>();
-
-        [Header("묘지 카드 리스트")]
-        [SerializeField] private List<Card> _myCemeteryCards = new List<Card>();
-
-        [Header("제외 카드 리스트")]
-        [SerializeField] private List<Card> _myExiledCards = new List<Card>();
-
-        // Deck, Hand, Discard, Exiled
-
-        // ================================================== Action
+        // ================================================== Delegate
 
         private Action _onRefresh;
 
@@ -46,11 +30,9 @@ namespace WIP
         [Header("선택 중인 카드")]
         [SerializeField] private CardObject _selected;
 
-        // ================================================== Action
+        // ================================================== Delegate
 
-        private Action _onEnlarge;
         private Action _onArrange;
-        private Action _onEmphasize;
 
         // =========================================================================== CardManager
 
@@ -95,61 +77,7 @@ namespace WIP
 
         // =========================================================================== Card
 
-        // ================================================== Collection
-
-        public List<Card> MyDeckCards
-        {
-            get
-            {
-                return _myDeckCards;
-            }
-
-            private set
-            {
-                _myDeckCards = value;
-            }
-        }
-
-        public List<Card> MyHandCards
-        {
-            get
-            {
-                return _myHandCards;
-            }
-
-            private set
-            {
-                _myHandCards = value;
-            }
-        }
-
-        public List<Card> MyCemeteryCards
-        {
-            get
-            {
-                return _myCemeteryCards;
-            }
-
-            private set
-            {
-                _myCemeteryCards = value;
-            }
-        }
-
-        public List<Card> MyExiledCards
-        {
-            get
-            {
-                return _myExiledCards;
-            }
-
-            private set
-            {
-                _myExiledCards = value;
-            }
-        }
-
-        // ================================================== Action
+        // ================================================== Delegate
 
         public event Action OnRefresh
         {
@@ -181,20 +109,7 @@ namespace WIP
             }
         }
 
-        // ================================================== Action
-
-        public event Action OnEnlarge
-        {
-            add
-            {
-                _onEnlarge += value;
-            }
-
-            remove
-            {
-                _onEnlarge -= value;
-            }
-        }
+        // ================================================== Delegate
 
         public event Action OnArrange
         {
@@ -209,20 +124,41 @@ namespace WIP
             }
         }
 
-        public event Action OnEmphasize
-        {
-            add
-            {
-                _onEmphasize += value;
-            }
+        // =========================================================================== CardManager
 
-            remove
+        // ================================================== Pile
+
+        public CardDeckPile Deck
+        {
+            get
             {
-                _onEmphasize -= value;
+                return _data.Deck;
             }
         }
 
-        // =========================================================================== CardManager
+        public CardHandPile Hand
+        {
+            get
+            {
+                return _data.Hand;
+            }
+        }
+
+        public CardDiscardPile Discard
+        {
+            get
+            {
+                return _data.Discard;
+            }
+        }
+
+        public CardExiledPile Exiled
+        {
+            get
+            {
+                return _data.Exiled;
+            }
+        }
 
         // ================================================== State
 
@@ -299,17 +235,9 @@ namespace WIP
 
         // =========================================================================== Event
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            LoadData();
-        }
-
         private void Update()
         {
-            //////////////////////////////////////////////////
-
+            ////////////////////////////////////////////////// BETA
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 GetCard(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), 0));
@@ -317,25 +245,24 @@ namespace WIP
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                Draw();
+                Draw(null);
             }
 
             if (Input.GetKeyDown(KeyCode.C))
             {
-                Suffle();
+                Deck.Suffle();
             }
 
             if (Input.GetKeyDown(KeyCode.V))
             {
-                StartCoroutine(Recycle());
-            }
+                int count = Discard.Count;
 
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                StartCoroutine(ProcessManager.Instance.Terminate()); // 이거 옮기기 귀찮아...
+                for (int i = 0; i < count; i++)
+                {
+                    StartCoroutine(Recycle(null));
+                }
             }
-
-            //////////////////////////////////////////////////
+            ////////////////////////////////////////////////// BETA
         }
 
         // =========================================================================== EventSystem
@@ -352,9 +279,6 @@ namespace WIP
             Selected = cardObject;
 
             Selected.State = CardState.IsPointerOver;
-
-            EnlargeAll();
-            EmphasizeAll();
         }
 
         public void OnPointerExit(PointerEventData eventData, CardObject cardObject)
@@ -366,9 +290,6 @@ namespace WIP
 
             Selected.State = CardState.None;
 
-            EnlargeAll();
-            EmphasizeAll();
-
             Selected = null;
         }
 
@@ -376,25 +297,23 @@ namespace WIP
 
         public void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || State < CardManagerState.CanUse || !Selected.IsUsable)
+            if (Selected != cardObject || State < CardManagerState.CanUse || !Selected.IsUsable || Selected.Pile != Hand)
             {
                 return;
             }
 
-            CostModule.Cost = Selected.Card.Cost;
+            CostModule.Cost = Selected.GetCard().Cost;
             CostModule.Estimate();
 
             if (CostModule.IsEnough)
             {
                 Selected.State = CardState.IsDrag;
-
-                EnlargeAll();
             }
         }
 
         public void OnDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || State < CardManagerState.CanUse)
+            if (Selected != cardObject || State < CardManagerState.CanUse || Selected.Pile != Hand)
             {
                 return;
             }
@@ -404,28 +323,24 @@ namespace WIP
 
         public void OnEndDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject)
+            if (Selected != cardObject || Selected.Pile != Hand)
             {
                 return;
             }
 
             if (State == CardManagerState.CanUse && Selected.transform.position.y > Screen.height / 2)
             {
-                Selected.Move(new Vector3(0.0f, 0.0f, 0.0f));
+                //Selected.Move(Vector3.zero);
 
                 Selected.State = CardState.IsUse;
 
                 SetCardTarget();
-
-                ArrangeAll();
             }
             else
             {
                 Selected.Move(Selected.OriginPosition);
 
                 Selected.State = CardState.None;
-
-                EmphasizeAll();
             }
 
             Selected = null;
@@ -438,70 +353,59 @@ namespace WIP
             base.Initialize();
 
             DontDestroyOnLoad(gameObject);
+
+            LoadData();
+            _data.Initialize();
         }
 
         // =========================================================================== Card
 
         public Card GetCard(Card card)
         {
-            MyDeckCards.Add(card);
-
-            Suffle();
+            Deck.Add(card);
 
             return card;
         }
 
-        public Card Draw()
+        public Card Draw(Action<Card> callback)
         {
-            if (MyDeckCards.Count > 0 && MyHandCards.Count < Settings.MaxHandCount && true)
+            Card card;
+
+            if (Deck.Cards.Count > 0 && Hand.Cards.Count < Settings.MaxHandCount && true)
             {
-                Card card = MyDeckCards.Last();
+                card = Deck.Cards.Last();
 
-                MyDeckCards.Remove(card);
-                MyHandCards.Add(card);
+                Deck.Remove(card);
+                Hand.Add(card);
 
-                CardObject.Create(card, new CardHandModule());
+                callback?.Invoke(card);
 
-                ArrangeAll();
-
-                return card;
+                Arrange();
             }
             else
             {
-                return null;
+                card = null;
             }
+
+            return card;
         }
 
-        public IEnumerator Recycle()
+        public IEnumerator Recycle(Action<Card> callback)
         {
             yield return ProcessManager.Instance.AddTask(null, Main());
 
             IEnumerator Main()
             {
-                if (MyCemeteryCards.Count > 0)
-                {
-                    MyDeckCards.AddRange(MyCemeteryCards);
+                int index = UnityEngine.Random.Range(0, Discard.Count);
 
-                    // TODO: Destroy All Cemetery CardObjects
+                Card card = Discard.Cards[index];
 
-                    MyCemeteryCards.Clear();
+                Discard.Remove(card);
+                Deck.Add(card);
 
-                    Suffle();
-                }
+                callback?.Invoke(card);
 
                 yield return null;
-            }
-        }
-
-        private void Suffle()
-        {
-            int index;
-
-            for (int i = 0; i < MyDeckCards.Count; i++)
-            {
-                index = UnityEngine.Random.Range(i, MyDeckCards.Count);
-
-                (MyDeckCards[i], MyDeckCards[index]) = (MyDeckCards[index], MyDeckCards[i]);
             }
         }
 
@@ -511,9 +415,9 @@ namespace WIP
         {
             CardTarget targets = new CardTarget();
 
-            //////////////////////////////////////////////////
+            ////////////////////////////////////////////////// BETA
             targets.IsActive = true;
-            //////////////////////////////////////////////////
+            ////////////////////////////////////////////////// BETA
 
             Selected.enabled = false;
 
@@ -524,14 +428,10 @@ namespace WIP
                 Selected.State = CardState.None;
 
                 Selected.Move(Selected.OriginPosition);
-
-                EmphasizeAll();
             }
             else
             {
-                StartCoroutine(Use(Selected.Card, targets));
-
-                Selected.Dispose();
+                StartCoroutine(Use(Selected.GetCard(), targets));
             }
 
             Selected = null;
@@ -545,22 +445,22 @@ namespace WIP
             {
                 CostModule.Execute();
 
-                MyHandCards.Remove(card);
-
                 yield return null;
             }
 
             IEnumerator Main()
             {
+                Hand.Remove(card);
+
                 yield return StartCoroutine(card.Use(targets));
 
                 if ((card.Keyword & CardKeyword.Exile) != 0)
                 {
-                    MyExiledCards.Add(card);
+                    Exiled.Add(card);
                 }
                 else
                 {
-                    MyCemeteryCards.Add(card);
+                    Discard.Add(card);
                 }
 
                 yield return null;
@@ -569,72 +469,19 @@ namespace WIP
 
         // ================================================== Action
 
-        public void RefreshAll()
+        public void Refresh()
         {
             _onRefresh?.Invoke();
         }
 
         // =========================================================================== CardObject
 
-        // ================================================== Action
-
-        public void EnlargeAll()
+        public void Arrange()
         {
-            _onEnlarge?.Invoke();
-        }
-
-        public void ArrangeAll()
-        {
-            _onArrange?.Invoke();
-        }
-
-        public void EmphasizeAll()
-        {
-            _onEmphasize?.Invoke();
+            _onArrange.Invoke();
         }
 
         // =========================================================================== CardManager
-
-        // ================================================== Process
-
-        //public void AddTask(IEnumerator task) // 이거 턴 매니저나 게임 매니저나 태스크 매니저 3개 중 하나로 옮겨야 되나
-        //{
-        //    if (!_isRunning)
-        //    {
-        //        return;
-        //    }
-
-        //    Process.Add(task);
-
-        //    StartCoroutine(task);
-        //}
-
-        //public IEnumerator WaitForProcess(string task) // string은 조만간 지울 예정
-        //{
-        //    int standby = Process.Count - 1;
-
-        //    Debug.Log($"{task}의 처리 순번: {standby}");
-
-        //    yield return new WaitUntil(() =>
-        //    {
-        //        return standby == Standby;
-        //    });
-        //}
-
-        //public IEnumerator Terminate()
-        //{
-        //    _isRunning = false;
-
-        //    yield return StartCoroutine(WaitForProcess("작업 대기열 초기화"));
-
-        //    Process.Clear();
-
-        //    Standby = 0;
-
-        //    _isRunning = true;
-
-        //    yield return null;
-        //}
 
         // ================================================== Resource
 
@@ -652,120 +499,68 @@ namespace WIP
 
     [Serializable] public class CardManagerData
     {
-
-    }
-
-    // ==================================================================================================== CardPile
-
-    [Serializable] public class CardPile
-    {
         // ==================================================================================================== Field
 
-        // =========================================================================== Card
+        // =========================================================================== Pile
 
-        [Header("카드 리스트")]
-        [SerializeField, JsonProperty("Cards")] private List<Card> _cards = new List<Card>();
+        [Header("덱")]
+        [SerializeField, JsonProperty("Deck")] private CardDeckPile _deck = new CardDeckPile();
 
-        // =========================================================================== CardObject
+        [Header("손패")]
+        [SerializeField, JsonProperty("Hand")] private CardHandPile _hand = new CardHandPile();
 
-        [Header("카드 오브젝트 리스트")]
-        [SerializeField, JsonIgnore] private List<CardObject> _cardObjects = new List<CardObject>();
+        [Header("사용")]
+        [SerializeField, JsonProperty("Discard")] private CardDiscardPile _discard = new CardDiscardPile();
 
-        [Header("카드 오브젝트 활성화 여부")]
-        [SerializeField, JsonIgnore] private bool _isDisplay;
-
-        // =========================================================================== Transform
-
-        // ================================================== Sibling Index
-
-        [Header("카드 그룹 이름")]
-        [SerializeField, JsonProperty("GroupName")] private string _groupName;
-
-        // ================================================== Position
-
-        private Func<int, int, float> _getX;
-        private Func<int, int, float> _getY;
+        [Header("제외")]
+        [SerializeField, JsonProperty("Exiled")] private CardExiledPile _exiled = new CardExiledPile();
 
         // ==================================================================================================== Property
 
-        // =========================================================================== Card
+        // =========================================================================== Pile
 
-        public List<Card> Cards
+        [JsonIgnore] public CardDeckPile Deck
         {
             get
             {
-                return _cards;
+                return _deck;
             }
         }
 
-        // =========================================================================== CardObject
-
-        public List<CardObject> CardsObjects
+        [JsonIgnore] public CardHandPile Hand
         {
             get
             {
-                return _cardObjects;
+                return _hand;
             }
         }
 
-        public bool IsDisplay
+        [JsonIgnore] public CardDiscardPile Discard
         {
             get
             {
-                return _isDisplay;
-            }
-
-            set
-            {
-                _isDisplay = value;
+                return _discard;
             }
         }
 
-        // =========================================================================== Transform
-
-        // ================================================== Position
-
-        public event Func<int, int, float> GetX
+        [JsonIgnore] public CardExiledPile Exiled
         {
-            add
+            get
             {
-                _getX = value;
-            }
-
-            remove
-            {
-                _getX -= value;
-            }
-        }
-
-        public event Func<int, int, float> GetY
-        {
-            add
-            {
-                _getY = value;
-            }
-
-            remove
-            {
-                _getY -= value;
+                return _exiled;
             }
         }
 
         // ==================================================================================================== Method
 
-        // ================================================== Position
+        // =========================================================================== Instance
 
-        public (int Count, int Index) GetIndexElement(CardObject cardObject)
+        public void Initialize()
         {
-            return (Cards.Count, CardsObjects.IndexOf(cardObject));
-        }
-
-        public Vector3 GetPosition(int count, int index)
-        {
-            float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 4;
-
-            return new Vector3(x, y, 0.0f);
+            Deck.Initialize(Card.DECK_GROUP_NAME, false);
+            Hand.Initialize(Card.HAND_GROUP_NAME, true);
+            Discard.Initialize(Card.DISCARD_GROUP_NAME, false);
+            Exiled.Initialize(Card.EXILED_GROUP_NAME, false);
         }
     }
 

@@ -149,6 +149,7 @@ namespace WIP
 
         [Header("¹üÀ§")]
         [SerializeField] private int _radius;
+        // Vector3
 
         // =========================================================================== Option
 

@@ -644,14 +644,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb5593a5225a8245ab909d97e7ba2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _myDeckCards: []
-  _myHandCards: []
-  _myCemeteryCards: []
-  _myExiledCards: []
   _selected: {fileID: 0}
-  _standby: 0
-  _isRunning: 1
   _state: 2
+  _data:
+    _deck:
+      _cards: []
+      _cardObjects: []
+      _isDisplay: 1
+      _name: ===== Decks =====
+    _hand:
+      _cards: []
+      _cardObjects: []
+      _isDisplay: 1
+      _name: ===== Hands =====
+    _discard:
+      _cards: []
+      _cardObjects: []
+      _isDisplay: 0
+      _name: 
+    _exiled:
+      _cards: []
+      _cardObjects: []
+      _isDisplay: 0
+      _name: 
   _cardPrefab: {fileID: 0}
   _database: {fileID: 0}
   _settings: {fileID: 0}

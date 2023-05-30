@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: CardSettings
   m_EditorClassIdentifier: 
   _maxHandCount: 9
+  _defaultCardSize: 0.25
+  _enlargedCardSize: 0.4
+  _usedCardSize: 0.1
