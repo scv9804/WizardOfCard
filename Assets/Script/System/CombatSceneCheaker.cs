@@ -10,6 +10,7 @@ public class CombatSceneCheaker : MonoBehaviour
 		UIManager.Inst.maincanvas.enabled = true;
 		StartCoroutine(LevelGeneration.Inst.Co_StartGame());
 		EntityManager.Inst.SetEnemyObjectArray();
+	//	GameObject.Find("main").GetComponent<XSSLG.XSBattleMgr>().SetEntityDic();
 		CardManager.Inst.SetCardSpawnPos();
 	}
 

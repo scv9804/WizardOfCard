@@ -14,6 +14,7 @@ using Debug = UnityEngine.Debug;
 namespace XSSLG
 {
     using TileDict = Dictionary<Vector3Int, XSTile>;
+    using EntityDic = Dictionary<Vector3, Entity>;
 
     /// <summary>tile management class, responsible for tile coordinate transformation, data and other functions </summary>
     public class XSGridMgr : XSIGridMgr
@@ -23,6 +24,8 @@ namespace XSSLG
 
         /// <summary> key is tilepos, value is tile </summary>
         protected TileDict TileDict { get; set; } = new TileDict();
+
+        protected EntityDic EntityDic { get; set; } = new EntityDic();
 
         public virtual List<XSTile> GetAllTiles() => this.TileDict.Values.ToList();
 
@@ -231,6 +234,53 @@ namespace XSSLG
             }
         }
 
+        public virtual bool EntityDicRefresh(Vector3 OriginPos, Vector3 MovePos, Entity entity)
+		{
+            if (!EntityDic.ContainsKey(OriginPos))
+                return false;
+            EntityDic.Add(OriginPos, entity);
+            EntityDic.Remove(MovePos);
+#if UNITY_EDITOR
+            Debug.Log("엔티티 리프래쉬 XSGRIDMGR_244");
+#endif
+            return true;
+		}
+        
+        public virtual void EntityDicAdd(Vector3 pos, Entity entity)
+		{
+#if UNITY_EDITOR
+            Debug.Log("엔티티 ADD XSGRIDMGR_252");
+#endif
+            EntityDic.Add(pos ,entity);
+		}
+
+        public virtual void EntityDicRemove(Vector3 pos)
+        {
+#if UNITY_EDITOR
+            Debug.Log("엔티티 리무브 XSGRIDMGR_260");
+#endif
+            if (EntityDic.ContainsKey(pos))
+                EntityDic.Remove(pos);
+            else
+                Debug.LogError("없는 포지션 값입니다.");
+        }
+
+        public virtual void GetEntityInPos(Vector3 pos ,out Entity entity)
+		{
+#if UNITY_EDITOR
+            Debug.Log("엔티티 반환 XSGRIDMGR_271");
+#endif
+            if (EntityDic.ContainsKey(pos))
+			{
+                entity = EntityDic[pos];
+                Debug.Log("엔티티값을 반환했습니다._XSGRIDMGR_264");
+            }                
+			else
+			{
+                entity = null;
+                Debug.LogError("엔티티 값이 없어서 Null을 반환했습니다.");
+            }
+        }
 
         /// <summary>
         /// get all paths

@@ -4,6 +4,7 @@
 /// @Description: Demo_1 manager
 /// </summary>
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,6 +46,7 @@ namespace XSSLG
         public List<Vector3> VectTest;
 
         bool SelectTile= false;
+        bool selectCardArea = false;
 /*
         /// <summary>
         /// 일단 테스트용
@@ -82,14 +84,10 @@ namespace XSSLG
 
                 var moveRegionCpt = XSGridShowRegionCpt.Create(XSGridDefine.SCENE_GRID_MOVE, gridHelper.MoveTilePrefab, 10);
                 this.GridShowMgr = new XSGridShowMgr(moveRegionCpt);
+                SetEntityDic();
             }
             TurnManager.enemyActions += SetEnemyAttack;
             TurnManager.onStartTurn += SelectUnitClear;
-        }
-
-		private void FixedUpdate()
-		{
-            
         }
 
 		void SelectUnitClear(bool _myTurn)
@@ -97,12 +95,10 @@ namespace XSSLG
             SelectedUnit = null;
         }
 
-
         // Update is called once per frame
         void Update()
         {
             /************************* 움직임 제어문  ***********************/
-            StartCoroutine(SelectTraget());
             if (!this.IsMoving)
             {
                 IsEnemyMoving = false;
@@ -282,62 +278,73 @@ namespace XSSLG
         }
 
         //적 선택하는거 테스트
-        public IEnumerator SelectTraget()
+        public IEnumerator SelectTraget(WIP.CardTarget cardTarget)
         {
-            if (!this.SelectedUnit && TurnManager.Inst.myTurn)
+            while (true)
             {
-                var tile = XSUG.GetMouseTargetTile();
-
-                //첫 타일 값 삽입.
-                mouseVector.Add(tile.WorldPos);
-
-
-
-                //타일 주변값 비교
-                if (!SelectTile)
+                if (!this.SelectedUnit && TurnManager.Inst.myTurn)
                 {
-                    SelectTile = true;
-                    foreach (var t in VectTest)
-					{
-                        if (GridMgr.GetTileVect().Contains(tile.WorldPos + t))
-						{
-                            mouseVector.Add(tile.WorldPos + t);
-                        }                        
-                    }
-                }
-                //타일위치 바뀌었는지 확인하기
-                if (tile.WorldPos != mouseVector[0])
-                {
-                    SelectTile = false;
-                    GridShowMgr.ClearMoveRegion();
-                    mouseVector.Clear();
-                }
+                    var tile = XSUG.GetMouseTargetTile();
 
+                    //첫 타일 값 삽입.
+                    mouseVector.Add(tile.WorldPos);
 
-                try
-                {
-                    GridShowMgr.MoveShowRegion.ShowRegion(mouseVector);
-                }
-                catch
-                {
-#if UNITY_EDITOR
-                    Debug.Log("마우스 맵 밖에 존재함");
-#endif
-                }
-
-
-                if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
-                {
-                    List<Vector3> returnVect = new List<Vector3>();
-                    foreach (var t in VectTest)
+                    //타일 주변값 비교
+                    if (!SelectTile)
                     {
-                        returnVect.Add(tile.WorldPos + t);
+                        SelectTile = true;
+                        Debug.Log("타일 값 넣기");
+                        foreach (var t in VectTest)
+                        {
+                            if (GridMgr.GetTileVect().Contains(tile.WorldPos + t))
+                            {
+                                mouseVector.Add(tile.WorldPos + t);
+                            }                            
+                        }
+                    }
+                    //타일위치 바뀌었는지 확인하기
+                    if (tile.WorldPos != mouseVector[0])
+                    {
+                        Debug.Log("장한뜻을 품었구나");
+                        SelectTile = false;
+                        GridShowMgr.ClearMoveRegion();
+                        mouseVector.Clear();
+                    }
+
+
+                    try
+                    {
+                        GridShowMgr.MoveShowRegion.ShowRegion(mouseVector);
+                    }
+                    catch
+                    {
+#if UNITY_EDITOR
+                        Debug.Log("마우스 맵 밖에 존재함");
+#endif
+                    }
+
+
+                    if (Mouse.current.leftButton.wasPressedThisFrame && !selectCardArea) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
+                    {
+                        selectCardArea = true;
+
+                        foreach (var vect in mouseVector.Distinct())
+                        {
+                            GridMgr.GetEntityInPos(vect, out var entity);
+                            if (entity != null)
+							{
+                                cardTarget.Targets.Add(entity);
+                            }
+                        }
+                        cardTarget.IsActive = true;
+                        Debug.Log("ddddd");
+                        selectCardArea = false;
+                        break;
                     }
                 }
+                yield return null;
             }
             yield return null;
-            
-
         }
 
 
@@ -434,6 +441,17 @@ namespace XSSLG
 
             this.SelectedUnit = null;
             this.IsMoving = false;
+        }
+
+        public void SetEntityDic()
+		{
+            foreach (var entity in EntityManager.Inst.enemyEntities)
+            {
+#if UNITY_EDITOR
+                Debug.Log("엔티티 딕셔너리에 넣었습니다.");
+#endif
+                GridMgr.EntityDicAdd(new Vector3(entity.transform.position.x, 0, entity.transform.position.z), entity);
+            }
         }
 
         /*        public virtual IEnumerator Setbool()

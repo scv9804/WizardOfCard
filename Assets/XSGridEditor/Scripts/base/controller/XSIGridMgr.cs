@@ -12,7 +12,6 @@ namespace XSSLG
     /// <summary>interface to XSGridMgr </summary>
     public interface XSIGridMgr
     {
-
         List<XSTile> GetAllTiles();
 
         List<Vector3> GetTileVect();
@@ -52,7 +51,15 @@ namespace XSSLG
         bool GetXSTile(Vector3 worldPos, out XSTile tile, out Vector3Int tilePos);
 
         void UpdateTileSize(Vector3 tileSize);
-        
+
+        bool EntityDicRefresh(Vector3 OriginPos, Vector3 MovePos, Entity entity);
+
+        void EntityDicRemove(Vector3 pos);
+
+        void GetEntityInPos(Vector3 pos, out Entity entity);
+
+        void EntityDicAdd(Vector3 pos, Entity entity);
+
         public Dictionary<Vector3, List<Vector3>> FindAllPath(XSTile srcTile, int moveRange);
     }
 }

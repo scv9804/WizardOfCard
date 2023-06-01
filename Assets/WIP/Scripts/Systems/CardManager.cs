@@ -67,6 +67,9 @@ namespace WIP
 
         // =========================================================================== Singleton
 
+        [Header("배틀 매니저")]
+        private XSSLG.XSBattleMgr battleMgr;
+
         protected override string Name
         {
             get
@@ -334,7 +337,7 @@ namespace WIP
 
                 Selected.State = CardState.IsUse;
 
-                SetCardTarget();
+                StartCoroutine(SetCardTarget());
             }
             else
             {
@@ -411,16 +414,26 @@ namespace WIP
 
         // ================================================== ????????
 
-        private void SetCardTarget()
+        private IEnumerator SetCardTarget()
         {
             CardTarget targets = new CardTarget();
 
             ////////////////////////////////////////////////// BETA
-            targets.IsActive = true;
+            //targets.IsActive = true;
             ////////////////////////////////////////////////// BETA
 
             Selected.enabled = false;
 
+            if (battleMgr == null)
+			{
+#if UNITY_EDITOR
+                Debug.Log("배틀매니저가 null입니다. 추가하겠습니다.");
+#endif
+                battleMgr = GameObject.Find("main").GetComponent<XSSLG.XSBattleMgr>();
+            }
+           
+            yield return StartCoroutine(battleMgr.SelectTraget(targets));
+          
             if (!targets.IsActive)
             {
                 Selected.enabled = true;
