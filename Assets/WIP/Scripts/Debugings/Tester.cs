@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System;
+using System.Globalization;
 
 namespace WIP
 {
     public class Tester : MonoBehaviour
     {
+        public List<Area> Areas = new List<Area>();
+
+        public List<string> texts = new List<string>();
+
         private void Awake()
         {
 
         }
 
+        // GetCard에도 callback 적용하기
+                    
         void CardTest()
         {
             // 물의 룬
@@ -65,6 +72,38 @@ namespace WIP
         void Attack()
         {
 
+        }
+    }
+
+    [Serializable] public struct Area
+    {
+        [SerializeField] private float _x;
+        [SerializeField] private float _z;
+
+        public float X
+        {
+            get
+            {
+                return _x;
+            }
+
+            set
+            {
+                _x = value;
+            }
+        }
+
+        public float Z
+        {
+            get
+            {
+                return _z;
+            }
+
+            set
+            {
+                _z = value;
+            }
         }
     }
 }

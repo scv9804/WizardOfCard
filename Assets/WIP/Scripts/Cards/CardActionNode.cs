@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace WIP
 {
+    // Abilities
     // ==================================================================================================== CardActionNode
 
     public abstract class CardActionNode : ScriptableObject

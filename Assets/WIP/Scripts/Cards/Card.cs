@@ -367,4 +367,5 @@ namespace WIP
 
 // 1. Base Value
 // 2. Player Buff Value
-// 3. Card Buff Value
+// 3. Item Buff Value
+// 4. Card Buff Value

@@ -90,7 +90,7 @@ namespace WIP
             Clear();
         }
 
-        private void Clear()
+        public void Clear()
         {
             Cost = 0;
 

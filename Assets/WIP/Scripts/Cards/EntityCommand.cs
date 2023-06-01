@@ -33,7 +33,7 @@ namespace WIP
 
         private List<int> _attackPowers = new List<int>();
 
-        private List<int> _modifiers = new List<int>();
+        private List<int> _multipliers = new List<int>();
 
         // =========================================================================== Asset
 
@@ -76,16 +76,19 @@ namespace WIP
             }
         }
 
-        public List<int> Modifiers
+        // _multipliers
+        // Multipliers
+
+        public List<int> Multipliers
         {
             get
             {
-                return _modifiers;
+                return _multipliers;
             }
 
             set
             {
-                _modifiers = value;
+                _multipliers = value;
             }
         }
 
@@ -153,18 +156,132 @@ namespace WIP
                 damage += AttackPowers[i];
             }
 
-            for (int i = 0; i < Modifiers.Count; i++)
+            for (int i = 0; i < Multipliers.Count; i++)
             {
-                damage *= Modifiers[i];
+                damage *= Multipliers[i];
             }
 
             return damage;
         }
     }
 
+    // ==================================================================================================== EntityShieldCommand
+
+    public class EntityShieldCommand : EntityActionCommand, IDefensive
+    {
+        // ==================================================================================================== Field
+
+        // =========================================================================== Command
+
+        // ================================================== Shield
+
+        private int _shield;
+
+        // ================================================== Power
+
+        private List<int> _defensePowers = new List<int>();
+
+        private List<int> _modifiers = new List<int>();
+
+        // ==================================================================================================== Property
+
+        // =========================================================================== Command
+
+        // ================================================== Shield
+
+        public int Shield
+        {
+            get
+            {
+                return _shield;
+            }
+
+            set
+            {
+                _shield = value;
+            }
+        }
+
+        // ================================================== Power
+
+        public List<int> DefensePowers
+        {
+            get
+            {
+                return _defensePowers;
+            }
+
+            set
+            {
+                _defensePowers = value;
+            }
+        }
+
+        public List<int> Multipliers
+        {
+            get
+            {
+                return _modifiers;
+            }
+
+            set
+            {
+                _modifiers = value;
+            }
+        }
+
+        // ==================================================================================================== Method
+
+        // =========================================================================== Command
+
+        // ================================================== Base
+
+        public override void Execute(Entity target)
+        {
+            //////////////////////////////////////////////////
+            Debug.Log($"{GetShield()}의 쉴드를 생성함");
+            //////////////////////////////////////////////////
+            
+            if (true)
+            {
+                return;
+            }
+
+            PlayerEntity player = EntityManager.Inst.playerEntity;
+
+            player.Status_Shiled += GetShield();
+        }
+            
+        // ================================================== Attack
+
+        public int GetShield()
+        {
+            int damage = Shield;
+
+            for (int i = 0; i < DefensePowers.Count; i++)
+            {
+                damage += DefensePowers[i];
+            }
+
+            for (int i = 0; i < Multipliers.Count; i++)
+            {
+                damage *= Multipliers[i];
+            }
+
+            return damage;
+        }
+    }
+
+    // ==================================================================================================== EntityBuffCommand
+
+    public class EntityBuffCommand /*: EntityActionCommand, IModifier*/
+    {
+
+    }
+
     // ==================================================================================================== IAggresive
 
-    public interface IAggresive
+    public interface IAggresive : IMultipliers
     {
         // ==================================================================================================== Property
 
@@ -176,17 +293,44 @@ namespace WIP
         {
             get; set;
         }
+    }
 
-        public List<int> Modifiers
+    // ==================================================================================================== IDefensive
+
+    public interface IDefensive : IMultipliers
+    {
+        // ==================================================================================================== Property
+
+        // =========================================================================== Command
+
+        // ================================================== Power
+
+        public List<int> DefensePowers
         {
             get; set;
         }
     }
 
-    // ==================================================================================================== IDefensive
+    // ==================================================================================================== IMultipliers
 
-    public interface IDefensive
+    public interface IMultipliers
     {
+        // ==================================================================================================== Property
 
+        // =========================================================================== Command
+
+        // ================================================== Power
+
+        public List<int> Multipliers
+        {
+            get; set;
+        }
+    }
+
+    // ==================================================================================================== BuffType
+
+    public enum BuffType
+    {
+        AttackPowerForTurn
     }
 }

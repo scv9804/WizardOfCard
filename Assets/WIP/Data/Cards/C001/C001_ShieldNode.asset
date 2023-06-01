@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02e90505ffbd57845813a5aaaa2a472c, type: 3}
-  m_Name: CardDatabase
+  m_Script: {fileID: 11500000, guid: ffa71ea1fc6c41b4b9f2b9097c4fc59d, type: 3}
+  m_Name: C001_ShieldNode
   m_EditorClassIdentifier: 
-  _cards:
-  - {fileID: 11400000, guid: 731e2e8fd9e56de4abd16b460c1478ee, type: 2}
-  - {fileID: 11400000, guid: 2541b4ac80d316044aa87a6792c2aafb, type: 2}
+  _format: '{0}'
+  _isActive: 010101
+  _shield: 050000000600000007000000

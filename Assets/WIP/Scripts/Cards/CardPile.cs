@@ -66,7 +66,7 @@ namespace WIP
 
         // ================================================== Instance
 
-        [JsonIgnore] public List<CardObject> CardObjects
+        [JsonIgnore] protected List<CardObject> CardObjects
         {
             get
             {
@@ -110,16 +110,20 @@ namespace WIP
 
         public void Initialize(string name, bool isDisplay)
         {
+            CardManager.Instance.OnRefresh += Refresh;
             CardManager.Instance.OnArrange += Arrange;
 
             Name = name;
 
-            IsDisplay = isDisplay;
+            Display(isDisplay);
         }
 
         public void Dispose()
         {
+            CardManager.Instance.OnRefresh -= Refresh;
             CardManager.Instance.OnArrange -= Arrange;
+
+            Display(false);
         }
 
         protected void IsDisplayCallback(Action cards, Action cardObjects)
@@ -154,14 +158,36 @@ namespace WIP
             }
         }
 
+        public void Refresh()
+        {
+
+        }
+
         // =========================================================================== Card
 
-        public Card GetCard(string instanceID)
+        public Card Choose(params Predicate<Card>[] match)
         {
-            return Cards.Find((card) =>
+            List<Card> result = Cards;
+
+            for (int i = 0; i < match.Length; i++)
             {
-                return card.InstanceID == instanceID;
-            });
+                result = result.FindAll(match[i]);
+            }
+
+            Card card;
+
+            if (result.Count > 0)
+            {
+                int index = UnityEngine.Random.Range(0, result.Count);
+
+                card = result[index];
+            }
+            else
+            {
+                card = null;
+            }
+
+            return card;
         }
 
         public virtual void Add(Card card)
@@ -206,13 +232,6 @@ namespace WIP
         }
 
         // =========================================================================== Transform
-
-        // ================================================== Sibling Index
-
-        public string GetGroupName()
-        {
-            return Name;
-        }
 
         // ================================================== Position
 
@@ -265,7 +284,9 @@ namespace WIP
                 },
                 () =>
                 {
-                    (CardObjects[i], CardObjects[index]) = (CardObjects[index], CardObjects[i]); // 이건 굳이 없어도 될거같기도
+                    (CardObjects[i], CardObjects[index]) = (CardObjects[index], CardObjects[i]); // 이건 굳이 없어도 될거 같긴 한데 숫자 맞춰주는게 정렬하기 편하니까 해둠
+
+                    Arrange();
                 });
             }
         }
@@ -340,9 +361,9 @@ namespace WIP
         }
     }
 
-    // ==================================================================================================== CardExiledPile
+    // ==================================================================================================== CardRewardPile
 
-    [Serializable] public class CardrewardPile : CardPile
+    [Serializable] public class CardRewardPile : CardPile
     {
         // ==================================================================================================== Method
 

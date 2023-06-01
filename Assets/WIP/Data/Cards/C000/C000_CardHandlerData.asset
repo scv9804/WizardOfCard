@@ -15,7 +15,7 @@ MonoBehaviour:
   _targetData:
     _range: 3
     _radius: 2
-    _isTargetable: 0
+    _isTargetable: 1
     _isRandom: 0
   _actions:
   - {fileID: 11400000, guid: d6d24066cca2b2c4992a3c07773d110d, type: 2}

@@ -56,5 +56,13 @@ namespace WIP
                 return _enlargedCardSize;
             }
         }
+
+        public float UsedCardSize
+        {
+            get
+            {
+                return _usedCardSize;
+            }
+        }
     }
 }
