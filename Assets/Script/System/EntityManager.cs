@@ -392,8 +392,8 @@ public class EntityManager : MonoBehaviour
             // << 22-12-04 장형용 :: 추가>>
             if (LevelGeneration.Inst.CurrentRoom.RoomEventType == 1)
                 SceneManager.LoadScene("SorryScene");
-           // else
-             //   RewardManager.Inst.GameClear();
+            else
+                RewardManager.Inst.GameClear();
         }
     }
     

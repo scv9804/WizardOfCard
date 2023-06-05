@@ -439,6 +439,7 @@ namespace WIP
 
             Selected.enabled = false;
 
+
             if (_battleMgr == null)
 			{
 #if UNITY_EDITOR
@@ -458,6 +459,7 @@ namespace WIP
                 Selected.Move(Selected.OriginPosition);
 
                 CostModule.Clear();
+
             }
             else
             {

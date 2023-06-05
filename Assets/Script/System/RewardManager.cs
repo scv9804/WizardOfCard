@@ -11,6 +11,7 @@ public class RewardManager : MonoBehaviour
 	private void Awake()
 	{
 		Inst = this;
+		DontDestroyOnLoad(this);
 	}
 
 	[SerializeField] List<Item_inven> itemList = new List<Item_inven>();
@@ -37,15 +38,15 @@ public class RewardManager : MonoBehaviour
 	{
 		UIManager.Inst.MapClearUI();
 		acceptButton.onClick.AddListener(AddClearReword);
-		if (itemList.Count != 0)
+/*		if (itemList.Count != 0)
 		{
 			SetReward();
 		}
-		else
+		else*/
 		{
 			SetRandomReward();
 		}
-		SetCardReward();
+	//	SetCardReward();
 	}
 
 	//모든보상 설정
@@ -85,6 +86,12 @@ public class RewardManager : MonoBehaviour
 	{
 		moneyObject = rewardSpawn.SetReward(rewardMoney);
 	}
+	
+	void SetRandomMoney()
+	{
+		rewardMoney = UnityEngine.Random.Range(10,30);
+		moneyObject = rewardSpawn.SetReward(rewardMoney);
+	}
 
 	//아이템설정
 	void SetReward()
@@ -106,15 +113,15 @@ public class RewardManager : MonoBehaviour
 	//랜덤 아이템 설정
 	public void SetRandomReward()
 	{
-		int  count = UnityEngine.Random.Range(0, 2);
+/*		int  count = UnityEngine.Random.Range(0, 2);
 
 		for (int i = 0;i < count ; i++)
 		{
 			int rand = UnityEngine.Random.Range(0, randomitemList.Count);
 			rewardObjectList.Add(rewardSpawn.SetReward(randomitemList[rand]));
 			rewardList.Add(randomitemList[rand]);
-		}
-		SetMoney();
+		}*/
+		SetRandomMoney();
 	}
 
 	//랜덤 테이블 설정
@@ -139,21 +146,6 @@ public class RewardManager : MonoBehaviour
 
 	void SetCardReward()
 	{
-		//int randcardcount = UnityEngine.Random.Range(1, 2);
-
-		//for (int i = 0; i < randcardcount; i ++)
-		//{
-		//	int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
-		//	var temt = Instantiate(rewardCard);
-		//	temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
-		//	temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-		//	temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
-		//	temt.transform.GetChild(3).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card.CardIconImage;
-		//	rewardCardList.Add(CardManager.Inst.itemSO.items[randcardcount].card);
-		//	rewardCardObjectList.Add(rewardSpawn.SetReward(temt));
-		//}
-
-		// <<22-12-03 장형용 :: 수정>>
 		int randcardcount = Random.Range(1, 2);
 
 		for (int i = 0; i < randcardcount; i++)

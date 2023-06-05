@@ -310,8 +310,6 @@ namespace XSSLG
                         mouseVector.Clear();
                     }
 
-                    cardTarget.Targets.
-
                     try
                     {
                         GridShowMgr.MoveShowRegion.ShowRegion(mouseVector);

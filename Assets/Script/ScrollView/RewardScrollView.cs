@@ -77,6 +77,7 @@ public class RewardScrollView : MonoBehaviour
         }
         scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
 
+        Debug.Log("dd");
 
         return newUI;
     }
