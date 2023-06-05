@@ -46,7 +46,7 @@ namespace XSSLG
         public List<Vector3> VectTest;
 
         bool SelectTile= false;
-        bool selectCardArea = false;
+
 /*
         /// <summary>
         /// 일단 테스트용
@@ -305,12 +305,12 @@ namespace XSSLG
                     //타일위치 바뀌었는지 확인하기
                     if (tile.WorldPos != mouseVector[0])
                     {
-                        Debug.Log("장한뜻을 품었구나");
                         SelectTile = false;
                         GridShowMgr.ClearMoveRegion();
                         mouseVector.Clear();
                     }
 
+                    cardTarget.Targets.
 
                     try
                     {
@@ -324,10 +324,8 @@ namespace XSSLG
                     }
 
 
-                    if (Mouse.current.leftButton.wasPressedThisFrame && !selectCardArea) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
+                    if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
                     {
-                        selectCardArea = true;
-
                         foreach (var vect in mouseVector.Distinct())
                         {
                             GridMgr.GetEntityInPos(vect, out var entity);
@@ -337,8 +335,8 @@ namespace XSSLG
                             }
                         }
                         cardTarget.IsActive = true;
-                        Debug.Log("ddddd");
-                        selectCardArea = false;
+                        GridShowMgr.ClearMoveRegion();
+                        mouseVector.Clear();
                         break;
                     }
                 }

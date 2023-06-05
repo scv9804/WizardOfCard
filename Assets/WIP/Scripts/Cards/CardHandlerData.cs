@@ -148,7 +148,7 @@ namespace WIP
         [SerializeField] private int _range;
 
         [Header("¹üÀ§")]
-        [SerializeField] private int _radius;
+        [SerializeField] private Vector3 _radius;
         // Vector3
 
         // =========================================================================== Option
@@ -176,7 +176,7 @@ namespace WIP
             }
         }
 
-        public int Radius
+        public Vector3 Radius
         {
             get
             {

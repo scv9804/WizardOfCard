@@ -440,11 +440,7 @@ namespace WIP
         {
             CardTarget targets = new CardTarget();
 
-            ////////////////////////////////////////////////// BETA
-            //targets.IsActive = true;
-            ////////////////////////////////////////////////// BETA
-
-            FindBattleMgr();
+            Selected.enabled = false;
 
             IEnumerator select = _battleMgr?.SelectTraget(targets);
 

@@ -274,11 +274,11 @@ namespace XSSLG
 			{
                 entity = EntityDic[pos];
                 Debug.Log("엔티티값을 반환했습니다._XSGRIDMGR_264");
-            }                
+            }            //아 하기싫어    
 			else
 			{
                 entity = null;
-                Debug.LogError("엔티티 값이 없어서 Null을 반환했습니다.");
+                Debug.Log("엔티티 값이 없어서 Null을 반환했습니다.");
             }
         }
 
