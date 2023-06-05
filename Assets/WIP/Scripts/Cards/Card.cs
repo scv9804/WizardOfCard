@@ -5,16 +5,13 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 using System;
+using System.Text;
 using System.Collections.ObjectModel;
 
 using UnityEngine.EventSystems;
 
 namespace WIP
 {
-    // ==================================================================================================== Delegate
-
-    public delegate void OnCardRefresh(Sprite frameSprite, Sprite artworkSprite, string name, int cost, string description);
-
     // ==================================================================================================== Card
 
     [Serializable] public class Card
@@ -29,14 +26,56 @@ namespace WIP
         [Header("시리얼 ID")]
         [SerializeField, JsonProperty("SerialID")] private int _serialID;
 
-        // =========================================================================== Upgrade
+        // =========================================================================== Status
+
+        // ================================================== Base
+
+        [Header("이름")]
+        [SerializeField, JsonProperty("Name")] private Data<string> _name = new Data<string>();
+
+        [Header("비용")]
+        [SerializeField, JsonProperty("Cost")] private Data<int> _cost = new Data<int>();
+
+        [Header("키워드")]
+        [SerializeField, JsonProperty("Name")] private Data<CardKeyword> _keyword = new Data<CardKeyword>();
+
+        [Header("설명")]
+        [SerializeField, JsonProperty("Cost")] private Data<string> _description = new Data<string>();
+
+        // ================================================== Upgrade
 
         [Header("강화 횟수")]
-        [SerializeField, JsonProperty("Upgraded"), Range(0, MAX_UPGRADE_LEVEL)] private int _upgraded = 0;
+        [SerializeField, JsonProperty("Upgraded")] private Data<int> _upgraded = new Data<int>();
 
-        // =========================================================================== Delegate
+        // ================================================== Asset
 
-        [JsonIgnore] private OnCardRefresh _onRefresh;
+        [Header("프레임 스프라이트")]
+        [SerializeField, JsonIgnore] private Data<Sprite> _frameSprite = new Data<Sprite>();
+
+        [Header("아이콘 스프라이트")]
+        [SerializeField, JsonIgnore] private Data<Sprite> _artworkSprite = new Data<Sprite>();
+
+        // ================================================== Ability
+
+        [Header("데미지")]
+        [SerializeField, JsonProperty("Damage")] private List<Data<int>> _damage = new List<Data<int>>();
+
+        [Header("쉴드")]
+        [SerializeField, JsonProperty("Shield")] private List<Data<int>> _shield = new List<Data<int>>();
+
+        // ================================================== System
+
+        [Header("반복 횟수")]
+        [SerializeField, JsonProperty("Count")] private List<Data<int>> _count = new List<Data<int>>();
+
+        // =========================================================================== Data
+
+        [Header("원본 데이터")]
+        [SerializeField, JsonProperty("Count")] private CardData _data;
+
+        // =========================================================================== StringBuilder
+
+        [JsonIgnore] private StringBuilder _stringBuilder = new StringBuilder();
 
         // =========================================================================== Constant
 
@@ -47,9 +86,9 @@ namespace WIP
 
         // ================================================== Scale
 
-        public const float HAND_CARD_SIZE = 0.2f;
+        public const float HAND_CARD_SIZE = 0.25f;
 
-        public const float ENLARGEMENT_CARD_SIZE = 2f;
+        public const float ENLARGEMENT_CARD_SIZE = 1.6f;
 
         // ================================================== Sibling Index
 
@@ -92,41 +131,63 @@ namespace WIP
 
         // =========================================================================== Status
 
-        [JsonIgnore] public string Name
+        // ================================================== Base
+
+        [JsonIgnore] public Data<string> Name
         {
             get
             {
-                return RefreshName(GetCardData());
+                return _name;
+            }
+
+            private set
+            {
+                _name = value;
             }
         }
 
-        [JsonIgnore] public int Cost
+        [JsonIgnore] public Data<int> Cost
         {
             get
             {
-                return RefreshCost(GetCardData());
+                return _cost;
+            }
+
+            private set
+            {
+                _cost = value;
             }
         }
 
-        [JsonIgnore] public CardKeyword Keyword
+        [JsonIgnore] public Data<CardKeyword> Keyword
         {
             get
             {
-                return RefreshKeyword(GetCardData());
+                return _keyword;
+            }
+
+            private set
+            {
+                _keyword = value;
             }
         }
 
-        [JsonIgnore] public string Description
+        [JsonIgnore] public Data<string> Description
         {
             get
             {
-                return RefreshDescription(GetCardData());
+                return _description;
+            }
+
+            private set
+            {
+                _description = value;
             }
         }
 
-        // =========================================================================== Upgrade
+        // ================================================== Upgrade
 
-        [JsonIgnore] public int Upgraded
+        [JsonIgnore] public Data<int> Upgraded
         {
             get
             {
@@ -138,6 +199,51 @@ namespace WIP
                 _upgraded = value;
             }
         }
+
+        // ================================================== Asset
+
+        [JsonIgnore] public Data<Sprite> FrameSprite
+        {
+            get
+            {
+                return _frameSprite;
+            }
+
+            private set
+            {
+                _frameSprite = value;
+            }
+        }
+
+        [JsonIgnore] public Data<Sprite> ArtworkSprite
+        {
+            get
+            {
+                return _artworkSprite;
+            }
+
+            private set
+            {
+                _artworkSprite = value;
+            }
+        }
+
+        // ================================================== Ability
+
+        [JsonIgnore] public int Damage
+        {
+            get
+            {
+                return _cost.Value;
+            }
+
+            private set
+            {
+                _cost.Value = value;
+            }
+        }
+
+        // ================================================== System
 
         // =========================================================================== Power
 
@@ -156,18 +262,18 @@ namespace WIP
             get; set;
         }
 
-        // =========================================================================== Delegate
+        // =========================================================================== Data
 
-        public event OnCardRefresh OnRefresh
+        [JsonIgnore] public CardData Data
         {
-            add
+            get
             {
-                _onRefresh += value;
+                return _data;
             }
 
-            remove
+            private set
             {
-                _onRefresh -= value;
+                _data = value;
             }
         }
 
@@ -189,87 +295,131 @@ namespace WIP
             InstanceID = instanceID;
             SerialID = serialID;
 
+            Data = CardManager.Instance.Database.Cards[SerialID];
+
             ////////////////////////////////////////////////// BETA
-            Upgrade();
-            Upgrade();
+            Upgrade(2);
             ////////////////////////////////////////////////// BETA
 
-            CardManager.Instance.Refresh();
+            AddEventCallback();
         }
 
         public void Dispose()
         {
+            RemoveEventCallback();
 
+            Data = null;
+        }
+
+        public void AddEventCallback()
+        {
+            Upgraded.OnChange += RefreshFrameSprite;
+            Upgraded.OnChange += RefreshArtworkSprite;
+
+            Upgraded.OnChange += RefreshName;
+            Upgraded.OnChange += RefreshCost;
+            Upgraded.OnChange += RefreshKeyword;
+            Upgraded.OnChange += RefreshDescription;
+
+            Keyword.OnChange += RefreshDescription;
+        }
+
+        public void RemoveEventCallback()
+        {
+            Upgraded.OnChange -= RefreshFrameSprite;
+            Upgraded.OnChange -= RefreshArtworkSprite;
+
+            Upgraded.OnChange -= RefreshName;
+            Upgraded.OnChange -= RefreshCost;
+            Upgraded.OnChange -= RefreshKeyword;
+            Upgraded.OnChange -= RefreshDescription;
+
+            Keyword.OnChange -= RefreshDescription;
         }
 
         // =========================================================================== Status
 
-        private string RefreshName(CardData data)
+        // ================================================== Base
+
+        private void RefreshName(IEventParameter parameter)
         {
-            string name = $"{data.Name} I";
+            _stringBuilder.Clear();
+            _stringBuilder.Append($"{Data.Name} I");
 
-            Utility.StringBuilder.Clear();
-            Utility.StringBuilder.Append(name);
-
-            for (int i = 0; i < Upgraded; i++)
+            for (int i = 0; i < Upgraded.Value; i++)
             {
-                Utility.StringBuilder.Append("I");
+                _stringBuilder.Append("I");
             }
 
-            return Utility.StringBuilder.ToString();
+            Name.Value = _stringBuilder.ToString();
         }
 
-        private int RefreshCost(CardData data)
+        private void RefreshCost(IEventParameter parameter)
         {
-            int cost = data.Cost[Upgraded];
+            int cost = Data.Cost[Upgraded.Value];
 
-            return cost;
+            //
+
+            Cost.Value = cost;
         }
 
-        private CardKeyword RefreshKeyword(CardData data)
+        private void RefreshKeyword(IEventParameter parameter)
         {
-            CardKeyword keyword = data.Keyword[Upgraded];
+            CardKeyword keyword = Data.Keyword[Upgraded.Value];
 
-            return keyword;
+            //
+
+            Keyword.Value = keyword;
         }
 
-        private string RefreshDescription(CardData data)
+        private void RefreshDescription(IEventParameter parameter)
         {
-            string description = data.HandlerData.GetDescription(data.Description[Upgraded], Upgraded);
+            _stringBuilder.Clear();
 
-            Utility.StringBuilder.Clear();
-            Utility.StringBuilder.Append(description);
-
-            if ((RefreshKeyword(data) & CardKeyword.Exile) != 0)
+            if ((Keyword.Value & CardKeyword.Exile) != 0)
             {
-                Utility.StringBuilder.Append("망각\n");
+                _stringBuilder.Append("망각\n");
             }
 
-            Utility.StringBuilder.Replace("망각", "<color=#ff88ff>망각</color>");
+            string description = Data.HandlerData.GetDescription(Data.Description[Upgraded.Value], Upgraded.Value);
 
-            return Utility.StringBuilder.ToString();
+            _stringBuilder.Append(description);
+
+            _stringBuilder.Replace("망각", "<color=#ff88ff>망각</color>");
+
+            Description.Value = _stringBuilder.ToString();
         }
 
-        // =========================================================================== Upgrade
+        // ================================================== Upgrade
 
-        public void Upgrade()
+        public void Upgrade(int upgrade)
         {
-            Upgraded += 1;
+            Upgraded.Value = Math.Min(Upgraded.Value + upgrade, MAX_UPGRADE_LEVEL);
+        }
+
+        // ================================================== Asset
+
+        private void RefreshFrameSprite(IEventParameter parameter)
+        {
+            FrameSprite.Value = Data.FrameSprite[Upgraded.Value];
+        }
+
+        private void RefreshArtworkSprite(IEventParameter parameter)
+        {
+            ArtworkSprite.Value = Data.ArtworkSprite[Upgraded.Value];
         }
 
         // =========================================================================== Use
 
         public IEnumerator Use(CardTarget targets)
         {
-            CardData data = GetCardData();
-
             ////////////////////////////////////////////////// BETA
-            data.HandlerData.Execute(this, null);
+            Data.HandlerData.Execute(this, null);
             ////////////////////////////////////////////////// BETA
 
             for (int i = 0; i < targets.Targets.Count; i++)
             {
-                data.HandlerData.Execute(this, targets.Targets[i]);
+                Data.HandlerData.Execute(this, targets.Targets[i]);
             }
 
             yield return null;
@@ -277,23 +427,29 @@ namespace WIP
 
         public void Refresh()
         {
-            CardData data = GetCardData();
-
-            Sprite frameSprite = data.FrameSprite[Upgraded];
-            Sprite artworkSprite = data.FrameSprite[Upgraded];
-
-            string name = RefreshName(data);
-            int cost = RefreshCost(data);
-            string description = RefreshDescription(data);
-
-            _onRefresh?.Invoke(frameSprite, artworkSprite, name, cost, description);
+            Upgraded.Value = Upgraded.Value;
         }
 
-        // =========================================================================== Data
+        // =========================================================================== Observer
 
-        public CardData GetCardData()
+        public void Subscribe(CardObject cardObject)
         {
-            return CardManager.Instance.Database.Cards[SerialID];
+            FrameSprite.OnChange += cardObject.RefreshFrameImage;
+            ArtworkSprite.OnChange += cardObject.RefreshArtworkImage;
+
+            Name.OnChange += cardObject.RefreshNameText;
+            Cost.OnChange += cardObject.RefreshCostText;
+            Description.OnChange += cardObject.RefreshDescriptionText;
+        }
+
+        public void Unsubscribe(CardObject cardObject)
+        {
+            FrameSprite.OnChange -= cardObject.RefreshFrameImage;
+            ArtworkSprite.OnChange -= cardObject.RefreshArtworkImage;
+
+            Name.OnChange -= cardObject.RefreshNameText;
+            Cost.OnChange -= cardObject.RefreshCostText;
+            Description.OnChange -= cardObject.RefreshDescriptionText;
         }
     }
 

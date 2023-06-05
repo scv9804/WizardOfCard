@@ -14,6 +14,12 @@ namespace WIP
     {
         // ==================================================================================================== Field
 
+        // =========================================================================== Pile
+
+        // ================================================== Count
+
+        private Data<int> _count = new Data<int>();
+
         // =========================================================================== Card
 
         // ================================================== Instance
@@ -42,11 +48,16 @@ namespace WIP
 
         // =========================================================================== Pile
 
-        public int Count
+        [JsonIgnore] public Data<int> Count
         {
             get
             {
-                return Cards.Count;
+                return _count;
+            }
+
+            private set
+            {
+                _count = value;
             }
         }
 
@@ -110,9 +121,6 @@ namespace WIP
 
         public void Initialize(string name, bool isDisplay)
         {
-            CardManager.Instance.OnRefresh += Refresh;
-            CardManager.Instance.OnArrange += Arrange;
-
             Name = name;
 
             Display(isDisplay);
@@ -120,9 +128,6 @@ namespace WIP
 
         public void Dispose()
         {
-            CardManager.Instance.OnRefresh -= Refresh;
-            CardManager.Instance.OnArrange -= Arrange;
-
             Display(false);
         }
 
@@ -142,14 +147,14 @@ namespace WIP
 
             if (IsDisplay)
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < Count.Value; i++)
                 {
-                    SetCardObject(Cards[i].InstanceID);
+                    SetCardObject(Cards[i]);
                 }
             }
             else
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < Count.Value; i++)
                 {
                     CardObjects[i].Dispose();
                 }
@@ -160,12 +165,15 @@ namespace WIP
 
         public void Refresh()
         {
-
+            for (int i = 0; i < Cards.Count; i++)
+            {
+                Cards[i].Refresh();
+            }
         }
 
         // =========================================================================== Card
 
-        public Card Choose(params Predicate<Card>[] match)
+        public List<Card> Choose(params Predicate<Card>[] match)
         {
             List<Card> result = Cards;
 
@@ -174,20 +182,7 @@ namespace WIP
                 result = result.FindAll(match[i]);
             }
 
-            Card card;
-
-            if (result.Count > 0)
-            {
-                int index = UnityEngine.Random.Range(0, result.Count);
-
-                card = result[index];
-            }
-            else
-            {
-                card = null;
-            }
-
-            return card;
+            return result;
         }
 
         public virtual void Add(Card card)
@@ -198,13 +193,23 @@ namespace WIP
             }, 
             () =>
             {
-                SetCardObject(card.InstanceID);
+                SetCardObject(card);
             });
+
+            Count.Value += 1;
+
+            Refresh();
+            Arrange();
         }
 
         public virtual void Remove(Card card)
         {
             int index = Cards.IndexOf(card);
+
+            if (index == -1)
+            {
+                return;
+            }
 
             IsDisplayCallback(() =>
             {
@@ -215,20 +220,48 @@ namespace WIP
                 CardObjects[index].Dispose();
 
                 CardObjects.RemoveAt(index);
-
-                Arrange();
             });
+
+            Count.Value -= 1;
+
+            Refresh();
+            Arrange();
+        }
+
+        public virtual void Destroy(Card card)
+        {
+            Remove(card);
+
+            card.Dispose();
+        }
+
+        public Card this[int index]
+        {
+            get
+            {
+                return new Card();
+            }
+        }
+
+        public Card this[string key]
+        {
+            get
+            {
+                return new Card();
+            }
         }
 
         // =========================================================================== CardObject
 
-        protected virtual void SetCardObject(string instanceID)
+        protected virtual void SetCardObject(Card card)
         {
-            CardObject cardObject = CardObject.Create(instanceID, this);
+            CardObject cardObject = CardObject.Create(card.InstanceID, this);
+
+            cardObject.Pile = this;
+
+            card.Subscribe(cardObject);
 
             CardObjects.Add(cardObject);
-
-            Arrange();
         }
 
         // =========================================================================== Transform
@@ -237,15 +270,27 @@ namespace WIP
 
         public void Arrange()
         {
-            for (int i = 0; i < CardObjects.Count; i++)
+            if (!IsDisplay)
             {
-                Vector3 position = GetPosition(CardObjects.Count, i);
+                return;
+            }
+
+            for (int i = 0; i < Count.Value; i++)
+            {
+                Vector3 position = GetPosition(Count.Value, i);
 
                 CardObjects[i].Arrange(position, i);
             }
         }
 
         protected abstract Vector3 GetPosition(int count, int index);
+    }
+
+    // ==================================================================================================== CardOwnedPile
+
+    [Serializable] public class CardOwnedPile
+    {
+
     }
 
     // ==================================================================================================== CardDeckPile
@@ -274,9 +319,9 @@ namespace WIP
         {
             int index;
 
-            for (int i = 0; i < Cards.Count; i++)
+            for (int i = 0; i < Count.Value; i++)
             {
-                index = UnityEngine.Random.Range(i, Cards.Count);
+                index = UnityEngine.Random.Range(i, Count.Value);
 
                 IsDisplayCallback(() =>
                 {
@@ -298,7 +343,7 @@ namespace WIP
         protected override Vector3 GetPosition(int count, int index)
         {
             float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 4;
+            float y = Screen.height / 8;
 
             return new Vector3(x, y, 0.0f);
         }
@@ -317,7 +362,7 @@ namespace WIP
         protected override Vector3 GetPosition(int count, int index)
         {
             float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 4;
+            float y = Screen.height / 8;
 
             return new Vector3(x, y, 0.0f);
         }
@@ -336,7 +381,7 @@ namespace WIP
         protected override Vector3 GetPosition(int count, int index)
         {
             float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 4;
+            float y = Screen.height / 8;
 
             return new Vector3(x, y, 0.0f);
         }
@@ -355,7 +400,7 @@ namespace WIP
         protected override Vector3 GetPosition(int count, int index)
         {
             float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 4;
+            float y = Screen.height / 8;
 
             return new Vector3(x, y, 0.0f);
         }
@@ -374,7 +419,7 @@ namespace WIP
         protected override Vector3 GetPosition(int count, int index)
         {
             float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 4;
+            float y = Screen.height / 8;
 
             return new Vector3(x, y, 0.0f);
         }

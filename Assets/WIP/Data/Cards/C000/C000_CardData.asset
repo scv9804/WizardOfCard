@@ -17,7 +17,7 @@ MonoBehaviour:
     _type: 0
     _value: 0
   _cost: 010000000100000001000000
-  _keyword: 000000000000000000000000
+  _keyword: 0000000000000000ffffffff
   _description:
   - "\uB370\uBBF8\uC9C0\uB97C {0} \uC90D\uB2C8\uB2E4."
   - "\uB370\uBBF8\uC9C0\uB97C {0} \uC90D\uB2C8\uB2E4."

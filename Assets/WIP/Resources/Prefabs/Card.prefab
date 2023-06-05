@@ -446,9 +446,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b810bf27a1fdaf34494975e89335fefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _instanceID: 
   _originPosition: {x: 0, y: 0, z: 0}
   _originSiblingIndex: 0
   _state: 0
+  _isUsable: 1
   _components: {fileID: 8111365054620295061}
 --- !u!114 &8111365054620295061
 MonoBehaviour:
@@ -722,7 +724,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

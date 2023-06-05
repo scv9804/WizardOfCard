@@ -65,15 +65,15 @@ namespace WIP
 
         public override string GetDescription(string description, int upgraded)
         {
-            Utility.StringBuilder.Clear();
-            Utility.StringBuilder.Append(description);
+            StringBuilder.Clear();
+            StringBuilder.Append(description);
 
             EntityAttackCommand command = CreateCommand(upgraded);
 
-            Utility.StringBuilder.Replace(Format, $"<color=#ff0000>{Format}</color>");
-            Utility.StringBuilder.Replace(Format, command.GetDamage().ToString());
+            StringBuilder.Replace(Format, $"<color=#ff4444>{Format}</color>");
+            StringBuilder.Replace(Format, command.GetDamage().ToString());
 
-            return Utility.StringBuilder.ToString();
+            return StringBuilder.ToString();
         }
 
         // =========================================================================== Effect
@@ -82,7 +82,7 @@ namespace WIP
 
         public override void Execute(Card card, CardHandler handler)
         {
-            EntityAttackCommand command = CreateCommand(card.Upgraded);
+            EntityAttackCommand command = CreateCommand(card.Upgraded.Value);
 
             handler.Commands.Add(command);
         }

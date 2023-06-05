@@ -21,6 +21,10 @@ namespace WIP
             "WIP", "Save"
         };
 
+        // =========================================================================== StringBuilder
+
+        private static StringBuilder s_stringBuilder = new StringBuilder();
+
         // ==================================================================================================== Properties
 
         // =========================================================================== File Path
@@ -126,17 +130,17 @@ namespace WIP
 
         private static string GetFilePath(string name, params string[] directory)
         {
-            Utility.StringBuilder.Clear();
-            Utility.StringBuilder.Append(FilePath);
+            s_stringBuilder.Clear();
+            s_stringBuilder.Append(FilePath);
 
             for (int i = 0; i < directory.Length; i++)
             {
-                Utility.StringBuilder.Append($"/{directory[i]}");
+                s_stringBuilder.Append($"/{directory[i]}");
             }
 
-            Utility.StringBuilder.Append($"/{name}.json");
+            s_stringBuilder.Append($"/{name}.json");
 
-            string path = Utility.StringBuilder.ToString();
+            string path = s_stringBuilder.ToString();
 
             Debug.Log(path);
 

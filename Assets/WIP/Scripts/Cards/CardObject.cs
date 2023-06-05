@@ -264,26 +264,58 @@ namespace WIP
 
         // =========================================================================== Card
 
-        public Card GetCard()
+        public Card GetCard() // ¾Æ
         {
-            //return Pile.GetCard(InstanceID);
-
             return Pile.Choose((card) =>
             {
                 return card.InstanceID == InstanceID;
-            });
+            })[0];
         }
 
         // =========================================================================== Component
 
-        public void Refresh((Sprite FrameSprite, Sprite ArtworkSprite, string Name, int Cost, string Description) information)
-        {
-            _components.FrameImage.sprite = information.FrameSprite;
-            _components.ArtworkImage.sprite = information.ArtworkSprite;
+        // ================================================== Image
 
-            _components.NameTMP.text = information.Name;
-            _components.CostTMP.text = information.Cost.ToString();
-            _components.DescriptionTMP.text = information.Description;
+        public void RefreshFrameImage(IEventParameter parameter)
+        {
+            parameter.Casting<IData<Sprite>>((frameSprite) =>
+            {
+                _components.FrameImage.sprite = frameSprite.Value;
+            });
+        }
+
+        public void RefreshArtworkImage(IEventParameter parameter)
+        {
+            parameter.Casting<IData<Sprite>>((artworkSprite) =>
+            {
+                _components.ArtworkImage.sprite = artworkSprite.Value;
+            });
+        }
+
+        // ================================================== Text
+
+        public void RefreshNameText(IEventParameter parameter)
+        {
+            parameter.Casting<IData<string>>((name) =>
+            {
+                _components.NameTMP.text = name.Value;
+            });
+        }
+
+        public void RefreshCostText(IEventParameter parameter)
+        {
+            parameter.Casting<IData<int>>((cost) =>
+            {
+                _components.CostTMP.text = cost.Value.ToString();
+            });
+        }
+
+        public void RefreshDescriptionText(IEventParameter parameter)
+        {
+            parameter.Casting<IData<string>>((description) =>
+            {
+                _components.DescriptionTMP.text = description.Value;
+            });
         }
     }
 

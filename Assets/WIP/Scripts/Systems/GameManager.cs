@@ -5,6 +5,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 using System;
+using System.Text;
 
 namespace WIP
 {
@@ -18,7 +19,15 @@ namespace WIP
 
         public const string INSTANCE_ID_FORMAT = "D6";
 
+        // =========================================================================== StringBuilder
+
+        private StringBuilder _stringBuilder = new StringBuilder();
+
         // =========================================================================== GameManager
+
+        // ================================================== GameMode
+
+        private GameMode _gameMode = GameMode.Battle;
 
         // ================================================== Data
 
@@ -34,6 +43,21 @@ namespace WIP
             get
             {
                 return "Game Manager";
+            }
+        }
+
+        // ================================================== GameMode
+
+        public GameMode GameMode
+        {
+            get
+            {
+                return _gameMode;
+            }
+
+            private set
+            {
+                _gameMode = value;
             }
         }
 
@@ -61,32 +85,32 @@ namespace WIP
 
         public string Allocate(InstanceType type)
         {
-            Utility.StringBuilder.Clear();
+            _stringBuilder.Clear();
 
             switch (type)
             {
                 case InstanceType.Boss:
-                    Utility.StringBuilder.Append("D");
+                    _stringBuilder.Append("D");
                     break;
                 case InstanceType.Card:
-                    Utility.StringBuilder.Append("C");
+                    _stringBuilder.Append("C");
                     break;
                 case InstanceType.Enemy:
-                    Utility.StringBuilder.Append("E");
+                    _stringBuilder.Append("E");
                     break;
                 case InstanceType.Item:
-                    Utility.StringBuilder.Append("I");
+                    _stringBuilder.Append("I");
                     break;
                 case InstanceType.Player:
-                    Utility.StringBuilder.Append("P");
+                    _stringBuilder.Append("P");
                     break;
             }
 
-            Utility.StringBuilder.Append(_data.Allocated.ToString(INSTANCE_ID_FORMAT));
+            _stringBuilder.Append(_data.Allocated.ToString(INSTANCE_ID_FORMAT));
 
             _data.Allocated += 1;
 
-            return Utility.StringBuilder.ToString();
+            return _stringBuilder.ToString();
         }
     }
 
@@ -105,8 +129,7 @@ namespace WIP
 
         // =========================================================================== Identifier
 
-        [JsonIgnore]
-        public int Allocated
+        [JsonIgnore] public int Allocated
         {
             get
             {
@@ -118,6 +141,19 @@ namespace WIP
                 _allocated = value;
             }
         }
+    }
+
+    // ==================================================================================================== GameMode
+
+    public enum GameMode
+    {
+        None,
+
+        WorldMap,
+
+        Battle,
+
+        Event
     }
 
     // ==================================================================================================== InstanceType
