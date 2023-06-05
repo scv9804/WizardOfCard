@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Text;
+
 namespace WIP
 {
     // Abilities
@@ -15,6 +17,10 @@ namespace WIP
 
         [Header("설명 포맷")]
         [SerializeField] private string _format;
+
+        // =========================================================================== StringBuilder
+
+        private StringBuilder _stringBuilder = new StringBuilder();
 
         // =========================================================================== Action
 
@@ -32,6 +38,16 @@ namespace WIP
             get
             {
                 return _format;
+            }
+        }
+
+        // =========================================================================== StringBuilder
+
+        protected StringBuilder StringBuilder
+        {
+            get
+            {
+                return _stringBuilder;
             }
         }
 

@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System;
-using System.Globalization;
 
 namespace WIP
 {
     public class Tester : MonoBehaviour
     {
-        public List<Area> Areas = new List<Area>();
-
-        public List<string> texts = new List<string>();
+        public Library<string, int> Library = new Library<string, int>();
 
         private void Awake()
         {
+            Dictionary<int, int> Sample = new Dictionary<int, int>();
 
+            Library.Add("goto 5", 6);
+            Library.Add("goto 3", 16);
         }
 
         // GetCard에도 callback 적용하기
-                    
+
         void CardTest()
         {
             // 물의 룬

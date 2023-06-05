@@ -15,6 +15,8 @@ namespace WIP
 
         // =========================================================================== Status
 
+        // ================================================== Base
+
         [Header("이름")]
         [SerializeField] private string _name;
 
@@ -30,7 +32,7 @@ namespace WIP
         [Header("설명")]
         [SerializeField, TextArea(3, 5)] private string[] _description = new string[Card.MAX_UPGRADE_LEVEL + 1];
 
-        // =========================================================================== Asset
+        // ================================================== Asset
 
         [Header("프레임 스프라이트")]
         [SerializeField] private Sprite[] _frameSprite = new Sprite[Card.MAX_UPGRADE_LEVEL + 1];
@@ -38,7 +40,7 @@ namespace WIP
         [Header("아이콘 스프라이트")]
         [SerializeField] private Sprite[] _artworkSprite = new Sprite[Card.MAX_UPGRADE_LEVEL + 1];
 
-        // =========================================================================== Skill
+        // ================================================== Ability
 
         [Header("효과 데이터")]
         [SerializeField] private CardHandlerData _handlerData;
@@ -46,6 +48,8 @@ namespace WIP
         // ==================================================================================================== Property
 
         // =========================================================================== Status
+
+        // ================================================== Base
 
         public string Name
         {
@@ -87,7 +91,7 @@ namespace WIP
             }
         }
 
-        // =========================================================================== Asset
+        // ================================================== Asset
 
         public Sprite[] FrameSprite
         {
@@ -105,7 +109,7 @@ namespace WIP
             }
         }
 
-        // =========================================================================== Skill
+        // ================================================== Ability
 
         public CardHandlerData HandlerData
         {
