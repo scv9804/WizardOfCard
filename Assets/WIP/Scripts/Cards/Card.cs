@@ -291,7 +291,7 @@ namespace WIP
 
         // =========================================================================== Data
 
-        private CardData GetCardData()
+        public CardData GetCardData()
         {
             return CardManager.Instance.Database.Cards[SerialID];
         }
