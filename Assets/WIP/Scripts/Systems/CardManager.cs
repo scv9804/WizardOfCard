@@ -437,10 +437,6 @@ namespace WIP
         {
             CardTarget targets = new CardTarget();
 
-            ////////////////////////////////////////////////// BETA
-            //targets.IsActive = true;
-            ////////////////////////////////////////////////// BETA
-
             Selected.enabled = false;
 
             if (_battleMgr == null)
