@@ -123,11 +123,15 @@ namespace WIP
         {
             Name = name;
 
+            CardManager.Instance.OnArrange += Arrange;
+
             Display(isDisplay);
         }
 
         public void Dispose()
         {
+            CardManager.Instance.OnArrange -= Arrange;
+
             Display(false);
         }
 

@@ -272,7 +272,7 @@ namespace WIP
 
                 { KeyCode.V, () =>
                 {
-                    for (int i = 0; i < Discard.Count; i++)
+                    for (int i = 0; i < Discard.Count.Value; i++)
                     {
                         StartCoroutine(Recycle(Discard.Cards[i], null));
                     }
@@ -331,7 +331,7 @@ namespace WIP
                 return;
             }
 
-            CostModule.Cost = Selected.GetCard().Cost;
+            CostModule.Cost = Selected.GetCard().Cost.Value;
             CostModule.Estimate();
 
             if (CostModule.IsEnough)
@@ -488,7 +488,7 @@ namespace WIP
 
                 yield return StartCoroutine(card.Use(targets));
 
-                if ((card.Keyword & CardKeyword.Exile) != 0)
+                if ((card.Keyword.Value & CardKeyword.Exile) != 0)
                 {
                     Exiled.Add(card);
                 }

@@ -175,7 +175,13 @@ namespace WIP
 
             // =========================================================================== ??????????
 
-            public int Count => throw new NotImplementedException();
+            public int Count
+            {
+                get
+                {
+                    return _keys.Length;
+                }
+            }
 
             bool ICollection<TKey>.IsReadOnly => throw new NotImplementedException();
 
