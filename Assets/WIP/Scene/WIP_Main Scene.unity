@@ -601,22 +601,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0e55579e4aae1145a734f1b1529e51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  library:
+  Library:
     _keys:
       _keys: []
     _values:
       _values: 
-    _items:
-    - _key: 1
-      _value: 1
-    - _key: 2
-      _value: 2
-    - _key: 3
-      _value: 3
-    - _key: 4
-      _value: 4
-    - _key: 5
-      _value: 5
 --- !u!4 &1887733956
 Transform:
   m_ObjectHideFlags: 0
