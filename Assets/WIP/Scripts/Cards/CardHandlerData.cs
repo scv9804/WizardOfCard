@@ -148,7 +148,7 @@ namespace WIP
         [SerializeField] private int _range;
 
         [Header("¹üÀ§")]
-        [SerializeField] private List<Vector3> _radius;
+        [SerializeField] private Radious _radius;
         // Vector3
 
         // =========================================================================== Option
@@ -180,12 +180,12 @@ namespace WIP
         {
             get
             {
-                return _radius;
+                return _radius.radiousList;
             }
 
             set
             {
-                _radius = value;
+                _radius.radiousList = value;
             }
         }
 

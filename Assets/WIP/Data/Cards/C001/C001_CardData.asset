@@ -22,6 +22,7 @@ MonoBehaviour:
   - "\uC274\uB4DC\uB97C {0} \uC5BB\uC2B5\uB2C8\uB2E4. "
   - "\uC274\uB4DC\uB97C {0} \uC5BB\uC2B5\uB2C8\uB2E4. "
   - "\uC274\uB4DC\uB97C {0} \uC5BB\uC2B5\uB2C8\uB2E4. "
+  _targetSelf: 1
   _frameSprite:
   - {fileID: 21300000, guid: fe7b25eb5211f2149a8f0259054303e2, type: 3}
   - {fileID: 21300000, guid: 2db62b4f235e09141a3cef43389734ca, type: 3}

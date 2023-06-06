@@ -32,6 +32,9 @@ namespace WIP
         [Header("설명")]
         [SerializeField, TextArea(3, 5)] private string[] _description = new string[Card.MAX_UPGRADE_LEVEL + 1];
 
+        [Header("본인 타겟")]
+        [SerializeField] private bool _targetSelf;
+
         // ================================================== Asset
 
         [Header("프레임 스프라이트")]
@@ -82,6 +85,18 @@ namespace WIP
                 return _keyword;
             }
         }
+
+        public bool TargetSelf
+		{
+			get
+			{
+                return _targetSelf; 
+			}
+			set
+			{
+                _targetSelf = value;
+			}
+		}
 
         public string[] Description
         {

@@ -197,7 +197,15 @@ public class RewardManager : MonoBehaviour
 			}
 		}
 
-		UIManager.Inst.MinimapActive();
+		try
+		{
+			UIManager.Inst.MinimapActive();
+		}
+		catch
+		{
+			Debug.Log(206 + "버그수정중");
+		}
+	
 
 		rewardSpawn.destroyRewardObejct();
 		moneyObject = null;

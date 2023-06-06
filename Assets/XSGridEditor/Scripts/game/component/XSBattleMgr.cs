@@ -135,7 +135,7 @@ namespace XSSLG
                                     }
                                 }
                             }
-                            else
+                            /*else
                             {
                                 var tile = XSUG.GetMouseTargetTile();
 
@@ -153,7 +153,7 @@ namespace XSSLG
                                         this.SelectedUnit = null;
                                     }
                                 }
-                            }
+                            }*/
                         }
                         else
                         {
@@ -166,11 +166,11 @@ namespace XSSLG
                                      Debug.Log("SelectedUnit: " + unit.name);
                                     this.MoveRegion = this.GridShowMgr.ShowMoveRegion(unit); // 위치 보여주기
                                 }
-                                else
+                                /*else
                                 {
                                     Debug.Log("SelectedUnit_Attack: " + unit.name);
                                     this.MoveRegion = this.GridShowMgr.ShowAttackRegion(unit); // 이 부분 수정해서 공격으로 수정가능 
-                                }
+                                }*/
                             }
 
                         }
@@ -278,7 +278,7 @@ namespace XSSLG
         }
 
         //적 선택하는거 테스트
-        public IEnumerator SelectTraget(WIP.CardTarget cardTarget)
+        public IEnumerator SelectTraget(WIP.CardTarget cardTarget , List<Vector3> radius)
         {
             while (true)
             {
@@ -287,14 +287,14 @@ namespace XSSLG
                     var tile = XSUG.GetMouseTargetTile();
 
                     //첫 타일 값 삽입.
-                    mouseVector.Add(tile.WorldPos);
+                    mouseVector.Add(tile.WorldPos);                   
 
                     //타일 주변값 비교
                     if (!SelectTile)
                     {
                         SelectTile = true;
                         Debug.Log("타일 값 넣기");
-                        foreach (var t in VectTest)
+                        foreach (var t in radius)
                         {
                             if (GridMgr.GetTileVect().Contains(tile.WorldPos + t))
                             {
@@ -349,20 +349,6 @@ namespace XSSLG
         StartCoroutine(test(n => { ns = n; }));
         
         */
-
-        public IEnumerator cardtest(int[,] attackRange , XSTile tile ,Action<Entity> action)
-		{
-			foreach (var unit in units)
-			{
-          //      tile.WorldPos.x;
-			}
-
-            Entity action1 = units[0].GetComponent<Entity>();
-
-            action.Invoke(action1);
-            yield return null;
-
-		}
 
 
         public void WalkTo(List<Vector3> path)

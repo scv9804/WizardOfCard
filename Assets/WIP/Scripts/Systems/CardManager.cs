@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 using XSSLG;
 
@@ -21,20 +22,12 @@ namespace WIP
 
         // =========================================================================== Card
 
-        // ================================================== Delegate
-
-        private Action _onRefresh;
-
         // =========================================================================== CardObject
 
         // ================================================== Instance
 
         [Header("선택 중인 카드")]
         [SerializeField] private CardObject _selected;
-
-        // ================================================== Delegate
-
-        private Action _onArrange;
 
         // =========================================================================== CardManager
 
@@ -88,21 +81,6 @@ namespace WIP
 
         // =========================================================================== Card
 
-        // ================================================== Delegate
-
-        public event Action OnRefresh
-        {
-            add
-            {
-                _onRefresh += value;
-            }
-
-            remove
-            {
-                _onRefresh -= value;
-            }
-        }
-
         // =========================================================================== CardObject
 
         // ================================================== Instance
@@ -117,21 +95,6 @@ namespace WIP
             set
             {
                 _selected = value;
-            }
-        }
-
-        // ================================================== Delegate
-
-        public event Action OnArrange
-        {
-            add
-            {
-                _onArrange += value;
-            }
-
-            remove
-            {
-                _onArrange -= value;
             }
         }
 
@@ -257,12 +220,14 @@ namespace WIP
                 {
                     int index = UnityEngine.Random.Range(0, 2);
 
-                    GetCard(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), index));
+                    StartCoroutine(Acquire(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), index), null));
                 }},
 
                 { KeyCode.X, () =>
                 {
-                    StartCoroutine(Draw(Deck.Cards.LastOrDefault(), null));
+                    //StartCoroutine(Draw(null, Deck.Cards.LastOrDefault()));
+
+                    StartCoroutine(Draw(null));
                 }},
 
                 { KeyCode.C, () =>
@@ -272,9 +237,11 @@ namespace WIP
 
                 { KeyCode.V, () =>
                 {
-                    for (int i = 0; i < Discard.Count; i++)
+                    int count = Discard.Count.Value;
+
+                    for (int i = 0; i < count; i++)
                     {
-                        StartCoroutine(Recycle(Discard.Cards[i], null));
+                        StartCoroutine(Recycle(null));
                     }
                 }}
             };
@@ -331,7 +298,7 @@ namespace WIP
                 return;
             }
 
-            CostModule.Cost = Selected.GetCard().Cost;
+            CostModule.Cost = Selected.GetCard().Cost.Value;
             CostModule.Estimate();
 
             if (CostModule.IsEnough)
@@ -363,7 +330,7 @@ namespace WIP
 
                 Selected.State = CardState.IsUse;
 
-                StartCoroutine(SetCardTarget());
+                StartCoroutine(Play());
             }
             else
             {
@@ -381,106 +348,130 @@ namespace WIP
         {
             base.Initialize();
 
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // 현재 root에다가 안 둬서 버그남
 
             LoadData();
-            _data.Initialize();
+
+            Deck.Initialize(Card.DECK_GROUP_NAME, false);
+            Hand.Initialize(Card.HAND_GROUP_NAME, true);
+            Discard.Initialize(Card.DISCARD_GROUP_NAME, false);
+            Exiled.Initialize(Card.EXILED_GROUP_NAME, false);
+
+            if (GameManager.Instance.GameMode == GameMode.Battle)
+            {
+                StartCoroutine(GameSetting());
+            }
+        }
+
+        // =========================================================================== Scene
+
+        protected override void OnLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (GameManager.Instance.GameMode == GameMode.Battle)
+            {
+                StartCoroutine(GameSetting());
+            }
         }
 
         // =========================================================================== Card
 
-        public Card GetCard(Card card)
-        {
-            Deck.Add(card);
-
-            return card;
-        }
-
-        public IEnumerator Draw(Card card, Action<Card> callback)
+        public IEnumerator Acquire(Card card, Action<Card> callback)
         {
             yield return ProcessManager.Instance.AddTask(null, Main());
 
+            // ================================================== Main
+
             IEnumerator Main()
             {
-                if (card != null && Hand.Cards.Count < Settings.MaxHandCount && true)
-                {
-                    Deck.Remove(card);
-                    Hand.Add(card);
+                Deck.Add(card);
 
-                    callback?.Invoke(card);
+                callback?.Invoke(card);
 
-                    Arrange();
-                }
-
-                yield return card;
+                yield return null;
             }
         }
 
-        public IEnumerator Recycle(Card card, Action<Card> callback)
+        public IEnumerator Draw(Action<Card> callback)
         {
             yield return ProcessManager.Instance.AddTask(null, Main());
 
+            // ================================================== Main
+
             IEnumerator Main()
             {
+                if (Deck.Count.Value == 0 || Hand.Cards.Count == Settings.MaxHandCount || false)
+                {
+                    yield break;
+                }
+
+                Card card = Deck.Cards.LastOrDefault();
+
+                Deck.Remove(card);
+                Hand.Add(card);
+
+                callback?.Invoke(card);
+
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        public IEnumerator Recycle(Action<Card> callback)
+        {
+            yield return ProcessManager.Instance.AddTask(null, Main());
+
+            // ================================================== Main
+
+            IEnumerator Main()
+            {
+                Card card = Discard.Cards.LastOrDefault();
+
                 Discard.Remove(card);
                 Deck.Add(card);
 
                 callback?.Invoke(card);
 
-                yield return card;
+                yield return null;
             }
         }
 
         // ================================================== ????????
 
-        private IEnumerator SetCardTarget()
+        public IEnumerator SetCardTarget(Action<CardTarget> callback)
         {
             CardTarget targets = new CardTarget();
 
-            Selected.enabled = false;
+            ////////////////////////////////////////////////// BETA
+            //targets.IsActive = true;
+            ////////////////////////////////////////////////// BETA
 
+            FindBattleMgr();
 
-            if (_battleMgr == null)
+			if (!Selected.GetCard().Data.TargetSelf)
 			{
-#if UNITY_EDITOR
-                Debug.Log("배틀매니저가 null입니다. 추가하겠습니다.");
-#endif
-                _battleMgr = GameObject.Find("main").GetComponent<XSBattleMgr>();
-            }
-           
-            yield return StartCoroutine(_battleMgr.SelectTraget(targets));
-          
-            if (!targets.IsActive)
+                IEnumerator select = _battleMgr?.SelectTraget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius);
+
+                if (select != null)
+                {
+                    yield return StartCoroutine(select);
+                }
+			}
+			else
             {
-                Selected.enabled = true;
-
-                Selected.State = CardState.None;
-
-                Selected.Move(Selected.OriginPosition);
-
-                CostModule.Clear();
-
-            }
-            else
-            {
-                CostModule.Execute();
-
-                StartCoroutine(Use(Selected.GetCard(), targets));
+                ////////////////////////////////////////////////// BETA
+                targets.IsActive = true;
+                ////////////////////////////////////////////////// BETA
             }
 
-            Selected = null;
+            callback?.Invoke(targets);
+
+            yield return null;
         }
 
         public IEnumerator Use(Card card, CardTarget targets)
         {
-            yield return ProcessManager.Instance.AddTask(Prework(), Main());
+            yield return ProcessManager.Instance.AddTask(null, Main());
 
-            IEnumerator Prework()
-            {
-                //CostModule.Execute();
-
-                yield return null;
-            }
+            // ================================================== Main
 
             IEnumerator Main()
             {
@@ -488,7 +479,7 @@ namespace WIP
 
                 yield return StartCoroutine(card.Use(targets));
 
-                if ((card.Keyword & CardKeyword.Exile) != 0)
+                if ((card.Keyword.Value & CardKeyword.Exile) != 0)
                 {
                     Exiled.Add(card);
                 }
@@ -501,21 +492,50 @@ namespace WIP
             }
         }
 
-        // ================================================== Action
-
-        public void Refresh()
-        {
-            _onRefresh?.Invoke();
-        }
-
         // =========================================================================== CardObject
 
-        public void Arrange()
+        // ================================================== ????????
+
+        public IEnumerator Play()
         {
-            _onArrange.Invoke();
+            yield return StartCoroutine(SetCardTarget((targets) =>
+            {
+                if (targets.IsActive)
+                {
+                    CostModule.Execute();
+
+                    StartCoroutine(Use(Selected.GetCard(), targets));
+                }
+                else
+                {
+                    Selected.State = CardState.None;
+
+                    Selected.Move(Selected.OriginPosition);
+
+                    CostModule.Clear();
+                }
+
+                Selected = null;
+            }));
         }
 
         // =========================================================================== CardManager
+
+        // ================================================== BattleMgr
+
+        private void FindBattleMgr()
+        {
+            if (_battleMgr == null)
+            {
+                #region ONLY_UNITY_EDITOR :: "배틀매니저가 null입니다. 추가하겠습니다."
+#if UNITY_EDITOR
+                Debug.Log("배틀매니저가 null입니다. 추가하겠습니다.");
+#endif 
+                #endregion
+
+                _battleMgr = GameObject.Find("main")?.GetComponent<XSBattleMgr>();
+            }
+        }
 
         // ================================================== Resource
 
@@ -526,12 +546,67 @@ namespace WIP
             Database = Resources.Load<CardDatabase>("Data/CardDatabase");
 
             Settings = Resources.Load<CardSettings>("Data/CardSettings");
+
+            FindBattleMgr();
+
+            Preloading();
+        }
+
+        // 최초 로딩 렉 걸려서 임시로 만듬
+        private void Preloading()
+        {
+            Destroy(Instantiate(CardPrefab));
+        }
+
+        // ================================================== ??????
+
+        public IEnumerator GameSetting()
+        {
+            yield return StartCoroutine(GameStart());
+
+            yield return StartCoroutine(BattleStart());
+        }
+
+        public IEnumerator GameStart()
+        {
+            yield return ProcessManager.Instance.AddTask(null, Main());
+
+            // ================================================== Main
+
+            IEnumerator Main()
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    StartCoroutine(Acquire(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), 0), null));
+                    StartCoroutine(Acquire(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), 1), null));
+
+                    yield return null;
+                }
+            }
+        }
+
+        public IEnumerator BattleStart()
+        {
+            yield return ProcessManager.Instance.AddTask(null, Main());
+
+            // ================================================== Main
+
+            IEnumerator Main()
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    StartCoroutine(Draw(null));
+                }
+
+                yield return null;
+            }
         }
     }
 
     // ==================================================================================================== CardManagerData
 
-    [Serializable] public class CardManagerData
+    [Serializable]
+    public class CardManagerData
     {
         // ==================================================================================================== Field
 
@@ -553,7 +628,8 @@ namespace WIP
 
         // =========================================================================== Pile
 
-        [JsonIgnore] public CardDeckPile Deck
+        [JsonIgnore]
+        public CardDeckPile Deck
         {
             get
             {
@@ -561,7 +637,8 @@ namespace WIP
             }
         }
 
-        [JsonIgnore] public CardHandPile Hand
+        [JsonIgnore]
+        public CardHandPile Hand
         {
             get
             {
@@ -569,7 +646,8 @@ namespace WIP
             }
         }
 
-        [JsonIgnore] public CardDiscardPile Discard
+        [JsonIgnore]
+        public CardDiscardPile Discard
         {
             get
             {
@@ -577,24 +655,13 @@ namespace WIP
             }
         }
 
-        [JsonIgnore] public CardExiledPile Exiled
+        [JsonIgnore]
+        public CardExiledPile Exiled
         {
             get
             {
                 return _exiled;
             }
-        }
-
-        // ==================================================================================================== Method
-
-        // =========================================================================== Instance
-
-        public void Initialize()
-        {
-            Deck.Initialize(Card.DECK_GROUP_NAME, false);
-            Hand.Initialize(Card.HAND_GROUP_NAME, true);
-            Discard.Initialize(Card.DISCARD_GROUP_NAME, false);
-            Exiled.Initialize(Card.EXILED_GROUP_NAME, false);
         }
     }
 

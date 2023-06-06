@@ -131,7 +131,9 @@ namespace WIP
         public override void Execute(Entity target)
         {
             //////////////////////////////////////////////////
+#if unity
             Debug.Log($"{GetDamage()}의 데미지로 공격함");
+#endif
             //////////////////////////////////////////////////
 
             if (target == null || target.is_die)
@@ -242,10 +244,10 @@ namespace WIP
             Debug.Log($"{GetShield()}의 쉴드를 생성함");
             //////////////////////////////////////////////////
             
-            if (true)
+     /*       if (true)
             {
                 return;
-            }
+            }*/
 
             PlayerEntity player = EntityManager.Inst.playerEntity;
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetData:
     _range: 0
-    _radius: 0
+    _radius: {fileID: 11400000, guid: 4f9c44669be1afc45ab9f1a8988ad914, type: 2}
     _isTargetable: 0
     _isRandom: 0
   _actions:
