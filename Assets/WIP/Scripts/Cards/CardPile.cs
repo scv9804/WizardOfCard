@@ -18,10 +18,6 @@ namespace WIP
 
         // =========================================================================== Pile
 
-        // ================================================== Count
-
-        private Data<int> _count = new Data<int>();
-
         // =========================================================================== Card
 
         // ================================================== Instance
@@ -50,16 +46,11 @@ namespace WIP
 
         // =========================================================================== Pile
 
-        [JsonIgnore] public Data<int> Count
+        [JsonIgnore] public int Count
         {
             get
             {
-                return _count;
-            }
-
-            private set
-            {
-                _count = value;
+                return Cards.Count;
             }
         }
 
@@ -169,14 +160,16 @@ namespace WIP
 
             if (IsDisplay)
             {
-                for (int i = 0; i < Count.Value; i++)
+                for (int i = 0; i < Count; i++)
                 {
                     Instantiate(Cards[i]);
                 }
+
+                Arrange(null);
             }
             else
             {
-                for (int i = 0; i < Count.Value; i++)
+                for (int i = 0; i < Count; i++)
                 {
                     CardObjects[i].Dispose();
                 }
@@ -211,8 +204,6 @@ namespace WIP
                 Instantiate(card);
             });
 
-            Count.Value += 1;
-
             Refresh();
             Arrange(null);
         }
@@ -236,8 +227,6 @@ namespace WIP
 
                 CardObjects.RemoveAt(index);
             });
-
-            Count.Value -= 1;
 
             Refresh();
             Arrange(null);
@@ -295,9 +284,9 @@ namespace WIP
                 return;
             }
 
-            for (int i = 0; i < Count.Value; i++)
+            for (int i = 0; i < Count; i++)
             {
-                Vector3 position = GetPosition(Count.Value, i);
+                Vector3 position = GetPosition(Count, i);
 
                 CardObjects[i].Arrange(position, i);
             }
@@ -413,9 +402,9 @@ namespace WIP
         {
             int index;
 
-            for (int i = 0; i < Count.Value; i++)
+            for (int i = 0; i < Count; i++)
             {
-                index = UnityEngine.Random.Range(i, Count.Value);
+                index = UnityEngine.Random.Range(i, Count);
 
                 IsDisplayCallback(() =>
                 {

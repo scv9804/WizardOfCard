@@ -248,7 +248,7 @@ namespace WIP
 
                 { KeyCode.V, () =>
                 {
-                    int count = Discard.Count.Value;
+                    int count = Discard.Count;
 
                     for (int i = 0; i < count; i++)
                     {
@@ -408,8 +408,10 @@ namespace WIP
 
             IEnumerator Main()
             {
-                if (Deck.Count.Value == 0 || Hand.Cards.Count == Settings.MaxHandCount || false)
+                if (Deck.Count == 0 || Hand.Count == Settings.MaxHandCount || false)
                 {
+                    Debug.LogError("드로우 불가");
+
                     yield break;
                 }
 
@@ -459,6 +461,7 @@ namespace WIP
 			{
                 IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius,
                     Selected.GetCard().Data.HandlerData.TargetData.Range);
+                // ㅈㅎㅇ :: 글자 수 어지럽긴 하네여... 언재 정리하지 이거
 
                 if (select != null)
                 {

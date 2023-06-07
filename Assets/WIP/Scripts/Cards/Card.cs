@@ -274,6 +274,14 @@ namespace WIP
             }
         }
 
+        [JsonIgnore, Obsolete] public CardHandlerData HandlerData
+        {
+            get
+            {
+                return Data.HandlerData;
+            }
+        }
+
         // ==================================================================================================== Method
 
         // =========================================================================== Instance
