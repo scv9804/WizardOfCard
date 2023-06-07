@@ -281,10 +281,13 @@ namespace XSSLG
         public IEnumerator SelectTarget(WIP.CardTarget cardTarget , List<Vector3> radius , int range)
         {
             var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Player").GetComponent<XSIUnitNode>();
+            this.MoveRegion = this.GridShowMgr.ShowAttackRegion(unit, range);
             while (true)
             {
                 if (!this.SelectedUnit && TurnManager.Inst.myTurn)
                 {
+                    
+
                     var tile = XSUG.GetMouseTargetTile();
 
                     //첫 타일 값 삽입.
@@ -314,6 +317,7 @@ namespace XSSLG
                     try
                     {
                         GridShowMgr.MoveShowRegion.ShowRegion(mouseVector);
+                        this.GridShowMgr.ShowAttackRegion(unit, range);
                     }
                     catch
                     {
@@ -325,7 +329,7 @@ namespace XSSLG
 
                     if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
                     {
-                        this.MoveRegion = this.GridShowMgr.ShowAttackRegion(unit , range);
+                       
 						if (this.MoveRegion.Contains(mouseVector[0]))
 						{
                             foreach (var vect in mouseVector.Distinct())
