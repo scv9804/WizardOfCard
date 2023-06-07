@@ -278,8 +278,9 @@ namespace XSSLG
         }
 
         //적 선택하는거 테스트
-        public IEnumerator SelectTraget(WIP.CardTarget cardTarget , List<Vector3> radius)
+        public IEnumerator SelectTarget(WIP.CardTarget cardTarget , List<Vector3> radius , int range)
         {
+            var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Player").GetComponent<XSIUnitNode>();
             while (true)
             {
                 if (!this.SelectedUnit && TurnManager.Inst.myTurn)
@@ -324,18 +325,22 @@ namespace XSSLG
 
                     if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
                     {
-                        foreach (var vect in mouseVector.Distinct())
-                        {
-                            GridMgr.GetEntityInPos(vect, out var entity);
-                            if (entity != null)
-							{
-                                cardTarget.Targets.Add(entity);
+                        this.MoveRegion = this.GridShowMgr.ShowAttackRegion(unit , range);
+						if (this.MoveRegion.Contains(mouseVector[0]))
+						{
+                            foreach (var vect in mouseVector.Distinct())
+                            {
+                                GridMgr.GetEntityInPos(vect, out var entity);
+                                if (entity != null)
+                                {
+                                    cardTarget.Targets.Add(entity);
+                                }
                             }
-                        }
-                        cardTarget.IsActive = true;
-                        GridShowMgr.ClearMoveRegion();
-                        mouseVector.Clear();
-                        break;
+                            cardTarget.IsActive = true;
+                            GridShowMgr.ClearMoveRegion();
+                            mouseVector.Clear();
+                            break;
+                        }                       
                     }
                 }
                 yield return null;

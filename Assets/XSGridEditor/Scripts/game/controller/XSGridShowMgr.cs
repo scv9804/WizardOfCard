@@ -36,14 +36,14 @@ namespace XSSLG
             return moveRegion;
         }   
         
-        public virtual List<Vector3> ShowAttackRegion(XSIUnitNode unit)
+        public virtual List<Vector3> ShowAttackRegion(XSIUnitNode unit, int range)
         {
             if (this.MoveShowRegion == null ||this.MoveShowRegion.IsNull())
             {
                 return new List<Vector3>();
             }
 
-            var attackRegion = unit.GetAttackRegionTest_00();
+            var attackRegion = unit.GetAttackRange(range);
             this.MoveShowRegion.ShowRegion(attackRegion);
             return attackRegion;
         }

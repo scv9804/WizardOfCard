@@ -266,6 +266,8 @@ namespace WIP
             card.Subscribe(cardObject);
 
             CardObjects.Add(cardObject);
+
+            CardManager.Instance.Arrange();
         }
 
         // =========================================================================== Transform

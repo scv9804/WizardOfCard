@@ -24,6 +24,10 @@ namespace WIP
 
         // =========================================================================== CardObject
 
+        // ================================================== Delegate
+
+        public Action OnArrange;
+
         // ================================================== Instance
 
         [Header("선택 중인 카드")]
@@ -448,7 +452,8 @@ namespace WIP
 
 			if (!Selected.GetCard().Data.TargetSelf)
 			{
-                IEnumerator select = _battleMgr?.SelectTraget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius);
+                IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius
+                    Selected.GetCard().Data.HandlerData.TargetData.Range);
 
                 if (select != null)
                 {
@@ -466,6 +471,11 @@ namespace WIP
 
             yield return null;
         }
+
+        public void Arrange()
+		{
+            OnArrange.Invoke();
+		}
 
         public IEnumerator Use(Card card, CardTarget targets)
         {

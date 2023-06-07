@@ -76,6 +76,20 @@ namespace XSSLG
             return ret;
         }
 
+        public virtual List<Vector3> GetAttackRange(int range)
+        {
+            var gridMgr = XSInstance.Instance.GridMgr; // 그리드매니저 파싱하고
+            gridMgr.GetXSTile(this.transform.position, out var srcTile); //이걸로 캐릭터 현재 타일 값 받기 가능
+            // first cache
+            this.CachedPaths = gridMgr.FindAllPath(srcTile, range); // 여기수치로 범위 설정
+                                                                   // Accumulate this.CachedPaths
+            var ret = this.CachedPaths.Aggregate(new List<Vector3>(), (ret, pair) =>
+            {
+                ret.AddRange(pair.Value.Distinct());
+                return ret;
+            }).Distinct().ToList(); // 이게 중복 제거
+            return ret;
+        }
 
         //내가 수정한 수정본임 이걸로 수치 조정 및 범위 조정 가능하도록 해봄
         public virtual List<Vector3> GetAttackRegionTest_00()

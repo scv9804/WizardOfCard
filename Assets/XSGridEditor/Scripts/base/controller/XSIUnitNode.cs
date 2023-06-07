@@ -12,6 +12,8 @@ namespace XSSLG
     {
 
         List<Vector3> GetMoveRegion();
+        
+        List<Vector3> GetAttackRange(int range);
 
         List<Vector3> GetAttackRegionTest_00();
 
