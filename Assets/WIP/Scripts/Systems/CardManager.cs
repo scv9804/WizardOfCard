@@ -397,6 +397,11 @@ namespace WIP
 
         public IEnumerator Draw(Action<Card> callback)
         {
+            if (Deck.Count == 0)
+            {
+                yield return StartCoroutine(Refill());
+            }
+
             yield return ProcessManager.Instance.AddTask(null, Main());
 
             //IEnumerator Prework()
