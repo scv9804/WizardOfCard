@@ -248,12 +248,7 @@ namespace WIP
 
                 { KeyCode.V, () =>
                 {
-                    int count = Discard.Count;
-
-                    for (int i = 0; i < count; i++)
-                    {
-                        StartCoroutine(Recycle(null));
-                    }
+                    Refill();
                 }}
             };
             ////////////////////////////////////////////////// BETA
@@ -376,7 +371,7 @@ namespace WIP
 
         private void OnLevelWasLoaded(int level)
         {
-            if (TurnManager.Inst.isCombatScene)
+            if (TurnManager.Inst.isCombatScene && Instance == this)
             {
                 StartCoroutine(GameSetting());
             }
@@ -403,6 +398,18 @@ namespace WIP
         public IEnumerator Draw(Action<Card> callback)
         {
             yield return ProcessManager.Instance.AddTask(null, Main());
+
+            //IEnumerator Prework()
+            //{
+            //    if (Deck.Count == 0)
+            //    {
+            //        Debug.LogError("덱에 카드가 없음");
+
+            //        yield return StartCoroutine(Refill());
+            //    }
+
+            //    yield return null;
+            //}
 
             // ================================================== Main
 
@@ -436,12 +443,26 @@ namespace WIP
             {
                 Card card = Discard.Cards.LastOrDefault();
 
+                Debug.Log(card.InstanceID);
+
                 Discard.Remove(card);
                 Deck.Add(card);
 
                 callback?.Invoke(card);
 
                 yield return null;
+            }
+        }
+
+        public IEnumerator Refill()
+        {
+            int count = Discard.Count;
+
+            Debug.Log($"리필 시작 : {count}");
+
+            for (int i = 0; i < count; i++)
+            {
+                yield return StartCoroutine(Recycle(null));
             }
         }
 

@@ -166,6 +166,7 @@ namespace WIP
                     Instantiate(Cards[i]);
                 }
 
+                Refresh();
                 Arrange(null);
             }
             else
@@ -181,6 +182,8 @@ namespace WIP
 
         public virtual void Refresh()
         {
+            Debug.Log("리프레시 시작");
+
             for (int i = 0; i < Cards.Count; i++)
             {
                 Cards[i].Refresh();
@@ -479,6 +482,7 @@ namespace WIP
             CardComponents components = cardObject.GetComponent<CardComponents>();
 
             Button button = cardObject.gameObject.AddComponent<Button>();
+
             button.targetGraphic = components.FrameImage;
             button.onClick.AddListener(() => Buy(CardObjects.IndexOf(cardObject)));
 
