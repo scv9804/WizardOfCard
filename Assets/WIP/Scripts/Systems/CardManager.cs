@@ -457,7 +457,8 @@ namespace WIP
 
 			if (!Selected.GetCard().Data.TargetSelf)
 			{
-                IEnumerator select = _battleMgr?.SelectTraget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius);
+                IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius,
+                    Selected.GetCard().Data.HandlerData.TargetData.Range);
 
                 if (select != null)
                 {
