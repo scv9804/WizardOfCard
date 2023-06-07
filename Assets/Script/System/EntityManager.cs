@@ -382,6 +382,9 @@ public class EntityManager : MonoBehaviour
         if (enemyEntities.Count == 0)
         {
             Debug.Log("다음방으로");
+
+            WIP.CardManager.Instance.OnBattleEnd();
+
             LoadSceneManager.LoadScene("Stage 1-1 Load");
             UIManager.Inst.ButtonActivate();
             enemyEntitiesObjcet.Clear();

@@ -24,6 +24,8 @@ namespace WIP
 
         // =========================================================================== CardObject
 
+        public event EventObserver OnCardArrange;
+
         // ================================================== Instance
 
         [Header("선택 중인 카드")]
@@ -101,6 +103,14 @@ namespace WIP
         // =========================================================================== CardManager
 
         // ================================================== Pile
+
+        public CardOwnedPile Owned
+        {
+            get
+            {
+                return _data.Owned;
+            }
+        }
 
         public CardDeckPile Deck
         {
@@ -218,9 +228,10 @@ namespace WIP
             {
                 { KeyCode.Z, () =>
                 {
+                    string instanceID = GameManager.Instance.Allocate(InstanceType.Card);
                     int index = UnityEngine.Random.Range(0, 2);
 
-                    StartCoroutine(Acquire(Card.Create(GameManager.Instance.Allocate(InstanceType.Card), index), null));
+                    StartCoroutine(Acquire(Card.Create(instanceID, index), null));
                 }},
 
                 { KeyCode.X, () =>
@@ -348,26 +359,24 @@ namespace WIP
         {
             base.Initialize();
 
-            DontDestroyOnLoad(gameObject); // 현재 root에다가 안 둬서 버그남
+            DontDestroyOnLoad(gameObject);
 
             LoadData();
 
+            Owned.Initialize(Card.DECK_GROUP_NAME, false);
             Deck.Initialize(Card.DECK_GROUP_NAME, false);
             Hand.Initialize(Card.HAND_GROUP_NAME, true);
             Discard.Initialize(Card.DISCARD_GROUP_NAME, false);
             Exiled.Initialize(Card.EXILED_GROUP_NAME, false);
 
-            if (GameManager.Instance.GameMode == GameMode.Battle)
-            {
-                StartCoroutine(GameSetting());
-            }
+            FindBattleMgr();
+
+            StartCoroutine(GameStart());
         }
 
-        // =========================================================================== Scene
-
-        protected override void OnLoaded(Scene scene, LoadSceneMode mode)
+        private void OnLevelWasLoaded(int level)
         {
-            if (GameManager.Instance.GameMode == GameMode.Battle)
+            if (TurnManager.Inst.isCombatScene)
             {
                 StartCoroutine(GameSetting());
             }
@@ -519,7 +528,22 @@ namespace WIP
             }));
         }
 
+        public void Arrange()
+        {
+            OnCardArrange?.Invoke(null);
+        }
+
         // =========================================================================== CardManager
+
+        // ================================================== ????????
+
+        public void OnBattleEnd()
+        {
+            Deck.Clear();
+            Hand.Clear();
+            Discard.Clear();
+            Exiled.Clear();
+        }
 
         // ================================================== BattleMgr
 
@@ -547,8 +571,6 @@ namespace WIP
 
             Settings = Resources.Load<CardSettings>("Data/CardSettings");
 
-            FindBattleMgr();
-
             Preloading();
         }
 
@@ -562,7 +584,7 @@ namespace WIP
 
         public IEnumerator GameSetting()
         {
-            yield return StartCoroutine(GameStart());
+            Debug.Log("용...해...");
 
             yield return StartCoroutine(BattleStart());
         }
@@ -593,6 +615,8 @@ namespace WIP
 
             IEnumerator Main()
             {
+                Hand.Display(true);
+
                 for (int i = 0; i < 4; i++)
                 {
                     StartCoroutine(Draw(null));
@@ -605,12 +629,14 @@ namespace WIP
 
     // ==================================================================================================== CardManagerData
 
-    [Serializable]
-    public class CardManagerData
+    [Serializable] public class CardManagerData
     {
         // ==================================================================================================== Field
 
         // =========================================================================== Pile
+
+        [Header("보유")]
+        [SerializeField, JsonProperty("Own")] private CardOwnedPile _owned = new CardOwnedPile();
 
         [Header("덱")]
         [SerializeField, JsonProperty("Deck")] private CardDeckPile _deck = new CardDeckPile();
@@ -628,8 +654,15 @@ namespace WIP
 
         // =========================================================================== Pile
 
-        [JsonIgnore]
-        public CardDeckPile Deck
+        [JsonIgnore] public CardOwnedPile Owned
+        {
+            get
+            {
+                return _owned;
+            }
+        }
+
+        [JsonIgnore] public CardDeckPile Deck
         {
             get
             {
@@ -637,8 +670,7 @@ namespace WIP
             }
         }
 
-        [JsonIgnore]
-        public CardHandPile Hand
+        [JsonIgnore] public CardHandPile Hand
         {
             get
             {
@@ -646,8 +678,7 @@ namespace WIP
             }
         }
 
-        [JsonIgnore]
-        public CardDiscardPile Discard
+        [JsonIgnore] public CardDiscardPile Discard
         {
             get
             {
@@ -655,8 +686,7 @@ namespace WIP
             }
         }
 
-        [JsonIgnore]
-        public CardExiledPile Exiled
+        [JsonIgnore] public CardExiledPile Exiled
         {
             get
             {

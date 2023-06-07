@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 
 using System;
 
+using UnityEngine.EventSystems;
+
 namespace WIP
 {
     // ==================================================================================================== CardPile
@@ -117,20 +119,36 @@ namespace WIP
 
         // ==================================================================================================== Method
 
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public abstract void OnPointerEnter(PointerEventData eventData, CardObject cardObject);
+
+        public abstract void OnPointerExit(PointerEventData eventData, CardObject cardObject);
+
+        // ================================================== Drag
+
+        public abstract void OnBeginDrag(PointerEventData eventData, CardObject cardObject);
+
+        public abstract void OnDrag(PointerEventData eventData, CardObject cardObject);
+
+        public abstract void OnEndDrag(PointerEventData eventData, CardObject cardObject);
+
         // =========================================================================== Pile
 
         public void Initialize(string name, bool isDisplay)
         {
             Name = name;
 
-            CardManager.Instance.OnArrange += Arrange;
+            CardManager.Instance.OnCardArrange += Arrange;
 
             Display(isDisplay);
         }
 
         public void Dispose()
         {
-            CardManager.Instance.OnArrange -= Arrange;
+            CardManager.Instance.OnCardArrange -= Arrange;
 
             Display(false);
         }
@@ -145,7 +163,7 @@ namespace WIP
             }
         }
 
-        public void Display(bool isDisplay)
+        public virtual void Display(bool isDisplay)
         {
             IsDisplay = isDisplay;
 
@@ -153,7 +171,7 @@ namespace WIP
             {
                 for (int i = 0; i < Count.Value; i++)
                 {
-                    SetCardObject(Cards[i]);
+                    Instantiate(Cards[i]);
                 }
             }
             else
@@ -167,7 +185,7 @@ namespace WIP
             }
         }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             for (int i = 0; i < Cards.Count; i++)
             {
@@ -175,19 +193,12 @@ namespace WIP
             }
         }
 
-        // =========================================================================== Card
-
-        public List<Card> Choose(params Predicate<Card>[] match)
+        public virtual void Clear()
         {
-            List<Card> result = Cards;
-
-            for (int i = 0; i < match.Length; i++)
-            {
-                result = result.FindAll(match[i]);
-            }
-
-            return result;
+            CardObjects.Clear();
         }
+
+        // =========================================================================== Card
 
         public virtual void Add(Card card)
         {
@@ -197,13 +208,13 @@ namespace WIP
             }, 
             () =>
             {
-                SetCardObject(card);
+                Instantiate(card);
             });
 
             Count.Value += 1;
 
             Refresh();
-            Arrange();
+            Arrange(null);
         }
 
         public virtual void Remove(Card card)
@@ -229,7 +240,7 @@ namespace WIP
             Count.Value -= 1;
 
             Refresh();
-            Arrange();
+            Arrange(null);
         }
 
         public virtual void Destroy(Card card)
@@ -243,7 +254,7 @@ namespace WIP
         {
             get
             {
-                return new Card();
+                return Cards[index];
             }
         }
 
@@ -251,13 +262,16 @@ namespace WIP
         {
             get
             {
-                return new Card();
+                return Cards.Find((card) =>
+                {
+                    return card.InstanceID == key;
+                });
             }
         }
 
         // =========================================================================== CardObject
 
-        protected virtual void SetCardObject(Card card)
+        protected virtual CardObject Instantiate(Card card)
         {
             CardObject cardObject = CardObject.Create(card.InstanceID, this);
 
@@ -266,13 +280,15 @@ namespace WIP
             card.Subscribe(cardObject);
 
             CardObjects.Add(cardObject);
+
+            return cardObject;
         }
 
         // =========================================================================== Transform
 
         // ================================================== Position
 
-        public void Arrange()
+        public virtual void Arrange(IEventParameter parameter)
         {
             if (!IsDisplay)
             {
@@ -292,9 +308,52 @@ namespace WIP
 
     // ==================================================================================================== CardOwnedPile
 
-    [Serializable] public class CardOwnedPile
+    [Serializable] public class CardOwnedPile : CardPile
     {
+        // ==================================================================================================== Method
 
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public override void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // ================================================== Drag
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // =========================================================================== Transform
+
+        // ================================================== Position
+
+        protected override Vector3 GetPosition(int count, int index)
+        {
+            float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
+            float y = Screen.height / 8;
+
+            return new Vector3(x, y, 0.0f);
+        }
     }
 
     // ==================================================================================================== CardDeckPile
@@ -302,6 +361,37 @@ namespace WIP
     [Serializable] public class CardDeckPile : CardPile
     {
         // ==================================================================================================== Method
+
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public override void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // ================================================== Drag
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
 
         // =========================================================================== Card
 
@@ -335,7 +425,7 @@ namespace WIP
                 {
                     (CardObjects[i], CardObjects[index]) = (CardObjects[index], CardObjects[i]); // 이건 굳이 없어도 될거 같긴 한데 숫자 맞춰주는게 정렬하기 편하니까 해둠
 
-                    Arrange();
+                    Arrange(null);
                 });
             }
         }
@@ -359,6 +449,37 @@ namespace WIP
     {
         // ==================================================================================================== Method
 
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public override void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // ================================================== Drag
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
         // =========================================================================== Transform
 
         // ================================================== Position
@@ -377,6 +498,37 @@ namespace WIP
     [Serializable] public class CardDiscardPile : CardPile
     {
         // ==================================================================================================== Method
+
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public override void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // ================================================== Drag
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
 
         // =========================================================================== Transform
 
@@ -397,6 +549,37 @@ namespace WIP
     {
         // ==================================================================================================== Method
 
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public override void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // ================================================== Drag
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
         // =========================================================================== Transform
 
         // ================================================== Position
@@ -416,16 +599,46 @@ namespace WIP
     {
         // ==================================================================================================== Method
 
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public override void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // ================================================== Drag
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
         // =========================================================================== Transform
 
         // ================================================== Position
 
         protected override Vector3 GetPosition(int count, int index)
         {
-            float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 8;
+            // 위치 계산식
 
-            return new Vector3(x, y, 0.0f);
+            return new Vector3();
         }
     }
 }
