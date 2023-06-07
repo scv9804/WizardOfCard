@@ -266,10 +266,12 @@ namespace WIP
 
         public Card GetCard() // ¾Æ
         {
-            return Pile.Choose((card) =>
-            {
-                return card.InstanceID == InstanceID;
-            })[0];
+            //return Pile.Choose((card) =>
+            //{
+            //    return card.InstanceID == InstanceID;
+            //})[0];
+
+            return Pile[InstanceID];
         }
 
         // =========================================================================== Component

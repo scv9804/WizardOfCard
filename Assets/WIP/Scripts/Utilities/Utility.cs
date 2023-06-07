@@ -28,7 +28,7 @@ namespace WIP
 
         // =========================================================================== Observer
 
-        public event OnEvent OnChange;
+        public event EventObserver OnChange;
 
         // ==================================================================================================== Property
 

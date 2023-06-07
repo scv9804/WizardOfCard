@@ -6,9 +6,11 @@ using System;
 
 namespace WIP
 {
-    // ==================================================================================================== OnEvent
+    // ==================================================================================================== EventObserver
 
-    public delegate void OnEvent(IEventParameter parameter);
+    public delegate void EventObserver(IEventParameter parameter);
+
+    public delegate TResult EventObserver<TResult>(IEventParameter parameter);
 
     // ==================================================================================================== IEventParameter
 

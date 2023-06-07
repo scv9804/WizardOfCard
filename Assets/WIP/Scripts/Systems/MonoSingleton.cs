@@ -62,8 +62,6 @@ namespace WIP
             {
                 Destroy(gameObject);
             }
-
-            SceneManager.sceneLoaded += OnLoaded;
         }
 
         protected virtual void OnApplicationQuit()
@@ -85,13 +83,6 @@ namespace WIP
         public virtual void Initialize()
         {
             Instance = this as TSingleton;
-        }
-
-        // =========================================================================== Scene
-
-        protected virtual void OnLoaded(Scene scene, LoadSceneMode mode)
-        {
-
         }
     }
 }

@@ -6,9 +6,6 @@ using Newtonsoft.Json;
 
 using System;
 using System.Text;
-using System.Collections.ObjectModel;
-
-using UnityEngine.EventSystems;
 
 namespace WIP
 {

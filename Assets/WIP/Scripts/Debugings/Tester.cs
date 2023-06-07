@@ -8,14 +8,9 @@ namespace WIP
 {
     public class Tester : MonoBehaviour
     {
-        public Library<string, int> Library = new Library<string, int>();
-
         private void Awake()
         {
-            Dictionary<int, int> Sample = new Dictionary<int, int>();
 
-            Library.Add("goto 5", 6);
-            Library.Add("goto 3", 16);
         }
 
         // GetCard에도 callback 적용하기
