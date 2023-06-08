@@ -60,11 +60,6 @@ namespace WIP
         [Header("쉴드")]
         [SerializeField, JsonProperty("Shield")] private List<Data<int>> _shield = new List<Data<int>>();
 
-        // ================================================== System
-
-        [Header("반복 횟수")]
-        [SerializeField, JsonProperty("Count")] private List<Data<int>> _count = new List<Data<int>>();
-
         // =========================================================================== Data
 
         [Header("원본 데이터")]

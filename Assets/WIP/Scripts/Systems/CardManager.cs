@@ -24,7 +24,7 @@ namespace WIP
 
         // =========================================================================== CardObject
 
-        public event EventObserver OnCardArrange;
+        public event EventObserver OnCardArrange; // 고쳐야 할게 너무 많다...
 
         // ================================================== Instance
 
@@ -32,6 +32,8 @@ namespace WIP
         [SerializeField] private CardObject _selected;
 
         // =========================================================================== CardManager
+
+        // ================================================== BETA
 
         ////////////////////////////////////////////////// BETA
         private Dictionary<KeyCode, Action> _inputs;
@@ -267,6 +269,14 @@ namespace WIP
             ////////////////////////////////////////////////// BETA
         }
 
+        private void OnLevelWasLoaded(int level)
+        {
+            if (TurnManager.Inst.isCombatScene && Instance == this)
+            {
+                StartCoroutine(GameSetting());
+            }
+        }
+
         // =========================================================================== EventSystem
 
         // ================================================== Pointer
@@ -369,19 +379,11 @@ namespace WIP
             StartCoroutine(GameStart());
         }
 
-        private void OnLevelWasLoaded(int level)
-        {
-            if (TurnManager.Inst.isCombatScene && Instance == this)
-            {
-                StartCoroutine(GameSetting());
-            }
-        }
-
         // =========================================================================== Card
 
         public IEnumerator Acquire(Card card, Action<Card> callback)
         {
-            yield return ProcessManager.Instance.AddTask(null, Main());
+            yield return ProcessManager.Instance.AddTask(Main());
 
             // ================================================== Main
 
@@ -402,28 +404,14 @@ namespace WIP
                 yield return StartCoroutine(Refill());
             }
 
-            yield return ProcessManager.Instance.AddTask(null, Main());
-
-            //IEnumerator Prework()
-            //{
-            //    if (Deck.Count == 0)
-            //    {
-            //        Debug.LogError("덱에 카드가 없음");
-
-            //        yield return StartCoroutine(Refill());
-            //    }
-
-            //    yield return null;
-            //}
+            yield return ProcessManager.Instance.AddTask(Main());
 
             // ================================================== Main
 
             IEnumerator Main()
             {
-                if (Deck.Count == 0 || Hand.Count == Settings.MaxHandCount || false)
+                if (Deck.Count == 0 || Hand.Count == Settings.MaxHandCount || false) // false는 추후 드로우 불가 디버프 용...?
                 {
-                    Debug.LogError("드로우 불가");
-
                     yield break;
                 }
 
@@ -440,7 +428,7 @@ namespace WIP
 
         public IEnumerator Recycle(Action<Card> callback)
         {
-            yield return ProcessManager.Instance.AddTask(null, Main());
+            yield return ProcessManager.Instance.AddTask(Main());
 
             // ================================================== Main
 
@@ -463,8 +451,6 @@ namespace WIP
         {
             int count = Discard.Count;
 
-            Debug.Log($"리필 시작 : {count}");
-
             for (int i = 0; i < count; i++)
             {
                 yield return StartCoroutine(Recycle(null));
@@ -485,6 +471,10 @@ namespace WIP
 
 			if (!Selected.GetCard().Data.TargetSelf)
 			{
+                ////////////////////////////////////////////////// BETA
+                targets.IsActive = false;
+                ////////////////////////////////////////////////// BETA
+
                 IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius,
                     Selected.GetCard().Data.HandlerData.TargetData.Range);
                 // ㅈㅎㅇ :: 글자 수 어지럽긴 하네여... 언재 정리하지 이거
@@ -508,7 +498,7 @@ namespace WIP
 
         public IEnumerator Use(Card card, CardTarget targets)
         {
-            yield return ProcessManager.Instance.AddTask(null, Main());
+            yield return ProcessManager.Instance.AddTask(Main());
 
             // ================================================== Main
 
@@ -539,6 +529,8 @@ namespace WIP
         {
             yield return StartCoroutine(SetCardTarget((targets) =>
             {
+                Debug.Log(targets.IsActive);
+
                 if (targets.IsActive)
                 {
                     CostModule.Execute();
@@ -614,14 +606,12 @@ namespace WIP
 
         public IEnumerator GameSetting()
         {
-            Debug.Log("용...해...");
-
             yield return StartCoroutine(BattleStart());
         }
 
         public IEnumerator GameStart()
         {
-            yield return ProcessManager.Instance.AddTask(null, Main());
+            yield return ProcessManager.Instance.AddTask(Main());
 
             // ================================================== Main
 
@@ -639,7 +629,7 @@ namespace WIP
 
         public IEnumerator BattleStart()
         {
-            yield return ProcessManager.Instance.AddTask(null, Main());
+            yield return ProcessManager.Instance.AddTask(Main());
 
             // ================================================== Main
 

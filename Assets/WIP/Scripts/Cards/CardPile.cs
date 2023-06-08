@@ -45,6 +45,27 @@ namespace WIP
 
         // ==================================================================================================== Property
 
+        // =========================================================================== Indexer
+
+        public Card this[int index]
+        {
+            get
+            {
+                return Cards[index];
+            }
+        }
+
+        public Card this[string key]
+        {
+            get
+            {
+                return Cards.Find((card) =>
+                {
+                    return card.InstanceID == key;
+                });
+            }
+        }
+
         // =========================================================================== Pile
 
         [JsonIgnore] public int Count
@@ -182,8 +203,6 @@ namespace WIP
 
         public virtual void Refresh()
         {
-            Debug.Log("리프레시 시작");
-
             for (int i = 0; i < Cards.Count; i++)
             {
                 Cards[i].Refresh();
@@ -243,25 +262,6 @@ namespace WIP
             card.Dispose();
         }
 
-        public Card this[int index]
-        {
-            get
-            {
-                return Cards[index];
-            }
-        }
-
-        public Card this[string key]
-        {
-            get
-            {
-                return Cards.Find((card) =>
-                {
-                    return card.InstanceID == key;
-                });
-            }
-        }
-
         // =========================================================================== CardObject
 
         protected virtual CardObject Instantiate(Card card)
@@ -290,7 +290,7 @@ namespace WIP
 
             for (int i = 0; i < Count; i++)
             {
-                Vector3 position = GetPosition(Count, i);
+                Vector3 position = GetPosition(Count, i); // 추후 Pos_Rot_Scale로 교체 필요함
 
                 CardObjects[i].Arrange(position, i);
             }

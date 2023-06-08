@@ -16,8 +16,9 @@ namespace WIP
         [Header("현재 처리 순번")]
         [SerializeField] private int _standby = 1;
 
-        [Header("작업 추가 가능 여부")]
-        [SerializeField] private bool _isRunning = true;
+        // =========================================================================== Terminate
+
+        private IEnumerator _isTerminate = null;
 
         // ==================================================================================================== Property
 
@@ -50,12 +51,7 @@ namespace WIP
         {
             get
             {
-                return _isRunning;
-            }
-
-            private set
-            {
-                _isRunning = value;
+                return !_process.Contains(_isTerminate);
             }
         }
 
@@ -84,61 +80,66 @@ namespace WIP
 
         // =========================================================================== Process
 
-        public Coroutine AddTask(IEnumerator prework, IEnumerator main)
+        public Coroutine AddTask(IEnumerator task)
         {
+            Coroutine routine;
+
             if (IsRunning)
             {
-                _process.Add(main);
+                _process.Add(task);
 
-                return StartCoroutine(Processing(prework, main));
+                routine = StartCoroutine(Processing(task));
             }
             else
             {
-                return null;
+                routine = null;
             }
+
+            return routine;
         }
 
-        public IEnumerator Processing(IEnumerator prework, IEnumerator main)
+        private IEnumerator Processing(IEnumerator task)
         {
-            if (prework != null)
-            {
-                yield return StartCoroutine(prework);
-            }
+            yield return StartCoroutine(Wait());
 
-            yield return StartCoroutine(WaitForProcess(main.ToString()));
-
-            yield return StartCoroutine(main);
+            yield return StartCoroutine(task);
 
             yield return Standby += 1;
-        }
 
-        public IEnumerator WaitForProcess(string name)
-        {
-            int standby = _process.Count;
+            // 작업 하나 종료할 때마다 Terminate 발동 여부 검사할지 고민 중
 
-            Debug.Log($"{name}의 처리 순번: {standby}");
-
-            yield return new WaitUntil(() =>
+            IEnumerator Wait()
             {
-                return standby == Standby;
-            });
+                int standby = _process.Count;
+
+                #region ONLY_UNITY_EDITOR :: {task.ToString()}의 처리 순번: {standby}
+#if UNITY_EDITOR
+                Debug.Log($"{task.ToString()}의 처리 순번: {standby}");
+#endif
+                #endregion
+
+                yield return new WaitUntil(() =>
+                {
+                    return standby == Standby;
+                });
+            }
         }
 
         public IEnumerator Terminate()
         {
-            yield return AddTask(Prework(), Main());
-
-            IEnumerator Prework()
+            if (!IsRunning)
             {
-                yield return IsRunning = false;
+                yield break;
             }
+
+            yield return AddTask(_isTerminate = Main());
 
             IEnumerator Main()
             {
                 _process.Clear();
                 Standby = 0;
 
-                yield return IsRunning = true;
+                yield return _isTerminate = null;
             }
         }
     }

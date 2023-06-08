@@ -140,6 +140,16 @@ namespace WIP
             }
         }
 
+        // =========================================================================== Card
+
+        public Card Card
+        {
+            get
+            {
+                return Pile[InstanceID];
+            }
+        }
+
         // =========================================================================== Component
 
         //public CardComponents Compo
