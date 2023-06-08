@@ -383,6 +383,7 @@ public class EntityManager : MonoBehaviour
         {
             Debug.Log("다음방으로");
 
+            // << 22-12-04 장형용 :: 추가>>
             WIP.CardManager.Instance.OnBattleEnd();
 
             LoadSceneManager.LoadScene("Stage 1-1 Load");
@@ -392,7 +393,6 @@ public class EntityManager : MonoBehaviour
             playerEntity.ResetMagicAffinity_Battle();
             playerEntity.ResetMagicAffinity_Turn(false);
 
-            // << 22-12-04 장형용 :: 추가>>
             if (LevelGeneration.Inst.CurrentRoom.RoomEventType == 1)
                 SceneManager.LoadScene("SorryScene");
             else

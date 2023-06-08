@@ -269,6 +269,14 @@ namespace WIP
             ////////////////////////////////////////////////// BETA
         }
 
+        private void OnLevelWasLoaded(int level)
+        {
+            if (TurnManager.Inst.isCombatScene && Instance == this)
+            {
+                StartCoroutine(GameSetting());
+            }
+        }
+
         // =========================================================================== EventSystem
 
         // ================================================== Pointer
@@ -371,14 +379,6 @@ namespace WIP
             StartCoroutine(GameStart());
         }
 
-        private void OnLevelWasLoaded(int level)
-        {
-            if (TurnManager.Inst.isCombatScene && Instance == this)
-            {
-                StartCoroutine(GameSetting());
-            }
-        }
-
         // =========================================================================== Card
 
         public IEnumerator Acquire(Card card, Action<Card> callback)
@@ -471,6 +471,10 @@ namespace WIP
 
 			if (!Selected.GetCard().Data.TargetSelf)
 			{
+                ////////////////////////////////////////////////// BETA
+                targets.IsActive = false;
+                ////////////////////////////////////////////////// BETA
+
                 IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius,
                     Selected.GetCard().Data.HandlerData.TargetData.Range);
                 // ㅈㅎㅇ :: 글자 수 어지럽긴 하네여... 언재 정리하지 이거
@@ -525,6 +529,8 @@ namespace WIP
         {
             yield return StartCoroutine(SetCardTarget((targets) =>
             {
+                Debug.Log(targets.IsActive);
+
                 if (targets.IsActive)
                 {
                     CostModule.Execute();

@@ -282,6 +282,9 @@ namespace XSSLG
         {
             var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Player").GetComponent<XSIUnitNode>();
             this.MoveRegion = this.GridShowMgr.ShowAttackRegion(unit, range);
+
+            cardTarget.IsActive = false;
+
             while (true)
             {
                 if (!this.SelectedUnit && TurnManager.Inst.myTurn)
@@ -329,7 +332,6 @@ namespace XSSLG
 
                     if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
                     {
-                       
 						if (this.MoveRegion.Contains(mouseVector[0]))
 						{
                             foreach (var vect in mouseVector.Distinct())
@@ -344,7 +346,12 @@ namespace XSSLG
                             GridShowMgr.ClearMoveRegion();
                             mouseVector.Clear();
                             break;
-                        }                       
+                        }
+                        // <2023-06-09 장형용 :: 추가>
+                        else
+                        {
+                            yield break;
+                        }
                     }
                 }
                 yield return null;

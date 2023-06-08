@@ -5,7 +5,7 @@ using UnityEngine;
 namespace WIP
 {
     [CreateAssetMenu]
-    public class CardAbilityData : MonoBehaviour
+    public class CardAbilityData : ScriptableObject
     {
 
 
