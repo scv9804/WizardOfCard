@@ -37,33 +37,34 @@ namespace XSSLG
 
         public XSUnitNode SelectedUnit { get; set; }
 
-        bool isEnemyAttacking = true;
 
-        public GameObject[] units;
+		#region 참조하지 않을 코드들
+		bool isEnemyAttacking = true;
 
-        public List<Vector3> mouseVector;
+        GameObject[] units;
 
-        public List<Vector3> VectTest;
+        List<Vector3> mouseVector;
 
         bool SelectTile= false;
 
-/*
-        /// <summary>
-        /// 일단 테스트용
-        /// 아래거를 리턴해서 범위 값을 카드에서 먼저 보내주고
-        /// 범위 클릭하면 유닛비교해서 유닛 리스트 리턴해주기
-        /// </summary>
-        [Serializable]
-        public class _2dArray
-        {
-            public List<int> arr;
-        }
-        public List<_2dArray> array;
-        
+        #endregion
+        /*
+                /// <summary>
+                /// 일단 테스트용
+                /// 아래거를 리턴해서 범위 값을 카드에서 먼저 보내주고
+                /// 범위 클릭하면 유닛비교해서 유닛 리스트 리턴해주기
+                /// </summary>
+                [Serializable]
+                public class _2dArray
+                {
+                    public List<int> arr;
+                }
+                public List<_2dArray> array;
 
-        public Dictionary<int ,List<Vector3> > dictest = new Dictionary<int, List<Vector3>>();*/// 생각해보니까 그냥 벡터로받으먄됨 ㅋ
 
-        
+                public Dictionary<int ,List<Vector3> > dictest = new Dictionary<int, List<Vector3>>();*/// 생각해보니까 그냥 벡터로받으먄됨 ㅋ
+
+
         void Start()
         {
             if (XSUnityUtils.IsEditor())

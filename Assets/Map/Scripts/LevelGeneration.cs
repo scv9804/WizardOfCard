@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class LevelGeneration : MonoBehaviour {
 
@@ -32,7 +31,6 @@ public class LevelGeneration : MonoBehaviour {
 
 	public bool i_Room_L, i_Room_R, i_Room_U, i_Room_D;
 
-
 	public GameObject BossRoomIcon;
 	public GameObject roomWhiteObj;
 	[SerializeField] bool tutorial = true;
@@ -50,6 +48,8 @@ public class LevelGeneration : MonoBehaviour {
 	int eventNumber;
 	bool eventOn;
 	bool shopOn;
+
+	[SerializeField]SceneSO sceneSO;
 
 	// <<22-12-04 장형용 :: 편의성>>
 	public Room CurrentRoom
@@ -740,7 +740,7 @@ public class LevelGeneration : MonoBehaviour {
 			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
 			{
 				case 0:
-					LoadSceneManager.LoadScene("CopyScene");
+					sceneSO.CallBattleScene(1);
 					break;
 				case 1:
 					//LoadSceneManager.LoadScene("CopyScene");

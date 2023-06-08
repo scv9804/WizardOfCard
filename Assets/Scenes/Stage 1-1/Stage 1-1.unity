@@ -20221,6 +20221,7 @@ MonoBehaviour:
   - {fileID: 1013502469}
   tutorialRoomScript: {fileID: 863816447}
   eventRoomValue: 1
+  sceneSO: {fileID: 11400000, guid: 5616401f69cfd2044bf2d4304b0e1ff9, type: 2}
 --- !u!4 &2133263563
 Transform:
   m_ObjectHideFlags: 0

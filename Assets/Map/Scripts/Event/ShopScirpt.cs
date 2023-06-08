@@ -154,6 +154,8 @@ public class ShopScirpt : MonoBehaviour
 				temt.transform.SetParent(cardSpawnParent.transform);
 				temt.AddComponent<Button>();
 				temt.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(CardManager.Inst.itemSO.items[randCard].card, temt));*/
+
+				
 			}
 
 			

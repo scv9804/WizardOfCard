@@ -20,15 +20,27 @@ public class LoadSceneManager : MonoBehaviour
 	public static void LoadScene(string sceneName)
 	{		
 		nextScene = sceneName;
-
-		if (UIManager.Inst.maincanvas.isActiveAndEnabled)
+		try
 		{
-			UIManager.Inst.maincanvas.enabled = false;
+			if (UIManager.Inst.maincanvas.isActiveAndEnabled)
+			{
+				UIManager.Inst.maincanvas.enabled = false;
+			}
 		}
+		catch
+		{
 
+		}
 		SceneManager.LoadScene("LoadScene");
 
-		TurnManager.Inst.isCombatScene = false;
+		try
+		{
+			TurnManager.Inst.isCombatScene = false;
+		}
+		catch
+		{
+
+		}
 	}
 
 	IEnumerator LoadScene()

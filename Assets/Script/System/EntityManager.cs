@@ -90,7 +90,7 @@ public class EntityManager : MonoBehaviour
 
     public IEnumerator EnemyEntityAttack()
     {
-        //foreach 사용금지 :: 전투 중 몬스터 추가 스폰시 오류걸림
+        //foreach 사용금지 :: 전투 중 몬스터 추가 스폰시 오류걸림 아 하기싫다 ㅋㅋ
         for (int i = 0; i < enemyEntities.Count; i++)
         {
             if (enemyEntities[i].attackable)

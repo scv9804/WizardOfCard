@@ -24,7 +24,10 @@ namespace XSSLG
         /// <summary> prefab for moving range </summary>
         [SerializeField]
         private GameObject moveTilePrefab;
+        [SerializeField]
+        private GameObject attackTilePrefab;
         public GameObject MoveTilePrefab { get => moveTilePrefab; }
+        public GameObject AttackTilePrefab { get => attackTilePrefab; }
 
         /// <summary> The maximum height offset between two near tiles, greater than this value means that the tile is not connected </summary>
         [SerializeField]

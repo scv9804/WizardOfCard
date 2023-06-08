@@ -6595,6 +6595,7 @@ MonoBehaviour:
   tileRoot: {fileID: 879674338}
   unitRoot: {fileID: 1080095397}
   moveTilePrefab: {fileID: 5482847116410207803, guid: af9bcb27486b4774791387f525475ebf, type: 3}
+  attackTilePrefab: {fileID: 5482847116410207803, guid: ce63ef7064609974f91fa067e66f0fc1, type: 3}
   tileOffYMax: 1
 --- !u!114 &511220637
 MonoBehaviour:

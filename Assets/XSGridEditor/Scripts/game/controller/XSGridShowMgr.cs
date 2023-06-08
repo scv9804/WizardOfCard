@@ -11,9 +11,10 @@ namespace XSSLG
     public class XSGridShowMgr
     {
         /************************* variable begin ***********************/
-        public XSIGridShowRegion MoveShowRegion { get; }
+        public XSIGridShowRegion MoveShowRegion { get; set; }
 
         /************************* variable  end  ***********************/
+
 
         public XSGridShowMgr(XSIGridShowRegion moveShowRegion)
         {
