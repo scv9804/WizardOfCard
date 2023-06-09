@@ -8,16 +8,9 @@ namespace WIP
 {
     public class Tester : MonoBehaviour
     {
-        public Dictionary<string, int> Saves = new Dictionary<string, int>
-        {
-            { "1st", 1 },
-            { "2nd", 2 },
-            { "3rd", 3 }
-        };
-
         private void Awake()
         {
-            SaveSystem.Save(Saves, "data", "WIP", "Save");
+
         }
 
         // GetCard에도 callback 적용하기

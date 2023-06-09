@@ -48,6 +48,9 @@ namespace WIP
         [Header("효과 데이터")]
         [SerializeField] private CardHandlerData _handlerData;
 
+        [Header("대상 설정 데이터")]
+        [SerializeField] private CardTargetData _targetData;
+
         // ==================================================================================================== Property
 
         // =========================================================================== Status
@@ -131,6 +134,14 @@ namespace WIP
             get
             {
                 return _handlerData;
+            }
+        }
+
+        public CardTargetData TargetData
+        {
+            get
+            {
+                return _targetData;
             }
         }
     }

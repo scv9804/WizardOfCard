@@ -284,7 +284,7 @@ namespace XSSLG
             var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Player").GetComponent<XSIUnitNode>();
             this.MoveRegion = this.GridShowMgr.ShowAttackRegion(unit, range);
 
-            cardTarget.IsActive = false;
+            //cardTarget.IsActive = false;
 
             while (true)
             {

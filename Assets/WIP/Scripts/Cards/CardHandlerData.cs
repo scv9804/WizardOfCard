@@ -13,27 +13,12 @@ namespace WIP
     {
         // ==================================================================================================== Field
 
-        // =========================================================================== Target
-
-        [Header("대상 데이터")]
-        [SerializeField] private CardTargetData _targetData = new CardTargetData();
-
         // =========================================================================== Action
 
         [Header("대상 데이터")]
         [SerializeField] private List<CardActionNode> _actions = new List<CardActionNode>();
 
         // ==================================================================================================== Property
-
-        // =========================================================================== Target
-
-        public CardTargetData TargetData
-        {
-            get
-            {
-                return _targetData;
-            }
-        }
 
         // =========================================================================== Action
 
@@ -131,89 +116,6 @@ namespace WIP
             for (int i = 0; i < Commands.Count; i++)
             {
                 Commands[i].Execute(Target);
-            }
-        }
-    }
-
-    // ==================================================================================================== CardTargetData
-
-    // 타겟팅 정보 수정 필요
-    [Serializable] public class CardTargetData
-    {
-        // ==================================================================================================== Field
-
-        // =========================================================================== Area
-
-        [Header("사거리")]
-        [SerializeField] private int _range;
-
-        [Header("범위")]
-        [SerializeField] private Radious _radius;
-        // Vector3
-
-        // =========================================================================== Option
-
-        [Header("설정 사용 여부")]
-        [SerializeField] private bool _isTargetable;
-
-        [Header("무작위 지정 여부")]
-        [SerializeField] private bool _isRandom;
-
-        // ==================================================================================================== Property
-
-        // =========================================================================== Area
-
-        public int Range
-        {
-            get
-            {
-                return _range;
-            }
-
-            set
-            {
-                _range = value;
-            }
-        }
-
-        public List<Vector3> Radius
-        {
-            get
-            {
-                return _radius.radiousList;
-            }
-
-            set
-            {
-                _radius.radiousList = value;
-            }
-        }
-
-        // =========================================================================== Option
-
-        public bool IsTargetable
-        {
-            get
-            {
-                return _isTargetable;
-            }
-
-            set
-            {
-                _isTargetable = value;
-            }
-        }
-
-        public bool IsRandom
-        {
-            get
-            {
-                return _isRandom;
-            }
-
-            set
-            {
-                _isRandom = value;
             }
         }
     }
