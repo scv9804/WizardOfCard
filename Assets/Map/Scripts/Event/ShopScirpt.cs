@@ -9,6 +9,9 @@ using DG.Tweening;
 
 public class ShopScirpt : MonoBehaviour
 {
+	[Header("상점 don't destroy")]
+	[SerializeField] GameObject shop;
+
 	[Header("필수설정 상점넣기")]
 	[SerializeField] ItemDataBase database;
 
@@ -59,6 +62,7 @@ public class ShopScirpt : MonoBehaviour
 		ManaUpPurchaseButton.onClick.AddListener(ManaLevelUp);
 		OriginSize = speechBubble.transform.localScale;
 		SetManaLevelUp();
+		DontDestroyOnLoad(shop);
 	}
 
 	public void EnterShop()

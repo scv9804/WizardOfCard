@@ -1395,7 +1395,7 @@ GameObject:
   - component: {fileID: 1125794580711498246}
   - component: {fileID: 2897167800757854344}
   m_Layer: 0
-  m_Name: Enemy_Entity
+  m_Name: Enemy_Entity 5
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1447,7 +1447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: -1
   move: 2
-  enemy: {fileID: 11400000, guid: c58e16b61f1af6b43a398556b79607e1, type: 2}
+  enemy: {fileID: 11400000, guid: 3abf377cdb6de124390b2bcf1ff0bcea, type: 2}
   attack: {fileID: 11400000, guid: 63c2c523e5faad341875154faae07aa1, type: 2}
   AttackPattern: 0
   entitiyPattern: {fileID: 0}
@@ -1565,7 +1565,7 @@ SpriteRenderer:
   m_SortingLayerID: 1556536181
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: ba695732d62ff89419571e5cf66fab74, type: 3}
+  m_Sprite: {fileID: -3755699245562096711, guid: 3d9b07108e39e1d45afb02d04a375cd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

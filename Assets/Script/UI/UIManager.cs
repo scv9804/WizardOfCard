@@ -312,7 +312,7 @@ public class UIManager : MonoBehaviour
 
 	public void SetClose()
 	{
-		isCardUse = true;
+		//isCardUse = true;
 		isMinimapUse = false;
 		isOptionUse = false;
 		isInventoryUse = false;
