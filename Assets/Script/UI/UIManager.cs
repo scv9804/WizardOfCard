@@ -304,10 +304,11 @@ public class UIManager : MonoBehaviour
 		CemeteryUI.SetActive(isCemeteryUse);
 		Reward_UI.SetActive(isRewardUse);
 
-		optionCancleArea.gameObject.SetActive(isOptionUse);
-		inventoryCancleArea.gameObject.SetActive(isInventoryUse);
-		minimapCancleArea.gameObject.SetActive(isMinimapUse);
-		CardCancleArea.gameObject.SetActive(isCardUse);
+		// << 23-06-10 장형용 :: 제거 >>
+		//optionCancleArea.gameObject.SetActive(isOptionUse);
+		//inventoryCancleArea.gameObject.SetActive(isInventoryUse);
+		//minimapCancleArea.gameObject.SetActive(isMinimapUse);
+		//CardCancleArea.gameObject.SetActive(isCardUse);
 	}
 
 	public void SetClose()

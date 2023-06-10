@@ -607,6 +607,66 @@ namespace WIP
         }
     }
 
+    // ==================================================================================================== CardShopPile
+
+    [Serializable] public class CardShopPile : CardPile
+    {
+        // ==================================================================================================== Method
+
+        // =========================================================================== EventSystem
+
+        // ================================================== Pointer
+
+        public override void OnPointerEnter(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnPointerExit(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // ================================================== Drag
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        // =========================================================================== CardObject
+
+        protected override CardObject Instantiate(Card card)
+        {
+            CardObject cardObject = base.Instantiate(card);
+
+            cardObject.gameObject.AddComponent<Button>();
+
+            return cardObject;
+        }
+
+        // =========================================================================== Transform
+
+        // ================================================== Position
+
+        protected override Vector3 GetPosition(int count, int index)
+        {
+            // 위치 계산식
+
+            return new Vector3();
+        }
+    }
+
     // ==================================================================================================== CardRewardPile
 
     [Serializable] public class CardRewardPile : CardPile
