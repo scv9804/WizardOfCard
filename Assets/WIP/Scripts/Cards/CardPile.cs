@@ -211,6 +211,8 @@ namespace WIP
 
         public virtual void Clear()
         {
+            Cards.Clear();
+
             CardObjects.Clear();
         }
 
@@ -650,9 +652,19 @@ namespace WIP
         {
             CardObject cardObject = base.Instantiate(card);
 
-            cardObject.gameObject.AddComponent<Button>();
+            Button button = cardObject.gameObject.AddComponent<Button>();
+
+            button.onClick.AddListener(() =>
+            {
+                Buy(Cards.IndexOf(card));
+            });
 
             return cardObject;
+        }
+
+        public void Buy(int index)
+        {
+            Debug.Log($"{index} : 발동");
         }
 
         // =========================================================================== Transform
@@ -661,9 +673,10 @@ namespace WIP
 
         protected override Vector3 GetPosition(int count, int index)
         {
-            // 위치 계산식
+            float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
+            float y = Screen.height / 8;
 
-            return new Vector3();
+            return new Vector3(x, y, 0.0f);
         }
     }
 

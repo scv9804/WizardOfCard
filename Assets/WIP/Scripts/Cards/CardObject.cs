@@ -45,6 +45,8 @@ namespace WIP
 
         private EventObserver OnCardPointerEnter;
 
+        private string _groupName;
+
         // =========================================================================== Component
 
         [Header("ÄÄÆ÷³ÍÆ®")]
@@ -142,6 +144,19 @@ namespace WIP
             }
         }
 
+        public string GroupName
+        {
+            get
+            {
+                return _groupName;
+            }
+
+            set
+            {
+                _groupName = value;
+            }
+        }
+
         // =========================================================================== Card
 
         public Card Card
@@ -216,6 +231,8 @@ namespace WIP
 
             InstanceID = instanceID;
             Pile = pile;
+
+            GroupName = Pile.Name;
         }
 
         public void Dispose()
@@ -267,7 +284,7 @@ namespace WIP
             }
             else
             {
-                transform.SetParent(GameObject.Find(Pile.Name).transform);
+                transform.SetParent(GameObject.Find(GroupName).transform);
 
                 transform.SetSiblingIndex(OriginSiblingIndex);
             }
