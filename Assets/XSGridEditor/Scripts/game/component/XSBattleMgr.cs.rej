@@ -1,116 +1,55 @@
 diff a/Assets/XSGridEditor/Scripts/game/component/XSBattleMgr.cs b/Assets/XSGridEditor/Scripts/game/component/XSBattleMgr.cs	(rejected hunks)
-@@ -156,51 +156,83 @@
- 				}
- 				else
- 				{
--                    var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Enemy").GetComponent<XSIUnitNode>();
--                    //�̰� �� ���� Ʈ��
--                    if (unit != null && !unit.IsNull())
-+                    if(isEnemyAttacking == false)
-+					{
-+                        StartCoroutine(SelectedUnit.GetComponent<Entity>().attackTest.attackNewOne(this));
-+                    }
-+                }
-+            }
-+              
-+        }
-+
-+        public IEnumerator Attack()
-+		{
-+            isEnemyAttacking = true;
-+            //var unit = (XSUnitNode)GameObject.FindGameObjectWithTag("Enemy").GetComponent<XSIUnitNode>();
-+            var units = GameObject.FindGameObjectsWithTag("Enemy");
-+
-+			foreach (var temp in units )
-+			{
-+                var unit = (XSUnitNode)temp.GetComponent<XSIUnitNode>();
-+
-+                //�̰� �� ���� Ʈ��
-+                if (unit != null && !unit.IsNull())
-+                {
-+                    this.SelectedUnit = unit;
-+#if UNITY_EDITOR
-+                    Debug.Log("Enemy_Moving_editer_ : " + this.SelectedUnit.Is_attackable);
-+#endif
-+                    if (this.SelectedUnit.Is_attackable && !IsEnemyMoving)
-                     {
--                        this.SelectedUnit = unit;
--                        Debug.Log(IsEnemyMoving);
--                        if (this.SelectedUnit.Is_attackable && !IsEnemyMoving)
--                        {							
--                            var cheackAttackRegion = this.GridShowMgr.ShowMoveRegion(unit); // ��ġ �����ֱ�
-+                        var cheackAttackRegion = this.GridShowMgr.ShowMoveRegion(unit); // ��ġ �����ֱ�
+@@ -37,33 +37,34 @@
  
--                            this.MoveRegion = unit.playerRegionRoute();
-+#if UNITY_EDITOR
-+                        Debug.Log("if�� ����");
-+#endif
-+                        this.MoveRegion = unit.playerRegionRoute();
+         public XSUnitNode SelectedUnit { get; set; }
  
--                            var tile = PlayerEntity.Inst ;
-+                        var tile = PlayerEntity.Inst;
+-        bool isEnemyAttacking = true;
  
--                            IsEnemyMoving = true;
--                            SelectedUnit.Is_attackable = false;
-+                        IsEnemyMoving = true;
-+                        SelectedUnit.Is_attackable = false;
+-        public GameObject[] units;
++		#region �������� ���� �ڵ��
++		bool isEnemyAttacking = true;
  
--                            Vector3 temtVect = new Vector3(tile.WorldPos.x,0, tile.WorldPos.z);
-+                        Vector3 temtVect = new Vector3(tile.WorldPos.x, 0, tile.WorldPos.z);
+-        public List<Vector3> mouseVector;
++        GameObject[] units;
  
--                            if (cheackAttackRegion.Contains(temtVect))
--                            {
--                                EntityManager.Inst.playerEntity.Status_Health -= 1;
-+                        if (cheackAttackRegion.Contains(temtVect))
-+                        {
-+                            EntityManager.Inst.playerEntity.Status_Health -= 1;
-+#if UNITY_EDITOR
-+                            Debug.Log("��������");
-+#endif
-+                            this.GridShowMgr.ClearMoveRegion();
-+                            yield return new WaitForSeconds(0.3f);
-+                            this.MoveRegion = null;
-+                            this.SelectedUnit = null;
-+                        }else if (this.MoveRegion.Contains(temtVect))
-+                        {
-+                            this.GridShowMgr.ClearMoveRegion();
-+                            this.MoveRegion = null;
+-        public List<Vector3> VectTest;
++        List<Vector3> mouseVector;
  
--                                this.GridShowMgr.ClearMoveRegion();
--                                this.MoveRegion = null;
-+                            if (this.SelectedUnit.CachedPaths != null)
-+                                yield return StartCoroutine(this.WalkTo_Enemy(this.SelectedUnit.CachedPaths[temtVect], unit.Move));
-+                            else
-                                 this.SelectedUnit = null;
--                            }
--                            else if (this.MoveRegion.Contains(temtVect))
--							{
--                                this.GridShowMgr.ClearMoveRegion();
--                                this.MoveRegion = null;
--                                                         
--                                if (this.SelectedUnit.CachedPaths != null)
--                                    this.WalkTo_Enemy(this.SelectedUnit.CachedPaths[temtVect], unit.Move);
--								else								
--                                    this.SelectedUnit = null;                                
--                            }                          
-+#if UNITY_EDITOR
-+                            Debug.Log("����������");
-+#endif
-                         }
-                     }
-                 }
-             }
--              
+         bool SelectTile= false;
+ 
+-/*
+-        /// <summary>
+-        /// �ϴ� �׽�Ʈ��
+-        /// �Ʒ��Ÿ� �����ؼ� ���� ���� ī�忡�� ���� �����ְ�
+-        /// ���� Ŭ���ϸ� ���ֺ��ؼ� ���� ����Ʈ �������ֱ�
+-        /// </summary>
+-        [Serializable]
+-        public class _2dArray
+-        {
+-            public List<int> arr;
 -        }
- 
-+            Debug.Log("�ڷ�ƾ Ż��");
+-        public List<_2dArray> array;
+-        
++        #endregion
++        /*
++                /// <summary>
++                /// �ϴ� �׽�Ʈ��
++                /// �Ʒ��Ÿ� �����ؼ� ���� ���� ī�忡�� ���� �����ְ�
++                /// ���� Ŭ���ϸ� ���ֺ��ؼ� ���� ����Ʈ �������ֱ�
++                /// </summary>
++                [Serializable]
++                public class _2dArray
++                {
++                    public List<int> arr;
++                }
++                public List<_2dArray> array;
 +
-+            isEnemyAttacking = false;
- 
-+            yield break;
-+        }
 +
-+        
++                public Dictionary<int ,List<Vector3> > dictest = new Dictionary<int, List<Vector3>>();*/// �����غ��ϱ� �׳� ���ͷι����õ� ��
  
+-        public Dictionary<int ,List<Vector3> > dictest = new Dictionary<int, List<Vector3>>();*/// �����غ��ϱ� �׳� ���ͷι����õ� ��
  
-         /// <summary>
+-        
+         void Start()
+         {
+             if (XSUnityUtils.IsEditor())

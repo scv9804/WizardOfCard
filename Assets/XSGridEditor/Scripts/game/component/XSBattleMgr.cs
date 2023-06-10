@@ -43,7 +43,7 @@ namespace XSSLG
 
         GameObject[] units;
 
-        List<Vector3> mouseVector;
+        public List<Vector3> mouseVector;
 
         bool SelectTile= false;
 
@@ -290,70 +290,71 @@ namespace XSSLG
             {
                 if (!this.SelectedUnit && TurnManager.Inst.myTurn)
                 {
-                    
-
                     var tile = XSUG.GetMouseTargetTile();
 
-                    //첫 타일 값 삽입.
-                    mouseVector.Add(tile.WorldPos);                   
+					if (tile != null)
+					{
+                        //첫 타일 값 삽입.
+                        mouseVector.Add(tile.WorldPos);
 
-                    //타일 주변값 비교
-                    if (!SelectTile)
-                    {
-                        SelectTile = true;
-                        Debug.Log("타일 값 넣기");
-                        foreach (var t in radius)
+                        //타일 주변값 비교
+                        if (!SelectTile)
                         {
-                            if (GridMgr.GetTileVect().Contains(tile.WorldPos + t))
+                            SelectTile = true;
+                            Debug.Log("타일 값 넣기");
+                            foreach (var t in radius)
                             {
-                                mouseVector.Add(tile.WorldPos + t);
-                            }                            
-                        }
-                    }
-                    //타일위치 바뀌었는지 확인하기
-                    if (tile.WorldPos != mouseVector[0])
-                    {
-                        SelectTile = false;
-                        GridShowMgr.ClearMoveRegion();
-                        mouseVector.Clear();
-                    }
-
-                    try
-                    {
-                        GridShowMgr.MoveShowRegion.ShowRegion(mouseVector);
-                        this.GridShowMgr.ShowAttackRegion(unit, range);
-                    }
-                    catch
-                    {
-#if UNITY_EDITOR
-                        Debug.Log("마우스 맵 밖에 존재함");
-#endif
-                    }
-
-
-                    if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
-                    {
-						if (this.MoveRegion.Contains(mouseVector[0]))
-						{
-                            foreach (var vect in mouseVector.Distinct())
-                            {
-                                GridMgr.GetEntityInPos(vect, out var entity);
-                                if (entity != null)
+                                if (GridMgr.GetTileVect().Contains(tile.WorldPos + t))
                                 {
-                                    cardTarget.Targets.Add(entity);
+                                    mouseVector.Add(tile.WorldPos + t);
                                 }
                             }
-                            cardTarget.IsActive = true;
+                        }
+                        //타일위치 바뀌었는지 확인하기
+                        if (tile.WorldPos != mouseVector[0])
+                        {
+                            SelectTile = false;
                             GridShowMgr.ClearMoveRegion();
                             mouseVector.Clear();
-                            break;
                         }
-                        // <2023-06-09 장형용 :: 추가>
-                        else
+
+                        try
                         {
-                            yield break;
+                            GridShowMgr.MoveShowRegion.ShowRegion(mouseVector);
+                            this.GridShowMgr.ShowAttackRegion(unit, range);
                         }
-                    }
+                        catch
+                        {
+#if UNITY_EDITOR
+                            Debug.Log("마우스 맵 밖에 존재함");
+#endif
+                        }
+
+
+                        if (Mouse.current.leftButton.wasPressedThisFrame) //클릭하면 리턴임!!!!!!!!!!!!!!!!!
+                        {
+                            if (this.MoveRegion.Contains(mouseVector[0]))
+                            {
+                                foreach (var vect in mouseVector.Distinct())
+                                {
+                                    GridMgr.GetEntityInPos(vect, out var entity);
+                                    if (entity != null)
+                                    {
+                                        cardTarget.Targets.Add(entity);
+                                    }
+                                }
+                                cardTarget.IsActive = true;
+                                GridShowMgr.ClearMoveRegion();
+                                mouseVector.Clear();
+                                break;
+                            }
+                            // <2023-06-09 장형용 :: 추가>
+                            else
+                            {
+                                yield break;
+                            }
+                        }
+                    }                
                 }
                 yield return null;
             }
