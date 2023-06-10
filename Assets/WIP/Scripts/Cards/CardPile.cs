@@ -31,7 +31,7 @@ namespace WIP
         // ================================================== Instance
 
         [Header("카드 오브젝트 리스트")]
-        [SerializeField, JsonIgnore] private List<CardObject> _cardObjects = new List<CardObject>();
+        [SerializeField, JsonIgnore] public List<CardObject> _cardObjects = new List<CardObject>();
 
         [Header("카드 오브젝트 활성화 여부")]
         [SerializeField, JsonIgnore] private bool _isDisplay;
@@ -673,10 +673,10 @@ namespace WIP
 
         protected override Vector3 GetPosition(int count, int index)
         {
-            float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
-            float y = Screen.height / 8;
+        //    float x = (index * 2 - count + 1) * 50.0f + Screen.width / 2;
+        //    float y = Screen.height / 8;
 
-            return new Vector3(x, y, 0.0f);
+            return new Vector3(0, 0, 0.0f);
         }
     }
 

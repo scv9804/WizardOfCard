@@ -5666,7 +5666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 0
-  money: 0
+  money: 500
 --- !u!1 &627814695
 GameObject:
   m_ObjectHideFlags: 0
@@ -7398,7 +7398,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1278654427}
-        m_TargetAssemblyTypeName: RoomButtonGenerator, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: MinimapToggel
         m_Mode: 1
         m_Arguments:
@@ -10044,7 +10044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &975309675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11721,10 +11721,10 @@ RectTransform:
   m_Father: {fileID: 527318270}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -100}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1165647931
 MonoBehaviour:
@@ -11842,10 +11842,10 @@ RectTransform:
   m_Father: {fileID: 527318270}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 950, y: -100}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180465611
 MonoBehaviour:
@@ -12837,10 +12837,10 @@ MonoBehaviour:
   CemeteryUI: {fileID: 1219490782}
   Reward_UI: {fileID: 857690063}
   turnEndButtonSpriteImage: {fileID: 1413940479}
-  CardCancleArea: {fileID: 0}
-  optionCancleArea: {fileID: 0}
-  minimapCancleArea: {fileID: 0}
-  inventoryCancleArea: {fileID: 0}
+  CardCancleArea: {fileID: 490724208}
+  optionCancleArea: {fileID: 1228617403}
+  minimapCancleArea: {fileID: 437419663}
+  inventoryCancleArea: {fileID: 961500122}
   gameClearBack_UI: {fileID: 586966902}
   postProcessing: {fileID: 1288007531}
   mainCam: {fileID: 519420031}
@@ -13774,7 +13774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1413772971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15497,7 +15497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1632009102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16892,7 +16892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: d794946e453dcdd4ea404e082d17616f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -17709,10 +17709,10 @@ RectTransform:
   m_Father: {fileID: 527318270}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -100}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1884405507
 MonoBehaviour:
@@ -17856,7 +17856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: 1dbcc60573e3f7744a7da0e90751f4ab, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4296802029623015359, guid: 1dbcc60573e3f7744a7da0e90751f4ab, type: 3}
       propertyPath: m_AnchorMax.x

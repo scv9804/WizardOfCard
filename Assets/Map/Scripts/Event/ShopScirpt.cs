@@ -7,6 +7,10 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
+namespace WIP
+{
+
+}
 public class ShopScirpt : MonoBehaviour
 {
 	[Header("상점 don't destroy")]
@@ -56,7 +60,7 @@ public class ShopScirpt : MonoBehaviour
 
 	#region 기본 ON OFF 설정
 	private void Start()
-	{
+	{	
 		shopOwnerButton.onClick.AddListener(OpenShop);
 		shopExitButton.onClick.AddListener(CloseShop);
 		ManaUpPurchaseButton.onClick.AddListener(ManaLevelUp);
@@ -115,6 +119,10 @@ public class ShopScirpt : MonoBehaviour
 	#endregion
 
 
+
+
+
+
 	#region 상점 기능 구현부
 	IEnumerator Repeat()
 	{
@@ -141,28 +149,38 @@ public class ShopScirpt : MonoBehaviour
 		yield return new WaitForSeconds(5f);
 	}
 
+	WIP.CardShopPile test = new WIP.CardShopPile();
+
 	void SetShop()
-	{
+	{		
 		if (!isSettingOver)
 		{
+			test.Initialize("SoldCardSort", true);
 			//카드 세팅
 			for (int i = 0; i < 5; i++)
 			{
-/*				int randCard = UnityEngine.Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
-				var temt = Instantiate(cardPrefab);
-				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.i_manaCost.ToString();
-				temt.transform.GetChild(1).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.st_cardName;
-				temt.transform.GetChild(2).GetComponent<TMP_Text>().text = CardManager.Inst.itemSO.items[randCard].card.GetCardExplain();
-				temt.transform.GetChild(3).GetComponent<TMP_Text>().text = 75.ToString();
-				temt.transform.GetChild(4).GetComponent<Image>().sprite = CardManager.Inst.itemSO.items[randCard].card.CardIconImage;
-				temt.transform.SetParent(cardSpawnParent.transform);
-				temt.AddComponent<Button>();
-				temt.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(CardManager.Inst.itemSO.items[randCard].card, temt));*/
+				var rand = UnityEngine.Random.Range(0, WIP.CardManager.Instance.Database.Cards.Count);
+				var temtName = WIP.GameManager.Instance.Allocate(WIP.InstanceType.Card);
 
-				
+				var card = WIP.Card.Create(temtName, rand);
+
+				test.Add(card);
+
+				var temtobject = test._cardObjects.Find((cardObject) => cardObject.InstanceID == temtName);
+				temtobject.GroupName = i.ToString();
+				var temt = Instantiate(cardPrefab);
+
+
+				temt.name = i.ToString();
+				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = 75.ToString();
+				temt.transform.SetParent(cardSpawnParent.transform);
+
+
+				temtobject.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(card, temt));
+
+
 			}
 
-			
 			//랜덤 아이템 세팅
 			for (int i = 0; i < 3; i++)
 			{
@@ -209,21 +227,21 @@ public class ShopScirpt : MonoBehaviour
 		}
 	}
 
-	void SetBuyCard(Card _card, GameObject _object)
+	void SetBuyCard(WIP.Card _card, GameObject _object)
 	{
 		if (75 <= CharacterStateStorage.Inst.money)
 		{
-			CardManager.Inst.AddSelectCard_Deck(_card);
+			WIP.CardManager.Instance.Deck.Add(_card);
 			CharacterStateStorage.Inst.money -= 75;
 			UIManager.Inst.PlayerMoneyUIRefresh();
-			
+
 			Destroy(_object);
 		}
 	}
 
 	void SetBuyItem(Item_inven item, int i)
 	{
-		if (item.Price <=  CharacterStateStorage.Inst.money)
+		if (item.Price <= CharacterStateStorage.Inst.money)
 		{
 			CharacterStateStorage.Inst.money -= item.Price;
 			UIManager.Inst.PlayerMoneyUIRefresh();
@@ -268,6 +286,12 @@ public class ShopScirpt : MonoBehaviour
 	}
 
 	#endregion
+
+
+	public void ClearShopCard()
+	{
+		test.Clear();
+	}
 
 
 }

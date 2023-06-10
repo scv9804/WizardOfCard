@@ -7,7 +7,7 @@ public class CharacterStateStorage : MonoBehaviour
 	public static CharacterStateStorage Inst { get; set; }
 
 	[HideInInspector]public float maxHealth;
-	[HideInInspector] public int money;
+	public int money;
 
 	int Aether;
 	public int aether { get { return Aether; } set{ Aether = value; } }
