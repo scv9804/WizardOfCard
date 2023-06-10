@@ -63,7 +63,7 @@ namespace WIP
         // =========================================================================== Data
 
         [Header("원본 데이터")]
-        [SerializeField, JsonProperty("Count")] private CardData _data;
+        [SerializeField, JsonIgnore] private CardData _data;
 
         // =========================================================================== StringBuilder
 
@@ -269,6 +269,14 @@ namespace WIP
             }
         }
 
+        [JsonIgnore] public CardTargetData TargetData
+        {
+            get
+            {
+                return Data.TargetData;
+            }
+        }
+
         [JsonIgnore, Obsolete] public CardHandlerData HandlerData
         {
             get
@@ -463,7 +471,7 @@ namespace WIP
 
         private List<Entity> _targets = new List<Entity>();
 
-        private bool _isActive;
+        private bool _isActive = false;
 
         // ==================================================================================================== Property
 

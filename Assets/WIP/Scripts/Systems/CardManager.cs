@@ -314,7 +314,7 @@ namespace WIP
                 return;
             }
 
-            CostModule.Cost = Selected.GetCard().Cost.Value;
+            CostModule.Cost = Selected.Card.Cost.Value;
             CostModule.Estimate();
 
             if (CostModule.IsEnough)
@@ -459,24 +459,21 @@ namespace WIP
 
         // ================================================== ????????
 
-        public IEnumerator SetCardTarget(Action<CardTarget> callback)
+        public IEnumerator SetCardTarget(Action success, Action failed)
         {
             CardTarget targets = new CardTarget();
 
             ////////////////////////////////////////////////// BETA
-            //targets.IsActive = true;
+            //targets.IsActive = false;
             ////////////////////////////////////////////////// BETA
 
             FindBattleMgr();
 
-			if (!Selected.GetCard().Data.TargetSelf)
-			{
-                ////////////////////////////////////////////////// BETA
-                targets.IsActive = false;
-                ////////////////////////////////////////////////// BETA
-
-                IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.GetCard().Data.HandlerData.TargetData.Radius,
-                    Selected.GetCard().Data.HandlerData.TargetData.Range);
+            //if (!Selected.Card.Data.TargetSelf)
+            if (Selected.Card.TargetData.IsTargetable)
+            {
+                IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.Card.TargetData.Radius,
+                    Selected.Card.TargetData.Range);
                 // ㅈㅎㅇ :: 글자 수 어지럽긴 하네여... 언재 정리하지 이거
 
                 if (select != null)
@@ -491,7 +488,16 @@ namespace WIP
                 ////////////////////////////////////////////////// BETA
             }
 
-            callback?.Invoke(targets);
+            if (targets.IsActive)
+            {
+                success?.Invoke();
+
+                yield return StartCoroutine(Use(Selected.Card, targets));
+            }
+            else
+            {
+                failed?.Invoke();
+            }
 
             yield return null;
         }
@@ -527,27 +533,19 @@ namespace WIP
 
         public IEnumerator Play()
         {
-            yield return StartCoroutine(SetCardTarget((targets) =>
+            yield return StartCoroutine(SetCardTarget(() =>
             {
-                Debug.Log(targets.IsActive);
+                CostModule.Execute();
+            }, () =>
+            {
+                Selected.State = CardState.None;
 
-                if (targets.IsActive)
-                {
-                    CostModule.Execute();
+                Selected.Move(Selected.OriginPosition);
 
-                    StartCoroutine(Use(Selected.GetCard(), targets));
-                }
-                else
-                {
-                    Selected.State = CardState.None;
-
-                    Selected.Move(Selected.OriginPosition);
-
-                    CostModule.Clear();
-                }
-
-                Selected = null;
+                CostModule.Clear();
             }));
+
+            Selected = null;
         }
 
         public void Arrange()

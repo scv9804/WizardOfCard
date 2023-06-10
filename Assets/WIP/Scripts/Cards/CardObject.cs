@@ -43,6 +43,8 @@ namespace WIP
 
         [NonSerialized] private CardPile _pile;
 
+        private EventObserver OnCardPointerEnter;
+
         // =========================================================================== Component
 
         [Header("ÄÄÆ÷³ÍÆ®")]
@@ -274,18 +276,6 @@ namespace WIP
         private void SetOriginSiblingIndex(int index)
         {
             OriginSiblingIndex = index;
-        }
-
-        // =========================================================================== Card
-
-        public Card GetCard() // ¾Æ
-        {
-            //return Pile.Choose((card) =>
-            //{
-            //    return card.InstanceID == InstanceID;
-            //})[0];
-
-            return Pile[InstanceID];
         }
 
         // =========================================================================== Component
