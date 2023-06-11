@@ -39,6 +39,9 @@ public class TurnManager : MonoBehaviour
     public static Action <bool> onStartTurn;
 	public static Action enemyActions;
 
+	// <<23-06-11 장형용 :: 추가>>
+	public WIP.EventObserver Temp_OnChangeTurn;
+
 	bool IsCombatScene = false;
 
 	public bool isCombatScene { get { return IsCombatScene; } set { IsCombatScene = value; } }
@@ -51,6 +54,9 @@ public class TurnManager : MonoBehaviour
 			isLoding = true;
 			onStartTurn?.Invoke(myTurn);
 
+			// <<23-06-11 장형용 :: 추가>>
+			Temp_OnChangeTurn?.Invoke(new WIP.TurnEventParameter(myTurn));
+
 			if (myTurn == true)
 			{
 				UIManager.Inst.TurnEndButtonActivae();				
@@ -58,6 +64,7 @@ public class TurnManager : MonoBehaviour
 				CardManager.Inst.SetCardStateCannot();			
 				yield return delay_07;
 				onAddCard?.Invoke();
+
 				yield return delay_07;
 				EntityManager.Inst.playerEntity.Status_Aether = EntityManager.Inst.playerEntity.Status_MaxAether;
 				UIManager.Inst.IsUIUse = true;

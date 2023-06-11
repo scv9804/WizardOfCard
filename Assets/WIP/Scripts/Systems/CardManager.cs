@@ -309,7 +309,7 @@ namespace WIP
 
         public void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || State < CardManagerState.CanUse || !Selected.IsUsable || Selected.Pile != Hand)
+            if (Selected != cardObject || State < CardManagerState.CanUse || !Selected.IsUsable || Selected.Pile != Hand || !TurnManager.Inst.myTurn)
             {
                 return;
             }
@@ -325,7 +325,7 @@ namespace WIP
 
         public void OnDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || State < CardManagerState.CanUse || Selected.Pile != Hand)
+            if (Selected != cardObject || State < CardManagerState.CanUse || Selected.Pile != Hand || !TurnManager.Inst.myTurn)
             {
                 return;
             }
@@ -335,7 +335,7 @@ namespace WIP
 
         public void OnEndDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || Selected.Pile != Hand)
+            if (Selected != cardObject || Selected.Pile != Hand || !TurnManager.Inst.myTurn)
             {
                 return;
             }
@@ -375,6 +375,8 @@ namespace WIP
             Exiled.Initialize(Card.EXILED_GROUP_NAME, false);
 
             FindBattleMgr();
+
+            TurnManager.Inst.Temp_OnChangeTurn += OnTurnChanged;
 
             StartCoroutine(GameStart());
         }
@@ -649,13 +651,28 @@ namespace WIP
             {
                 Hand.Display(true);
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     StartCoroutine(Draw(null));
                 }
 
                 yield return null;
             }
+        }
+
+        public void OnTurnChanged(IEventParameter parameter)
+        {
+            parameter.Casting<TurnEventParameter>((turnEvent) =>
+            {
+                if (turnEvent.IsMyTurn)
+                {
+                    StartCoroutine(Draw(null));
+                }
+                else
+                {
+
+                }
+            });
         }
     }
 
