@@ -50,6 +50,7 @@ public class LevelGeneration : MonoBehaviour {
 	bool shopOn;
 
 	[SerializeField]SceneSO sceneSO;
+	[SerializeField]SceneSO bossSceneSO;
 
 	// <<22-12-04 장형용 :: 편의성>>
 	public Room CurrentRoom
@@ -743,7 +744,7 @@ public class LevelGeneration : MonoBehaviour {
 					sceneSO.CallBattleScene(1);
 					break;
 				case 1:
-					//LoadSceneManager.LoadScene("CopyScene");
+					bossSceneSO.CallBattleScene(1);
 					Debug.Log("보스소환시도");
 					break;
 				case 2:
