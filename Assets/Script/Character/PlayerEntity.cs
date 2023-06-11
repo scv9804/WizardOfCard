@@ -984,7 +984,9 @@ public class PlayerEntity : XSUnitNode
 
     public void StartSkeletonAnimation()
     {
+#if UNITY_EDITOR
         skeletonAnimation.Start();
+#endif
     }
 
     #endregion
