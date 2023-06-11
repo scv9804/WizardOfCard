@@ -559,7 +559,21 @@ namespace WIP
 
         public void OnBattleEnd()
         {
-            Deck.Clear();
+            foreach (var card in Hand.Cards)
+            {
+                Deck.Add(card);
+            }
+
+            foreach (var card in Discard.Cards)
+            {
+                Deck.Add(card);
+            }
+
+            foreach (var card in Exiled.Cards)
+            {
+                Deck.Add(card);
+            }
+
             Hand.Clear();
             Discard.Clear();
             Exiled.Clear();
@@ -635,7 +649,7 @@ namespace WIP
             {
                 Hand.Display(true);
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     StartCoroutine(Draw(null));
                 }

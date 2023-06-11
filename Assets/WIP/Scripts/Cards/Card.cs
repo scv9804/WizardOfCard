@@ -306,7 +306,7 @@ namespace WIP
             Data = CardManager.Instance.Database.Cards[SerialID];
 
             ////////////////////////////////////////////////// BETA
-            Upgrade(2);
+            //Upgrade(2);
             ////////////////////////////////////////////////// BETA
 
             AddEventCallback();
