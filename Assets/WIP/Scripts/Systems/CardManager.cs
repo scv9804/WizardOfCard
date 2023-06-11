@@ -309,7 +309,7 @@ namespace WIP
 
         public void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || State < CardManagerState.CanUse || !Selected.IsUsable || Selected.Pile != Hand)
+            if (Selected != cardObject || State < CardManagerState.CanUse || !Selected.IsUsable || Selected.Pile != Hand || !TurnManager.Inst.myTurn)
             {
                 return;
             }
@@ -325,7 +325,7 @@ namespace WIP
 
         public void OnDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || State < CardManagerState.CanUse || Selected.Pile != Hand)
+            if (Selected != cardObject || State < CardManagerState.CanUse || Selected.Pile != Hand || !TurnManager.Inst.myTurn)
             {
                 return;
             }
@@ -335,7 +335,7 @@ namespace WIP
 
         public void OnEndDrag(PointerEventData eventData, CardObject cardObject)
         {
-            if (Selected != cardObject || Selected.Pile != Hand)
+            if (Selected != cardObject || Selected.Pile != Hand || !TurnManager.Inst.myTurn)
             {
                 return;
             }
