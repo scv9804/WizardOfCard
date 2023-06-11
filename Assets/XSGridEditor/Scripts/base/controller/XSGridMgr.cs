@@ -238,8 +238,10 @@ namespace XSSLG
 		{
             if (!EntityDic.ContainsKey(OriginPos))
                 return false;
-            EntityDic.Add(OriginPos, entity);
-            EntityDic.Remove(MovePos);
+            if (EntityDic.ContainsKey(MovePos))
+                return false;
+            EntityDic.Add(MovePos, entity);
+            EntityDic.Remove(OriginPos);
 #if UNITY_EDITOR
             Debug.Log("엔티티 리프래쉬 XSGRIDMGR_244");
 #endif

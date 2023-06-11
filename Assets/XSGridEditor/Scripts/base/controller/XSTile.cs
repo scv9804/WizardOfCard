@@ -38,7 +38,7 @@ namespace XSSLG
 
         public bool IsEntity { get; set; }
 
-        public Accessibility Access { get; }
+        public Accessibility Access { get; set; }
 
         /// <summary> this node in scene </summary>
         public XSITileNode Node { get; }

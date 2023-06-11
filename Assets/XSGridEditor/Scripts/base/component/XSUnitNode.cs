@@ -116,7 +116,7 @@ namespace XSSLG
 
             gridMgr.GetXSTile(PlayerEntity.Inst.WorldPos , out var playerTile); // 위치값        
 
-            this.CachedPaths = gridMgr.FindAllPath(srcTile, 20);// 여기에 범위 설정 수치 어떻게든 입력하면 될 것 같음
+            this.CachedPaths = gridMgr.FindAllPath(srcTile, 100);// 여기에 범위 설정 수치 어떻게든 입력하면 될 것 같음
  
             var ret = this.CachedPaths.Aggregate(new List<Vector3>(), (ret, pair) =>
             {

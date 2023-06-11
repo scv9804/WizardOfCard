@@ -15,19 +15,19 @@ namespace XSSLG
     {
         [SerializeField]
         protected bool up = true;
-        public bool Up { get => this.up; }
+        public bool Up { get => this.up; set => this.up = value; }
 
         [SerializeField]
         protected bool down = true;
-        public bool Down { get => this.down; }
+        public bool Down { get => this.down; set => this.down = value; }
 
         [SerializeField]
         protected bool left = true;
-        public bool Left { get => this.left; }
+        public bool Left { get => this.left; set => this.left = value; }
 
         [SerializeField]
         protected bool right = true;
-        public bool Right { get => this.right; }
+        public bool Right { get => this.right; set => this.right = value;  }
     }
 
     /// <summary> tile data </summary>

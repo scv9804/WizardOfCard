@@ -192,7 +192,7 @@ namespace XSSLG
 					if (!isEnemyAttacking)
 					{
                         StartCoroutine(EnemyBehavior());
-					}
+                    }
                 }
             }
 
@@ -206,7 +206,6 @@ namespace XSSLG
      
         public void SetEnemyAttack()
 		{
-            Debug.Log("dse");
             isEnemyAttacking = false;
 		}
         
@@ -215,7 +214,6 @@ namespace XSSLG
 		{
             isEnemyAttacking = true;
             var units = GameObject.FindGameObjectsWithTag("Enemy");
-
             foreach (var temp in units)
             {
                 var unit = (XSUnitNode)temp.GetComponent<XSIUnitNode>();
@@ -245,7 +243,7 @@ namespace XSSLG
                         if (cheackAttackRegion.Contains(temtVect))
                         {
 #if UNITY_EDITOR
-                       //   Debug.Log("공격");
+                          Debug.Log("공격");
 #endif
                             yield return new WaitForSeconds(0.3f);
                             GridShowMgr.ClearMoveRegion();
@@ -269,7 +267,10 @@ namespace XSSLG
                             Debug.Log("컨테인");
 #endif
                         }
+                        Debug.Log("끝");
                     }
+                    IsEnemyMoving = false;
+                   // SelectedUnit.Is_attackable = true;
 
                 }
 
@@ -417,26 +418,58 @@ namespace XSSLG
             this.IsMoving = false;
         }
 
+
+		private void MoveSetTileExit(XSTile tile)
+		{
+            tile.Access.Down = true;
+            tile.Access.Up = true;
+            tile.Access.Left = true;
+            tile.Access.Right = true;
+		}
+        private void MoveSetTileEnter(XSTile tile)
+        {
+            tile.Access.Down = false;
+            tile.Access.Up = false;
+            tile.Access.Left = false;
+            tile.Access.Right = false;
+        }
+
+
+
         public virtual IEnumerator MovementAnimation_Enemy(List<Vector3> path, int move)
         {
             this.IsMoving = true;
             path.Reverse(); // reverse the path
 
             GridMgr.GetXSTile(new Vector3(SelectedUnit.WorldPos.x, 0, SelectedUnit.WorldPos.z), out var nowXStile_1);
+           
             nowXStile_1.IsEntity = false;
+
+            MoveSetTileExit(nowXStile_1);
+
+            var temtPos = new Vector3(SelectedUnit.WorldPos.x, 0, SelectedUnit.WorldPos.z);
 
             for (int i = 0; i < move; i++)
             {
                 while (this.SelectedUnit.transform.position != path[i])
                 {
-					if (GridMgr.IsEntityXSTile(path[i]))
+                    if (GridMgr.IsEntityXSTile(path[i]))
                     {
-                        this.SelectedUnit.transform.position = Vector3.MoveTowards(this.SelectedUnit.transform.position, path[i], Time.deltaTime * movementAnimationSpeed); 
-                    }
+                        this.SelectedUnit.transform.position = Vector3.MoveTowards(this.SelectedUnit.transform.position, path[i], Time.deltaTime * movementAnimationSpeed);
+					}
+					else
+					{
+                        break;
+					}
                     yield return 0;
                 }
             }
+
+            GridMgr.EntityDicRefresh(temtPos, new Vector3(SelectedUnit.WorldPos.x, 0, SelectedUnit.WorldPos.z) , SelectedUnit.gameObject.GetComponent<Entity>());
+
             GridMgr.GetXSTile(new Vector3(SelectedUnit.WorldPos.x, 0, SelectedUnit.WorldPos.z), out var nowXStile_2);
+
+            MoveSetTileEnter(nowXStile_2);
             nowXStile_2.IsEntity = true;
 
             this.SelectedUnit = null;
@@ -445,7 +478,7 @@ namespace XSSLG
 
         public void SetEntityDic()
 		{
-            foreach (var entity in EntityManager.Inst.enemyEntities)
+            foreach (var entity in EntityManager.Inst.enemyEntities.Distinct())
             {
 #if UNITY_EDITOR
                 Debug.Log("엔티티 딕셔너리에 넣었습니다.");
