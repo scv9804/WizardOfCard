@@ -12,9 +12,19 @@ namespace WIP
 
     public delegate TResult EventObserver<TResult>(IEventParameter parameter);
 
-    // ==================================================================================================== IEventParameter
+    // ==================================================================================================== TurnEventParameter
 
-    public interface IEventParameter { }
+    public class TurnEventParameter : IEventParameter
+    {
+        public bool IsMyTurn;
+
+        public TurnEventParameter() { }
+
+        public TurnEventParameter(bool isMyTurn)
+        {
+            IsMyTurn = isMyTurn;
+        }
+    }
 
     // ==================================================================================================== ParameterConveter
 
@@ -34,4 +44,8 @@ namespace WIP
             }
         }
     }
+
+    // ==================================================================================================== IEventParameter
+
+    public interface IEventParameter { }
 }

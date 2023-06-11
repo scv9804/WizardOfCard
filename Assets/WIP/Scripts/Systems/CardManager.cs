@@ -376,6 +376,8 @@ namespace WIP
 
             FindBattleMgr();
 
+            TurnManager.Inst.Temp_OnChangeTurn += OnTurnChanged;
+
             StartCoroutine(GameStart());
         }
 
@@ -649,13 +651,28 @@ namespace WIP
             {
                 Hand.Display(true);
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     StartCoroutine(Draw(null));
                 }
 
                 yield return null;
             }
+        }
+
+        public void OnTurnChanged(IEventParameter parameter)
+        {
+            parameter.Casting<TurnEventParameter>((turnEvent) =>
+            {
+                if (turnEvent.IsMyTurn)
+                {
+                    StartCoroutine(Draw(null));
+                }
+                else
+                {
+
+                }
+            });
         }
     }
 
