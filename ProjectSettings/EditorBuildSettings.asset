@@ -32,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Have a Fun!.unity
     guid: b0d437ced02824f4d891bf5fdf31ccf9
+  - enabled: 1
+    path: Assets/Scenes/Defult/StageBattle1-1.unity
+    guid: 78e596cb5b76bc04c81baf30fa15aad7
+  - enabled: 1
+    path: Assets/Scenes/Defult/StageBattle1-2.unity
+    guid: b6eda41528985884184e92e265c6eec6
+  - enabled: 1
+    path: Assets/Scenes/Defult/StageBattle1-3.unity
+    guid: c3fccc3f63ff4954aa2b57ee7962830f
   m_configObjects: {}
