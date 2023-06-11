@@ -561,6 +561,8 @@ namespace WIP
 
         public void OnBattleEnd()
         {
+            Debug.Log($"Before:: Hands: {Hand.Cards.Count}, Discards: {Discard.Cards.Count}, Exiled: {Exiled.Cards.Count}");
+
             foreach (var card in Hand.Cards)
             {
                 Deck.Add(card);
@@ -579,6 +581,8 @@ namespace WIP
             Hand.Clear();
             Discard.Clear();
             Exiled.Clear();
+
+            Debug.Log($"After:: Hands: {Hand.Cards.Count}, Discards: {Discard.Cards.Count}, Exiled: {Exiled.Cards.Count}");
         }
 
         // ================================================== BattleMgr

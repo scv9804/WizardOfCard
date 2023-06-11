@@ -213,6 +213,13 @@ namespace WIP
         {
             Cards.Clear();
 
+            int count = CardObjects.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                CardObjects[i].Dispose();
+            }
+
             CardObjects.Clear();
         }
 
