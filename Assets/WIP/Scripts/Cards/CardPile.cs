@@ -482,27 +482,6 @@ namespace WIP
 
         }
 
-        // =========================================================================== CardObject
-
-        protected override CardObject Instantiate(Card card)
-        {
-            CardObject cardObject = base.Instantiate(card);
-
-            CardComponents components = cardObject.GetComponent<CardComponents>();
-
-            Button button = cardObject.gameObject.AddComponent<Button>();
-
-            button.targetGraphic = components.FrameImage;
-            button.onClick.AddListener(() => Buy(CardObjects.IndexOf(cardObject)));
-
-            return cardObject;
-        }
-
-        public void Buy(int index)
-        {
-            Debug.Log($"±î²á {index}");
-        }
-
         // =========================================================================== Transform
 
         // ================================================== Position
