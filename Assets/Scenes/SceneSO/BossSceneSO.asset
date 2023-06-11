@@ -15,5 +15,4 @@ MonoBehaviour:
   SceneList:
   - sceneName:
     - BossBattle1-1
-  - sceneName:
     - BossBattle1-2

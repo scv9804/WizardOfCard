@@ -15,7 +15,5 @@ MonoBehaviour:
   SceneList:
   - sceneName:
     - StageBattle1-1
-  - sceneName:
     - StageBattle1-2
-  - sceneName:
     - StageBattle1-3
