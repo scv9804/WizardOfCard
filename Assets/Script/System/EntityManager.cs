@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using XSSLG;
@@ -234,11 +235,14 @@ public class EntityManager : MonoBehaviour
 
     void SetEnemyList()
     {
+        enemyEntitiesObjcet = enemyEntitiesObjcet.Distinct().ToList();
+    
         foreach (var enemy in enemyEntitiesObjcet)
         {
             enemyEntities.Add(enemy.GetComponent<Entity>());
         }
 
+        enemyEntities = enemyEntities.Distinct().ToList();
     }
 
     void EnemyEntitiesSet()
@@ -247,6 +251,7 @@ public class EntityManager : MonoBehaviour
 		{
             enemyEntitiesObjcet.Add(enemy);
 		}
+
         /*        foreach (var entity in enemyEntitiesObjcet)
                 {            
                     enemyEntities.Add(entity.GetComponent<Entity>());
@@ -375,7 +380,18 @@ public class EntityManager : MonoBehaviour
     {
         if (_entity.is_die)
         {
-            Destroy(_entity.gameObject);
+            var temt = GameObject.Find("main").GetComponent<XSBattleMgr>();
+            var GridMgr = XSInstance.Instance.GridMgr;
+            GridMgr.GetXSTile(new Vector3(_entity.transform.position.x, 0, _entity.transform.position.z), out var tile);
+            temt.MoveSetTileExit(tile);
+
+            tile.IsEntity = false;
+            GridMgr.EntityDicRemove(new Vector3(_entity.transform.position.x, 0, _entity.transform.position.z));
+
+            enemyEntities.Remove(_entity);
+
+            _entity.gameObject.transform.SetParent(GameObject.Find("main").transform) ;
+            _entity.gameObject.SetActive(false);
             enemyEntities.Remove(_entity);
             Debug.Log("ÇÏ³ªÁ×¾ú´Ù.");
         }

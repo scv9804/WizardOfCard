@@ -234,6 +234,8 @@ namespace XSSLG
             }
         }
 
+ 
+
         public virtual bool EntityDicRefresh(Vector3 OriginPos, Vector3 MovePos, Entity entity)
 		{
             if (!EntityDic.ContainsKey(OriginPos))
@@ -284,6 +286,7 @@ namespace XSSLG
             }
         }
 
+     
         /// <summary>
         /// get all paths
         /// </summary>

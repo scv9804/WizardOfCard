@@ -86,6 +86,8 @@ namespace XSSLG
                 var moveRegionCpt = XSGridShowRegionCpt.Create(XSGridDefine.SCENE_GRID_MOVE, gridHelper.MoveTilePrefab, 10);
                 this.GridShowMgr = new XSGridShowMgr(moveRegionCpt);
                 SetEntityDic();
+
+              
             }
             TurnManager.enemyActions += SetEnemyAttack;
             TurnManager.onStartTurn += SelectUnitClear;
@@ -419,7 +421,7 @@ namespace XSSLG
         }
 
 
-		private void MoveSetTileExit(XSTile tile)
+		public void MoveSetTileExit(XSTile tile)
 		{
             tile.Access.Down = true;
             tile.Access.Up = true;
@@ -483,7 +485,11 @@ namespace XSSLG
 #if UNITY_EDITOR
                 Debug.Log("엔티티 딕셔너리에 넣었습니다.");
 #endif
+                GridMgr.GetXSTile(new Vector3(entity.transform.position.x, 0, entity.transform.position.z), out var nowXStile_1);
+                MoveSetTileEnter(nowXStile_1);
+                nowXStile_1.IsEntity = true;
                 GridMgr.EntityDicAdd(new Vector3(entity.transform.position.x, 0, entity.transform.position.z), entity);
+                
             }
         }
 
