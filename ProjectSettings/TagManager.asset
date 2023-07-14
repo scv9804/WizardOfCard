@@ -4,22 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - SpawnPoint
-  - Rooms
-  - Maps
   - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - background
+  - 
   - Water
   - UI
-  - UseCardArea
-  - Maps
-  - Effect
-  - Tile
-  - Unit
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -44,13 +41,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Entity
-    uniqueID: 2038262887
-    locked: 0
-  - name: Card
-    uniqueID: 2777846799
-    locked: 0
-  - name: UI
-    uniqueID: 1556536181
     locked: 0

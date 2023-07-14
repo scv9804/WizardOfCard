@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.EventSystems;
+
 namespace BETA
 {
     // ==================================================================================================== CardManager
@@ -19,6 +21,9 @@ namespace BETA
 
         [Header("카드 오브젝트")]
         [SerializeField] private Data<CardObject> _cardObjects = new Data<CardObject>();
+
+        [Header("선택됨!")]
+        [SerializeField] private CardObject _selected;
 
         // =========================================================================== Data
 
@@ -53,11 +58,11 @@ namespace BETA
             }
         }
 
-        public override List<Card> Discard
+        public override List<Card> Discarded
         {
             get
             {
-                return _cards.Discard;
+                return _cards.Discarded;
             }
         }
 
@@ -78,6 +83,8 @@ namespace BETA
             base.Awake();
 
             Card.Original.Initialize();
+
+            Card.ReadAllData();
         }
 
         protected override void OnApplicationQuit()
@@ -85,6 +92,25 @@ namespace BETA
             base.OnApplicationQuit();
 
             Card.Original.Clear();
+
+            Card.ReadAllData();
+        }
+
+        // =========================================================================== EventSystems
+
+        public override void OnBeginDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
+        }
+
+        public override void OnDrag(PointerEventData eventData, CardObject cardObject)
+        {
+            cardObject.transform.position = eventData.position;
+        }
+
+        public override void OnEndDrag(PointerEventData eventData, CardObject cardObject)
+        {
+
         }
 
         // =========================================================================== Singleton
@@ -131,18 +157,18 @@ namespace BETA
             Acquire(card2);
             Acquire(card3);
 
-            //card1.Upgrade();
-            //card1.Upgrade();
+            card1.Upgrade();
+            card1.Upgrade();
 
-            //card2.Upgrade();
-            //card2.Upgrade();
+            card2.Upgrade();
+            card2.Upgrade();
 
-            //card3.Upgrade();
-            //card3.Upgrade();
+            card3.Upgrade();
+            card3.Upgrade();
 
             foreach (var card in Owned)
             {
-                CardObject.Create(card.InstanceID);
+                CardObject.Create(card.InstanceID, true);
             }
         }
     }

@@ -106,6 +106,22 @@ namespace BETA
 
                     return data;
                 }
+
+                // =========================================================================== BETA
+
+                public string ReadData()
+                {
+                    string serialID = "Serial ID".Color("#5F9EA0").Bold();
+
+                    string name = "Name".Color("#5F9EA0").Bold();
+                    string cost = "Cost".Color("#5F9EA0").Bold();
+                    string type = "Type".Color("#5F9EA0").Bold();
+                    string description = "Description".Color("#5F9EA0").Bold();
+
+                    string level = "Level".Color("#5F9EA0").Bold();
+
+                    return $"{serialID}: {SerialID}, {name}: {Name}, {cost}: {Cost}, {type}: {Type}, {description}: {Description}, {level}: {Level}";
+                }
             }
         }
     }

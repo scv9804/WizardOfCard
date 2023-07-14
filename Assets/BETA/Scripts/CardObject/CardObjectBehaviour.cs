@@ -13,13 +13,20 @@ namespace BETA
 
     public sealed partial class Card
     {
-        public abstract class ObjectBehaviour : MonoBehaviour
+        public abstract class ObjectBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
         {
             // ==================================================================================================== Property
 
             // =========================================================================== Identifier
 
             public abstract string InstanceID
+            {
+                get; protected set;
+            }
+
+            // =========================================================================== CardObject
+
+            public abstract bool CanDrag
             {
                 get; protected set;
             }
@@ -57,6 +64,14 @@ namespace BETA
 
             // ==================================================================================================== Method
 
+            // =========================================================================== EventSystems
+
+            public abstract void OnBeginDrag(PointerEventData eventData);
+
+            public abstract void OnDrag(PointerEventData eventData);
+
+            public abstract void OnEndDrag(PointerEventData eventData);
+
             // =========================================================================== Component
 
             public virtual void Refresh()
@@ -69,14 +84,15 @@ namespace BETA
                 int serialID = Instance.Data[InstanceID].SerialID;
                 int level = Instance.Data[InstanceID].Level;
 
-                var data = Original.Data.Create(serialID, level);
+                var originalData = Original.Data.Create(serialID, level);
+                var instanceData = Instance.Data[InstanceID];
 
-                FrameImage.sprite = data.FrameSprite;
-                ArtworkImage.sprite = data.ArtworkSprite;
+                FrameImage.sprite = originalData.FrameSprite;
+                ArtworkImage.sprite = originalData.ArtworkSprite;
 
-                NameTMP.text = Instance.Data[InstanceID].Name;
-                CostTMP.text = Instance.Data[InstanceID].Cost.ToString();
-                DescriptionTMP.text = Instance.Data[InstanceID].Description;
+                NameTMP.text = instanceData.Name;
+                CostTMP.text = instanceData.Cost.ToString();
+                DescriptionTMP.text = instanceData.Description;
             }
         }
     }

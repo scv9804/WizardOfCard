@@ -194,6 +194,7 @@ namespace BETA
 
         public static void ReadAllData()
         {
+            Original.ReadAllData();
             Instance.ReadAllData();
         }
     }

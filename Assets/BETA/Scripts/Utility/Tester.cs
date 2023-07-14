@@ -12,6 +12,8 @@ namespace BETA
     {
         // ==================================================================================================== Field
 
+
+
         // ==================================================================================================== Method
 
         // =========================================================================== Event
@@ -19,17 +21,6 @@ namespace BETA
         void Start()
         {
             CardManager.Instance.OnCardManagerAwake();
-
-            //var data = Card.Original.Data.Create(0, 0);
-
-            //EditorDebug.EditorLog(data.Name);
-            //EditorDebug.EditorLog(data.Cost);
-            //EditorDebug.EditorLog(data.Description);
-        }
-
-        [Serializable] public class Data<T>
-        {
-            public T Value;
         }
     } 
 }

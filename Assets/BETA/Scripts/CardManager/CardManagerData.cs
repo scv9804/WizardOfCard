@@ -26,7 +26,7 @@ namespace BETA
             public List<T> Hand = new List<T>();
 
             [Header("사용 카드")]
-            public List<T> Discard = new List<T>();
+            public List<T> Discarded = new List<T>();
 
             [Header("제외 카드")]
             public List<T> Exiled = new List<T>();

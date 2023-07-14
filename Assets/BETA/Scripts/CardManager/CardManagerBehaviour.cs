@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.EventSystems;
+
 namespace BETA
 {
     // ==================================================================================================== Card.ManagerBehaviour
@@ -29,7 +31,7 @@ namespace BETA
                 get;
             }
 
-            public abstract List<Card> Discard
+            public abstract List<Card> Discarded
             {
                 get;
             }
@@ -46,16 +48,20 @@ namespace BETA
             protected override void Awake()
             {
                 base.Awake();
-
-                ReadAllData();
             }
 
             protected override void OnApplicationQuit()
             {
                 base.OnApplicationQuit();
-
-                ReadAllData();
             }
+
+            // =========================================================================== EventSystems
+
+            public abstract void OnBeginDrag(PointerEventData eventData, CardObject cardObject);
+
+            public abstract void OnDrag(PointerEventData eventData, CardObject cardObject);
+
+            public abstract void OnEndDrag(PointerEventData eventData, CardObject cardObject);
 
             // =========================================================================== Card (BETA)
 

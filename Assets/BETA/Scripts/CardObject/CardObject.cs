@@ -20,6 +20,11 @@ namespace BETA
         [Header("개체 ID")]
         [SerializeField] private string _instanceID;
 
+        // =========================================================================== CardObject
+
+        [Header("드래그 가능 여부")]
+        [SerializeField] private bool _canDrag;
+
         // =========================================================================== Component
 
         // ================================================== Image
@@ -49,6 +54,21 @@ namespace BETA
             protected set
             {
                 _instanceID = value;
+            }
+        }
+
+        // =========================================================================== CardObject
+
+        public override bool CanDrag
+        {
+            get
+            {
+                return _canDrag;
+            }
+
+            protected set
+            {
+                _canDrag = value;
             }
         }
 
@@ -112,17 +132,33 @@ namespace BETA
             Refresh();
         }
 
+        // =========================================================================== EventSystems
+
+        public override void OnBeginDrag(PointerEventData eventData)
+        {
+            CardManager.Instance.OnBeginDrag(eventData, this);
+        }
+
+        public override void OnDrag(PointerEventData eventData)
+        {
+            CardManager.Instance.OnDrag(eventData, this);
+        }
+
+        public override void OnEndDrag(PointerEventData eventData)
+        {
+            CardManager.Instance.OnEndDrag(eventData, this);
+        }
+
         // =========================================================================== Instance
 
-        public static CardObject Create(string instanceID)
+        public static CardObject Create(string instanceID, bool canDrag)
         {
             var gameObject = Instantiate(Card.Original.Prefab, GameObject.Find("[ Cards ]").transform);
 
             var cardObject = gameObject.GetComponent<CardObject>();
 
             cardObject.InstanceID = instanceID;
-
-            cardObject.transform.position = new Vector2(Random.Range(0, 1920), Random.Range(-0, 1080)); // TEMP
+            cardObject.CanDrag = canDrag;
 
             return cardObject;
         }

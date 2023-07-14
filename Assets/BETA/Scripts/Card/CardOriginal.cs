@@ -4,6 +4,8 @@ using UnityEngine;
 
 using BETA.Serialized.Card;
 
+using Newtonsoft.Json;
+
 namespace BETA
 {
     // ==================================================================================================== Card.Original
@@ -63,8 +65,6 @@ namespace BETA
 
             public static void Initialize()
             {
-                Prefab = Resources.Load<GameObject>("Prefabs/Card (BETA)");
-
                 s_name = Resources.Load<CardNameTable>("Data/Card/NameTable").Deserialize();
                 s_cost = Resources.Load<CardCostTable>("Data/Card/CostTable").Deserialize();
                 s_type = Resources.Load<CardTypeTable>("Data/Card/TypeTable").Deserialize();
@@ -72,12 +72,12 @@ namespace BETA
 
                 s_frameSprite = Resources.Load<CardFrameSpriteTable>("Data/Card/FrameSpriteTable").Deserialize();
                 s_artworkSprite = Resources.Load<CardArtworkSpriteTable>("Data/Card/ArtworkSpriteTable").Deserialize();
+
+                Prefab = Resources.Load<GameObject>("Prefabs/Card (BETA)");
             }
 
             public static void Clear()
             {
-                Prefab = null;
-
                 s_name = null;
                 s_cost = null;
                 s_type = null;
@@ -85,6 +85,32 @@ namespace BETA
 
                 s_frameSprite = null;
                 s_artworkSprite = null;
+
+                Prefab = null;
+            }
+
+            // =========================================================================== BETA
+
+            public static void ReadAllData()
+            {
+                if (s_name is null)
+                {
+                    return;
+                }
+
+                var data = Data.Create(0 ,0);
+
+                for (int i = 0; i < s_name.Count; i++)
+                {
+                    data.SerialID = i;
+
+                    for (int j = 0; j < MAX_LEVEL + 1; j++)
+                    {
+                        data.Level = j;
+
+                        EditorDebug.EditorLog(data.ReadData());
+                    }
+                }
             }
         }
     }
