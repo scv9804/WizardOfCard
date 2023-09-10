@@ -216,9 +216,11 @@ namespace WIP
 
         public static CardObject Create(string instanceID, CardPile pile)
         {
-            GameObject gameObject = Instantiate(CardManager.Instance.CardPrefab);
+            //GameObject gameObject = Instantiate(CardManager.Instance.CardPrefab);
 
-            var cardObject = gameObject.GetComponent<CardObject>();
+            //var cardObject = gameObject.GetComponent<CardObject>();
+
+            var cardObject = Instantiate(CardManager.Instance.CardPrefab);
 
             cardObject.Initialize(instanceID, pile);
 

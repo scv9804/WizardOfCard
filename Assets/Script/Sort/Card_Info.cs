@@ -8,7 +8,7 @@ public class Card_Info : MonoBehaviour
 	[Header("카드 기본 데이터")]
 	[Tooltip("카드 이름")] public string st_cardName;
 	[Tooltip("카드 번호")] public int i_itemNum;
-	[Tooltip("카드 분류(더미 데이터)")] public CardType type; // <<22-11-04 장형용 :: Enum 선언은 Utility로 빼둠>>
+	//[Tooltip("카드 분류(더미 데이터)")] public CardType type; // <<22-11-04 장형용 :: Enum 선언은 Utility로 빼둠>>
 	[Tooltip("카드 희귀도")] public float f_percentage;
 
 	[Header("카드 강화 횟수")]

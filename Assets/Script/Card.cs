@@ -36,7 +36,7 @@ public class Card : MonoBehaviour
 	[Tooltip("카드 비용"), SerializeField] int[] cost = new int[3];
 	//int[] attack; // <<22-11-24 장형용 :: 삭제>>
 	[Tooltip("카드 망각 여부"), SerializeField] bool[] isExile = new bool[3];
-	[Tooltip("카드 분류")] public CardType[] cardType = new CardType[3];
+	//[Tooltip("카드 분류")] public CardType[] cardType = new CardType[3];
 	[Tooltip("카드 대상 범위"), SerializeField] AttackRange[] AR_attackRange = new AttackRange[3];
 	[Tooltip("카드 설명"), TextArea(3, 5)] public string[] explainCard = new string[3]; // 잠시 필요해서 퍼블릭으로 바꿈 메서드 추가할까 했는데 일단 그대로둠
 
@@ -92,10 +92,10 @@ public class Card : MonoBehaviour
 		set { if(value < -1 || value > 3) upgraded = value; }
 	}
 
-	public CardType CardType
-	{
-		get { return cardType[i_upgraded]; }
-	}
+	//public CardType CardType
+	//{
+	//	get { return cardType[i_upgraded]; }
+	//}
 
 	public AttackRange attackRange
 	{

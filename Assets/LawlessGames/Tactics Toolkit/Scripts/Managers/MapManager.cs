@@ -68,6 +68,7 @@ namespace TacticsToolkit
                             var overlayTile = Instantiate(overlayTilePrefab, overlayContainer.transform);
                             var cellWorldPosition = tilemap.GetCellCenterWorld(tileLocation);
                             var baseTile = tilemap.GetTile(tileLocation);
+
                             overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 1);
                             overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tilemap.GetComponent<TilemapRenderer>().sortingOrder;
                             overlayTile.gridLocation = tileLocation;

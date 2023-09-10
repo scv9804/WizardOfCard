@@ -8,7 +8,7 @@ namespace BETA.Graphics
 {
     // ==================================================================================================== TransparencySortHelper
 
-    [HideMonoScript] [RequireComponent(typeof(Camera))]
+    [RequireComponent(typeof(Camera))]
     public class TransparencySortHelper : SerializedMonoBehaviour
     {
         // ==================================================================================================== Field
@@ -24,10 +24,7 @@ namespace BETA.Graphics
 
         private void Awake()
         {
-            if (Camera == null)
-            {
-                Camera = GetComponent<Camera>();
-            }
+            SetTransparencySortOption(TransparencySortMode.CustomAxis, new Vector3(0.0f, 1.0f, -0.26f));
         }
 
         // =========================================================================== Graphic
@@ -35,6 +32,11 @@ namespace BETA.Graphics
         [Button] [FoldoutGroup("Transparency Sort Option")]
         public void SetTransparencySortOption(TransparencySortMode mode, Vector3 axis)
         {
+            if (Camera == null)
+            {
+                Camera = GetComponent<Camera>();
+            }
+
             Camera.transparencySortMode = mode;
             Camera.transparencySortAxis = axis;
         }

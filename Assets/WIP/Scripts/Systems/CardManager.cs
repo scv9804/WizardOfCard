@@ -4,13 +4,16 @@ using UnityEngine;
 
 using Newtonsoft.Json;
 
+using Sirenix.OdinInspector;
+
 using System;
 using System.Linq;
 
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-using XSSLG;
+//using XSSLG;
+using UnityEngine.Events;
 
 namespace WIP
 {
@@ -43,8 +46,8 @@ namespace WIP
 
         // ================================================== BattleMgr
 
-        [Header("배틀 매니저")]
-        [SerializeField] private XSBattleMgr _battleMgr;
+        //[Header("배틀 매니저")]
+        //[SerializeField] private XSBattleMgr _battleMgr;
 
         // ================================================== State
 
@@ -62,8 +65,11 @@ namespace WIP
 
         // ================================================== Resource
 
+        //[Header("카드 프리팹")]
+        //[SerializeField] private GameObject _cardPrefab;
+
         [Header("카드 프리팹")]
-        [SerializeField] private GameObject _cardPrefab;
+        [SerializeField] private CardObject _cardPrefab;
 
         [Header("데이터베이스")]
         [SerializeField] private CardDatabase _database;
@@ -178,7 +184,20 @@ namespace WIP
 
         // ================================================== Resource
 
-        public GameObject CardPrefab
+        //public GameObject CardPrefab
+        //{
+        //    get
+        //    {
+        //        return _cardPrefab;
+        //    }
+
+        //    private set
+        //    {
+        //        _cardPrefab = value;
+        //    }
+        //}
+
+        public CardObject CardPrefab
         {
             get
             {
@@ -225,6 +244,11 @@ namespace WIP
         {
             base.Awake();
 
+            // <Scene, LoadSceneMode> sceneLoaded;
+
+            SceneManager.sceneLoaded -= OnSceneWasLoaded;
+            SceneManager.sceneLoaded += OnSceneWasLoaded;
+
             ////////////////////////////////////////////////// BETA
             _inputs = new Dictionary<KeyCode, Action>()
             {
@@ -256,6 +280,11 @@ namespace WIP
             ////////////////////////////////////////////////// BETA
         }
 
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneWasLoaded;
+        }
+
         private void Update()
         {
             ////////////////////////////////////////////////// BETA
@@ -269,12 +298,24 @@ namespace WIP
             ////////////////////////////////////////////////// BETA
         }
 
-        private void OnLevelWasLoaded(int level)
+        // ================================================== Scene
+
+        //private void OnLevelWasLoaded(int level)
+        //{
+        //    if (TurnManager.Inst.isCombatScene && Instance == this)
+        //    {
+        //        StartCoroutine(GameSetting());
+        //    }
+        //}
+
+        private void OnSceneWasLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (TurnManager.Inst.isCombatScene && Instance == this)
-            {
-                StartCoroutine(GameSetting());
-            }
+            //if (TurnManager.Inst.isCombatScene && Instance == this)
+            //{
+            //    StartCoroutine(GameSetting());
+            //}
+
+            StartCoroutine(GameSetting());
         }
 
         // =========================================================================== EventSystem
@@ -374,7 +415,7 @@ namespace WIP
             Discard.Initialize(Card.DISCARD_GROUP_NAME, false);
             Exiled.Initialize(Card.EXILED_GROUP_NAME, false);
 
-            FindBattleMgr();
+            //FindBattleMgr();
 
             TurnManager.Inst.Temp_OnChangeTurn += OnTurnChanged;
 
@@ -469,19 +510,19 @@ namespace WIP
             //targets.IsActive = false;
             ////////////////////////////////////////////////// BETA
 
-            FindBattleMgr();
+            //FindBattleMgr();
 
             //if (!Selected.Card.Data.TargetSelf)
             if (Selected.Card.TargetData.IsTargetable)
             {
-                IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.Card.TargetData.Radius,
-                    Selected.Card.TargetData.Range);
+                //IEnumerator select = _battleMgr?.SelectTarget(targets, Selected.Card.TargetData.Radius,
+                //    Selected.Card.TargetData.Range);
                 // ㅈㅎㅇ :: 글자 수 어지럽긴 하네여... 언재 정리하지 이거
 
-                if (select != null)
-                {
-                    yield return StartCoroutine(select);
-                }
+                //if (select != null)
+                //{
+                //    yield return StartCoroutine(select);
+                //}
 			}
 			else
             {
@@ -587,25 +628,25 @@ namespace WIP
 
         // ================================================== BattleMgr
 
-        private void FindBattleMgr()
-        {
-            if (_battleMgr == null)
-            {
-                #region ONLY_UNITY_EDITOR :: "배틀매니저가 null입니다. 추가하겠습니다."
-#if UNITY_EDITOR
-                Debug.Log("배틀매니저가 null입니다. 추가하겠습니다.");
-#endif 
-                #endregion
+//        private void FindBattleMgr()
+//        {
+//            if (_battleMgr == null)
+//            {
+//                #region ONLY_UNITY_EDITOR :: "배틀매니저가 null입니다. 추가하겠습니다."
+//#if UNITY_EDITOR
+//                Debug.Log("배틀매니저가 null입니다. 추가하겠습니다.");
+//#endif 
+//                #endregion
 
-                _battleMgr = GameObject.Find("main")?.GetComponent<XSBattleMgr>();
-            }
-        }
+//                _battleMgr = GameObject.Find("main")?.GetComponent<XSBattleMgr>();
+//            }
+//        }
 
         // ================================================== Resource
 
         private void LoadData()
         {
-            CardPrefab = Resources.Load<GameObject>("Prefabs/Card");
+            CardPrefab = Resources.Load<CardObject>("Prefabs/Card");
 
             Database = Resources.Load<CardDatabase>("Data/CardDatabase");
 

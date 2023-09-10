@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aabdf9f487edbd4894edf6ff4b5f73e, type: 3}
+  m_Name: 07_CardArtwork
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Sprite:
+  - {fileID: 21300000, guid: 47f8760b926e11d49a995e334ad6fb70, type: 3}
+  - {fileID: 21300000, guid: bf8e877212051a34d98cf6c93dab5d09, type: 3}
+  - {fileID: 21300000, guid: 5befa9222efd12949866f5b2123265f5, type: 3}

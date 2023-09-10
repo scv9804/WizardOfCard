@@ -83,16 +83,16 @@ public enum AttackRange
     Target_Single
 }
 
-// <<22-11-24 장형용 :: 수정>>
-[Flags] public enum CardType
-{
-    ATTACK  = 1 << 1,
-    DEFENCE = 1 << 2,
-    BUFF    = 1 << 3,
-    DEBUFF  = 1 << 4,
-    DRAW    = 1 << 5,
-    UTILITY = 1 << 6,
-}
+//// <<22-11-24 장형용 :: 수정>>
+//[Flags] public enum CardType
+//{
+//    ATTACK  = 1 << 1,
+//    DEFENCE = 1 << 2,
+//    BUFF    = 1 << 3,
+//    DEBUFF  = 1 << 4,
+//    DRAW    = 1 << 5,
+//    UTILITY = 1 << 6,
+//}
 
 public enum CardEnum
 {

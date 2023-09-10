@@ -176,7 +176,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2047
 --- !u!225 &5088442884917642213
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -201,5 +201,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416db0c377b815d46946f9003270f435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoaderCanvasGroup: {fileID: 5088442884917642213}
+  scenes: []
   progressBar: {fileID: 7872732978502669426}
