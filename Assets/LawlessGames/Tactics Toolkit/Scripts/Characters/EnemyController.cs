@@ -558,7 +558,13 @@ namespace TacticsToolkit
             {
                 BattleEnd.Raise();
 
-                UnityEngine.SceneManagement.SceneManager.LoadScene("MainBETAScene");
+                //UnityEngine.SceneManagement.SceneManager.LoadScene("MainBETAScene");
+                //UnityEngine.SceneManagement.SceneManager.LoadScene("Stage 1-1 Load");
+
+                // ******
+                LoadSceneManager.LoadScene("Stage 1-1 Load");
+                UIManager.Inst.ButtonActivate();
+                ////CardManager.Inst.SetCardStateCannot();
             }
         }
     }

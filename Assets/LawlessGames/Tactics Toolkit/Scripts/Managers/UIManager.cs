@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TacticsToolkit
+namespace TacticsToolkit.UI
 {
     public class UIManager : MonoBehaviour
     {

@@ -39,6 +39,13 @@ namespace BETA.Editor
             Effect<CakeRuntimeData>.AddEffect(Cake, 0);
         }
     }
+
+    // 스킬 사용 순서
+    // 스킬 이름 입력
+    // 그 이름 갖다가 캐릭터 능력창에서 찾아서 효과 발동...?
+
+    // 그 후 활성화 된 타일에서 타겟 찾아서
+    // 효과 apply
     
     public class GameComponent<TData> where TData : RuntimeData
     {
@@ -114,13 +121,19 @@ namespace BETA.Editor
     [Serializable]
     public class CakeAttackEffect : EffectData<CakeRuntimeData>
     {
+        public override void Apply(CakeRuntimeData data)
+        {
 
+        }
     }
 
     [Serializable]
     public class CakeShieldEffect : EffectData<CakeRuntimeData>
     {
+        public override void Apply(CakeRuntimeData data)
+        {
 
+        }
     }
 }
 

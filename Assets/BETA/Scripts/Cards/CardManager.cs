@@ -317,9 +317,11 @@ namespace BETA
 
             Selected = cardObject;
 
-            var scriptableData = DataManager.Instance.GetDataSet<CardDataSet>().Data[cardObject.SerialID];
+            //var scriptableData = DataManager.Instance.GetDataSet<CardDataSet>().Data[cardObject.SerialID];
 
-            OnAbilityCasted.Raise(scriptableData.Name);
+            //OnAbilityCasted.Raise(scriptableData.Name);
+
+            OnAbilityCasted.Raise(Selected.Unit.Name);
 
             Selected.gameObject.SetActive(false);
         }
@@ -384,6 +386,15 @@ namespace BETA
             {
                 CardObjects.Add(HAND, Visualize(card));
             }));
+        }
+
+        public void OnCardAbilityCasted(int serialID)
+        {
+            OverlayController.Instance.ClearTiles(null);
+
+            // 대충 카드 스킬 효과 가져오는 코드
+
+            // 대충 마나 맞으면 효과 범위 보여준다는 코드
         }
 
         public void OnActionButtonPressed()

@@ -134,6 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcfdfc59e67a29c48bfa3f5971022257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &518823379 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8098888150971755885, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
+  m_PrefabInstance: {fileID: 8098888152330341615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &607710398 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5804511797640770173, guid: 1d44687041276e7488d4436aa6154ee6, type: 3}
@@ -291,6 +296,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfefcb5e61f148b4fa33d31096406e04, type: 3}
+--- !u!1 &804725482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804725483}
+  - component: {fileID: 804725484}
+  m_Layer: 0
+  m_Name: EntityHasDie_Listener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &804725483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804725482}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 518823379}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &804725484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804725482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 923ea460819b87844a8afb46b410b7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventGameObject: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &830449109 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1984394400386784503, guid: 73dd5bff1e6c0694da8fc573c3cf5d94, type: 3}
@@ -318,6 +370,14 @@ PrefabInstance:
       propertyPath: level
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1761832955422203724, guid: 0ba5e185438c9fe44be574b32e02f917, type: 3}
+      propertyPath: BattleEnd
+      value: 
+      objectReference: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+    - target: {fileID: 1761832955422203724, guid: 0ba5e185438c9fe44be574b32e02f917, type: 3}
+      propertyPath: EntityDie
+      value: 
+      objectReference: {fileID: 11400000, guid: f3414e5a5f324e046a80a4b7e9d1b7b7, type: 2}
     - target: {fileID: 4094118147201476984, guid: 0ba5e185438c9fe44be574b32e02f917, type: 3}
       propertyPath: m_Name
       value: Enemy 1
@@ -439,6 +499,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7220130462609924994, guid: b7d2cc7ecd2b76240bb92c805b7150e7, type: 3}
+      propertyPath: BattleEnd
+      value: 
+      objectReference: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+    - target: {fileID: 7220130462609924994, guid: b7d2cc7ecd2b76240bb92c805b7150e7, type: 3}
+      propertyPath: EntityDie
+      value: 
+      objectReference: {fileID: 11400000, guid: f3414e5a5f324e046a80a4b7e9d1b7b7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7d2cc7ecd2b76240bb92c805b7150e7, type: 3}
 --- !u!114 &1205783494 stripped
@@ -613,7 +681,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1267553732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33606aed31ee967409aea22989473a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 717d5745d9de7874c85ce0e3f02df38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -1048,6 +1116,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5042027590951517879, guid: 4ee9499e09475154d832bf9a2259307a, type: 3}
+      propertyPath: BattleEnd
+      value: 
+      objectReference: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+    - target: {fileID: 5042027590951517879, guid: 4ee9499e09475154d832bf9a2259307a, type: 3}
+      propertyPath: EntityDie
+      value: 
+      objectReference: {fileID: 11400000, guid: f3414e5a5f324e046a80a4b7e9d1b7b7, type: 2}
     - target: {fileID: 7303310408642381955, guid: 4ee9499e09475154d832bf9a2259307a, type: 3}
       propertyPath: m_Name
       value: Enemy 2

@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260aa8b1e92131440831a2a5e29e8622, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  Health:
+    baseStatValue: 100
+    baseStatModifier:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Mana:
+    baseStatValue: 100
+    baseStatModifier:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Strenght:
+    baseStatValue: 10
+    baseStatModifier:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Endurance:
+    baseStatValue: 10
+    baseStatModifier:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Speed:
+    baseStatValue: 10
+    baseStatModifier:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Intelligence:
+    baseStatValue: 10
+    baseStatModifier:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  MoveRange: 5
+  AttackRange: 5
+  abilities:
+  - {fileID: 11400000, guid: 9a76dfe7909d006439d821583b6b33ff, type: 2}
+  - {fileID: 11400000, guid: 6113d2cf119206c499bf424985a83a4a, type: 2}
+  - {fileID: 11400000, guid: 715aaf618a41628468540b51bf3bd969, type: 2}
+  - {fileID: 11400000, guid: a8cc35b86967a9e47ba3efd1bf121f76, type: 2}
+  - {fileID: 11400000, guid: 518eb6a7fe758474ba6daccc07ea2203, type: 2}
+  - {fileID: 11400000, guid: 673e2e82cf474194c9f63496ef85eef2, type: 2}
+  - {fileID: 11400000, guid: dad3199a84320194caad438239117fa7, type: 2}
+  - {fileID: 11400000, guid: fb9a4cbc81377f345b39c5ba4802efa0, type: 2}
+  - {fileID: 11400000, guid: daa796e7f1ed1d64f9d450d74047e91b, type: 2}
