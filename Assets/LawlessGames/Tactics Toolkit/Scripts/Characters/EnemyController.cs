@@ -26,6 +26,9 @@ namespace TacticsToolkit
         private RangeFinder rangeFinder;
         private PathFinder pathFinder;
 
+        // ******
+        public GameEvent BattleEnd;
+
         public enum Personality
         {
             Aggressive,
@@ -42,6 +45,9 @@ namespace TacticsToolkit
             pathFinder = new PathFinder();
             rangeFinder = new RangeFinder();
             shapeParser = new ShapeParser();
+
+            // ******
+            GameObject.Find("EntityHasDie_Listener").GetComponent<BETA.Porting.GameEventEntityListener>().Response.AddListener(OnEntityDie);
         }
 
         new void Update()
@@ -260,7 +266,8 @@ namespace TacticsToolkit
 
         private IEnumerator CastAbility()
         {
-            var abilityAffectedTiles = shapeParser.GetAbilityTileLocations(bestSenario.targetTile, bestSenario.targetAbility.ability.abilityShape, bestSenario.positionTile.grid2DLocation);
+            //var abilityAffectedTiles = shapeParser.GetAbilityTileLocations(bestSenario.targetTile, bestSenario.targetAbility.ability.abilityShape, bestSenario.positionTile.grid2DLocation);
+            var abilityAffectedTiles = shapeParser.GetAbilityTileLocations(bestSenario.targetTile, bestSenario.targetAbility.ability.Range, bestSenario.positionTile.grid2DLocation);
             abilityAffectedTiles.Add(bestSenario.targetTile);
             OverlayController.Instance.ColorTiles(OverlayController.Instance.AttackRangeColor, abilityAffectedTiles);
             yield return new WaitForSeconds(0.5f);
@@ -459,7 +466,8 @@ namespace TacticsToolkit
             var senario = new Senario();
             foreach (var tile in tilesInAbilityRange)
             {
-                var abilityAffectedTiles = shapeParser.GetAbilityTileLocations(tile, abilityContainer.ability.abilityShape, position.grid2DLocation);
+                //var abilityAffectedTiles = shapeParser.GetAbilityTileLocations(tile, abilityContainer.ability.abilityShape, position.grid2DLocation);
+                var abilityAffectedTiles = shapeParser.GetAbilityTileLocations(tile, abilityContainer.ability.Range, position.grid2DLocation);
 
                 //How many players can the ability hit
                 var players = FindAllCharactersInTiles(abilityAffectedTiles);
@@ -536,6 +544,22 @@ namespace TacticsToolkit
             }
 
             return totalSenarioValue;
+        }
+
+        // ******
+
+        public void OnEntityDie(Entity entity)
+        {
+            enemyCharacters.Remove(entity as EnemyController);
+
+            //GameObject.Find("EntityHasDie_Listener").GetComponent<BETA.Porting.GameEventEntityListener>().Response.RemoveListener(OnEntityDie);
+
+            if (enemyCharacters.Count == 0)
+            {
+                BattleEnd.Raise();
+
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainBETAScene");
+            }
         }
     }
 }

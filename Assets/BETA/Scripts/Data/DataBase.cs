@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using BETA.Enums;
 using BETA.Interfaces;
 
 using Sirenix.OdinInspector;
@@ -12,34 +13,23 @@ namespace BETA.Data
 {
     // ==================================================================================================== DataBase
 
-    public abstract class DataBase<TRuntimeData, TScriptableData> : SerializedMonoBehaviour, IRuntimeDataBase<TRuntimeData>, IScriptableDataBase<TScriptableData> where TRuntimeData : RuntimeData where TScriptableData : ScriptableData
+    public abstract class DataBase<TRuntimeData, TDataSet> : SerializedMonoBehaviour, IRuntimeDataBase<TRuntimeData>, IScriptableDataBase<TDataSet> where TRuntimeData : RuntimeData where TDataSet : DataSet
     {
         // ==================================================================================================== Field
 
         // =========================================================================== Data
 
-        [ShowInInspector]
-        private ScriptableDataSet<TScriptableData> _scriptableData;
-
-        [ShowInInspector] [HideReferenceObjectPicker]
+        [ShowInInspector] [HideReferenceObjectPicker] [FoldoutGroup("런타임 데이터")]
         private DataBaseData<TRuntimeData> _data = new DataBaseData<TRuntimeData>();
+
+        // =========================================================================== Data
+
+        [SerializeField] [FoldoutGroup("데이터 셋")]
+        private TDataSet _dataSet;
 
         // ==================================================================================================== Property
 
         // =========================================================================== Data
-
-        protected ScriptableDataSet<TScriptableData> ScriptableData
-        {
-            get
-            {
-                return _scriptableData;
-            }
-
-            set
-            {
-                _scriptableData = value;
-            }
-        }
 
         protected Dictionary<string, TRuntimeData> RuntimeData
         {
@@ -54,6 +44,21 @@ namespace BETA.Data
             }
         }
 
+        // =========================================================================== DataSet
+
+        public TDataSet DataSet
+        {
+            get
+            {
+                return _dataSet;
+            }
+
+            protected set
+            {
+                _dataSet = value;
+            }
+        }
+
         // ==================================================================================================== Method
 
         // =========================================================================== Event
@@ -63,9 +68,11 @@ namespace BETA.Data
             Initialize();
         }
 
-        // =========================================================================== Data
+        // =========================================================================== Instance
 
         public abstract void Initialize();
+
+        // =========================================================================== Data
 
         public void Add(TRuntimeData data)
         {
@@ -77,14 +84,14 @@ namespace BETA.Data
             RuntimeData.Remove(data.InstanceID);
         }
 
-        public void Subscribe(IDataObserver<TRuntimeData> observer)
+        public void Subscribe(IUnit<TRuntimeData> unit)
         {
-            observer.DataBinding += Bind;
+            unit.DataBinding += Bind;
         }
 
-        public void Unsubscribe(IDataObserver<TRuntimeData> observer)
+        public void Unsubscribe(IUnit<TRuntimeData> unit)
         {
-            observer.DataBinding -= Bind;
+            unit.DataBinding -= Bind;
         }
 
         private TRuntimeData Bind(string instanceID)

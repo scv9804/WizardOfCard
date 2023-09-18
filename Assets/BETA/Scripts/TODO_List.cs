@@ -6,6 +6,9 @@ namespace BETA
 {
     // TODO
 
+    // [Ability]
+    // 마나 및 전체적 코드 수정 필요
+
     // [AbilityController]
 
     // [AbilityController.AbilityModeEvent()]
@@ -13,4 +16,10 @@ namespace BETA
 
     // [AbilityController.CastAbility()]
     // 카드 별 효과 적용
+
+    // [Effect]
+    // 해야함
+
+    // [TacticsToolkit]
+    // 전체적으로 씬을 여러번 사용하는 전제로 짜여진 코드가 아닌거같음 전체적으로 수정 필요함
 }

@@ -89,6 +89,7 @@ namespace TacticsToolkit
             {
                 var firsCharacter = combinedList.First();
                 firsCharacter.StartTurn();
+
                 startNewCharacterTurn.Raise(firsCharacter.gameObject);
             }
         }
@@ -117,6 +118,7 @@ namespace TacticsToolkit
                         if (firstCharacter.isAlive)
                         {
                             firstCharacter.StartTurn();
+
                             startNewCharacterTurn.Raise(firstCharacter.gameObject);
                         }
                         else

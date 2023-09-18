@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aabdf9f487edbd4894edf6ff4b5f73e, type: 3}
+  m_Name: Arrow
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Sprite:
+  - {fileID: -7389299311667654144, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: -4660600526088031369, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: 7762582236204482122, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: 8725979607429122002, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: -1869602054923354706, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: -9146782503041755686, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: -8063395830634880408, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: -3364982650870575014, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: -1033766676993296678, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: 3318904089994504119, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: 2319643638384702094, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}
+  - {fileID: 5287939958834139383, guid: 61cca9f2aed1edc438fec21aee27a1d7, type: 3}

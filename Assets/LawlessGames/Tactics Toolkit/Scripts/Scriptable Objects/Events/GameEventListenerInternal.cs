@@ -72,8 +72,8 @@ namespace TacticsToolkit
         {
             if (response != null)
             {
-                if (gameEvent.name != "FocusOnTile")
-                    Debug.Log("Received: " + gameEvent.name + ". \r\n Calling: " + response.GetPersistentTarget(0) + " -> " + response.GetPersistentMethodName(0));
+                //if (gameEvent.name != "FocusOnTile")
+                //    Debug.Log("Received: " + gameEvent.name + ". \r\n Calling: " + response.GetPersistentTarget(0) + " -> " + response.GetPersistentMethodName(0));
 
                 response.Invoke(param);
             }

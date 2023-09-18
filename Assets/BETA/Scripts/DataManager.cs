@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using BETA.Data;
+using BETA.Enums;
 using BETA.Interfaces;
+using BETA.Porting;
 using BETA.Singleton;
 
 using Newtonsoft.Json;
@@ -20,11 +22,22 @@ namespace BETA
     {
         // ==================================================================================================== Field
 
-        // =========================================================================== ????
+        // =========================================================================== Instance
+
+        [ShowInInspector]
+        private Dictionary<string, int> _reference = new Dictionary<string, int>();
 
         // ==================================================================================================== Property
 
-        // =========================================================================== ????
+        // =========================================================================== Instance
+
+        public Dictionary<string, int> Reference
+        {
+            get
+            {
+                return _reference;
+            }
+        }
 
         // ==================================================================================================== Method
 
@@ -44,54 +57,88 @@ namespace BETA
             return isEmpty;
         }
 
+        // =========================================================================== Instance
+
+        public string Allocate(string instanceID = null)
+        {
+            if (instanceID == null)
+            {
+                Create();
+            }
+
+            if (!Reference.ContainsKey(instanceID))
+            {
+                Reference.Add(instanceID, 0);
+            }
+
+            return instanceID;
+
+            #region void Create();
+
+            void Create()
+            {
+                int ID;
+
+                do
+                {
+                    ID = UnityEngine.Random.Range(0, GameManager.Instance.Configs.MaxInstanceCount);
+
+                    instanceID = ID.ToString(GameManager.Instance.Configs.InstanceIDFormat);
+                }
+                while (Reference.ContainsKey(instanceID));
+            }
+
+            #endregion
+        }
+
         // =========================================================================== Data
 
         public void Add<TRuntimeData>(TRuntimeData data) where TRuntimeData : RuntimeData
         {
-            Reiceve<TRuntimeData>((database) =>
-            {
-                database.Add(data);
-            });
+            GetRuntimeDataBase<TRuntimeData>().Add(data);
         }
 
         public void Remove<TRuntimeData>(TRuntimeData data) where TRuntimeData : RuntimeData
         {
-            Reiceve<TRuntimeData>((database) =>
-            {
-                database.Remove(data);
-            });
+            GetRuntimeDataBase<TRuntimeData>().Remove(data);
         }
 
-        public void Subscribe<TRuntimeData>(IDataObserver<TRuntimeData> observer) where TRuntimeData : RuntimeData
+        public void Subscribe<TRuntimeData>(IUnit<TRuntimeData> unit) where TRuntimeData : RuntimeData
         {
-            Reiceve<TRuntimeData>((database) =>
-            {
-                database.Subscribe(observer);
-            });
+            Reference[unit.InstanceID] += 1;
+
+            GetRuntimeDataBase<TRuntimeData>().Subscribe(unit);
         }
 
-        public void Unsubscribe<TRuntimeData>(IDataObserver<TRuntimeData> observer) where TRuntimeData : RuntimeData
+        public void Unsubscribe<TRuntimeData>(IUnit<TRuntimeData> unit) where TRuntimeData : RuntimeData
         {
-            Reiceve<TRuntimeData>((database) =>
+            Reference[unit.InstanceID] -= 1;
+
+            if (Reference[unit.InstanceID] == 0)
             {
-                database.Unsubscribe(observer);
-            });
+                Reference.Remove(unit.InstanceID);
+            }
+
+            GetRuntimeDataBase<TRuntimeData>().Unsubscribe(unit);
+        }
+
+        // =========================================================================== DataSet
+
+        public TDataSet GetDataSet<TDataSet>() where TDataSet : DataSet
+        {
+            return GetScriptableDataBase<TDataSet>().DataSet;
         }
 
         // =========================================================================== DataBase
 
-        public void Reiceve<TRuntimeData>(Action<IRuntimeDataBase<TRuntimeData>> callback) where TRuntimeData : RuntimeData
+        private IRuntimeDataBase<TRuntimeData> GetRuntimeDataBase<TRuntimeData>() where TRuntimeData : RuntimeData
         {
-            var database = GetComponent<IRuntimeDataBase<TRuntimeData>>();
-
-            callback.Invoke(database);
+            return GetComponent<IRuntimeDataBase<TRuntimeData>>();
         }
 
-        public void Reiceve<TScriptableData>(Action<IScriptableDataBase<TScriptableData>> callback) where TScriptableData : ScriptableData
+        private IScriptableDataBase<TDataSet> GetScriptableDataBase<TDataSet>() where TDataSet : DataSet
         {
-            var database = GetComponent<IScriptableDataBase<TScriptableData>>();
-
-            callback.Invoke(database);
+            return GetComponent<IScriptableDataBase<TDataSet>>();
         }
     }
 }

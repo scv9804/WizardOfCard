@@ -45,6 +45,9 @@ namespace TacticsToolkit
         private int initiativeBase = 1000;
         private float i;
 
+        // ******
+        public BETA.Porting.GameEventEntity EntityDie;
+
         private void Awake()
         {
             SpawnCharacter();
@@ -289,6 +292,9 @@ namespace TacticsToolkit
             }
 
             GetComponent<SpriteRenderer>().color = new Color(0.35f, 0.35f, 0.35f, 1);
+
+            // ******
+            EntityDie.Raise(this);
         }
 
         //Updates the characters healthbar. 

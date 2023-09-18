@@ -19,6 +19,7 @@ namespace TacticsToolkit
         public void SetCurrentCharactersMana(GameObject activeCharacter)
         {
             this.activeCharacter = activeCharacter.GetComponent<CharacterManager>();
+
             var currentMana = this.activeCharacter.GetStat(Stats.CurrentMana).statValue;
             var mana = this.activeCharacter.GetStat(Stats.Mana).statValue;
 

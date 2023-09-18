@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: test
   Desc: 
-  abilityShape: {fileID: 0}
+  Range: {fileID: 11400000, guid: 893e786fbc4101f4997b6a924737c9a2, type: 2}
   effects: []
   range: 0
   cooldown: 0

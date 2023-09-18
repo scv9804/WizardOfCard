@@ -48,12 +48,12 @@ namespace BETA
 
         public void Start()
         {
-            Components.FrameImage.sprite = FrameSprites.Sprite[2];
-            Components.ArtworkImage.sprite = ArtworkSprites.Sprite[2];
+            //Components.FrameImage.sprite = FrameSprites.Sprite[2];
+            //Components.ArtworkImage.sprite = ArtworkSprites.Sprite[2];
 
-            Components.NameTMP.text = Ability.Name;
-            Components.CostTMP.text = Ability.cost.ToString();
-            Components.DescriptionTMP.text = Ability.Desc;
+            //Components.NameTMP.text = Ability.Name;
+            //Components.CostTMP.text = Ability.cost.ToString();
+            //Components.DescriptionTMP.text = Ability.Desc;
         }
 
         // =========================================================================== EventSystems

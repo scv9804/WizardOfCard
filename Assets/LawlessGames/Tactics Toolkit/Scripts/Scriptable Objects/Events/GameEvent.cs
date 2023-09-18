@@ -64,8 +64,8 @@ namespace TacticsToolkit
 
         public virtual void Raise(T param, Action onRaised)
         {
-            if (name != "FocusOnTile")
-                Debug.Log(this.name);
+            //if (name != "FocusOnTile")
+            //    Debug.Log(this.name);
 
             for (int i = eventListeners.Count - 1; i >= 0; i--)
                 eventListeners[i].OnEventRaised(param);

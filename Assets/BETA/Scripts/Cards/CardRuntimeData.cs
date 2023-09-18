@@ -50,5 +50,18 @@ namespace BETA.Data
 
         //[FoldoutGroup("효과 데이터")]
         //public int Count;
+
+        //
+
+        //
+
+        private CardRuntimeData() : base() { }
+
+        public CardRuntimeData(string instanceID, int serialID) : base(instanceID, serialID) { } 
+
+        //public override void Refresh(CardScriptableData data)
+        //{
+        //    base.Refresh(data);
+        //}
     }
 }

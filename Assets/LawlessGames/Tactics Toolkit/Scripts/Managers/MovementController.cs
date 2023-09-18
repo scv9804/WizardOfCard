@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -194,6 +194,16 @@ namespace TacticsToolkit
         public void SetActiveCharacter(GameObject character)
         {
             activeCharacter = character.GetComponent<Entity>();
+            hasMoved = false;
+            if (enableAutoMove && activeCharacter.isAlive)
+                StartCoroutine(DelayedMovementmode());
+        }
+
+        // ******
+        //Set new active character
+        public void SetActiveCharacter(Entity character)
+        {
+            activeCharacter = character;
             hasMoved = false;
             if (enableAutoMove && activeCharacter.isAlive)
                 StartCoroutine(DelayedMovementmode());

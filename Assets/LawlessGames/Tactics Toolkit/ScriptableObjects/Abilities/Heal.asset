@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Heal
   Desc: 
-  abilityShape: {fileID: 4900000, guid: f30cbe7258a912d48a84b0dca1125752, type: 3}
+  Range: {fileID: 11400000, guid: 893e786fbc4101f4997b6a924737c9a2, type: 2}
   effects: []
   range: 5
   cooldown: 2

@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 
 using Sirenix.OdinInspector;
 
+using Spine.Unity;
+
 using System;
 using System.IO;
 using System.Linq;
@@ -25,50 +27,100 @@ namespace BETA.Editor
     {
         // ==================================================================================================== Field
 
-        public CardScriptableData ScriptableData;
-        public CardRuntimeData RuntimeData = new CardRuntimeData();
+        [FoldoutGroup("Base Cake Instance")]
+        public Cake Cake = new Cake();
 
-        public CardObject CardObject;
+        Action Action;
 
         // ==================================================================================================== Method
 
         void Start()
         {
-            RuntimeData.InstanceID = "5603";
-            RuntimeData.SerialID = 0;
+            Effect<CakeRuntimeData>.AddEffect(Cake, 0);
+        }
+    }
+    
+    public class GameComponent<TData> where TData : RuntimeData
+    {
+        public TData Data;
 
-            RuntimeData.Name = ScriptableData.Name;
-            RuntimeData.Type = ScriptableData.Type;
+        public Library<string, Effect<TData>> Effect = new Library<string, Effect<TData>>();
 
-            RuntimeData.Level = 2;
+        static GameComponent()
+        {
 
-            RuntimeData.Cost = ScriptableData.Cost[RuntimeData.Level];
-            RuntimeData.Keyword = ScriptableData.Keyword[RuntimeData.Level];
-            RuntimeData.Description = ScriptableData.Description[RuntimeData.Level].Replace("{0}", "6");
+        }
 
-            //
+        public void ApplyRuntimeDataEffect()
+        {
 
-            var components = CardObject.GetComponent<CardObjectComponents>();
-
-            components.FrameImage.sprite = ScriptableData.Frame.Sprite[RuntimeData.Level];
-            components.ArtworkImage.sprite = ScriptableData.Artwork.Sprite[RuntimeData.Level];
-
-            components.NameTMP.text = RuntimeData.Name;
-            components.CostTMP.text = RuntimeData.Cost.ToString();
-            components.DescriptionTMP.text = RuntimeData.Description;
-
-            DataManager.Instance.Add(RuntimeData);
         }
     }
 
     [Serializable]
-    public class Cake
+    public class Cake : GameComponent<CakeRuntimeData>
     {
-        public string Name;
 
-        public int ID;
+    }
+
+    [Serializable]
+    public class RuntimeData
+    {
+        public string InstanceID;
+        public int SerialID;
+
+        public string Name;
+    }
+
+    [Serializable]
+    public class CakeRuntimeData : RuntimeData
+    {
+        public int BaseAttack;
+        public int BaseShield;
+
+        public int Attack;
+        public int Shield;
 
         public string Description;
+
+        public event Action OnAttackHit;
+    }
+
+    [Serializable]
+    public class Effect<TData> where TData : RuntimeData
+    {
+        public int SerialID;
+
+        public static void AddEffect<TComponent>(TComponent component, int index) where TComponent : GameComponent<TData>
+        {
+
+        }
+    }
+
+    [Serializable]
+    public class EffectRuntimeData<TData> where TData : RuntimeData
+    {
+
+    }
+
+    [Serializable]
+    public abstract class EffectData<TData> where TData : RuntimeData
+    {
+
+
+        public abstract void Apply(TData data);
+    }
+
+    [Serializable]
+    public class CakeAttackEffect : EffectData<CakeRuntimeData>
+    {
+
+    }
+
+    [Serializable]
+    public class CakeShieldEffect : EffectData<CakeRuntimeData>
+    {
+
     }
 }
 

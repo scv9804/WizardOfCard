@@ -4,6 +4,7 @@ using UnityEngine;
 
 using BETA.Data;
 using BETA.Enums;
+using BETA.Interfaces;
 
 using System;
 
@@ -12,28 +13,31 @@ namespace BETA
     // ==================================================================================================== CardScriptableData
 
     [Serializable]
-    public sealed class Card : Model<CardRuntimeData>
+    public sealed class Card : Unit<CardRuntimeData>, ICard
     {
-        //
+        // ==================================================================================================== Constance
 
-        //
+        // =========================================================================== General
 
-        //
+        public const int MAX_LEVEL = 2;
 
         // ==================================================================================================== Property
 
         // =========================================================================== General
+
+        public CardType Type
+        {
+            get
+            {
+                return Data.Type;
+            }
+        }
 
         public CardKeyword Keyword
         {
             get
             {
                 return Data.Keyword;
-            }
-
-            private set
-            {
-                Data.Keyword = value;
             }
         }
 
@@ -43,11 +47,6 @@ namespace BETA
             {
                 return Data.Level;
             }
-
-            private set
-            {
-                Data.Level = value;
-            }
         }
 
         public int Cost
@@ -55,11 +54,6 @@ namespace BETA
             get
             {
                 return Data.Cost;
-            }
-
-            private set
-            {
-                Data.Cost = value;
             }
         }
 
@@ -69,38 +63,111 @@ namespace BETA
             {
                 return Data.Description;
             }
-
-            private set
-            {
-                Data.Description = value;
-            }
         }
 
         // =========================================================================== Ability
 
         //public int Damage
         //{
-        //    get; private set;
+        //    get;
         //}
 
         //public int Shield
         //{
-        //    get; private set;
+        //    get;
         //}
 
         //public int Heal
         //{
-        //    get; private set;
+        //    get;
         //}
 
         //public int Draw
         //{
-        //    get; private set;
+        //    get;
         //}
 
         //public int Count
         //{
-        //    get; private set;
+        //    get;
         //}
+
+        // =========================================================================== Data
+
+        public static CardDataSet DataSet
+        {
+            get
+            {
+                return DataManager.Instance.GetDataSet<CardDataSet>();
+            }
+        }
+
+        // ==================================================================================================== Method
+
+        // =========================================================================== Constructor
+
+        private Card() : base() { }
+
+        public Card(string instanceID, int serialID) : base(instanceID, serialID) { }
+
+        // =========================================================================== Data
+
+        public override CardRuntimeData Create(string instanceID, int serialID)
+        {
+            return new CardRuntimeData(instanceID, serialID);
+        }
+
+        public override void Refresh()
+        {
+            var scriptableData = DataSet.Data[SerialID];
+
+            Data.Type = scriptableData.Type;
+
+            Data.Keyword = scriptableData.Keyword[Level];
+            Data.Cost = scriptableData.Cost[Level];
+ 
+            //Data.ApplyStateModifier();
+ 
+            SetName();
+            SetDescription();
+
+            base.Refresh();
+
+            #region void SetName();
+
+            void SetName()
+            {
+                var name = $"{scriptableData.Name} I";
+
+                for (var i = 0; i < Level; i++)
+                {
+                    name = $"{name}I";
+                }
+
+                Data.Name = name;
+            }
+
+            #endregion
+
+            #region void SetDescription();
+
+            void SetDescription()
+            {
+                Data.Description = scriptableData.Description[Level];
+            } 
+
+            #endregion
+        }
+
+        // =========================================================================== General
+
+        public void Upgrade(int upgrade = 1)
+        {
+            var level = Level + upgrade;
+
+            Data.Level = level > MAX_LEVEL ? MAX_LEVEL : level;
+
+            Refresh();
+        }
     }
 }

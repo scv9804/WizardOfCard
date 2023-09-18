@@ -7,9 +7,11 @@ namespace TacticsToolkit
     public class ShapeParser
     {
 
-        public List<OverlayTile> GetAbilityTileLocations(OverlayTile abilityPosition, TextAsset defaultAbility, Vector2Int characterPosition)
+        //public List<OverlayTile> GetAbilityTileLocations(OverlayTile abilityPosition, TextAsset defaultAbility, Vector2Int characterPosition)
+        public List<OverlayTile> GetAbilityTileLocations(OverlayTile abilityPosition, BETA.Data.Range range, Vector2Int characterPosition)
         {
-            int[,] abilityMap = mapAbility(defaultAbility);
+            //int[,] abilityMap = mapAbility(defaultAbility);
+            int[,] abilityMap = range.Matrix;
 
             var map = MapManager.Instance.map;
             //find 1. 1 = the origin of the ability

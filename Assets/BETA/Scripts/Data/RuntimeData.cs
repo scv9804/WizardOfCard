@@ -21,11 +21,23 @@ namespace BETA.Data
         public string InstanceID;
 
         [FoldoutGroup("개체 데이터")]
-        public int SerialID;
+        public int SerialID = -1;
 
         // =========================================================================== General
 
         [FoldoutGroup("일반 데이터")]
         public string Name;
-    } 
+
+        // ==================================================================================================== Method
+
+        // =========================================================================== Constructor
+
+        protected RuntimeData() { }
+
+        public RuntimeData(string instanceID, int serialID)
+        {
+            InstanceID = instanceID;
+            SerialID = serialID;
+        }
+    }
 }

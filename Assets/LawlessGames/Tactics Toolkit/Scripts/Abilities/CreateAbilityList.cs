@@ -22,8 +22,7 @@ namespace TacticsToolkit
         {
             this.activeCharacter = activeCharacter.GetComponent<Entity>();
         }
-        
-         
+
         //When the ability button is clicked, create a new button for every ability the activeCharacter has
         public void CreateCharacterAbilityButtons()
         {

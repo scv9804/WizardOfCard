@@ -43,5 +43,24 @@ namespace BETA
 
             this[key].Add(value);
         }
+
+        public bool Remove(TKey key, TValue value, bool isEmptyCategoryDelete = true)
+        {
+            var result = this[key].Remove(value);
+
+            if (this[key].Count == 0 && isEmptyCategoryDelete)
+            {
+                Remove(key);
+            }
+
+            return result;
+        }
+
+        // =========================================================================== Library
+
+        public int GetLibraryCount(TKey key)
+        {
+            return ContainsKey(key) ? this[key].Count : 0;
+        }
     }
 }

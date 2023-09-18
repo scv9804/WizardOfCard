@@ -130,7 +130,8 @@ namespace TacticsToolkit
 
                 if (abilityRangeTiles.Contains(map[tilePosition.grid2DLocation]))
                 {
-                    abilityAffectedTiles = shapeParser.GetAbilityTileLocations(tilePosition, abilityContainer.ability.abilityShape, activeCharacter.activeTile.grid2DLocation);
+                    //abilityAffectedTiles = shapeParser.GetAbilityTileLocations(tilePosition, abilityContainer.ability.abilityShape, activeCharacter.activeTile.grid2DLocation);
+                    abilityAffectedTiles = shapeParser.GetAbilityTileLocations(tilePosition, abilityContainer.ability.Range, activeCharacter.activeTile.grid2DLocation);
 
                     if (abilityContainer.ability.includeOrigin)
                         abilityAffectedTiles.Add(tilePosition);

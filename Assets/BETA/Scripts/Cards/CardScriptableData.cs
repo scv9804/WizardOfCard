@@ -30,13 +30,5 @@ namespace BETA.Data
 
         [FoldoutGroup("일반 데이터")] [MultiLineProperty(5)]
         public string[] Description = new string[3];
-
-        // =========================================================================== Component
-
-        [FoldoutGroup("에셋 데이터")]
-        public SpriteTable Frame;
-
-        [FoldoutGroup("에셋 데이터")]
-        public SpriteTable Artwork;
     }
 }

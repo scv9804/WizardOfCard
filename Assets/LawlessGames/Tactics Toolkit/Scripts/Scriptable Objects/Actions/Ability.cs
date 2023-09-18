@@ -12,8 +12,11 @@ namespace TacticsToolkit
 
         public string Desc;
 
+        //[Header("Ability Stuff")]
+        //public TextAsset abilityShape;
+
         [Header("Ability Stuff")]
-        public TextAsset abilityShape;
+        public BETA.Data.Range Range;
 
         public List<ScriptableEffect> effects;
 

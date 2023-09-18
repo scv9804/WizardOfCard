@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Lazer
   Desc: 
-  abilityShape: {fileID: 4900000, guid: acd0ea0ba6b909744906dea0398001e9, type: 3}
+  Range: {fileID: 11400000, guid: 4b79ba5bc8d00fa44afb6e94e7f1dbf0, type: 2}
   effects: []
   range: 1
   cooldown: 4
