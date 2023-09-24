@@ -26,6 +26,11 @@ namespace BETA
 
         public void Hand_OnPointerEnter(CardObject cardObject, PointerEventData eventData)
         {
+            if (cardObject.State == CardState.UNABLE)
+            {
+                return;
+            }
+
             cardObject.State = CardState.ON_POINTER_OVER;
 
             cardObject.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
@@ -33,6 +38,11 @@ namespace BETA
 
         public void Hand_OnPointerExit(CardObject cardObject, PointerEventData eventData)
         {
+            if (cardObject.State == CardState.UNABLE)
+            {
+                return;
+            }
+
             cardObject.State = CardState.NONE;
 
             cardObject.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
@@ -45,6 +55,11 @@ namespace BETA
 
         public void Hand_OnBeginDrag(CardObject cardObject, PointerEventData eventData)
         {
+            if (cardObject.State == CardState.UNABLE)
+            {
+                return;
+            }
+
             cardObject.State = CardState.ON_DRAG;
 
             cardObject.OriginPosition = cardObject.transform.position;
@@ -52,11 +67,21 @@ namespace BETA
 
         public void Hand_OnDrag(CardObject cardObject, PointerEventData eventData)
         {
+            if (cardObject.State == CardState.UNABLE)
+            {
+                return;
+            }
+
             cardObject.transform.position = eventData.position;
         }
 
         public void Hand_OnEndDrag(CardObject cardObject, PointerEventData eventData)
         {
+            if (cardObject.State == CardState.UNABLE)
+            {
+                return;
+            }
+
             cardObject.State = CardState.NONE;
 
             if (cardObject.transform.position.y >= Screen.height * 0.5f)

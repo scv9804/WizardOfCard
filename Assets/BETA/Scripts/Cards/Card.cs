@@ -8,9 +8,69 @@ using BETA.Interfaces;
 
 using System;
 
+namespace BETA.BETA
+{
+    // ==================================================================================================== Card
+
+    public class Card : SampleMonoBehaviour
+    {
+        // ==================================================================================================== Constance
+
+        // =========================================================================== General
+
+        public const int MAX_LEVEL = 2;
+
+        // ==================================================================================================== Method
+
+        // =========================================================================== Constructor
+
+        public Card()
+        {
+
+        }
+
+        public Card(CardData data)
+        {
+
+        }
+    }
+
+    [Serializable]
+    public class CardData
+    {
+
+    }
+
+    [Serializable]
+    public class CardResource : SampleScriptableObject
+    {
+
+    }
+
+    [Serializable]
+    public class CardResourceSet : SampleScriptableObject
+    {
+
+    }
+
+    //public sealed class CardPlayingData
+    //{
+
+    //}
+
+    // CardTemplateData, CardInstanceData
+
+    // BaseCardData, CardData
+
+    // CardScriptableObject, CardJSON
+
+    // Card, CardData, CardJSON
+    // CardResource, CardData, Card // ÀÌ°Å³×
+}
+
 namespace BETA
 {
-    // ==================================================================================================== CardScriptableData
+    // ==================================================================================================== Card
 
     [Serializable]
     public sealed class Card : Unit<CardRuntimeData>, ICard
@@ -112,7 +172,7 @@ namespace BETA
 
         // =========================================================================== Data
 
-        public override CardRuntimeData Create(string instanceID, int serialID)
+        protected override CardRuntimeData Create(string instanceID, int serialID)
         {
             return new CardRuntimeData(instanceID, serialID);
         }

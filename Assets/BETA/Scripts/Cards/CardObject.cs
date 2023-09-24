@@ -17,6 +17,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
+// Toggle;
+
 namespace BETA
 {
     // ==================================================================================================== CardObject
@@ -37,7 +39,6 @@ namespace BETA
         private CardState _state = CardState.NONE;
 
         public Dictionary<string, CardEventSystems> Commands = new Dictionary<string, CardEventSystems>();
-        //public Dictionary<string, Action<CardObject, PointerEventData>> Delegates = new Dictionary<string, Action<CardObject, PointerEventData>>();
 
         // =========================================================================== Component
 
@@ -218,32 +219,32 @@ namespace BETA
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Commands["ON_POINTER_ENTER"].Invoke(this, eventData);
+            Commands["ON_POINTER_ENTER"]?.Invoke(this, eventData);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Commands["ON_POINTER_EXIT"].Invoke(this, eventData);
+            Commands["ON_POINTER_EXIT"]?.Invoke(this, eventData);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Commands["ON_POINTER_CLICK"].Invoke(this, eventData);
+            Commands["ON_POINTER_CLICK"]?.Invoke(this, eventData);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Commands["ON_BEGIN_DRAG"].Invoke(this, eventData);
+            Commands["ON_BEGIN_DRAG"]?.Invoke(this, eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            Commands["ON_DRAG"].Invoke(this, eventData);
+            Commands["ON_DRAG"]?.Invoke(this, eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            Commands["ON_END_DRAG"].Invoke(this, eventData);
+            Commands["ON_END_DRAG"]?.Invoke(this, eventData);
         }
 
         // =========================================================================== Instance

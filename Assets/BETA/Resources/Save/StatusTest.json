@@ -1,0 +1,7 @@
+{
+  "ID": 15,
+  "Name": "마법구",
+  "Attack": 15,
+  "Shield": 15,
+  "Description": "데미지를 15 줍니다."
+}

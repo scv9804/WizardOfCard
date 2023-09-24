@@ -119,7 +119,6 @@ public class UIManager : MonoBehaviour
 		{
 			myturn_UI_TMP.text = "ªÛ¥Î ≈œ";
 		}
-
 	}
 
 
@@ -508,7 +507,11 @@ public class UIManager : MonoBehaviour
 
 	public void GameOverButton()
     {
-		Application.Quit();
+#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
 	}
 
 

@@ -46,7 +46,7 @@ namespace TacticsToolkit
         private float i;
 
         // ******
-        public BETA.Porting.GameEventEntity EntityDie;
+        public GameEventGameObject EntityDie;
 
         private void Awake()
         {
@@ -79,6 +79,9 @@ namespace TacticsToolkit
                 statsContainer.AttackRange = new Stat(Stats.AttackRange, characterClass.AttackRange, this);
                 statsContainer.CurrentHealth = new Stat(Stats.CurrentHealth, characterClass.Health.baseStatValue, this);
                 statsContainer.CurrentMana = new Stat(Stats.CurrentMana, characterClass.Mana.baseStatValue, this);
+
+                //******
+                statsContainer.Shield = new Stat(Stats.Shield, 0, this);
             }
 
             for (int i = 0; i < level; i++)
@@ -206,6 +209,19 @@ namespace TacticsToolkit
         {
             int damageToTake = ignoreDefence ? damage : CalculateDamage(damage);
 
+            Debug.Log($"{damageToTake} / {statsContainer.Shield.statValue}");
+
+            if (statsContainer.Shield.statValue > damageToTake)
+            {
+                statsContainer.Shield.statValue -= damageToTake;
+                damageToTake = 0;
+            }
+            else
+            {
+                damageToTake -= statsContainer.Shield.statValue;
+                statsContainer.Shield.statValue = 0;
+            }
+
             if (damageToTake > 0)
             {
                 statsContainer.CurrentHealth.statValue -= damageToTake;
@@ -239,6 +255,30 @@ namespace TacticsToolkit
 
             int damageToTake = damage - Mathf.CeilToInt((float)(percentage / 100f) * (float)damage);
             return damageToTake;
+
+            //******
+            // 얘네 데미지 계산 뭐 이리 함?
+            //var percentage = GetPercentage(GetStat(Stats.Endurance).statValue, damage);
+
+            //percentage = percentage > 75 ? 75 : percentage;
+
+            //return damage - Mathf.CeilToInt(GetEndurance(GetStat(Stats.Endurance).statValue, damage));
+
+            //******
+            //float GetPercentage(float endurance, float damage)
+            //{
+            //    return endurance / damage * 50.0f;
+            //}    
+            
+            //float ReduceDamage(float percentage, float damage)
+            //{
+            //    return percentage * damage / 100.0f;
+            //}
+
+            //float GetEndurance(float endurance, float damage)
+            //{
+            //    return endurance * 0.5f > damage * 0.75f ? damage * 0.75f : endurance * 0.5f;
+            //}
         }
 
         //Get a perticular stat object. 
@@ -266,6 +306,9 @@ namespace TacticsToolkit
                     return statsContainer.CurrentMana;
                 case Stats.AttackRange:
                     return statsContainer.AttackRange;
+                //******
+                case Stats.Shield:
+                    return statsContainer.Shield;
                 default:
                     return statsContainer.Health;
             }
@@ -294,7 +337,7 @@ namespace TacticsToolkit
             GetComponent<SpriteRenderer>().color = new Color(0.35f, 0.35f, 0.35f, 1);
 
             // ******
-            EntityDie.Raise(this);
+            EntityDie.Raise(this.gameObject);
         }
 
         //Updates the characters healthbar. 
@@ -355,9 +398,13 @@ namespace TacticsToolkit
 
         public virtual void StartTurn()
         {
+            ////******
+            //statsContainer.Shield.statValue = 0;
         }
+
         public virtual void CharacterMoved()
         {
+
         }
 
         //When an Entity moves, link it to the tiles it's standing on. 

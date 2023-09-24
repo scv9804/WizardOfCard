@@ -12,6 +12,12 @@ namespace TacticsToolkit
         public GameEventGameObject focusOnNewTile;
         public GameEvent actionButtonEvent;
 
+        // ******
+        public AbilityController AbilityController;
+
+        public GameEventGameObject SelectEntity;
+        public GameEvent StartMovement;
+
         private OverlayTile focusedOnTile;
 
         private void Start()
@@ -103,6 +109,17 @@ namespace TacticsToolkit
         {
             focusedOnTile = activeTile.GetComponent<OverlayTile>();
             transform.position = activeTile.transform.position;
+        }
+
+        // ******
+        public void ActionButtonPressed()
+        {
+            var isOverCharacter = focusedOnTile.activeCharacter?.GetComponent<CharacterManager>() != null;
+
+            if (!AbilityController.IsCastingAbility && isOverCharacter)
+            {
+                StartMovement.Raise();
+            }
         }
     }
 }

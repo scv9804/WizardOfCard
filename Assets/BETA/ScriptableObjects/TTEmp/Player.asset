@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Health:
-    baseStatValue: 100
+    baseStatValue: 250
     baseStatModifier:
       serializedVersion: 2
       m_Curve: []
@@ -21,7 +21,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Mana:
-    baseStatValue: 100
+    baseStatValue: 90
     baseStatModifier:
       serializedVersion: 2
       m_Curve: []
@@ -37,7 +37,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Endurance:
-    baseStatValue: 10
+    baseStatValue: 20
     baseStatModifier:
       serializedVersion: 2
       m_Curve: []
@@ -69,6 +69,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8cc35b86967a9e47ba3efd1bf121f76, type: 2}
   - {fileID: 11400000, guid: 518eb6a7fe758474ba6daccc07ea2203, type: 2}
   - {fileID: 11400000, guid: 673e2e82cf474194c9f63496ef85eef2, type: 2}
-  - {fileID: 11400000, guid: dad3199a84320194caad438239117fa7, type: 2}
-  - {fileID: 11400000, guid: fb9a4cbc81377f345b39c5ba4802efa0, type: 2}
-  - {fileID: 11400000, guid: daa796e7f1ed1d64f9d450d74047e91b, type: 2}

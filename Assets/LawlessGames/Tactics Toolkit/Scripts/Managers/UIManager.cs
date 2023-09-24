@@ -4,14 +4,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+using TMPro;
+
 namespace TacticsToolkit.UI
 {
     public class UIManager : MonoBehaviour
     {
         private List<Button> actionButtons;
 
+        //public GameObject Hands;
+
+        public TMP_Text CostTMP;
+
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             actionButtons = GetComponentsInChildren<Button>().ToList();
         }
@@ -19,9 +25,18 @@ namespace TacticsToolkit.UI
         //If it's a character, enable all the UI. If it's an Enemy, disable all the UI.
         public void StartNewCharacterTurn(GameObject activeCharacter)
         {
-            if (activeCharacter.GetComponent<Entity>().teamID == 1)
+            var entity = activeCharacter.GetComponent<Entity>();
+
+            if (entity.teamID == 1)
             {
                 EnableUI();
+
+                //var maxMana = entity.GetStat(Stats.Mana).statValue;
+                var currentMana = entity.GetStat(Stats.CurrentMana).statValue;
+
+                currentMana = 5;
+
+                RefreshManaUI();
             }
             else
             {
@@ -36,6 +51,11 @@ namespace TacticsToolkit.UI
             {
                 item.interactable = true;
             }
+
+            //foreach (var cardObject in Hands.GetComponentsInChildren<Image>())
+            //{
+            //    cardObject.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            //}
         }
 
         //Disable all the buttons. 
@@ -45,6 +65,11 @@ namespace TacticsToolkit.UI
             {
                 item.interactable = false;
             }
+
+            //foreach (var cardObject in Hands.GetComponentsInChildren<Image>())
+            //{
+            //    cardObject.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+            //}
         }
 
         //Cancel an action and reenable the button. 
@@ -52,6 +77,16 @@ namespace TacticsToolkit.UI
         {
             var button = actionButtons.Where(x => x.GetComponentInChildren<Text>().text == actionButton).First();
             button.interactable = true;
+        }
+
+        public void RefreshManaUI()
+        {
+            var entity = GameObject.Find("Character 4(Clone)").GetComponent<Entity>();
+
+            var mana = entity.GetStat(Stats.Mana).statValue;
+            var currentMana = entity.GetStat(Stats.CurrentMana).statValue;
+
+            CostTMP.text = $"{currentMana}/{mana}";
         }
     }
 }

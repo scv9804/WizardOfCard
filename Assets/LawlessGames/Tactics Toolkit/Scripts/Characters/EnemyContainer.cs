@@ -11,7 +11,7 @@ namespace TacticsToolkit
         public List<EnemyController> enemyList;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             enemyList = GetComponentsInChildren<EnemyController>().ToList();
         }

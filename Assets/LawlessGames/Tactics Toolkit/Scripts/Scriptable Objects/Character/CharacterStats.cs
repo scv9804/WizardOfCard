@@ -17,6 +17,8 @@ namespace TacticsToolkit
         public Stat CurrentHealth;
         public Stat CurrentMana;
 
+        //******
+        public Stat Shield;
 
         public Stat getStat(Stats statKey)
         {

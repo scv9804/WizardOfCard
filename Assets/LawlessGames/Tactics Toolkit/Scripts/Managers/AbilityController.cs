@@ -16,6 +16,9 @@ namespace TacticsToolkit
         private ShapeParser shapeParser;
         private AbilityContainer abilityContainer;
 
+        //******
+        public bool IsCastingAbility = false;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -28,6 +31,9 @@ namespace TacticsToolkit
         //Cast an ability
         private void CastAbility()
         {
+            //******
+            IsCastingAbility = true;
+
             var inRangeCharacters = new List<Entity>();
 
             //get in range characters
@@ -67,7 +73,8 @@ namespace TacticsToolkit
                 }
             }
 
-
+            //******
+            IsCastingAbility = false;
 
             abilityContainer.turnsSinceUsed = 0;
             activeCharacter.UpdateInitiative(Constants.AbilityCost);
@@ -144,8 +151,12 @@ namespace TacticsToolkit
         //Set ability casting mode. 
         public void AbilityModeEvent(string abilityName)
         {
+            //******
+            IsCastingAbility = true;
+
             OverlayController.Instance.ClearTiles(null);
 
+            // ¿©±â?
             var abilityContainer = activeCharacter.abilitiesForUse.Find(x => x.ability.name == abilityName);
             if (abilityContainer.ability.cost <= activeCharacter.statsContainer.CurrentMana.statValue)
             {
@@ -162,6 +173,9 @@ namespace TacticsToolkit
         {
             OverlayController.Instance.ClearTiles(null);
             abilityContainer = null;
+
+            //******
+            IsCastingAbility = false;
         }
 
         public void ActionButtonPressed()

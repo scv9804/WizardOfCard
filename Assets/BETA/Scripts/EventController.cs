@@ -34,12 +34,17 @@ namespace BETA
             CardManager.Instance.OnTurnStart(character);
         }
 
+        public void CardManager_OnTurnEnd()
+        {
+            CardManager.Instance.OnTurnEnd();
+        }
+
         public void CardManager_OnActionButtonPressed()
         {
             CardManager.Instance.OnActionButtonPressed();
         }
 
-        public void CardManager_OnActionButtonCanceled(string name)
+        public void CardManager_OnActionButtonCanceled()
         {
             CardManager.Instance.OnActionButtonCanceled();
         }

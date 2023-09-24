@@ -12,7 +12,10 @@ namespace TacticsToolkit
         MoveRange,
         AttackRange,
         CurrentHealth,
-        CurrentMana
+        CurrentMana,
+
+        //******
+        Shield
     }
 
     public enum Operation

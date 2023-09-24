@@ -15,11 +15,12 @@ MonoBehaviour:
   Name: Heal
   Desc: "\uCCB4\uB825\uC744 50 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   Range: {fileID: 11400000, guid: 893e786fbc4101f4997b6a924737c9a2, type: 2}
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: d2a22e22c75a5ce478a8f2bdbcf04e89, type: 2}
   range: 0
   cooldown: -1
   cost: 1
-  value: 50
+  value: 20
   abilityType: 0
   includeOrigin: 1
   requiredLevel: 0

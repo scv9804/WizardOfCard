@@ -15,6 +15,14 @@ MonoBehaviour:
   baseTiles:
   - {fileID: 11400000, guid: 7462959655a8f87459dbc5d82861c031, type: 2}
   - {fileID: 11400000, guid: 89883cebd705bff499f6e6c79a2aba2f, type: 2}
+  - {fileID: 11400000, guid: 5c241e57daa4cb84c979a5d8e51f0045, type: 2}
+  - {fileID: 11400000, guid: 01d76786d713f8b45816f0e240edd50d, type: 2}
+  - {fileID: 11400000, guid: 36f733bd27b22054cad62bcce8f6720d, type: 2}
+  - {fileID: 11400000, guid: 429c7b79ebc909342abd5e2471b727be, type: 2}
+  - {fileID: 11400000, guid: 0d3d7613b85e1aa408207314df5d367c, type: 2}
+  - {fileID: 11400000, guid: d0dfc71e1ff018f41aa01a922dfb0d26, type: 2}
+  - {fileID: 11400000, guid: 4aef0780a414be8499747dc2c9bbaf1c, type: 2}
+  - {fileID: 11400000, guid: 4428a14073f324d4087a4ff543d0cc0f, type: 2}
   hasTooltip: 0
   tooltipName: 
   tooltipDescription: 

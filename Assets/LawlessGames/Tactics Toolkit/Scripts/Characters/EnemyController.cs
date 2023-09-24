@@ -47,7 +47,7 @@ namespace TacticsToolkit
             shapeParser = new ShapeParser();
 
             // ******
-            GameObject.Find("EntityHasDie_Listener").GetComponent<BETA.Porting.GameEventEntityListener>().Response.AddListener(OnEntityDie);
+            GameObject.Find("EntityHasDie_Listener").GetComponent<GameEventGameObjectListener>().Response.AddListener(OnEntityDie);
         }
 
         new void Update()
@@ -548,8 +548,17 @@ namespace TacticsToolkit
 
         // ******
 
-        public void OnEntityDie(Entity entity)
+        public void OnEntityDie(GameObject character)
         {
+            var entity = character.GetComponent<Entity>();
+
+            if (entity.GetType() == typeof(CharacterManager))
+            {
+                Debug.Log("엥 이 친구 플레이어 캐릭터인데요?");
+
+                return;
+            }
+
             enemyCharacters.Remove(entity as EnemyController);
 
             //GameObject.Find("EntityHasDie_Listener").GetComponent<BETA.Porting.GameEventEntityListener>().Response.RemoveListener(OnEntityDie);

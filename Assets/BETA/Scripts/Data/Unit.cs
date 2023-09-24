@@ -127,7 +127,7 @@ namespace BETA.Data
 
         // =========================================================================== Datas
 
-        public abstract TRuntimeData Create(string instanceID, int serialID);
+        protected abstract TRuntimeData Create(string instanceID, int serialID);
 
         private void Delete()
         {

@@ -62,6 +62,16 @@ namespace BETA.Enums
         FIRE
     }
 
+    // ==================================================================================================== EntityType
+
+    //public enum EntityType
+    //{
+    //    NONE,
+
+    //    PLAYER,
+    //    ENEMY
+    //}
+
     // ==================================================================================================== IFFType
 
     [Flags]
@@ -70,7 +80,8 @@ namespace BETA.Enums
         NONE    = 1 << 0,
 
         PLAYER  = 1 << 1,
-        MONSTER = 1 << 2,
+        ENEMY   = 1 << 2,
+        BOSS    = 1 << 3,
 
         ALL     = int.MaxValue
     }

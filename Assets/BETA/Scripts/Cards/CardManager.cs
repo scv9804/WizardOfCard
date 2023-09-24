@@ -57,6 +57,9 @@ namespace BETA
         [FoldoutGroup("카드 오브젝트")]
         public CardObject Selected;
 
+        [FoldoutGroup("카드 오브젝트")]
+        public Dictionary<string, CardEventSystems> CardObjectCommands = new Dictionary<string, CardEventSystems>();
+
         // =========================================================================== GameEvent
 
         [FoldoutGroup("게임 이벤트")]
@@ -90,22 +93,7 @@ namespace BETA
 
         private void Update()
         {
-            var center = CardObjects[HAND].Count * -0.5f + 0.5f;
-
-            for (var i = 0; i < CardObjects[HAND].Count; i++)
-            {
-                if (CardObjects[HAND, i].State >= CardState.ON_POINTER_OVER)
-                {
-                    continue;
-                }
-
-                CardObjects[HAND, i].transform.localPosition = new Vector3((center + i) * (125.0f - CardObjects[HAND].Count * 5.0f), 0.0f, 0.0f);
-            }
-
-            CardObjects[HAND].Sort((cardObject) =>
-            {
-                return cardObject.State >= CardState.ON_POINTER_OVER;
-            });
+            HandCardArrange();
         }
 
         private void OnDestroy()
@@ -326,7 +314,38 @@ namespace BETA
             Selected.gameObject.SetActive(false);
         }
 
+        // =========================================================================== CardObject
+
+        private void HandCardArrange()
+        {
+            if (IsHandCardEmpty())
+            {
+                return;
+            }
+
+            var count = CardObjects[HAND].Count;
+
+            var center = count * -0.5f + 0.5f;
+
+            for (var i = count - 1; i > -1; i--)
+            {
+                var cardObject = CardObjects[HAND, i];
+
+                if (cardObject.State >= CardState.ON_POINTER_OVER)
+                {
+                    cardObject.transform.SetSiblingIndex(i + GameManager.Instance.Configs.MaxHandCount);
+                }
+                else
+                {
+                    cardObject.transform.SetSiblingIndex(i);
+
+                    cardObject.transform.localPosition = new Vector3((center + i) * (125.0f - count * 5.0f), 0.0f, 0.0f);
+                }
+            }
+        }
+
         // =========================================================================== GameEvent
+
         private void OnGameStarted()
         {
             foreach (var serialID in GameManager.Instance.Configs.StartCardSerialID)
@@ -334,6 +353,7 @@ namespace BETA
                 Cards.Add(OWN, new Card(DataManager.Instance.Allocate(), serialID));
             }
         }
+
         public void OnBattleStarted()
         {
             foreach (var card in Cards[OWN])
@@ -379,13 +399,41 @@ namespace BETA
 
             if (entity.teamID != 1)
             {
-                return;
-            }
+                foreach (var cardObject in CardObjects[HAND])
+                {
+                    //cardObject.State = CardState.UNABLE;
 
-            StartCoroutine(Draw(1, (card) =>
+                    foreach (var command in CardObjectCommands)
+                    {
+                        cardObject.Commands[command.Key] = null;
+                    }
+                }
+            }
+            else
             {
-                CardObjects.Add(HAND, Visualize(card));
-            }));
+                StartCoroutine(Draw(1, (card) =>
+                {
+                    CardObjects.Add(HAND, Visualize(card));
+                }));
+
+                foreach (var cardObject in CardObjects[HAND])
+                {
+                    //cardObject.State = CardState.NONE;
+
+                    foreach (var command in CardObjectCommands)
+                    {
+                        cardObject.Commands[command.Key] = command.Value;
+                    }
+                }
+            }
+        }
+
+        public void OnTurnEnd()
+        {
+            foreach (var cardObject in CardObjects[HAND])
+            {
+                cardObject.State = CardState.UNABLE;
+            }
         }
 
         public void OnCardAbilityCasted(int serialID)
