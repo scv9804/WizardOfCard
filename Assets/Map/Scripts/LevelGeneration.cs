@@ -42,8 +42,9 @@ public class LevelGeneration : MonoBehaviour {
 
 	[SerializeField]ShopScirpt shopRoomScript;
 	[SerializeField] List<RoomEventListScript> eventRoomScript;
-	[SerializeField]RoomEventListScript tutorialRoomScript;
+	[SerializeField] RoomEventListScript tutorialRoomScript;
 	[SerializeField] int eventRoomValue;
+	[SerializeField] RoomEventListScript levelScene;
 
 	int eventNumber;
 	bool eventOn;

@@ -1,6 +1,11 @@
 
 namespace TacticsToolkit
 {
+    public enum EffectName
+	{
+        Burn,
+        Test1
+	}
     public enum Stats
     {
         Health,

@@ -16358,7 +16358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588197812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.917, y: 0.44399998, z: -0.4731}
+  m_LocalPosition: {x: -2.38, y: 0.5, z: -0.4731}
   m_LocalScale: {x: 1.0775, y: 1.0775, z: 1.0775}
   m_Children: []
   m_Father: {fileID: 345995839}
@@ -21950,6 +21950,7 @@ MonoBehaviour:
   - {fileID: 1013502469}
   tutorialRoomScript: {fileID: 863816447}
   eventRoomValue: 1
+  levelScene: {fileID: 0}
   sceneSO: {fileID: 11400000, guid: 5616401f69cfd2044bf2d4304b0e1ff9, type: 2}
   bossSceneSO: {fileID: 11400000, guid: c1c307348db48d949a3801fb3a27a7da, type: 2}
 --- !u!4 &2133263563

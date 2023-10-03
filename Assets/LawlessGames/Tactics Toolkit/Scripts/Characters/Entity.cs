@@ -356,13 +356,16 @@ namespace TacticsToolkit
             {
                 var statToEffect = GetStat(scriptableEffect.statKey);
 
-                if (statToEffect.statMods.FindIndex(x => x.statModName == scriptableEffect.name) != -1)
+                if (statToEffect.statMods.FindIndex(x => x.statModName == scriptableEffect.Name.ToString()) != -1)
                 {
-                    int modIndex = statToEffect.statMods.FindIndex(x => x.statModName == scriptableEffect.name);
-                    statToEffect.statMods[modIndex] = new StatModifier(scriptableEffect.statKey, scriptableEffect.Value, scriptableEffect.Duration, scriptableEffect.Operator, scriptableEffect.name);
+                    int modIndex = statToEffect.statMods.FindIndex(x => x.statModName == scriptableEffect.Name.ToString());
+                    if(scriptableEffect.Type)
+                        statToEffect.statMods[modIndex] = new StatModifier(scriptableEffect.statKey, (scriptableEffect.Value + statToEffect.statMods[modIndex].value ), scriptableEffect.Duration, scriptableEffect.Operator, scriptableEffect.Name.ToString());
+                    else
+                        statToEffect.statMods[modIndex] = new StatModifier(scriptableEffect.statKey, scriptableEffect.Value , scriptableEffect.Duration + statToEffect.statMods[modIndex].duration , scriptableEffect.Operator, scriptableEffect.Name.ToString());
                 }
                 else
-                    statToEffect.statMods.Add(new StatModifier(scriptableEffect.statKey, scriptableEffect.Value, scriptableEffect.Duration, scriptableEffect.Operator, scriptableEffect.name));
+                    statToEffect.statMods.Add(new StatModifier(scriptableEffect.statKey, scriptableEffect.Value, scriptableEffect.Duration, scriptableEffect.Operator, scriptableEffect.Name.ToString()));
             }
         }
 
