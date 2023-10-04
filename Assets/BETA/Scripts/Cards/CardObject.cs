@@ -8,6 +8,7 @@ using BETA.Enums;
 using BETA.Interfaces;
 
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
 using System;
 
@@ -29,8 +30,8 @@ namespace BETA
 
         // =========================================================================== Instance
 
-        //[ShowInInspector]
-        //private string _instanceID;
+        [OdinSerialize]
+        private string _instanceID;
 
         // =========================================================================== CardObject
 
@@ -136,7 +137,7 @@ namespace BETA
             }
         }
 
-        public CardType Type
+        public Enums.CardType Type
         {
             get
             {

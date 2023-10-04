@@ -4,6 +4,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+// ******
+using Sirenix.OdinInspector;
+
+using Spine.Unity;
+
 namespace TacticsToolkit
 {
     //Parent Class for Characters and Enemys
@@ -38,7 +43,7 @@ namespace TacticsToolkit
 
         private bool isTargetted = false;
         [HideInInspector]
-        public SpriteRenderer myRenderer;
+        //public SpriteRenderer myRenderer;
 
         public GameConfig gameConfig;
 
@@ -47,6 +52,8 @@ namespace TacticsToolkit
 
         // ******
         public GameEventGameObject EntityDie;
+
+        public CharacterRenderer Renderer;
 
         private void Awake()
         {
@@ -59,7 +66,7 @@ namespace TacticsToolkit
             SetStats();
             requiredExperience = gameConfig.GetRequiredExp(level);
 
-            myRenderer = gameObject.GetComponent<SpriteRenderer>();
+            //myRenderer = gameObject.GetComponent<SpriteRenderer>();
             initiativeValue = Mathf.RoundToInt(initiativeBase / GetStat(Stats.Speed).statValue);
         }
 
@@ -93,12 +100,12 @@ namespace TacticsToolkit
         // Update is called once per frame
         public void Update()
         {
-            if (isTargetted)
-            {
-                //Just a Color Lerp for when a character is targetted for an attack. 
-                i += Time.deltaTime * 0.5f;
-                myRenderer.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 0.5f, 0, 1), Mathf.PingPong(i * 2, 1));
-            }
+            //if (isTargetted)
+            //{
+            //    //Just a Color Lerp for when a character is targetted for an attack. 
+            //    i += Time.deltaTime * 0.5f;
+            //    myRenderer.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 0.5f, 0, 1), Mathf.PingPong(i * 2, 1));
+            //}
         }
 
         //Get's all the available abilities from the characters class. 
@@ -191,17 +198,17 @@ namespace TacticsToolkit
         {
             isTargetted = focused;
 
-            if (isAlive)
-            {
-                if (isTargetted)
-                {
-                    myRenderer.color = new Color(1, 0, 0, 1);
-                }
-                else
-                {
-                    myRenderer.color = new Color(1, 1, 1, 1);
-                }
-            }
+            //if (isAlive)
+            //{
+            //    if (isTargetted)
+            //    {
+            //        myRenderer.color = new Color(1, 0, 0, 1);
+            //    }
+            //    else
+            //    {
+            //        myRenderer.color = new Color(1, 1, 1, 1);
+            //    }
+            //}
         }
 
         //Take damage from an attack or ability. 
@@ -209,8 +216,10 @@ namespace TacticsToolkit
         {
             int damageToTake = ignoreDefence ? damage : CalculateDamage(damage);
 
-            Debug.Log($"{damageToTake} / {statsContainer.Shield.statValue}");
+            //Debug.Log($"{damageToTake} / {statsContainer.Shield.statValue}");
+            $"{damageToTake} / {statsContainer.Shield.statValue}".Log();
 
+            // ******
             if (statsContainer.Shield.statValue > damageToTake)
             {
                 statsContainer.Shield.statValue -= damageToTake;
@@ -228,7 +237,14 @@ namespace TacticsToolkit
                 CameraShake.Shake(0.125f, 0.1f);
                 UpdateCharacterUI();
 
-                if (GetStat(Stats.CurrentHealth).statValue <= 0)
+                // ******
+                //Renderer.Flip(true);
+
+                var isDead = GetStat(Stats.CurrentHealth).statValue <= 0;
+
+                StartCoroutine(HitMotion(isDead));
+
+                if (isDead)
                 {
                     isAlive = false;
                     StartCoroutine(Die());
@@ -238,6 +254,49 @@ namespace TacticsToolkit
                         endTurn.Raise();
                 }
             }
+
+            // ******
+            IEnumerator HitMotion(bool isDead)
+            {
+                Renderer.Flip(false);
+
+                Renderer.SetMotion("HIT");
+
+                if (!isDead)
+                {
+                    "¾ÈÀÜ´Ù".Log();
+
+                    yield return new WaitForSeconds(0.5f);
+
+                    Renderer.Flip(true);
+                }
+                //else
+                //{
+                //    isAlive = false;
+                //    yield return StartCoroutine(Die());
+                //    UnlinkCharacterToTile();
+
+                //    if (isActive)
+                //        endTurn.Raise();
+
+                //    Renderer.SpriteRenderer.color = new Color(0.35f, 0.35f, 0.35f, 1);
+                //}
+
+                yield return null;
+            }
+        }
+
+        public IEnumerator AttackMotion()
+        {
+            Renderer.Flip(false);
+
+            Renderer.SetMotion("ATTACK");
+
+            yield return new WaitForSeconds(0.5f);
+
+            Renderer.Flip(true);
+
+            yield return null;
         }
 
         public void HealEntity(int value)
@@ -322,10 +381,16 @@ namespace TacticsToolkit
             currentRot = transform.eulerAngles;
             targetRot.z = currentRot.z + 90; // calculate the new angle
 
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
+            //foreach (Transform child in transform)
+            //{
+            //    child.gameObject.SetActive(false);
+            //}
+
+            // ******
+            var canvas = transform.GetComponentInChildren<Canvas>();
+            canvas.gameObject.SetActive(false);
+
+            //healthBar.gameObject.SetActive(false);
 
             while (currentRot.z < targetRot.z)
             {
@@ -334,7 +399,9 @@ namespace TacticsToolkit
                 yield return null;
             }
 
-            GetComponent<SpriteRenderer>().color = new Color(0.35f, 0.35f, 0.35f, 1);
+            //GetComponent<SpriteRenderer>().color = new Color(0.35f, 0.35f, 0.35f, 1);
+
+            Renderer.SpriteRenderer.color = new Color(0.35f, 0.35f, 0.35f, 1);
 
             // ******
             EntityDie.Raise(this.gameObject);

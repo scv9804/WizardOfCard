@@ -25,7 +25,7 @@ namespace BETA.Data
         // ================================================== Component
 
         [FoldoutGroup("컴포넌트 데이터")]
-        public Dictionary<CardType, Sprite[]> FrameSprite = new Dictionary<CardType, Sprite[]>();
+        public Dictionary<Enums.CardType, Sprite[]> FrameSprite = new Dictionary<Enums.CardType, Sprite[]>();
 
         [FoldoutGroup("컴포넌트 데이터")]
         public Sprite[][] ArtworkSprite;

@@ -33,9 +33,9 @@ public class Engle_02 : RoomEventListScript
 
 	public void AddReward()
 	{
-		EntityManager.Inst.playerEntity.Status_MaxHealth += 3;
-		EntityManager.Inst.playerEntity.Status_Health += 3;
-		EntityManager.Inst.playerEntity.karma += 1;
+		//EntityManager.Inst.playerEntity.Status_MaxHealth += 3;
+		//EntityManager.Inst.playerEntity.Status_Health += 3;
+		//EntityManager.Inst.playerEntity.karma += 1;
 		eventWindow.SetActive(false);
 	}
 

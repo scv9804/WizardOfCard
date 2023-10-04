@@ -2425,8 +2425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561ce6f4799788743819f7b673367a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMSound: 0.04
-  EffectSound: 0.04
+  BGMSound: 0.25
+  EffectSound: 0.25
   backGruondSource: {fileID: 1130474674}
   backGroundClips:
   - {fileID: 8300000, guid: a263bc1a365fbfd4bbfdddc183efda1f, type: 3}

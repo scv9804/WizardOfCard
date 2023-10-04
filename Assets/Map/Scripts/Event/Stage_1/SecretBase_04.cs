@@ -40,21 +40,24 @@ public class SecretBase_04 : RoomEventListScript
 
 	public void AddReward()
 	{
-		float rand = Utility.Choose(percentage);
+		// 20230928 장형용 @@ 수정
+		//float rand = Utility.Choose(percentage);
+		var rand = percentage.Choose();
+
 		Debug.Log(rand);
 		//float Random
-		if (rand == 0)
-		{
-			for (int i = 0; i < ItemDataBase.Inst.database.Count; i++)
-			{
-				if(ItemDataBase.Inst.database[i].Id == 19)
-				Inventory.inst.AddItem(ItemDataBase.Inst.database[i].Id);
-			}
-		}
-		else
-		{
-			EntityManager.Inst.playerEntity.Status_Health -= 7;
-		}
+		//if (rand == 0)
+		//{
+		//	for (int i = 0; i < ItemDataBase.Inst.database.Count; i++)
+		//	{
+		//		if(ItemDataBase.Inst.database[i].Id == 19)
+		//		Inventory.inst.AddItem(ItemDataBase.Inst.database[i].Id);
+		//	}
+		//}
+		//else
+		//{
+  //          EntityManager.Inst.playerEntity.Status_Health -= 7;
+  //      }
 
 		eventWindow.SetActive(false);
 	}

@@ -8,7 +8,7 @@ namespace BETA
 {
     // ==================================================================================================== CardDataBase
 
-    public sealed class CardDataBase : DataBase<CardRuntimeData, CardDataSet>
+    public sealed class CardDataBase : DataBase<CardRuntimeData, Data.CardDataSet>
     {
         // ==================================================================================================== Method
 
@@ -16,7 +16,7 @@ namespace BETA
 
         public override void Initialize()
         {
-            DataSet = Resources.Load<CardDataSet>("Data/CardDataSet");
+            DataSet = Resources.Load<Data.CardDataSet>("Data/CardDataSet");
         }
     }
 }

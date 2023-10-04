@@ -293,6 +293,7 @@ namespace TacticsToolkit
 
             //As an example, damage is just the strenght stat. 
             targetedCharacter.TakeDamage(GetStat(Stats.Strenght).statValue);
+            StartCoroutine(AttackMotion());
             UpdateInitiative(Constants.AttackCost);
             StartCoroutine(EndTurn());
         }
@@ -559,11 +560,14 @@ namespace TacticsToolkit
                 return;
             }
 
-            enemyCharacters.Remove(entity as EnemyController);
+            //enemyCharacters.Remove(entity as EnemyController);
+
+            entity.isAlive = false;
 
             //GameObject.Find("EntityHasDie_Listener").GetComponent<BETA.Porting.GameEventEntityListener>().Response.RemoveListener(OnEntityDie);
 
-            if (enemyCharacters.Count == 0)
+            //if (enemyCharacters.Count == 0)
+            if (!IsAlive(enemyCharacters))
             {
                 BattleEnd.Raise();
 
@@ -574,6 +578,18 @@ namespace TacticsToolkit
                 LoadSceneManager.LoadScene("Stage 1-1 Load");
                 UIManager.Inst.ButtonActivate();
                 ////CardManager.Inst.SetCardStateCannot();
+            }
+
+            bool IsAlive(List<EnemyController> enemies)
+            {
+                bool result = false;
+
+                foreach (var enemy in enemies)
+                {
+                    result = result || enemy.isAlive;
+                }
+
+                return result;
             }
         }
     }

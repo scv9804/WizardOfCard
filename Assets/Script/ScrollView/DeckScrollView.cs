@@ -30,23 +30,23 @@ public class DeckScrollView : MonoBehaviour
         destroyObejcts.Clear();
 
 
-        foreach (var item in CardManager.Inst.myCemetery)
-        {
-            var newUI = Instantiate(uiPrefab, scrollRect.content);
-            var cardinfo = newUI.AddComponent<Card>();
-            cardinfo = item;
+        //foreach (var item in CardManager.Inst.myCemetery)
+        //{
+        //    var newUI = Instantiate(uiPrefab, scrollRect.content);
+        //    var cardinfo = newUI.AddComponent<Card>();
+        //    cardinfo = item;
 
-            newUI.transform.GetChild(1).GetComponent<TMP_Text>().text = cardinfo.st_cardName;
-            newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();
-            newUI.transform.GetChild(2).GetComponent<TMP_Text>().text = cardinfo.GetCardExplain();
-            newUI.transform.GetChild(3).GetComponent<Image>().sprite = cardinfo.CardIconImage;
+        //    newUI.transform.GetChild(1).GetComponent<TMP_Text>().text = cardinfo.st_cardName;
+        //    newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();
+        //    newUI.transform.GetChild(2).GetComponent<TMP_Text>().text = cardinfo.GetCardExplain();
+        //    newUI.transform.GetChild(3).GetComponent<Image>().sprite = cardinfo.CardIconImage;
 
-            cardinfo.is_UI_Card = true;
-            cardinfo.Setup();
+        //    cardinfo.is_UI_Card = true;
+        //    cardinfo.Setup();
 
-            destroyObejcts.Add(newUI);
-            uiobjects.Add(newUI.GetComponent<RectTransform>());
-        }
+        //    destroyObejcts.Add(newUI);
+        //    uiobjects.Add(newUI.GetComponent<RectTransform>());
+        //}
 
         float y = 0f;
 
@@ -70,23 +70,23 @@ public class DeckScrollView : MonoBehaviour
         destroyObejcts.Clear();
 
 
-        foreach (var item in CardManager.Inst.myDeck)
-		{
-            var newUI = Instantiate(uiPrefab, scrollRect.content);
-            var cardinfo = newUI.AddComponent<Card>();
-            cardinfo = item;
+  //      foreach (var item in CardManager.Inst.myDeck)
+		//{
+  //          var newUI = Instantiate(uiPrefab, scrollRect.content);
+  //          var cardinfo = newUI.AddComponent<Card>();
+  //          cardinfo = item;
 
-            newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.st_cardName;
-            newUI.transform.GetChild(1).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();        
-            newUI.transform.GetChild(2).GetComponent<TMP_Text>().text = cardinfo.GetCardExplain();
-            newUI.transform.GetChild(3).GetComponent<Image>().sprite = cardinfo.CardIconImage;
+  //          newUI.transform.GetChild(0).GetComponent<TMP_Text>().text = cardinfo.st_cardName;
+  //          newUI.transform.GetChild(1).GetComponent<TMP_Text>().text = cardinfo.i_manaCost.ToString();        
+  //          newUI.transform.GetChild(2).GetComponent<TMP_Text>().text = cardinfo.GetCardExplain();
+  //          newUI.transform.GetChild(3).GetComponent<Image>().sprite = cardinfo.CardIconImage;
 
-            cardinfo.is_UI_Card = true;
-            cardinfo.Setup();
+  //          cardinfo.is_UI_Card = true;
+  //          cardinfo.Setup();
 
-            destroyObejcts.Add(newUI);
-            uiobjects.Add(newUI.GetComponent<RectTransform>());
-        }
+  //          destroyObejcts.Add(newUI);
+  //          uiobjects.Add(newUI.GetComponent<RectTransform>());
+  //      }
 
         float y = 0f;
 

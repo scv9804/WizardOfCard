@@ -14,20 +14,20 @@ public class RewardManager : MonoBehaviour
 		DontDestroyOnLoad(this);
 	}
 
-	[SerializeField] List<Item_inven> itemList = new List<Item_inven>();
-	[SerializeField] List<Item_inven> randomitemList = new List<Item_inven>();
+	//[SerializeField] List<Item_inven> itemList = new List<Item_inven>();
+	//[SerializeField] List<Item_inven> randomitemList = new List<Item_inven>();
 	[SerializeField] List<GameObject> rewardObjectList = new List<GameObject>();
-	[SerializeField] List<Item_inven> rewardList = new List<Item_inven>();
-	[SerializeField] List<Card> rewardCardList = new List<Card>();
+	//[SerializeField] List<Item_inven> rewardList = new List<Item_inven>();
+	//[SerializeField] List<Card> rewardCardList = new List<Card>();
 	[SerializeField] List<GameObject> rewardCardObjectList = new List<GameObject>();
 	GameObject moneyObject;
 	int rewardMoney;
 
-	[SerializeField] ItemDataBase database;
+	//[SerializeField] ItemDataBase database;
 	[SerializeField] GameObject rewardWindow;
 	[SerializeField] Button acceptButton;
 	[SerializeField] RewardScrollView rewardSpawn;
-	[SerializeField] Inventory inven;
+	//[SerializeField] Inventory inven;
 	[SerializeField] GameObject rewardCard;
 
 	private void Start()
@@ -57,13 +57,13 @@ public class RewardManager : MonoBehaviour
 		{
 			for (int i = 0; i < _pattern.Reward_item.Length; i++)
 			{
-				itemList.Add(database.database[_pattern.Reward_item[i]]);
+				//itemList.Add(database.database[_pattern.Reward_item[i]]);
 			}
 		}
 		else
 		{
-			int randitem = UnityEngine.Random.Range(0, database.notEquiDataBase.Count);
-			itemList.Add(database.notEquiDataBase[randitem]);
+			//int randitem = UnityEngine.Random.Range(0, database.notEquiDataBase.Count);
+			//itemList.Add(database.notEquiDataBase[randitem]);
 		}
 
 		// 돈설정
@@ -96,12 +96,12 @@ public class RewardManager : MonoBehaviour
 	//아이템설정
 	void SetReward()
 	{
-		for (int i = 0;i < itemList.Count ; i++)
-		{
-			rewardObjectList.Add(rewardSpawn.SetReward(itemList[i]));
-			rewardList.Add(itemList[i]);
-		}
-		itemList.Clear();
+		//for (int i = 0;i < itemList.Count ; i++)
+		//{
+		//	rewardObjectList.Add(rewardSpawn.SetReward(itemList[i]));
+		//	rewardList.Add(itemList[i]);
+		//}
+		//itemList.Clear();
 		SetMoney();
 	}
 	
@@ -127,21 +127,21 @@ public class RewardManager : MonoBehaviour
 	//랜덤 테이블 설정
 	void SetRandomRewardTable()
 	{
-		for (int indexCount = 0; indexCount < database.database.Count; indexCount++)
-		{
-			for (int addRare = 0; addRare < database.database[indexCount].Rarity ; addRare++ )
-			{
-				randomitemList.Add(database.database[indexCount]);
-			}
-		}
+		//for (int indexCount = 0; indexCount < database.database.Count; indexCount++)
+		//{
+		//	for (int addRare = 0; addRare < database.database[indexCount].Rarity ; addRare++ )
+		//	{
+		//		randomitemList.Add(database.database[indexCount]);
+		//	}
+		//}
 
-		for (int i = 0; i < randomitemList.Count; i++)
-		{
-			int rand = UnityEngine.Random.Range(i, randomitemList.Count);
-			Item_inven temp = randomitemList[i];
-			randomitemList[i] = randomitemList[rand];
-			randomitemList[rand] = temp;
-		}
+		//for (int i = 0; i < randomitemList.Count; i++)
+		//{
+		//	int rand = UnityEngine.Random.Range(i, randomitemList.Count);
+		//	Item_inven temp = randomitemList[i];
+		//	randomitemList[i] = randomitemList[rand];
+		//	randomitemList[rand] = temp;
+		//}
 	}
 
 	void SetCardReward()
@@ -150,18 +150,18 @@ public class RewardManager : MonoBehaviour
 
 		for (int i = 0; i < randcardcount; i++)
 		{
-			int randCard = Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
-			var temt = Instantiate(rewardCard);
+			//int randCard = Random.Range(0, CardManager.Inst.itemSO.items.Length - 1);
+			//var temt = Instantiate(rewardCard);
 
-			Card card = CardManager.Inst.itemSO.items[randCard].card;
+			//Card card = CardManager.Inst.itemSO.items[randCard].card;
 
-			temt.transform.GetChild(0).GetComponent<TMP_Text>().text = card.i_manaCost.ToString();
-			temt.transform.GetChild(1).GetComponent<TMP_Text>().text = card.GetCardName();
-			temt.transform.GetChild(2).GetComponent<TMP_Text>().text = card.GetCardExplain();
-			temt.transform.GetChild(3).GetComponent<Image>().sprite = card.CardIconImage;
+			//temt.transform.GetChild(0).GetComponent<TMP_Text>().text = card.i_manaCost.ToString();
+			//temt.transform.GetChild(1).GetComponent<TMP_Text>().text = card.GetCardName();
+			//temt.transform.GetChild(2).GetComponent<TMP_Text>().text = card.GetCardExplain();
+			//temt.transform.GetChild(3).GetComponent<Image>().sprite = card.CardIconImage;
 
-			rewardCardList.Add(card);
-			rewardCardObjectList.Add(rewardSpawn.SetReward(temt));
+			//rewardCardList.Add(card);
+			//rewardCardObjectList.Add(rewardSpawn.SetReward(temt));
 		}
 	}
 
@@ -174,7 +174,7 @@ public class RewardManager : MonoBehaviour
 
 			if (temptoggle.isOn)
 			{
-				inven.AddItem(rewardList[i].Id);
+				//inven.AddItem(rewardList[i].Id);
 				Debug.Log("잘들어갔어요!");
 			}
 		}
@@ -188,14 +188,14 @@ public class RewardManager : MonoBehaviour
 			UIManager.Inst.PlayerMoneyUIRefresh();
 		}
 
-		for (int i = 0; i < rewardCardList.Count; i++)
-		{
-			Toggle cardtoggle = rewardCardObjectList[i].GetComponentInChildren<Toggle>();
-			if (cardtoggle.isOn)
-			{
-				CardManager.Inst.AddSelectCard_Deck(rewardCardList[i]);
-			}
-		}
+		//for (int i = 0; i < rewardCardList.Count; i++)
+		//{
+		//	Toggle cardtoggle = rewardCardObjectList[i].GetComponentInChildren<Toggle>();
+		//	if (cardtoggle.isOn)
+		//	{
+		//		CardManager.Inst.AddSelectCard_Deck(rewardCardList[i]);
+		//	}
+		//}
 
 		try
 		{
@@ -209,9 +209,9 @@ public class RewardManager : MonoBehaviour
 
 		rewardSpawn.destroyRewardObejct();
 		moneyObject = null;
-		rewardCardList.Clear();
+		//rewardCardList.Clear();
 		rewardCardObjectList.Clear();
-		rewardList.Clear();
+		//rewardList.Clear();
 		rewardObjectList.Clear();
 		rewardSpawn.ClearViewList();
 		rewardWindow.SetActive(false);
@@ -222,4 +222,14 @@ public class RewardManager : MonoBehaviour
 		acceptButton.onClick.RemoveListener(AddClearReword);
 		GiveReward();
 	}
+}
+
+[System.Serializable]
+public class SpawnPattern
+{
+	//[Tooltip("3개까지 가능")] public Enemy[] enemy;
+	public int[] Reward_item;
+	public int Reward_Money;
+	public int[] Reward_Card;
+	public bool MoneyRandom;
 }

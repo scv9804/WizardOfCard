@@ -108,19 +108,28 @@ namespace BETA.Data
 
         ~Unit()
         {
-            if (InstanceID == null)
-            {
-                return;
-            }
+            //if (InstanceID == null)
+            //{
+            //    return;
+            //}
 
-            DataManager.Instance.Unsubscribe(this);
+            //DataManager.Instance.Unsubscribe(this);
 
-            if (DataManager.Instance.Reference[InstanceID] == 0)
-            {
-                Delete();
-            }
+            ////if (DataManager.Instance.Reference[InstanceID] == 0)
+            ////{
+            ////    Delete();
+            ////}
 
-            OnDestroy?.Invoke();
+            //if (!DataManager.Instance.Reference.ContainsKey(InstanceID))
+            //{
+            //    "人-神".Print();
+
+            //    Delete();
+            //}
+
+            //OnDestroy?.Invoke();
+
+            Delete();
         }
 
         // =========================================================================== Instance
@@ -131,7 +140,26 @@ namespace BETA.Data
 
         private void Delete()
         {
-            DataManager.Instance.Remove(Data);
+            if (InstanceID == null)
+            {
+                return;
+            }
+
+            DataManager.Instance.Unsubscribe(this);
+
+            //if (DataManager.Instance.Reference[InstanceID] == 0)
+            //{
+            //    Delete();
+            //}
+
+            if (!DataManager.Instance.Reference.ContainsKey(InstanceID))
+            {
+                "人-神".Print();
+
+                DataManager.Instance.Remove(Data);
+            }
+
+            OnDestroy?.Invoke();
         }
 
         public virtual void Refresh()

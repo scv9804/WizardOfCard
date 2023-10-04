@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//public class AbilityAction : MonoBehaviour
-//{
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-        
-//    }
+using Sirenix.OdinInspector;
 
-//    // Update is called once per frame
-//    void Update()
-//    {
-        
-//    }
-//}
+public abstract class AbilityAction : SerializedScriptableObject
+{
+
+
+    public abstract void Invoke(Character target, Character trtrt);
+}

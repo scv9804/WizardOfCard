@@ -20,7 +20,7 @@ namespace BETA.Data
         // =========================================================================== General
 
         [FoldoutGroup("일반 데이터")]
-        public CardType Type;
+        public Enums.CardType Type;
 
         [FoldoutGroup("일반 데이터")]
         public int Level;

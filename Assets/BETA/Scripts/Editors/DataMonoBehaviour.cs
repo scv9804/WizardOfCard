@@ -8,11 +8,7 @@ using System;
 
 public class DataMonoBehaviour : SerializedMonoBehaviour
 {
-    public int ID;
-
-    public string Name;
-
-    public string Description;
+    public MonoData Data;
 
     public void Deserialize(int serialID)
     {
@@ -28,4 +24,14 @@ public class DataMonoBehaviour : SerializedMonoBehaviour
     {
         //Debug.Log(ID);
     }
+}
+
+[Serializable]
+public class MonoData
+{
+    public int ID;
+
+    public string Name;
+
+    public string Description;
 }

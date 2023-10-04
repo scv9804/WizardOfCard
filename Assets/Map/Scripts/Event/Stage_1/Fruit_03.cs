@@ -40,25 +40,28 @@ public class Fruit_03 : RoomEventListScript
 
 	public void AddReward()
 	{
-		float rand = Utility.Choose(percentage);
+		// 20230928 장형용 @@ 수정
+		//float rand = Utility.Choose(percentage);
+		var rand = percentage.Choose();
+
 		Debug.Log(rand);
 		//float Random
-		if (rand == 0)
-		{
-			EntityManager.Inst.playerEntity.Status_MaxHealth += 2;
-			if (EntityManager.Inst.playerEntity.Status_Health + 5 > EntityManager.Inst.playerEntity.Status_MaxHealth)
-			{
-				EntityManager.Inst.playerEntity.Status_Health = EntityManager.Inst.playerEntity.Status_MaxHealth;
-			}
-			else
-			{
-				EntityManager.Inst.playerEntity.Status_Health += 5;
-			}
-		}
-		else
-		{
-			EntityManager.Inst.playerEntity.Status_Health -= 3;
-		}
+		//if (rand == 0)
+		//{
+		//	EntityManager.Inst.playerEntity.Status_MaxHealth += 2;
+		//	if (EntityManager.Inst.playerEntity.Status_Health + 5 > EntityManager.Inst.playerEntity.Status_MaxHealth)
+		//	{
+		//		EntityManager.Inst.playerEntity.Status_Health = EntityManager.Inst.playerEntity.Status_MaxHealth;
+		//	}
+		//	else
+		//	{
+		//		EntityManager.Inst.playerEntity.Status_Health += 5;
+		//	}
+		//}
+		//else
+		//{
+		//	EntityManager.Inst.playerEntity.Status_Health -= 3;
+		//}
 
 		eventWindow.SetActive(false);
 	}

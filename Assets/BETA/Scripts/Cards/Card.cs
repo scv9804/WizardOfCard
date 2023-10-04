@@ -8,72 +8,12 @@ using BETA.Interfaces;
 
 using System;
 
-namespace BETA.BETA
-{
-    // ==================================================================================================== Card
-
-    public class Card : SampleMonoBehaviour
-    {
-        // ==================================================================================================== Constance
-
-        // =========================================================================== General
-
-        public const int MAX_LEVEL = 2;
-
-        // ==================================================================================================== Method
-
-        // =========================================================================== Constructor
-
-        public Card()
-        {
-
-        }
-
-        public Card(CardData data)
-        {
-
-        }
-    }
-
-    [Serializable]
-    public class CardData
-    {
-
-    }
-
-    [Serializable]
-    public class CardResource : SampleScriptableObject
-    {
-
-    }
-
-    [Serializable]
-    public class CardResourceSet : SampleScriptableObject
-    {
-
-    }
-
-    //public sealed class CardPlayingData
-    //{
-
-    //}
-
-    // CardTemplateData, CardInstanceData
-
-    // BaseCardData, CardData
-
-    // CardScriptableObject, CardJSON
-
-    // Card, CardData, CardJSON
-    // CardResource, CardData, Card // ÀÌ°Å³×
-}
-
 namespace BETA
 {
     // ==================================================================================================== Card
 
     [Serializable]
-    public sealed class Card : Unit<CardRuntimeData>, ICard
+    public sealed class Card : Data.Unit<CardRuntimeData>, ICard
     {
         // ==================================================================================================== Constance
 
@@ -85,7 +25,7 @@ namespace BETA
 
         // =========================================================================== General
 
-        public CardType Type
+        public Enums.CardType Type
         {
             get
             {
@@ -154,11 +94,11 @@ namespace BETA
 
         // =========================================================================== Data
 
-        public static CardDataSet DataSet
+        public static Data.CardDataSet DataSet
         {
             get
             {
-                return DataManager.Instance.GetDataSet<CardDataSet>();
+                return DataManager.Instance.GetDataSet<Data.CardDataSet>();
             }
         }
 

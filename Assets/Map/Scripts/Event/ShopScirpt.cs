@@ -16,8 +16,8 @@ public class ShopScirpt : MonoBehaviour
 	[Header("상점 don't destroy")]
 	[SerializeField] GameObject shop;
 
-	[Header("필수설정 상점넣기")]
-	[SerializeField] ItemDataBase database;
+	//[Header("필수설정 상점넣기")]
+	//[SerializeField] ItemDataBase database;
 
 	[Header("오브젝트들 설정")]
 	[SerializeField] GameObject[] shopAllObject;
@@ -33,7 +33,7 @@ public class ShopScirpt : MonoBehaviour
 	[SerializeField] TMP_Text ManaPriceTMP;
 	[SerializeField] string[] ShopOwnerspeechArray;
 
-	[SerializeField] ItemDataBase allItemData;
+	//[SerializeField] ItemDataBase allItemData;
 
 	[Header("아이템 관련")]
 	[SerializeField] GameObject cardSpawnParent;
@@ -45,7 +45,7 @@ public class ShopScirpt : MonoBehaviour
 	[SerializeField] GameObject itemPrefab;
 	[SerializeField] GameObject cardPrefab;
 
-	List<Item_inven> shopItemList = new List<Item_inven>();
+	//List<Item_inven> shopItemList = new List<Item_inven>();
 	List<GameObject> solditems = new List<GameObject>();
 
 	Vector3 OriginSize;
@@ -81,7 +81,7 @@ public class ShopScirpt : MonoBehaviour
 			priceTMP[i].gameObject.SetActive(true);
 		}
 		shopOwner.SetActive(true);
-		CardManager.Inst.SetCardStateCannot();
+		//CardManager.Inst.SetCardStateCannot();
 		StartCoroutine(Repeat());
 
 		SetShop();
@@ -98,7 +98,7 @@ public class ShopScirpt : MonoBehaviour
 			priceTMP[i].gameObject.SetActive(false);
 		}
 		shopOwner.SetActive(false);
-		CardManager.Inst.SetCardStateBack();
+		//CardManager.Inst.SetCardStateBack();
 	}
 
 	public void OpenShop()
@@ -149,34 +149,34 @@ public class ShopScirpt : MonoBehaviour
 		yield return new WaitForSeconds(5f);
 	}
 
-	WIP.CardShopPile test = new WIP.CardShopPile();
+	//WIP.CardShopPile test = new WIP.CardShopPile();
 
 	void SetShop()
 	{		
 		if (!isSettingOver)
 		{
-			test.Initialize("SoldCardSort", true);
+			//test.Initialize("SoldCardSort", true);
 			//카드 세팅
 			for (int i = 0; i < 5; i++)
 			{
-				var rand = UnityEngine.Random.Range(0, WIP.CardManager.Instance.Database.Cards.Count);
-				var temtName = WIP.GameManager.Instance.Allocate(WIP.InstanceType.Card);
+				//var rand = UnityEngine.Random.Range(0, WIP.CardManager.Instance.Database.Cards.Count);
+				//var temtName = WIP.GameManager.Instance.Allocate(WIP.InstanceType.Card);
 
-				var card = WIP.Card.Create(temtName, rand);
+				//var card = WIP.Card.Create(temtName, rand);
 
-				test.Add(card);
+				//test.Add(card);
 
-				var temtobject = test._cardObjects.Find((cardObject) => cardObject.InstanceID == temtName);
-				temtobject.GroupName = i.ToString();
-				var temt = Instantiate(cardPrefab);
-
-
-				temt.name = i.ToString();
-				temt.transform.GetChild(0).GetComponent<TMP_Text>().text = 75.ToString();
-				temt.transform.SetParent(cardSpawnParent.transform);
+				//var temtobject = test._cardObjects.Find((cardObject) => cardObject.InstanceID == temtName);
+				//temtobject.GroupName = i.ToString();
+				//var temt = Instantiate(cardPrefab);
 
 
-				temtobject.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(card, temt));
+				//temt.name = i.ToString();
+				//temt.transform.GetChild(0).GetComponent<TMP_Text>().text = 75.ToString();
+				//temt.transform.SetParent(cardSpawnParent.transform);
+
+
+				//temtobject.GetComponent<Button>().onClick.AddListener(() => SetBuyCard(card, temt));
 
 
 			}
@@ -187,39 +187,39 @@ public class ShopScirpt : MonoBehaviour
 				int temp = i;
 				if (i < 2)
 				{
-					int rand = UnityEngine.Random.Range(0, database.notEquiDataBase.Count);
-					Item_inven itemToAdd = database.FetchItemById(database.notEquiDataBase[rand].Id);
+					//int rand = UnityEngine.Random.Range(0, database.notEquiDataBase.Count);
+					//Item_inven itemToAdd = database.FetchItemById(database.notEquiDataBase[rand].Id);
 
-					GameObject itemObj = Instantiate(itemPrefab);
-					itemObj.GetComponent<ItemData>().item = itemToAdd;
-					itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
-					itemObj.transform.SetParent(itemSapwnParents[i].transform);
-					itemObj.transform.localPosition = Vector2.zero;
-					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-					itemObj.name = "Item: " + itemToAdd.Title;
-					itemObj.transform.localScale *= 3;
-					itemObj.AddComponent<Button>();
-					itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(itemToAdd, temp));
-					solditems.Add(itemObj);
-					priceTMP[i].text = itemToAdd.Price.ToString();
+					//GameObject itemObj = Instantiate(itemPrefab);
+					//itemObj.GetComponent<ItemData>().item = itemToAdd;
+					//itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
+					//itemObj.transform.SetParent(itemSapwnParents[i].transform);
+					//itemObj.transform.localPosition = Vector2.zero;
+					//itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+					//itemObj.name = "Item: " + itemToAdd.Title;
+					//itemObj.transform.localScale *= 3;
+					//itemObj.AddComponent<Button>();
+					//itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(itemToAdd, temp));
+					//solditems.Add(itemObj);
+					//priceTMP[i].text = itemToAdd.Price.ToString();
 				}
 				else
 				{
-					int rand = UnityEngine.Random.Range(0, database.equiDataBase.Count);
-					Item_inven itemToAdd = database.FetchItemById(database.equiDataBase[rand].Id);
+					//int rand = UnityEngine.Random.Range(0, database.equiDataBase.Count);
+					//Item_inven itemToAdd = database.FetchItemById(database.equiDataBase[rand].Id);
 
-					GameObject itemObj = Instantiate(itemPrefab);
-					itemObj.GetComponent<ItemData>().item = itemToAdd;
-					itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
-					itemObj.transform.SetParent(itemSapwnParents[i].transform);
-					itemObj.transform.localPosition = Vector2.zero;
-					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-					itemObj.name = "Item: " + itemToAdd.Title;
-					itemObj.transform.localScale *= 3;
-					itemObj.AddComponent<Button>();
-					itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(itemToAdd, temp));
-					solditems.Add(itemObj);
-					priceTMP[i].text = itemToAdd.Price.ToString();
+					//GameObject itemObj = Instantiate(itemPrefab);
+					//itemObj.GetComponent<ItemData>().item = itemToAdd;
+					//itemObj.GetComponent<ItemData>().item.OwnPlayer = false;
+					//itemObj.transform.SetParent(itemSapwnParents[i].transform);
+					//itemObj.transform.localPosition = Vector2.zero;
+					//itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+					//itemObj.name = "Item: " + itemToAdd.Title;
+					//itemObj.transform.localScale *= 3;
+					//itemObj.AddComponent<Button>();
+					//itemObj.GetComponent<Button>().onClick.AddListener(() => SetBuyItem(itemToAdd, temp));
+					//solditems.Add(itemObj);
+					//priceTMP[i].text = itemToAdd.Price.ToString();
 				}
 
 			}
@@ -227,34 +227,34 @@ public class ShopScirpt : MonoBehaviour
 		}
 	}
 
-	void SetBuyCard(WIP.Card _card, GameObject _object)
-	{
-		if (75 <= CharacterStateStorage.Inst.money)
-		{
-			WIP.CardManager.Instance.Deck.Add(_card);
-			CharacterStateStorage.Inst.money -= 75;
-			UIManager.Inst.PlayerMoneyUIRefresh();
+	//void SetBuyCard(WIP.Card _card, GameObject _object)
+	//{
+	//	if (75 <= CharacterStateStorage.Inst.money)
+	//	{
+	//		WIP.CardManager.Instance.Deck.Add(_card);
+	//		CharacterStateStorage.Inst.money -= 75;
+	//		UIManager.Inst.PlayerMoneyUIRefresh();
 
-			Destroy(_object);
-		}
-	}
+	//		Destroy(_object);
+	//	}
+	//}
 
-	void SetBuyItem(Item_inven item, int i)
-	{
-		if (item.Price <= CharacterStateStorage.Inst.money)
-		{
-			CharacterStateStorage.Inst.money -= item.Price;
-			UIManager.Inst.PlayerMoneyUIRefresh();
-			Inventory.inst.AddItem(item.Id);
+	//void SetBuyItem(Item_inven item, int i)
+	//{
+	//	if (item.Price <= CharacterStateStorage.Inst.money)
+	//	{
+	//		CharacterStateStorage.Inst.money -= item.Price;
+	//		UIManager.Inst.PlayerMoneyUIRefresh();
+	//		Inventory.inst.AddItem(item.Id);
 
-			solditems[i].GetComponent<ItemData>().TooltipDeActive();
-			Destroy(solditems[i]);
-			priceTMP[i].gameObject.SetActive(false);
+	//		solditems[i].GetComponent<ItemData>().TooltipDeActive();
+	//		Destroy(solditems[i]);
+	//		priceTMP[i].gameObject.SetActive(false);
 
-			// <<22-11-28 장형용 :: 추가>>
-			MusicManager.inst.PlayBuyingSound();
-		}
-	}
+	//		// <<22-11-28 장형용 :: 추가>>
+	//		MusicManager.inst.PlayBuyingSound();
+	//	}
+	//}
 
 	//마나 업그레이드 비용은 10원부터 시작해서 10원씩 증가함 대충 1300골드 정도 들어감 일부러 좀 적은 가격으로 구성함
 	void ManaLevelUp()
@@ -273,7 +273,7 @@ public class ShopScirpt : MonoBehaviour
 
 	void SetManaLevelUp()
 	{
-		manaPrice = CharacterStateStorage.Inst.aether * 10 + 10;
+		//manaPrice = CharacterStateStorage.Inst.aether * 10 + 10;
 		if (manaPrice >= 170)
 		{
 			ManaUpPurchaseButton.onClick.RemoveAllListeners();
@@ -288,10 +288,10 @@ public class ShopScirpt : MonoBehaviour
 	#endregion
 
 
-	public void ClearShopCard()
-	{
-		test.Clear();
-	}
+	//public void ClearShopCard()
+	//{
+	//	test.Clear();
+	//}
 
 
 }

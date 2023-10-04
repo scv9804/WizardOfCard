@@ -30,31 +30,31 @@ public class RewardScrollView : MonoBehaviour
 	}
 
 
-    public GameObject SetReward(Item_inven item)
-    {
-        var newUI = Instantiate(uiPrefab);
-        newUI.transform.SetParent(contents.transform);
+    //public GameObject SetReward(Item_inven item)
+    //{
+    //    var newUI = Instantiate(uiPrefab);
+    //    newUI.transform.SetParent(contents.transform);
 
-        //프리팹 내용 설정
-        Image itemimage = newUI.GetComponentInChildren<Image>();
-        itemimage.sprite = item.Sprite;
-        TMP_Text tmptext = newUI.GetComponentInChildren<TMP_Text>();
-        tmptext.text = item.Title;
+    //    //프리팹 내용 설정
+    //    Image itemimage = newUI.GetComponentInChildren<Image>();
+    //    itemimage.sprite = item.Sprite;
+    //    TMP_Text tmptext = newUI.GetComponentInChildren<TMP_Text>();
+    //    tmptext.text = item.Title;
 
-        uiobjects.Add(newUI.GetComponent<RectTransform>());
-        destroyUiObjects.Add(newUI);
+    //    uiobjects.Add(newUI.GetComponent<RectTransform>());
+    //    destroyUiObjects.Add(newUI);
 
-        float y = 0f;
+    //    float y = 0f;
         
-        for (int i = 0; i <= uiobjects.Count; i++)
-        {
-            y += uiobjects[0].sizeDelta.y + space;
-        }
-        scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
+    //    for (int i = 0; i <= uiobjects.Count; i++)
+    //    {
+    //        y += uiobjects[0].sizeDelta.y + space;
+    //    }
+    //    scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);
   
 
-        return newUI;
-    }
+    //    return newUI;
+    //}
     public GameObject SetReward(int _money)
     {
         var newUI = Instantiate(uiPrefab);

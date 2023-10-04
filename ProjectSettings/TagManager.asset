@@ -48,17 +48,8 @@ TagManager:
   - name: Background
     uniqueID: 4122871785
     locked: 0
-  - name: Map
+  - name: GameObjects
     uniqueID: 324082491
-    locked: 0
-  - name: Overlay
-    uniqueID: 4265482523
-    locked: 0
-  - name: Cursor
-    uniqueID: 1131894829
-    locked: 0
-  - name: Entity
-    uniqueID: 2038262887
     locked: 0
   - name: Card
     uniqueID: 2777846799

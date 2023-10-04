@@ -71,7 +71,7 @@ namespace BETA.Singleton
 
         private void OnApplicationQuit()
         {
-            
+            Finalize();
         }
 
         // =========================================================================== Singleton
