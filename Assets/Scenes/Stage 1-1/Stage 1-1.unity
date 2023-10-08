@@ -11824,6 +11824,63 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1306251666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1306251668}
+  - component: {fileID: 1306251667}
+  m_Layer: 0
+  m_Name: Entity Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1306251667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306251666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66dbc3d4ac317b4d979bf90ecaa1c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: PlayerData
+      Entry: 6
+      Data: 
+  StatsContainer: {fileID: 0}
+  ClassData: {fileID: 11400000, guid: 2c5e7c892d1d05e41bc90e27382566cd, type: 2}
+--- !u!4 &1306251668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306251666}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1309272757
 GameObject:
   m_ObjectHideFlags: 0
@@ -17319,6 +17376,7 @@ MonoBehaviour:
       Data: 
   Selected: {fileID: 0}
   OnAbilityCasted: {fileID: 11400000, guid: eb3fd847d42611a479fee39edc990464, type: 2}
+  OnActionCancled: {fileID: 11400000, guid: 24315e7b4739869498fb3db3d60ea022, type: 2}
 --- !u!4 &1984481419
 Transform:
   m_ObjectHideFlags: 0
@@ -18573,6 +18631,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f288b11a4078a5040b0f6657b4b4e36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: rooms
+      Entry: 7
+      Data: 0|Room[,], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: ranks
+      Entry: 1
+      Data: 0|0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   eventRoom: []
   DrawMaps: []
   numberOfRooms: 5
@@ -18594,7 +18676,7 @@ MonoBehaviour:
   eventRoomValue: 1
   sceneSO: {fileID: 11400000, guid: 5616401f69cfd2044bf2d4304b0e1ff9, type: 2}
   bossSceneSO: {fileID: 11400000, guid: c1c307348db48d949a3801fb3a27a7da, type: 2}
-  levelSceneSO: {fileID: 0}
+  levelSceneSO: {fileID: 11400000, guid: 9dca669b5425176488a2485ed815f17a, type: 2}
 --- !u!4 &2133263563
 Transform:
   m_ObjectHideFlags: 0

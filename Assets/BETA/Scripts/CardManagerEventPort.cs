@@ -23,6 +23,7 @@ namespace BETA
                 var cardObject = CardManager.Instance.Visualize(card);
 
                 CardManager.Instance.CardObjects.Add(CardManager.HAND, cardObject);
+                cardObject.SetParent(CardManager.HAND);
             }));
         }
 

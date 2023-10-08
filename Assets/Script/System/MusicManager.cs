@@ -101,23 +101,64 @@ public class MusicManager : MonoBehaviour
 
 	// <<22-11-28 장형용 :: 추가>>
 	// <<22-12-01 장형용 :: 오류 뜨지 않도록 수정>>
+	// 장형용 :: 20231007 :: 매커니즘 수정
 	void PlayClickSound()
     {
-		if(Input.GetMouseButtonDown(0) && !isClicked && IsMouseOnCard())
+        //if(Input.GetMouseButtonDown(0) && !isClicked && IsMouseOnCard())
+        //      {
+        //	EffectPlay(Audio_OnMouseDown);
+        //	isClicked = true;
+        //}
+
+        //if(isClicked)
+        //	times += Time.deltaTime;
+
+        //if (times > 0.125f && !Input.GetMouseButton(0) && isClicked && IsMouseOnCard())
+        //      {
+        //	EffectPlay(Audio_OnMouseUp);
+
+        //	times = 0;
+        //	isClicked = false;
+        //}
+
+        if (Input.GetMouseButtonDown(0) && !isClicked)
+        {
+			OnClick();
+		}
+    }
+
+	private void OnClick()
+    {
+		StartCoroutine(Main());
+
+		IEnumerator Main()
         {
 			EffectPlay(Audio_OnMouseDown);
 			isClicked = true;
+
+            var enumerator = CheckMouseButtonUp();
+
+            StartCoroutine(enumerator);
+
+			yield return new WaitForSeconds(0.1f);
+
+			yield return new WaitUntil(() =>
+			{
+				return enumerator.Current == null;
+			});
+
+			EffectPlay(Audio_OnMouseUp);
+			isClicked = false;
 		}
 
-		if(isClicked)
-			times += Time.deltaTime;
+        IEnumerator CheckMouseButtonUp()
+        { 
+            yield return new WaitUntil(() =>
+			{
+				return Input.GetMouseButtonUp(0);
+			});
 
-		if (times > 0.125f && !Input.GetMouseButton(0) && isClicked && IsMouseOnCard())
-        {
-			EffectPlay(Audio_OnMouseUp);
-
-			times = 0;
-			isClicked = false;
+			yield return null;
 		}
 	}
 

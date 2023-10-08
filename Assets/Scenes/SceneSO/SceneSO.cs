@@ -25,12 +25,15 @@ public class SceneSO : ScriptableObject
 	{
 		int Random = UnityEngine.Random.Range(0, SceneList[_stage-1].sceneName.Count);
 
-		LoadSceneManager.LoadScene(SceneList[_stage - 1].sceneName[Random]);
+		//LoadSceneManager.LoadScene(SceneList[_stage - 1].sceneName[Random]);
+
+		BETA.GameManager.Instance.Loading(SceneList[_stage - 1].sceneName[Random], BETA.GameManager.Instance.BattleStart);
 	}
 
 	public void CallLevel(int _level)
 	{
-		LoadSceneManager.LoadScene(SceneList[_level-1].sceneName[0]);
+		//LoadSceneManager.LoadScene(SceneList[_level-1].sceneName[0]);
 
+		BETA.GameManager.Instance.Loading(SceneList[_level - 1].sceneName[0], null);
 	}
 }

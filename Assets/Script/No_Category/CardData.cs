@@ -107,4 +107,6 @@ public class CardData
         InstanceID = instanceID;
         SerialID = serialID;
     }
+
+    // ============================================================ ????
 }

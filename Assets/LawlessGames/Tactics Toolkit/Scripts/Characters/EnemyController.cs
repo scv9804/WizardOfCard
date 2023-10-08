@@ -47,7 +47,7 @@ namespace TacticsToolkit
             shapeParser = new ShapeParser();
 
             // ******
-            GameObject.Find("EntityHasDie_Listener").GetComponent<GameEventGameObjectListener>().Response.AddListener(OnEntityDie);
+            //GameObject.Find("EntityHasDie_Listener").GetComponent<GameEventGameObjectListener>().Response.AddListener(OnEntityDie);
         }
 
         new void Update()
@@ -549,20 +549,20 @@ namespace TacticsToolkit
 
         // ******
 
-        public void OnEntityDie(GameObject character)
+        public override void OnEntityDie()
         {
-            var entity = character.GetComponent<Entity>();
+            //var entity = character.GetComponent<Entity>();
 
-            if (entity.GetType() == typeof(CharacterManager))
-            {
-                Debug.Log("엥 이 친구 플레이어 캐릭터인데요?");
+            //if (entity.GetType() == typeof(CharacterManager))
+            //{
+            //    Debug.Log("엥 이 친구 플레이어 캐릭터인데요?");
 
-                return;
-            }
+            //    return;
+            //}
 
             //enemyCharacters.Remove(entity as EnemyController);
 
-            entity.isAlive = false;
+            isAlive = false;
 
             //GameObject.Find("EntityHasDie_Listener").GetComponent<BETA.Porting.GameEventEntityListener>().Response.RemoveListener(OnEntityDie);
 
@@ -575,9 +575,22 @@ namespace TacticsToolkit
                 //UnityEngine.SceneManagement.SceneManager.LoadScene("Stage 1-1 Load");
 
                 // ******
-                LoadSceneManager.LoadScene("Stage 1-1 Load");
-                UIManager.Inst.ButtonActivate();
+                //LoadSceneManager.LoadScene("Stage 1-1 Load");
+                //UIManager.Inst.ButtonActivate();
                 ////CardManager.Inst.SetCardStateCannot();
+
+                var room = LevelGeneration.Inst.CurrentRoom;
+
+                if (room.RoomEventType == 1)
+                {
+                    LevelGeneration.Inst.LevelClear(2, 5);
+                }
+                else
+                {
+                    BETA.GameManager.Instance.Loading("Stage 1-1 Load");
+                }
+
+                UIManager.Inst.ButtonActivate();
             }
 
             bool IsAlive(List<EnemyController> enemies)

@@ -32,9 +32,7 @@ namespace TacticsToolkit.UI
                 EnableUI();
 
                 //var maxMana = entity.GetStat(Stats.Mana).statValue;
-                var currentMana = entity.GetStat(Stats.CurrentMana).statValue;
-
-                currentMana = 5;
+                //entity.GetStat(Stats.CurrentMana).ChangeStatValue(maxMana);
 
                 RefreshManaUI();
             }
@@ -81,7 +79,7 @@ namespace TacticsToolkit.UI
 
         public void RefreshManaUI()
         {
-            var entity = GameObject.Find("Character 4(Clone)").GetComponent<Entity>();
+            var entity = GameObject.Find("Character 4(Clone)")?.GetComponent<Entity>();
 
             var mana = entity.GetStat(Stats.Mana).statValue;
             var currentMana = entity.GetStat(Stats.CurrentMana).statValue;

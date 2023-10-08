@@ -34,6 +34,8 @@ namespace BETA
             cardObject.State = CardState.ON_POINTER_OVER;
 
             cardObject.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+
+            CardManager.Instance.HandCardArrange();
         }
 
         public void Hand_OnPointerExit(CardObject cardObject, PointerEventData eventData)
@@ -46,6 +48,8 @@ namespace BETA
             cardObject.State = CardState.NONE;
 
             cardObject.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+
+            CardManager.Instance.HandCardArrange();
         }
 
         public void Hand_OnPointerClick(CardObject cardObject, PointerEventData eventData)

@@ -8,6 +8,18 @@ namespace BETA
     {
         // ==================================================================================================== Method
 
+        // =========================================================================== GameManager
+
+        public void GameManager_Quit()
+        {
+            GameManager.Instance.Quit();
+        }
+
+        public void GameManager_BattleEnd()
+        {
+            GameManager.Instance.BattleEnd();
+        }
+
         // =========================================================================== CardManager
 
         // ================================================== Card
@@ -19,6 +31,7 @@ namespace BETA
                 var cardObject = CardManager.Instance.Visualize(card);
 
                 CardManager.Instance.CardObjects.Add(CardManager.HAND, cardObject);
+                cardObject.SetParent(CardManager.HAND);
             }));
         }
 
@@ -39,6 +52,11 @@ namespace BETA
             CardManager.Instance.OnTurnEnd();
         }
 
+        public void CardManager_OnCardAbilityCasted(string name)
+        {
+            CardManager.Instance.OnCardAbilityCasted(name);
+        }
+
         public void CardManager_OnActionButtonPressed()
         {
             CardManager.Instance.OnActionButtonPressed();
@@ -47,6 +65,25 @@ namespace BETA
         public void CardManager_OnActionButtonCanceled()
         {
             CardManager.Instance.OnActionButtonCanceled();
+        }
+
+        // =========================================================================== EntityManager
+
+        // ================================================== GameEvent
+
+        public void EntityManager_OnTurnStart(GameObject character)
+        {
+            EntityManager.Instance.OnTurnStart(character);
+        }
+
+        public void EntityManager_OnEntityDie(GameObject character)
+        {
+            EntityManager.Instance.OnEntityDie(character);
+        }
+
+        public void EntityManager_OnBattleEnd()
+        {
+            EntityManager.Instance.OnBattleEnd();
         }
     }
 }

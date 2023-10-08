@@ -17,6 +17,7 @@ namespace BETA
 {
     // ==================================================================================================== DataManager
 
+    [RequireComponent(typeof(CardDataBase))]
     public class DataManager : SingletonMonoBehaviour<DataManager>
     {
         // ==================================================================================================== Field

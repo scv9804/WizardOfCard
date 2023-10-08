@@ -12,7 +12,7 @@ using Spine.Unity;
 namespace TacticsToolkit
 {
     //Parent Class for Characters and Enemys
-    public class Entity : MonoBehaviour
+    public abstract class Entity : MonoBehaviour
     {
         [Header("Character Specific")]
         public List<AbilityContainer> abilitiesForUse;
@@ -408,8 +408,10 @@ namespace TacticsToolkit
             EntityDie.Raise(this.gameObject);
         }
 
+        public abstract void OnEntityDie();
+
         //Updates the characters healthbar. 
-        private void UpdateCharacterUI()
+        protected void UpdateCharacterUI()
         {
             healthBar.fillAmount = (float)statsContainer.CurrentHealth.statValue / (float)statsContainer.Health.statValue;
         }

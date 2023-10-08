@@ -19,6 +19,8 @@ namespace TacticsToolkit
         //******
         public bool IsCastingAbility = false;
 
+        public GameEvent OnActionCancle;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -171,6 +173,13 @@ namespace TacticsToolkit
                 OverlayController.Instance.ColorTiles(OverlayController.Instance.MoveRangeColor, abilityRangeTiles);
 
                 this.abilityContainer = abilityContainer;
+            }
+            else
+            {
+                //******
+                IsCastingAbility = false;
+
+                OnActionCancle.Raise();
             }
         }
 

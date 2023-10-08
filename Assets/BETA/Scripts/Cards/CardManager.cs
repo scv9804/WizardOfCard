@@ -64,10 +64,13 @@ namespace BETA
         [FoldoutGroup("게임 이벤트")]
         public GameEventString OnAbilityCasted;
 
+        [FoldoutGroup("게임 이벤트")]
+        public GameEvent OnActionCancled;
+
         // =========================================================================== Data
 
-        [ShowInInspector] [HideReferenceObjectPicker]
-        private CardManagerData _data = new CardManagerData();
+        //[ShowInInspector] [HideReferenceObjectPicker]
+        //private CardManagerData _data = new CardManagerData();
 
         // ==================================================================================================== Property
 
@@ -87,7 +90,9 @@ namespace BETA
 
         private void Start()
         {
-            OnGameStarted();
+            //OnGameStarted();
+
+            SetCardUI();
         }
 
         // =========================================================================== Singleton
@@ -104,6 +109,13 @@ namespace BETA
 
                 SceneManager.sceneLoaded -= OnSceneWasLoaded;
                 SceneManager.sceneLoaded += OnSceneWasLoaded;
+
+                GameManager.OnGameStart -= OnGameStarted;
+                GameManager.OnGameStart += OnGameStarted;
+                GameManager.OnBattleStart -= OnBattleStarted;
+                GameManager.OnBattleStart += OnBattleStarted;
+                GameManager.OnGameQuit -= OnGameQuited;
+                GameManager.OnGameQuit += OnGameQuited;
 
                 SetCategory((category) =>
                 {
@@ -126,6 +138,10 @@ namespace BETA
             if (!isEmpty)
             {
                 SceneManager.sceneLoaded -= OnSceneWasLoaded;
+
+                GameManager.OnGameStart -= OnGameStarted;
+                GameManager.OnBattleStart -= OnBattleStarted;
+                GameManager.OnGameQuit -= OnGameQuited;
             }
 
             return isEmpty;
@@ -135,7 +151,7 @@ namespace BETA
 
         public CardObject Visualize(Card card)
         {
-            var cardObject = Instantiate(Card.DataSet.Prefab, CardObjectContainer[HAND].transform);
+            var cardObject = Instantiate(Card.DataSet.Prefab);
 
             cardObject.Unit = card;
 
@@ -144,19 +160,34 @@ namespace BETA
             return cardObject;
         }
 
+        public void Unvisualize(Card card)
+        {
+
+        }
+
         // =========================================================================== Scene
 
         private void OnSceneWasLoaded(Scene scene, LoadSceneMode mode)
         {
+            SetCardUI();
+
+            //if (scene.buildIndex > 8) 
+            //{
+            //    OnBattleStarted();
+            //}
+        }
+
+        private void OnGameQuited()
+        {
             SetCategory((category) =>
             {
-                CardObjectContainer[category] = GameObject.Find(category);
-            }, OWN, DECK, HAND, DISCARD, EXCLUDE);
+                //foreach (var card in Cards[category])
+                //{
+                //    card.InstanceID.Log();
+                //}
 
-            if (scene.buildIndex > 6) 
-            {
-                OnBattleStarted();
-            }
+                Cards.Clear();
+            }, OWN, DECK, HAND, DISCARD, EXCLUDE);
         }
 
         // =========================================================================== Card
@@ -301,50 +332,20 @@ namespace BETA
 
         public void Play(CardObject cardObject)
         {
-            if (Selected != null)
-            {
-                OnActionButtonCanceled();
-            }
+            OnActionCancled.Raise();
 
             Selected = cardObject;
 
-            //var scriptableData = DataManager.Instance.GetDataSet<CardDataSet>().Data[cardObject.SerialID];
-
-            //OnAbilityCasted.Raise(scriptableData.Name);
-
             OnAbilityCasted.Raise(Selected.Unit.Name);
-
-            Selected.gameObject.SetActive(false);
         }
 
         // =========================================================================== CardObject
 
-        private void HandCardArrange()
+        public void HandCardArrange()
         {
-            if (IsHandCardEmpty())
-            {
-                return;
-            }
+            var hand = CardObjectContainer[HAND]?.GetComponent<UI.HandCardUIHandler>();
 
-            var count = CardObjects[HAND].Count;
-
-            var center = count * -0.5f + 0.5f;
-
-            for (var i = count - 1; i > -1; i--)
-            {
-                var cardObject = CardObjects[HAND, i];
-
-                if (cardObject.State >= CardState.ON_POINTER_OVER)
-                {
-                    cardObject.transform.SetSiblingIndex(i + GameManager.Instance.Configs.MaxHandCount);
-                }
-                else
-                {
-                    cardObject.transform.SetSiblingIndex(i);
-
-                    cardObject.transform.localPosition = new Vector3((center + i) * (125.0f - count * 5.0f), 0.0f, 0.0f);
-                }
-            }
+            hand.Refresh();
         }
 
         // =========================================================================== GameEvent
@@ -353,7 +354,7 @@ namespace BETA
         {
             foreach (var serialID in GameManager.Instance.Configs.StartCardSerialID)
             {
-                Cards.Add(OWN, new Card(DataManager.Instance.Allocate(), serialID));
+                Cards.Add(OWN, new Card(null, serialID));
             }
         }
 
@@ -370,7 +371,10 @@ namespace BETA
 
             StartCoroutine(Draw(6, (card) =>
             {
-                CardObjects.Add(HAND, Visualize(card));
+                var cardObject = Visualize(card);
+
+                CardObjects.Add(HAND, cardObject);
+                cardObject.SetParent(HAND);
 
                 if (index < 3)
                 {
@@ -414,7 +418,10 @@ namespace BETA
             {
                 StartCoroutine(Draw(1, (card) =>
                 {
-                    CardObjects.Add(HAND, Visualize(card));
+                    var cardObject = Visualize(card);
+
+                    CardObjects.Add(HAND, cardObject);
+                    cardObject.SetParent(HAND);
                 }));
 
                 foreach (var cardObject in CardObjects[HAND])
@@ -437,14 +444,10 @@ namespace BETA
             }
         }
 
-        //public void OnCardAbilityCasted(int serialID)
-        //{
-        //    OverlayController.Instance.ClearTiles(null);
-
-        //    // 대충 카드 스킬 효과 가져오는 코드
-
-        //    // 대충 마나 맞으면 효과 범위 보여준다는 코드
-        //}
+        public void OnCardAbilityCasted(string name)
+        {
+            Selected.gameObject.SetActive(false);
+        }
 
         public void OnActionButtonPressed()
         {
@@ -485,6 +488,127 @@ namespace BETA
             CardObjects.Remove(HAND, Selected, false);
 
             Selected = null;
+        }
+
+        // =========================================================================== UIEvent
+
+        private void SetCardUI()
+        {
+            SetCategory((category) =>
+            {
+                CardObjectContainer[category] = GameObject.Find(category);
+            }, OWN, DECK, HAND, DISCARD, EXCLUDE);
+
+            var controller = GameObject.Find("UI Controller")?.GetComponent<UIController>();
+
+            if (controller == null)
+            {
+                return;
+            }
+
+            foreach (var UIComponent in controller.CO)
+            {
+                CardObjectContainer[UIComponent.Key] = UIComponent.Value;
+            }
+
+            //CardObjectContainer[OWN] = controller?.CO[OWN];
+            //CardObjectContainer[DECK] = controller?.CO[DECK];
+            //CardObjectContainer[HAND] = controller?.CO[HAND];
+            //CardObjectContainer[DISCARD] = controller?.CO[DISCARD];
+            //CardObjectContainer[EXCLUDE] = controller?.CO[EXCLUDE];
+
+            if (CardObjectContainer[OWN] != null)
+            {
+                SetOwnCardUI();
+            }
+
+            //if (CardObjectContainer[DECK] != null)
+            //{
+            //    SetOwnCardUI();
+            //}
+
+            //if (CardObjectContainer[DISCARD] != null)
+            //{
+            //    SetOwnCardUI();
+            //}
+        }
+
+        public void SetOwnCardUI()
+        {
+            var commands = new Dictionary<string, CardEventSystems>()
+            {
+                { "ON_POINTER_ENTER", null },
+                { "ON_POINTER_EXIT", null },
+                { "ON_POINTER_CLICK", null },
+                { "ON_BEGIN_DRAG", null },
+                { "ON_DRAG", null },
+                { "ON_END_DRAG", null },
+            };
+
+            foreach (var card in Cards[OWN])
+            {
+                var cardObject = Visualize(card);
+
+                CardObjects.Add(OWN, cardObject);
+                cardObject.SetParent(OWN);
+                cardObject.Commands = commands;
+            }
+
+            var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
+
+            count.text = Cards[OWN].Count.ToString();
+        }
+
+        public void SetDeckCardUI()
+        {
+            var commands = new Dictionary<string, CardEventSystems>()
+            {
+                { "ON_POINTER_ENTER", null },
+                { "ON_POINTER_EXIT", null },
+                { "ON_POINTER_CLICK", null },
+                { "ON_BEGIN_DRAG", null },
+                { "ON_DRAG", null },
+                { "ON_END_DRAG", null },
+            };
+
+            foreach (var card in Cards[DECK])
+            {
+                var cardObject = Visualize(card);
+
+                CardObjects.Add(OWN, cardObject);
+                cardObject.SetParent(OWN);
+                cardObject.Commands = commands;
+            }
+
+            //var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
+
+            //count.text = Cards[OWN].Count.ToString();
+        }
+
+        public void SetDiscardCardUI()
+        {
+            var commands = new Dictionary<string, CardEventSystems>()
+            {
+                { "ON_POINTER_ENTER", null },
+                { "ON_POINTER_EXIT", null },
+                { "ON_POINTER_CLICK", null },
+                { "ON_BEGIN_DRAG", null },
+                { "ON_DRAG", null },
+                { "ON_END_DRAG", null },
+            };
+
+            foreach (var card in Cards[DISCARD])
+            {
+                var cardObject = Visualize(card);
+
+                CardObjects.Add(OWN, cardObject);
+                cardObject.SetParent(OWN);
+                cardObject.Commands = commands;
+            }
+
+            //var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
+
+            //count.text = Cards[OWN].Count.ToString();
         }
 
         // =========================================================================== Utility

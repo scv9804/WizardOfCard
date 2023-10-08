@@ -12,38 +12,44 @@ using TacticsToolkit;
 
 public class CharacterRenderer : SerializedMonoBehaviour
 {
-    //
+    // ================================================================================ Field
 
-    //
+    // ============================================================ Entity
 
     public Entity Target;
 
-    //
+    // ============================================================ Renderer
 
     public SpriteRenderer SpriteRenderer;
 
     public SkeletonAnimation SkeletonAnimation;
 
-    //
+    // ============================================================ Data
 
-    //
-
-    public SkeletonDataAsset SkeletonDataAsset;
-
-    //
-
-    public Dictionary<string, Sprite> Motions = new Dictionary<string, Sprite>();
-
-    //
+    // ======================================== Entity
 
     public float Distance;
 
     public bool IsPlayer;
 
+    // ======================================== Spine
+
+    public SkeletonDataAsset SkeletonDataAsset;
+
+    // ======================================== Sprite
+
+    public Dictionary<string, Sprite> Motions = new Dictionary<string, Sprite>();
+
+    // ================================================================================ Method
+
+    // ============================================================ Event
+
     private void Start()
     {
         SetSkeletonAnimation(SkeletonDataAsset);
     }
+
+    // ============================================================ Renderer
 
     public void SetSkeletonAnimation(SkeletonDataAsset asset)
     {
@@ -54,27 +60,6 @@ public class CharacterRenderer : SerializedMonoBehaviour
 
         SkeletonAnimation.Initialize(true);
     }
-
-    //public void Motion(string name)
-    //{
-    //    if (Motions.ContainsKey(name))
-    //    {
-    //        StartCoroutine(Main());
-    //    }
-
-    //    IEnumerator Main()
-    //    {
-    //        SpriteRenderer.sprite = Motions[name];
-
-    //        Flip(true);
-
-    //        yield return new WaitForSeconds(0.5f);
-
-    //        Flip(false);
-
-    //        yield return null;
-    //    }
-    //}
 
     public bool IsMotionContains(string name)
     {

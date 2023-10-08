@@ -13,7 +13,7 @@ namespace BETA
     // ==================================================================================================== Card
 
     [Serializable]
-    public sealed class Card : Data.Unit<CardRuntimeData>, ICard
+    public sealed class Card : Unit<CardRuntimeData>, ICard
     {
         // ==================================================================================================== Constance
 

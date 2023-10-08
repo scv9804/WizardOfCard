@@ -8,7 +8,6 @@ using BETA.Enums;
 using BETA.Interfaces;
 
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 
 using System;
 
@@ -30,7 +29,6 @@ namespace BETA
 
         // =========================================================================== Instance
 
-        [OdinSerialize]
         private string _instanceID;
 
         // =========================================================================== CardObject
@@ -201,7 +199,7 @@ namespace BETA
 
         private void Start()
         {
-            var command = Commands["ON_POINTER_ENTER"];
+            //var command = Commands["ON_POINTER_ENTER"];
 
             //Delegates.Add("ON_POINTER_ENTER", Hand.OnPointerEnter);
         }
@@ -270,6 +268,15 @@ namespace BETA
             Unit = null;
 
             Destroy(gameObject);
+        }
+
+        // =========================================================================== UI
+
+        public void SetParent(string name)
+        {
+            var parent = CardManager.Instance.CardObjectContainer[name]?.transform;
+
+            transform.SetParent(parent);
         }
 
         //

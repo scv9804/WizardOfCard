@@ -108,27 +108,6 @@ namespace BETA.Data
 
         ~Unit()
         {
-            //if (InstanceID == null)
-            //{
-            //    return;
-            //}
-
-            //DataManager.Instance.Unsubscribe(this);
-
-            ////if (DataManager.Instance.Reference[InstanceID] == 0)
-            ////{
-            ////    Delete();
-            ////}
-
-            //if (!DataManager.Instance.Reference.ContainsKey(InstanceID))
-            //{
-            //    "人-神".Print();
-
-            //    Delete();
-            //}
-
-            //OnDestroy?.Invoke();
-
             Delete();
         }
 
@@ -144,6 +123,8 @@ namespace BETA.Data
             {
                 return;
             }
+
+            "人神".Print();
 
             DataManager.Instance.Unsubscribe(this);
 

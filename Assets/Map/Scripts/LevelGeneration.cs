@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGeneration : MonoBehaviour {
+using Sirenix.OdinInspector;
+
+public class LevelGeneration : SerializedMonoBehaviour {
 
 	static public LevelGeneration Inst;
 	private void Awake()
@@ -13,6 +15,7 @@ public class LevelGeneration : MonoBehaviour {
 	#region 변수 등등
 	Vector2 worldSize = new Vector2(4, 4);
 
+	[SerializeField, TableMatrix(DrawElementMethod = "DrawMapMatrix")]
 	Room[,] rooms;
 	[SerializeField]List<Room> eventRoom;
 	List<Room> EdgeRooms;
@@ -60,6 +63,44 @@ public class LevelGeneration : MonoBehaviour {
 	public Room CurrentRoom
     {
 		get { return rooms[inPosX, inPosY]; }
+	}
+
+	// 장형용 :: 20231008 :: 추가
+	private Room DrawMapMatrix(Rect rect, Room room)
+    {
+		if (room == null)
+        {
+			return null;
+        }
+
+		Color color;
+
+        switch (room.RoomEventType)
+        {
+			case 0:
+				color = new Color(1, 1, 1);
+				break;
+
+			case 1:
+				color = new Color(1, 0, 0);
+				break;
+
+			case 2:
+				color = new Color(0, 1, 0);
+				break;
+
+			case 3:
+				color = new Color(0, 0, 1);
+				break;
+
+			default:
+				color = new Color(0, 0, 0);
+				break;
+		}
+
+		UnityEditor.EditorGUI.DrawRect(rect, color);
+
+		return room;
 	}
 
 	#endregion
@@ -887,7 +928,7 @@ public class LevelGeneration : MonoBehaviour {
 	{
 		SetLevelRoomsCount(_rommCount);
 		ReCreateRoom();
-		levelSceneSO.CallBattleScene(stage);
+		levelSceneSO.CallLevel(stage);
 	}
 
 	public void ReCreateRoom()
@@ -897,6 +938,16 @@ public class LevelGeneration : MonoBehaviour {
 			Destroy(selector?.gameObject);
 		}
 		eventRoom.Clear();
+
+		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
+		{
+			numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
+		}
+		gridSizeX = Mathf.RoundToInt(worldSize.x); //그리드 절반
+		gridSizeY = Mathf.RoundToInt(worldSize.y);
+		inPosX = gridSizeX;
+		inPosY = gridSizeY;
+
 		CreateRooms();
 
 		SetRoomDoors();
