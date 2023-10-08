@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51c5e685a8bcdc547813e305986d832e, type: 3}
-  m_Name: "\uB9C8\uBC95\uAD6C I"
+  m_Name: "\uB9C8\uB825\uD3ED\uACA9 I"
   m_EditorClassIdentifier: 
-  Name: MagicBolt
-  Desc: Deal 60 damage.
-  Range: {fileID: 11400000, guid: 4b42e1a921bf7e74fa03508474751e0b, type: 2}
+  Name: 
+  Desc: 
+  Range: {fileID: 11400000, guid: 59ec8e27928d26c499ec48c2532b28dc, type: 2}
   effects: []
   range: 3
   cooldown: -1
-  cost: 1
+  cost: 3
   value: 50
-  repetTime: 1
+  repetTime: 3
   abilityType: 1
   includeOrigin: 1
   requiredLevel: 0

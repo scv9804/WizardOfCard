@@ -21,6 +21,7 @@ MonoBehaviour:
   cooldown: -1
   cost: 1
   value: 50
+  repetTime: 1
   abilityType: 0
   includeOrigin: 1
   requiredLevel: 0

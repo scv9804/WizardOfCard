@@ -31,6 +31,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: d2612768b3f981e4e8d2328f7e299f9b, type: 3}
     - {fileID: 21300000, guid: fc636491e3c616743920a2862ae16328, type: 3}
     - {fileID: 21300000, guid: 220d37d1c3ddd39488fb6472ccc2980c, type: 3}
+    - {fileID: 21300000, guid: ceb681a62f4030743834f11130d0aceb, type: 3}
+    - {fileID: 21300000, guid: a5674746a4fef9c4797adda0e9d41182, type: 3}
+    - {fileID: 21300000, guid: 1c87b71a027f24143835615f03f1391b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -196,7 +199,16 @@ MonoBehaviour:
       Data: 8|UnityEngine.Sprite[], UnityEngine.CoreModule
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 3
+    - Name: 
+      Entry: 10
+      Data: 15
+    - Name: 
+      Entry: 10
+      Data: 16
+    - Name: 
+      Entry: 10
+      Data: 17
     - Name: 
       Entry: 13
       Data: 
@@ -357,4 +369,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 445ba217324073d448b2838744c05583, type: 2}
   - {fileID: 11400000, guid: fe8dc8d0b68b3f44b9b6c5509a302f0a, type: 2}
   - {fileID: 11400000, guid: 26419ad396635bc4c970b2f84936df38, type: 2}
+  - {fileID: 11400000, guid: 2eac4723cd3443740b7769abef5514fb, type: 2}
   Prefab: {fileID: 904646810986623622, guid: 2040e4f8eb9719248b2ed9890e213a7a, type: 3}

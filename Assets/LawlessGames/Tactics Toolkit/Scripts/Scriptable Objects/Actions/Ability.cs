@@ -28,6 +28,8 @@ namespace TacticsToolkit
 
         public int value;
 
+        public int repetTime;
+
         public AbilityTypes abilityType;
 
         public bool includeOrigin;

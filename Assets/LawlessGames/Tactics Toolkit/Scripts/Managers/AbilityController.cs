@@ -48,32 +48,36 @@ namespace TacticsToolkit
 
             StartCoroutine(activeCharacter.AttackMotion());
 
-            //attach effects
-            foreach (var character in inRangeCharacters)
-            {
-                foreach (var effect in abilityContainer.ability.effects)
+            for (int repet = 0; repet < abilityContainer.ability.repetTime ; repet++)
+			{
+                //attach effects
+                foreach (var character in inRangeCharacters)
                 {
-                    character.AttachEffect(effect);
-                    if (effect.Duration == 0)
-                        character.ApplySingleEffects(effect.GetStatKey());
-                }
+                    foreach (var effect in abilityContainer.ability.effects)
+                    {
+                        character.AttachEffect(effect);
+                        if (effect.Duration == 0)
+                            character.ApplySingleEffects(effect.GetStatKey());
+                    }
 
-                //apply value
-                switch (abilityContainer.ability.abilityType)
-                {
-                    case AbilityTypes.Ally:
-                        character.HealEntity(abilityContainer.ability.value);
-                        break;
-                    case AbilityTypes.Enemy:
-                        character.TakeDamage(abilityContainer.ability.value);
-                        break;
-                    case AbilityTypes.All:
-                        character.TakeDamage(abilityContainer.ability.value);
-                        break;
-                    default:
-                        break;
+                    //apply value
+                    switch (abilityContainer.ability.abilityType)
+                    {
+                        case AbilityTypes.Ally:
+                            character.HealEntity(abilityContainer.ability.value);
+                            break;
+                        case AbilityTypes.Enemy:
+                            character.TakeDamage(abilityContainer.ability.value);
+                            break;
+                        case AbilityTypes.All:
+                            character.TakeDamage(abilityContainer.ability.value);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            
 
             //******
             IsCastingAbility = false;

@@ -16,10 +16,11 @@ MonoBehaviour:
   Desc: Deal 60 damage.
   Range: {fileID: 11400000, guid: 4b42e1a921bf7e74fa03508474751e0b, type: 2}
   effects: []
-  range: 6
+  range: 3
   cooldown: -1
   cost: 1
-  value: 150
+  value: 50
+  repetTime: 1
   abilityType: 1
   includeOrigin: 1
   requiredLevel: 0
