@@ -27,4 +27,10 @@ public class SceneSO : ScriptableObject
 
 		LoadSceneManager.LoadScene(SceneList[_stage - 1].sceneName[Random]);
 	}
+
+	public void CallLevel(int _level)
+	{
+		LoadSceneManager.LoadScene(SceneList[_level-1].sceneName[0]);
+
+	}
 }

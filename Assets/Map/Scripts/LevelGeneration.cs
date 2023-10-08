@@ -17,7 +17,7 @@ public class LevelGeneration : MonoBehaviour {
 	[SerializeField]List<Room> eventRoom;
 	List<Room> EdgeRooms;
 
-	MapSpriteSelector[] DrawMaps;
+	[SerializeField]MapSpriteSelector[] DrawMaps;
 
 	List<Vector2> takenPositions = new List<Vector2>();
 
@@ -44,14 +44,17 @@ public class LevelGeneration : MonoBehaviour {
 	[SerializeField] List<RoomEventListScript> eventRoomScript;
 	[SerializeField] RoomEventListScript tutorialRoomScript;
 	[SerializeField] int eventRoomValue;
-	[SerializeField] RoomEventListScript levelScene;
 
 	int eventNumber;
 	bool eventOn;
 	bool shopOn;
 
+	[Header("기본몹")]
 	[SerializeField]SceneSO sceneSO;
+	[Header("보스")]
 	[SerializeField]SceneSO bossSceneSO;
+	[Header("레벨")]
+	[SerializeField] SceneSO levelSceneSO;
 
 	// <<22-12-04 장형용 :: 편의성>>
 	public Room CurrentRoom
@@ -578,7 +581,7 @@ public class LevelGeneration : MonoBehaviour {
 			rooms[(int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY] = new Room(checkPos, 2, 0);
 			//방 번호 넘버링.
 			RoomNumberring((int)checkPos.x , (int)checkPos.y );
-
+			
 			takenPositions.Insert(0, checkPos);
 		}
 	}
@@ -759,10 +762,6 @@ public class LevelGeneration : MonoBehaviour {
 					//LoadSceneManager.LoadScene("CopyScene");
 
 					Debug.Log("그냥 이벤트");
-					//int rand = UnityEngine.Random.Range(0, eventRoomScript.Count);
-					//eventRoomScript[rand].Event();
-					//eventOn = true;
-					//eventNumber = rand;
 					break;
 			}
 		}
@@ -849,9 +848,6 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 	#endregion
-
-
-
 	WaitForSeconds delay_01 = new WaitForSeconds(0.1f);
 
 	public void SetMyTurn()
@@ -882,4 +878,64 @@ public class LevelGeneration : MonoBehaviour {
 		//StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX,inPosY]));
 		StartCoroutine(TurnManager.Inst.Co_StartTurn());
 	}
+
+	#region 추가사항
+
+	public void LevelClear(int stage, int _rommCount)//스테이지 입력
+	{
+		SetLevelRoomsCount(_rommCount);
+		ReCreateRoom();
+		levelSceneSO.CallBattleScene(stage);
+	}
+
+	public void ReCreateRoom()
+	{
+		foreach (var selector in DrawMaps)
+		{
+			Destroy(selector?.gameObject);
+		}
+		eventRoom.Clear();
+		CreateRooms();
+
+		SetRoomDoors();
+
+
+		SetEventChangeRoom();
+		SetEdgeRooms();
+
+		CreateBossRoom();
+		CreateEventRoom();
+		CreateShopRoom();
+
+		DrawMap();
+
+		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
+
+
+
+		if (tutorial && rooms[inPosX, inPosY].isStartRoom == true)
+		{
+			tutorialRoomScript.Event();
+
+
+			tutorial = false;
+
+		}
+
+		eventOn = false;
+		shopOn = false;
+
+		UIManager.Inst.ButtonActivate();
+	}
+
+	private void SetLevelRoomsCount(int _count)
+	{
+		numberOfRooms = _count;
+	}
+
+
+
+	#endregion
+
+
 }
