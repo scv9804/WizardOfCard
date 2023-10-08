@@ -36,6 +36,8 @@ namespace TacticsToolkit
 
         public int requiredLevel;
 
+        
+
         public enum AbilityTypes
         {
             Ally,

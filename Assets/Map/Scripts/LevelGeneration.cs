@@ -583,6 +583,7 @@ public class LevelGeneration : SerializedMonoBehaviour {
 
 	void CreateRooms()
 	{
+		takenPositions.Clear();
 		//setup
 		rooms = new Room[gridSizeX * 2, gridSizeY * 2];
 		rooms[gridSizeX, gridSizeY] = new Room(Vector2.zero, 1, 0);
@@ -939,14 +940,6 @@ public class LevelGeneration : SerializedMonoBehaviour {
 		}
 		eventRoom.Clear();
 
-		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
-		{
-			numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
-		}
-		gridSizeX = Mathf.RoundToInt(worldSize.x); //그리드 절반
-		gridSizeY = Mathf.RoundToInt(worldSize.y);
-		inPosX = gridSizeX;
-		inPosY = gridSizeY;
 
 		CreateRooms();
 
