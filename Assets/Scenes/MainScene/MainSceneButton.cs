@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
+using DG.Tweening;
+
 public class MainSceneButton : MonoBehaviour
 {
 	public PlayableDirector playable;
@@ -15,7 +17,26 @@ public class MainSceneButton : MonoBehaviour
 	[SerializeField] Button[] buttons;
 	[SerializeField] GameObject[] timelineObject;
 
-	private void Update()
+	[SerializeField] Image Fade;
+
+    private void Start()
+    {
+		StartCoroutine(Main());
+
+		IEnumerator Main()
+		{
+			Fade.DOFade(0.0f, 0.5f);
+
+			yield return new WaitForSeconds(0.5f);
+
+			Fade.gameObject.SetActive(false);
+
+
+			yield return null;
+		}
+	}
+
+    private void Update()
 	{
 
 		if (Input.anyKey)
@@ -73,17 +94,28 @@ public class MainSceneButton : MonoBehaviour
 
 	public void StartButton()
 	{
-		LoadSceneManager.LoadScene("Stage 1-1");
+		StartCoroutine(Main());
+
+		IEnumerator Main()
+        {
+            Fade.gameObject.SetActive(true);
+            Fade.DOFade(1.0f, 2.5f);
+
+			yield return new WaitForSeconds(2.5f);
+
+			LoadSceneManager.LoadScene("Stage 1-1");
+
+			yield return null;
+		}
 	}
 
 	public void Fun()
     {
 		SceneManager.LoadScene("Have a Fun!");
     }
+
 	public void GameOver()
     {
 		Application.Quit();
 	}
-
-
 }

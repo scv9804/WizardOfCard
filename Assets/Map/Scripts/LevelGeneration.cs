@@ -854,29 +854,31 @@ public class LevelGeneration : MonoBehaviour {
 	{
 		Utility.onBattleStart.Invoke(); // <<22-10-21 장형용 :: 추가, Utility에 Action을 추가한 이유는 이 스크립트에 쓰인 Random이 Using System과 겹쳐 오류를 일으키기 때문>>
 
-		TurnManager.Inst.myTurn = true;
-		//StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
-		StartCoroutine(TurnManager.Inst.Co_StartTurn());
+		//TurnManager.Inst.myTurn = true;
+		////StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
+		//StartCoroutine(TurnManager.Inst.Co_StartTurn());
 	}
 
 	public void EndTurn()
 	{
-		TurnManager.Inst.myTurn = !TurnManager.Inst.myTurn;
-		//StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
-		StartCoroutine(TurnManager.Inst.Co_StartTurn());
+		//TurnManager.Inst.myTurn = !TurnManager.Inst.myTurn;
+		////StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
+		//StartCoroutine(TurnManager.Inst.Co_StartTurn());
 	}
 
 	public IEnumerator Co_StartGame()
 	{
-		TurnManager.Inst.isLoding = true;
+		//TurnManager.Inst.isLoding = true;
 
-		for (int i = 0; i < TurnManager.Inst.i_StartCardsCount; i++)
-		{
-			yield return delay_01;
-			//TurnManager.Inst.OnAddCard();
-		}
-		//StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX,inPosY]));
-		StartCoroutine(TurnManager.Inst.Co_StartTurn());
+		//for (int i = 0; i < TurnManager.Inst.i_StartCardsCount; i++)
+		//{
+		//	yield return delay_01;
+		//	//TurnManager.Inst.OnAddCard();
+		//}
+		////StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX,inPosY]));
+		//StartCoroutine(TurnManager.Inst.Co_StartTurn());
+
+		yield return null;
 	}
 
 	#region 추가사항

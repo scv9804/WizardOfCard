@@ -81,6 +81,8 @@ namespace BETA.Data
 
         public void Remove(TRuntimeData data)
         {
+            data.InstanceID.Print();
+
             RuntimeData.Remove(data.InstanceID);
         }
 

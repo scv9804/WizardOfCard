@@ -92,7 +92,7 @@ namespace BETA.Interfaces
 
         // =========================================================================== General
 
-        public CardType Type
+        public Enums.CardType Type
         {
             get;
         }

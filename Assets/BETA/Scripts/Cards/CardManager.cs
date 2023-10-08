@@ -38,13 +38,12 @@ namespace BETA
 
         public const string TEMPORARY = "TEMPORARY";
 
-        // =========================================================================== GameEvent
-
-        public const string EVENT_PORT = "CardManagerEventPort";
-
         // ==================================================================================================== Field
 
         // =========================================================================== Card
+
+        [FoldoutGroup("카드")]
+        public Library<string, Card> Cards = new Library<string, Card>();
 
         // =========================================================================== CardObject
 
@@ -74,13 +73,13 @@ namespace BETA
 
         // =========================================================================== Card
 
-        public Library<string, Card> Cards
-        {
-            get
-            {
-                return _data.Cards;
-            }
-        }
+        //public Library<string, Card> Cards
+        //{
+        //    get
+        //    {
+        //        return _data.Cards;
+        //    }
+        //}
 
         // ==================================================================================================== Method
 
@@ -89,16 +88,6 @@ namespace BETA
         private void Start()
         {
             OnGameStarted();
-        }
-
-        private void Update()
-        {
-            HandCardArrange();
-        }
-
-        private void OnDestroy()
-        {
-            SceneManager.sceneLoaded -= OnSceneWasLoaded;
         }
 
         // =========================================================================== Singleton
@@ -130,6 +119,18 @@ namespace BETA
             return isEmpty;
         }
 
+        protected override bool Finalize()
+        {
+            var isEmpty = base.Finalize();
+
+            if (!isEmpty)
+            {
+                SceneManager.sceneLoaded -= OnSceneWasLoaded;
+            }
+
+            return isEmpty;
+        }
+
         // =========================================================================== TEMP
 
         public CardObject Visualize(Card card)
@@ -152,7 +153,7 @@ namespace BETA
                 CardObjectContainer[category] = GameObject.Find(category);
             }, OWN, DECK, HAND, DISCARD, EXCLUDE);
 
-            if (scene.buildIndex > 20) 
+            if (scene.buildIndex > 6) 
             {
                 OnBattleStarted();
             }
@@ -209,6 +210,8 @@ namespace BETA
             Cards.Add(HAND, card);
 
             callback?.Invoke(card);
+
+            HandCardArrange();
         }
 
         // 최초 진입 시 isChecking는 무조건 true!!
@@ -395,14 +398,12 @@ namespace BETA
 
         public void OnTurnStart(GameObject character)
         {
-            var entity = character.GetComponent<TacticsToolkit.Entity>();
+            var entity = character.GetComponent<Entity>();
 
             if (entity.teamID != 1)
             {
                 foreach (var cardObject in CardObjects[HAND])
                 {
-                    //cardObject.State = CardState.UNABLE;
-
                     foreach (var command in CardObjectCommands)
                     {
                         cardObject.Commands[command.Key] = null;
@@ -436,28 +437,28 @@ namespace BETA
             }
         }
 
-        public void OnCardAbilityCasted(int serialID)
-        {
-            OverlayController.Instance.ClearTiles(null);
+        //public void OnCardAbilityCasted(int serialID)
+        //{
+        //    OverlayController.Instance.ClearTiles(null);
 
-            // 대충 카드 스킬 효과 가져오는 코드
+        //    // 대충 카드 스킬 효과 가져오는 코드
 
-            // 대충 마나 맞으면 효과 범위 보여준다는 코드
-        }
+        //    // 대충 마나 맞으면 효과 범위 보여준다는 코드
+        //}
 
         public void OnActionButtonPressed()
         {
-            if (Selected == null)
+            if (Selected != null)
             {
-                return;
+                var card = Selected.Unit as Card;
+
+                Cards.Remove(HAND, card, false);
+                Cards.Add(DISCARD, card);
+
+                ResetSelectedCardObject();
             }
 
-            var card = Selected.Unit as Card;
-
-            Cards.Remove(HAND, card, false);
-            Cards.Add(DISCARD, card);
-
-            ResetSelectedCardObject();
+            HandCardArrange();
         }
 
         public void OnActionButtonCanceled()
@@ -473,6 +474,8 @@ namespace BETA
             Selected.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
             Selected = null;
+
+            HandCardArrange();
         }
 
         public void ResetSelectedCardObject()
@@ -516,5 +519,10 @@ namespace BETA
         // =========================================================================== Card
 
         public Library<string, Card> Cards = new Library<string, Card>();
+    }
+
+    public sealed class CardManagerJSON
+    {
+
     }
 }

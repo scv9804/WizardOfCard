@@ -35,7 +35,7 @@ public class LoadSceneManager : MonoBehaviour
 
 		try
 		{
-			TurnManager.Inst.isCombatScene = false;
+			//TurnManager.Inst.isCombatScene = false;
 		}
 		catch
 		{

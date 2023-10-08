@@ -61,6 +61,7 @@ namespace TacticsToolkit
         {
             focusedCharacter.TakeDamage(activeCharacter.GetStat(Stats.Strenght).statValue);
             activeCharacter.UpdateInitiative(Constants.AttackCost);
+            //StartCoroutine(activeCharacter.AttackMotion());
             hasAttacked = true;
             ResetAttackMode(true);
         }

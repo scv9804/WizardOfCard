@@ -16,6 +16,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fdfd2d860fc9f35449f03cd73e2c6948, type: 2}
     - target: {fileID: -1635620607339175185, guid: 758534b12c99743498182c67c23437ee, type: 3}
+      propertyPath: BattleEnd
+      value: 
+      objectReference: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+    - target: {fileID: -1635620607339175185, guid: 758534b12c99743498182c67c23437ee, type: 3}
+      propertyPath: EntityDie
+      value: 
+      objectReference: {fileID: 11400000, guid: f3414e5a5f324e046a80a4b7e9d1b7b7, type: 2}
+    - target: {fileID: -1635620607339175185, guid: 758534b12c99743498182c67c23437ee, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 8160049752610630508}
@@ -23,6 +31,10 @@ PrefabInstance:
       propertyPath: characterClass
       value: 
       objectReference: {fileID: 11400000, guid: f703702be4c3bfa4ea708886723fe57d, type: 2}
+    - target: {fileID: 2666256138013803121, guid: 758534b12c99743498182c67c23437ee, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2047
+      objectReference: {fileID: 0}
     - target: {fileID: 4105686119712588667, guid: 758534b12c99743498182c67c23437ee, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -67,9 +79,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4221349548641160193, guid: 758534b12c99743498182c67c23437ee, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1556536181
+      objectReference: {fileID: 0}
     - target: {fileID: 5327592089550427355, guid: 758534b12c99743498182c67c23437ee, type: 3}
       propertyPath: m_Name
       value: Enemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242946189871371064, guid: 758534b12c99743498182c67c23437ee, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242946189871371064, guid: 758534b12c99743498182c67c23437ee, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 324082491
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 758534b12c99743498182c67c23437ee, type: 3}

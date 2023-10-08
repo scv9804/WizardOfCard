@@ -46,6 +46,8 @@ namespace TacticsToolkit
                 }
             }
 
+            StartCoroutine(activeCharacter.AttackMotion());
+
             //attach effects
             foreach (var character in inRangeCharacters)
             {

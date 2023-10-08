@@ -9,8 +9,8 @@ public class MusicManager : MonoBehaviour
 	public static MusicManager inst;
 
 	[Header("소리 크기 조절")]
-	[Range(0,1)]public float BGMSound = 0.04f;
-	[Range(0,1)]public float EffectSound = 0.04f;
+	[Range(0,1)]public float BGMSound = 0.25f;
+	[Range(0,1)]public float EffectSound = 0.25f;
 
 
 	[Header("BGM 공간")]
@@ -124,11 +124,11 @@ public class MusicManager : MonoBehaviour
 	// <<22-12-01 장형용 :: 추가>>
 	bool IsMouseOnCard()
     {
-		if (CardManager.Inst == null)
-			return true;
-		else if (!CardManager.Inst.is_mouseOnCard)
-			return true;
-		else
+		//if (CardManager.Inst == null)
+		//	return true;
+		//else if (!CardManager.Inst.is_mouseOnCard)
+		//	return true;
+		//else
 			return false;
     }
 

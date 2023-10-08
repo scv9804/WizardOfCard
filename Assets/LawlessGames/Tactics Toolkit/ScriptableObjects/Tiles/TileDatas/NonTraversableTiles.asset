@@ -15,6 +15,10 @@ MonoBehaviour:
   baseTiles:
   - {fileID: 11400000, guid: 49acc15fa85b88743b18a77eefe33b36, type: 2}
   - {fileID: 11400000, guid: e29416efbfcd13c4797e9f0dc77b9ebc, type: 2}
+  - {fileID: 11400000, guid: 83534676e0fb44749876853f46d17438, type: 2}
+  - {fileID: 11400000, guid: 24d06b4833aed5847a922182066ac539, type: 2}
+  - {fileID: 11400000, guid: 36f733bd27b22054cad62bcce8f6720d, type: 2}
+  - {fileID: 11400000, guid: 429c7b79ebc909342abd5e2471b727be, type: 2}
   hasTooltip: 1
   tooltipName: 
   tooltipDescription: You can't walk on these tiles

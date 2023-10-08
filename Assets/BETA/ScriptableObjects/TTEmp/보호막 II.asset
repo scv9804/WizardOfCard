@@ -17,11 +17,10 @@ MonoBehaviour:
   Range: {fileID: 11400000, guid: 893e786fbc4101f4997b6a924737c9a2, type: 2}
   effects:
   - {fileID: 11400000, guid: d2a22e22c75a5ce478a8f2bdbcf04e89, type: 2}
-  - {fileID: 11400000, guid: d2a22e22c75a5ce478a8f2bdbcf04e89, type: 2}
   range: 0
   cooldown: -1
   cost: 1
-  value: 25
+  value: 75
   abilityType: 0
   includeOrigin: 1
   requiredLevel: 0

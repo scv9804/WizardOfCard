@@ -37,15 +37,12 @@ namespace BETA.Editor
 
         public List<Option> Repacked;
 
-        public List<DataMonoBehaviour> Data;
-        public event Action<int> OnSerialize;
-        public int SerialID;
-
-        public CharacterStats Stats;
-
         public GameObject Folder;
 
-        public List<DataMonoBehaviour> Copied = new List<DataMonoBehaviour>();
+        public Dictionary<string, MonoData> MonoData = new Dictionary<string, MonoData>();
+        public List<DataMonoBehaviour> Behaviours = new List<DataMonoBehaviour>();
+
+        public DataMonoBehaviour Original;
 
         //public Library<string, string> SavedData = new Library<string, string>();
         //public Library<string, Status> LoadedData = new Library<string, Status>();
@@ -58,24 +55,38 @@ namespace BETA.Editor
 
             //FindAbility(Cake);
 
-            foreach (var data in Data)
+            Create("0010");
+            Create("0010");
+            Create("4592");
+            Create("4175");
+
+            First(); 
+            Second();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                OnSerialize += data.Deserialize;
+                foreach (var behaviour in Behaviours)
+                {
+                    Destroy(behaviour.gameObject);
+                }
 
-                //Copied.Add(data);
-
-                Copied.Add(Instantiate(data, Folder.transform));
+                Behaviours.Clear();
             }
+        }
 
-            OnSerialize?.Invoke(SerialID);
-
-            Data[0].Deserialize(1000);
-
-            //Destroy(Data[2].gameObject);
-
-            //LoadedData = Load<Status>(SavedData);
-
-            Destroy(Copied[2].gameObject);
+        public void First()
+        {
+            Card card1 = new Card("0010", 0);
+            Card card2 = new Card("4592", 0);
+            Card card3 = new Card("4175", 0);
+        }
+        
+        public void Second()
+        {
+            GC.Collect();
         }
 
         public void FindAbility<TData>(GameComponent<TData> component) where TData : RuntimeData
@@ -86,6 +97,29 @@ namespace BETA.Editor
         public void Activate<TData>(Ability<TData> ability) where TData : RuntimeData
         {
             ability.PrintInfo();
+        }
+
+        public DataMonoBehaviour Create(string instanceID)
+        {
+            MonoData monoData;
+
+            if (MonoData.ContainsKey(instanceID))
+            {
+                monoData = MonoData[instanceID];
+            }
+            else
+            {
+                monoData = new MonoData();
+
+                MonoData.Add(instanceID, monoData);
+            }
+
+            var behaviour = Instantiate(Original, Folder.transform);
+            behaviour.Data = monoData;
+
+            Behaviours.Add(behaviour);
+
+            return behaviour;
         }
 
         //public Library<string, T> Load<T>(Library<string, string> saved) where T : Status, new()
@@ -379,7 +413,13 @@ namespace BETA.Editor
 
         }
     }
-}   
+}
+
+// ================================================================================
+
+// ============================================================
+
+// ========================================
 
 // Entities
 // 00 : Players

@@ -111,14 +111,14 @@ public class UIManager : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (TurnManager.Inst.myTurn)
-		{
-			myturn_UI_TMP.text = "내 턴";
-		}
-		else
-		{
-			myturn_UI_TMP.text = "상대 턴";
-		}
+		//if (TurnManager.Inst.myTurn)
+		//{
+		//	myturn_UI_TMP.text = "내 턴";
+		//}
+		//else
+		//{
+		//	myturn_UI_TMP.text = "상대 턴";
+		//}
 	}
 
 
@@ -137,7 +137,7 @@ public class UIManager : MonoBehaviour
 	{
 		//CardManager.Inst.e_CardStats = E_CardStats.Cannot; 수정함
 
-		yield return new WaitAllCardUsingDone();
+		//yield return new WaitAllCardUsingDone();
 
 		//if(!EntityManager.Inst.IsAlreadyAllDead()) 일단 필요없어져서 지움 
         {
@@ -150,16 +150,16 @@ public class UIManager : MonoBehaviour
 	public void TurnEndButtonActivae()
 	{
 		// 불필요한 조건 제거
-		if (TurnManager.Inst.myTurn/* && CardManager.Inst.myDeck.Count != 0*/)
-		{
-			Color color = Color.white;
-			turnEndButtonSpriteImage.color = color;
-		}
-		else
-		{
-			Color color = Color.gray;
-			turnEndButtonSpriteImage.color = color;
-		}
+		//if (TurnManager.Inst.myTurn/* && CardManager.Inst.myDeck.Count != 0*/)
+		//{
+		//	Color color = Color.white;
+		//	turnEndButtonSpriteImage.color = color;
+		//}
+		//else
+		//{
+		//	Color color = Color.gray;
+		//	turnEndButtonSpriteImage.color = color;
+		//}
 	}
 
 	public bool IsUIUse 
@@ -182,21 +182,21 @@ public class UIManager : MonoBehaviour
 
 	public void CemeteryRefresh()
 	{
-		if (TurnManager.Inst.myTurn && CardManager.Inst.myCemetery.Count != 0 )
-			CardManager.Inst.CemeteryRefesh();		
+		//if (TurnManager.Inst.myTurn && CardManager.Inst.myCemetery.Count != 0 )
+		//	CardManager.Inst.CemeteryRefesh();		
 	}
 
 	public void HandRefresh()
 	{
 		// <<22-10-26 장형용 :: canHandRefresh 조건 추가>>
-		if (TurnManager.Inst.myTurn 
-			&& CardManager.Inst.myDeck.Count != 0
-			&& canHandRefresh)
-		{
-			//CardManager.Inst.HandRefresh();
+		//if (TurnManager.Inst.myTurn 
+		//	&& CardManager.Inst.myDeck.Count != 0
+		//	&& canHandRefresh)
+		//{
+		//	//CardManager.Inst.HandRefresh();
 
-			StartCoroutine(CardManager.Inst.HandRefresh());
-		}
+		//	StartCoroutine(CardManager.Inst.HandRefresh());
+		//}
 	}
 
 	
@@ -213,14 +213,14 @@ public class UIManager : MonoBehaviour
 
 	public void SetManaUI()
 	{
-		if (EntityManager.Inst.playerEntity != null)
-		{
-			ManaTMP_UI.text = EntityManager.Inst.playerEntity.Status_Aether.ToString() + "/" + EntityManager.Inst.playerEntity.Status_MaxAether.ToString();
-		}
-		else
-		{
-			ManaTMP_UI.text = CharacterStateStorage.Inst.aether.ToString() + "/" + CharacterStateStorage.Inst.aether.ToString();
-		}
+		//if (EntityManager.Inst.playerEntity != null)
+		//{
+		//	ManaTMP_UI.text = EntityManager.Inst.playerEntity.Status_Aether.ToString() + "/" + EntityManager.Inst.playerEntity.Status_MaxAether.ToString();
+		//}
+		//else
+		//{
+		//	ManaTMP_UI.text = CharacterStateStorage.Inst.aether.ToString() + "/" + CharacterStateStorage.Inst.aether.ToString();
+		//}
 	}
 
 
@@ -321,7 +321,7 @@ public class UIManager : MonoBehaviour
 		isRewardUse = false;
 
 		SetStateUI();
-		CardManager.Inst.SetCardStateBack();
+		//CardManager.Inst.SetCardStateBack();
 	}
 
 	public void ButtonDeActivate()
@@ -362,7 +362,7 @@ public class UIManager : MonoBehaviour
 
 			isCardUse = false;
 			SetStateUI();
-			CardManager.Inst.SetCardStateCannot();
+			//CardManager.Inst.SetCardStateCannot();
 		}
 	}
 
@@ -396,7 +396,7 @@ public class UIManager : MonoBehaviour
 
 			isCardUse = false;
 			SetStateUI();
-			CardManager.Inst.SetCardStateCannot();
+			//CardManager.Inst.SetCardStateCannot();
 		}	
 	}
 
@@ -430,7 +430,7 @@ public class UIManager : MonoBehaviour
 
 			isCardUse = false;
 			SetStateUI();
-			CardManager.Inst.SetCardStateCannot();
+			//CardManager.Inst.SetCardStateCannot();
 		}
 	}
 
@@ -464,7 +464,7 @@ public class UIManager : MonoBehaviour
 
 			isCardUse = false;
 			SetStateUI();
-			CardManager.Inst.SetCardStateCannot();
+			//CardManager.Inst.SetCardStateCannot();
 		}
 	}
 
@@ -498,7 +498,7 @@ public class UIManager : MonoBehaviour
 
 			isCardUse = false;
 			SetStateUI();
-			CardManager.Inst.SetCardStateCannot();
+			//CardManager.Inst.SetCardStateCannot();
 		}
 	}
 
