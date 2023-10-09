@@ -61,9 +61,11 @@ namespace TacticsToolkit
             //    return;
             //}
 
+            isAlive = false;
+
             BattleEnd.Raise();
 
-            SceneManager.LoadScene("GameOverScene");
+            //SceneManager.LoadScene("GameOverScene");
         }
     }
 }

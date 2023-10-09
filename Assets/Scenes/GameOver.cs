@@ -7,8 +7,12 @@ public class GameOver : MonoBehaviour
 
 	public void GotoMainMenu()
 	{
-		SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene");
 
+		BETA.GameManager.Instance.GameEnd();
+
+
+		//BETA.GameManager.Instance.Loading("MainScene", BETA.GameManager.Instance.GameEnd);
 	}
 
 

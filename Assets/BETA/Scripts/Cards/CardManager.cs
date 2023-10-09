@@ -112,6 +112,8 @@ namespace BETA
 
                 GameManager.OnGameStart -= OnGameStarted;
                 GameManager.OnGameStart += OnGameStarted;
+                GameManager.OnGameEnd -= OnGameEnded;
+                GameManager.OnGameEnd += OnGameEnded;
                 GameManager.OnBattleStart -= OnBattleStarted;
                 GameManager.OnBattleStart += OnBattleStarted;
                 GameManager.OnGameQuit -= OnGameQuited;
@@ -120,12 +122,12 @@ namespace BETA
                 SetCategory((category) =>
                 {
                     Cards.Add(category);
-                }, OWN, DECK, HAND, DISCARD, EXCLUDE);
+                }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
 
                 SetCategory((category) =>
                 {
                     CardObjects.Add(category);
-                }, OWN, DECK, HAND, DISCARD, EXCLUDE);
+                }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
             }
 
             return isEmpty;
@@ -160,9 +162,28 @@ namespace BETA
             return cardObject;
         }
 
-        public void Unvisualize(Card card)
+        public void Add(string category, Card card)
         {
+            var cardObject = Visualize(card);
+            cardObject.SetParent(category);
 
+            Cards.Add(category, card);
+            CardObjects.Add(category, cardObject);
+        }
+
+        public void Remove(string category, Card card, bool isEmptyCategoryDelete = true)
+        {
+            var cardObject = CardObjects[category].Find((target) =>
+            {
+                return target.Unit == card;
+            });
+
+            //cardObject.Log();
+
+            Cards.Remove(category, card, isEmptyCategoryDelete);
+            CardObjects.Remove(category, cardObject, isEmptyCategoryDelete);
+
+            Destroy(cardObject.gameObject);
         }
 
         // =========================================================================== Scene
@@ -237,12 +258,16 @@ namespace BETA
                 }
             }
 
-            Cards.Remove(DECK, card, false);
-            Cards.Add(HAND, card);
+            //Cards.Remove(DECK, card, false);
+            //Cards.Add(HAND, card);
+
+            Remove(DECK, card, false);
+            Add(HAND, card);
 
             callback?.Invoke(card);
 
-            HandCardArrange();
+            CardArrange(DECK);
+            CardArrange(HAND);
         }
 
         // 최초 진입 시 isChecking는 무조건 true!!
@@ -286,10 +311,16 @@ namespace BETA
                 }
             }
 
-            Cards.Remove(DISCARD, card, false);
-            Cards.Add(DECK, card);
+            //Cards.Remove(DISCARD, card, false);
+            //Cards.Add(DECK, card);
+
+            Remove(DISCARD, card, false);
+            Add(DECK, card);
 
             callback?.Invoke(card);
+
+            CardArrange(DISCARD);
+            CardArrange(DECK);
         }
 
         // 최초 진입 시 isChecking는 무조건 true!!
@@ -341,11 +372,40 @@ namespace BETA
 
         // =========================================================================== CardObject
 
-        public void HandCardArrange()
-        {
-            var hand = CardObjectContainer[HAND]?.GetComponent<UI.HandCardUIHandler>();
+        //public void OwnCardArrange()
+        //{
 
-            hand.Refresh();
+        //}
+
+        //public void DeckCardArrange()
+        //{
+        //    var deck = CardObjectContainer[DECK]?.GetComponent<UI.HandCardUIHandler>();
+
+        //    deck.Refresh();
+        //}
+
+        //public void HandCardArrange()
+        //{
+        //    var hand = CardObjectContainer[HAND]?.GetComponent<UI.HandCardUIHandler>();
+
+        //    hand.Refresh();
+        //}
+
+        //public void DiscardCardArrange()
+        //{
+
+        //}
+
+        public void CardArrange(string category)
+        {
+            if (!CardObjectContainer.ContainsKey(category))
+            {
+                return;
+            }
+
+            var cards = CardObjectContainer[category]?.GetComponent<UI.CardUIHandler>();
+
+            cards.Refresh();
         }
 
         // =========================================================================== GameEvent
@@ -358,11 +418,23 @@ namespace BETA
             }
         }
 
+        private void OnGameEnded()
+        {
+            SetCategory((category) =>
+            {
+                Cards[category].Clear();
+                CardObjects[category].Clear();
+            }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
+        }
+
         public void OnBattleStarted()
         {
+            CardObjects[OWN].Clear();
+
             foreach (var card in Cards[OWN])
             {
-                Cards.Add(DECK, card);
+                //Cards.Add(DECK, card);
+                Add(DECK, card);
             }
 
             Shuffle();
@@ -371,10 +443,10 @@ namespace BETA
 
             StartCoroutine(Draw(6, (card) =>
             {
-                var cardObject = Visualize(card);
+                //var cardObject = Visualize(card);
 
-                CardObjects.Add(HAND, cardObject);
-                cardObject.SetParent(HAND);
+                //CardObjects.Add(HAND, cardObject);
+                //cardObject.SetParent(HAND);
 
                 if (index < 3)
                 {
@@ -418,10 +490,10 @@ namespace BETA
             {
                 StartCoroutine(Draw(1, (card) =>
                 {
-                    var cardObject = Visualize(card);
+                    //var cardObject = Visualize(card);
 
-                    CardObjects.Add(HAND, cardObject);
-                    cardObject.SetParent(HAND);
+                    //CardObjects.Add(HAND, cardObject);
+                    //cardObject.SetParent(HAND);
                 }));
 
                 foreach (var cardObject in CardObjects[HAND])
@@ -455,13 +527,17 @@ namespace BETA
             {
                 var card = Selected.Unit as Card;
 
-                Cards.Remove(HAND, card, false);
-                Cards.Add(DISCARD, card);
+                //Cards.Remove(HAND, card, false);
+                //Cards.Add(DISCARD, card);
+
+                Remove(HAND, card, false);
+                Add(DISCARD, card);
 
                 ResetSelectedCardObject();
             }
 
-            HandCardArrange();
+            CardArrange(HAND);
+            CardArrange(DISCARD);
         }
 
         public void OnActionButtonCanceled()
@@ -478,7 +554,7 @@ namespace BETA
 
             Selected = null;
 
-            HandCardArrange();
+            CardArrange(HAND);
         }
 
         public void ResetSelectedCardObject()
@@ -554,62 +630,60 @@ namespace BETA
                 cardObject.Commands = commands;
             }
 
-            var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
-
-            count.text = Cards[OWN].Count.ToString();
+            CardArrange(OWN);
         }
 
-        public void SetDeckCardUI()
-        {
-            var commands = new Dictionary<string, CardEventSystems>()
-            {
-                { "ON_POINTER_ENTER", null },
-                { "ON_POINTER_EXIT", null },
-                { "ON_POINTER_CLICK", null },
-                { "ON_BEGIN_DRAG", null },
-                { "ON_DRAG", null },
-                { "ON_END_DRAG", null },
-            };
+        //public void SetDeckCardUI()
+        //{
+        //    var commands = new Dictionary<string, CardEventSystems>()
+        //    {
+        //        { "ON_POINTER_ENTER", null },
+        //        { "ON_POINTER_EXIT", null },
+        //        { "ON_POINTER_CLICK", null },
+        //        { "ON_BEGIN_DRAG", null },
+        //        { "ON_DRAG", null },
+        //        { "ON_END_DRAG", null },
+        //    };
 
-            foreach (var card in Cards[DECK])
-            {
-                var cardObject = Visualize(card);
+        //    foreach (var card in Cards[DECK])
+        //    {
+        //        //var cardObject = Visualize(card);
 
-                CardObjects.Add(OWN, cardObject);
-                cardObject.SetParent(OWN);
-                cardObject.Commands = commands;
-            }
+        //        //CardObjects.Add(OWN, cardObject);
+        //        //cardObject.SetParent(OWN);
+        //        //cardObject.Commands = commands;
+        //    }
 
-            //var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
+        //    //var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
 
-            //count.text = Cards[OWN].Count.ToString();
-        }
+        //    //count.text = Cards[OWN].Count.ToString();
+        //}
 
-        public void SetDiscardCardUI()
-        {
-            var commands = new Dictionary<string, CardEventSystems>()
-            {
-                { "ON_POINTER_ENTER", null },
-                { "ON_POINTER_EXIT", null },
-                { "ON_POINTER_CLICK", null },
-                { "ON_BEGIN_DRAG", null },
-                { "ON_DRAG", null },
-                { "ON_END_DRAG", null },
-            };
+        //public void SetDiscardCardUI()
+        //{
+        //    var commands = new Dictionary<string, CardEventSystems>()
+        //    {
+        //        { "ON_POINTER_ENTER", null },
+        //        { "ON_POINTER_EXIT", null },
+        //        { "ON_POINTER_CLICK", null },
+        //        { "ON_BEGIN_DRAG", null },
+        //        { "ON_DRAG", null },
+        //        { "ON_END_DRAG", null },
+        //    };
 
-            foreach (var card in Cards[DISCARD])
-            {
-                var cardObject = Visualize(card);
+        //    foreach (var card in Cards[DISCARD])
+        //    {
+        //        //var cardObject = Visualize(card);
 
-                CardObjects.Add(OWN, cardObject);
-                cardObject.SetParent(OWN);
-                cardObject.Commands = commands;
-            }
+        //        //CardObjects.Add(OWN, cardObject);
+        //        //cardObject.SetParent(OWN);
+        //        //cardObject.Commands = commands;
+        //    }
 
-            //var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
+        //    //var count = GameObject.Find("Count_TMP").GetComponent<TMPro.TMP_Text>();
 
-            //count.text = Cards[OWN].Count.ToString();
-        }
+        //    //count.text = Cards[OWN].Count.ToString();
+        //}
 
         // =========================================================================== Utility
 

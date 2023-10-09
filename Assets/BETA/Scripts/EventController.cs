@@ -8,6 +8,13 @@ namespace BETA
     {
         // ==================================================================================================== Method
 
+        // =========================================================================== LevelGeneration
+
+        public void LevelGeneration_OnBattleEnd()
+        {
+            LevelGeneration.Instance.OnBattleEnd();
+        }
+
         // =========================================================================== GameManager
 
         public void GameManager_Quit()
@@ -28,10 +35,10 @@ namespace BETA
         {
             StartCoroutine(CardManager.Instance.Draw(1, (card) =>
             {
-                var cardObject = CardManager.Instance.Visualize(card);
+                //var cardObject = CardManager.Instance.Visualize(card);
 
-                CardManager.Instance.CardObjects.Add(CardManager.HAND, cardObject);
-                cardObject.SetParent(CardManager.HAND);
+                //CardManager.Instance.CardObjects.Add(CardManager.HAND, cardObject);
+                //cardObject.SetParent(CardManager.HAND);
             }));
         }
 

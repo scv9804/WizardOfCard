@@ -34,6 +34,11 @@ public class SceneSO : ScriptableObject
 	{
 		//LoadSceneManager.LoadScene(SceneList[_level-1].sceneName[0]);
 
+		BETA.GameManager.Instance.Loading(SceneList[_level - 1].sceneName[0], BETA.GameManager.Instance.StageStart);
+	}
+
+	public void CallMainStage(int _level)
+    {
 		BETA.GameManager.Instance.Loading(SceneList[_level - 1].sceneName[0], null);
 	}
 }

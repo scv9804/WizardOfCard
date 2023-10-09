@@ -81,6 +81,11 @@ namespace TacticsToolkit.UI
         {
             var entity = GameObject.Find("Character 4(Clone)")?.GetComponent<Entity>();
 
+            if (entity == null)
+            {
+                return;
+            }
+
             var mana = entity.GetStat(Stats.Mana).statValue;
             var currentMana = entity.GetStat(Stats.CurrentMana).statValue;
 

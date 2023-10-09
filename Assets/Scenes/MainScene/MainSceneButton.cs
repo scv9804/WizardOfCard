@@ -19,7 +19,7 @@ public class MainSceneButton : MonoBehaviour
 
 	[SerializeField] Image Fade;
 
-    private void Start()
+	private void Start()
     {
 		//StartCoroutine(Main());
 
@@ -110,7 +110,7 @@ public class MainSceneButton : MonoBehaviour
             //    "로딩 완료!".Log();
             //});
 
-            BETA.GameManager.Instance.Loading("Stage 1-1", BETA.GameManager.Instance.GameStart);
+            BETA.GameManager.Instance.Loading("Stage 1-1", BETA.GameManager.Instance.StartNewGame);
 
             yield return null;
 		}

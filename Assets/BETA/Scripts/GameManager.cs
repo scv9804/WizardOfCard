@@ -31,6 +31,9 @@ namespace BETA
         public static event Action OnGameStart;
         public static event Action OnGameEnd;
 
+        public static event Action OnStageStart;
+        public static event Action OnStageEnd;
+
         public static event Action OnBattleStart;
         public static event Action OnBattleEnd;
 
@@ -41,6 +44,15 @@ namespace BETA
         static GameManager()
         {
             OnGameQuit = null;
+
+            OnGameStart = null;
+            OnGameEnd = null;
+
+            OnStageStart = null;
+            OnStageEnd = null;
+
+            OnBattleStart = null;
+            OnBattleEnd = null;
         }
 
         // =========================================================================== Singleton
@@ -90,77 +102,37 @@ namespace BETA
                     callback?.Invoke();
                 };
 
-                //yield return StartCoroutine(DrawLoadingBar(op, progressBar));
-
-                var timer = 0.0f;
-
-                while (!op.isDone)
-                {
-                    yield return null;
-
-                    timer += Time.deltaTime;
-
-                    if (op.progress < 0.9f)
-                    {
-                        progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, op.progress, timer);
-
-                        if (progressBar.fillAmount >= op.progress)
-                        {
-                            timer = 0f;
-                        }
-                    }
-                    else
-                    {
-                        progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-
-                        if (progressBar.fillAmount == 1.0f)
-                        {
-                            op.allowSceneActivation = true;
-
-                            yield return null;
-                        }
-                    }
-                }
+                yield return StartCoroutine(DrawLoadingBar(op, progressBar));
             }
 
             #endregion
 
             #region IEnumerator DrawLoadingBar(AsyncOperation op, Image progressBar);
 
-            //IEnumerator DrawLoadingBar(AsyncOperation op, Image progressBar)
-            //{
-            //    var timer = 0.0f;
+            IEnumerator DrawLoadingBar(AsyncOperation op, Image progressBar)
+            {
+                while (!op.isDone)
+                {
+                    progressBar.fillAmount = op.progress < 0.9f ? op.progress : 1f;
 
-            //    while (!op.isDone)
-            //    {
-            //        yield return null;
+                    if (progressBar.fillAmount == 1.0f)
+                    {
+                        op.allowSceneActivation = true;
 
-            //        timer += Time.deltaTime;
+                        yield return null;
+                    }
 
-            //        if (op.progress < 0.9f)
-            //        {
-            //            progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, op.progress, timer);
-
-            //            if (progressBar.fillAmount >= op.progress)
-            //            {
-            //                timer = 0f;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-
-            //            if (progressBar.fillAmount == 1.0f)
-            //            {
-            //                op.allowSceneActivation = true;
-
-            //                yield return null;
-            //            }
-            //        }
-            //    }
-            //}
+                    yield return null;
+                }
+            }
 
             #endregion
+        }
+
+        public void StartNewGame()
+        {
+            GameStart();
+            StageStart();
         }
 
         public void GameStart()
@@ -171,6 +143,16 @@ namespace BETA
         public void GameEnd()
         {
             OnGameEnd?.Invoke();
+        }
+
+        public void StageStart()
+        {
+            OnStageStart?.Invoke();
+        }
+
+        public void StageEnd()
+        {
+            OnStageEnd?.Invoke();
         }
 
         public void BattleStart()

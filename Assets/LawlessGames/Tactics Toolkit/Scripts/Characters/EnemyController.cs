@@ -579,18 +579,20 @@ namespace TacticsToolkit
                 //UIManager.Inst.ButtonActivate();
                 ////CardManager.Inst.SetCardStateCannot();
 
-                var room = LevelGeneration.Inst.CurrentRoom;
+                //var room = LevelGeneration.Instance.CurrentRoom;
 
-                if (room.RoomEventType == 1)
-                {
-                    LevelGeneration.Inst.LevelClear(2, 5);
-                }
-                else
-                {
-                    BETA.GameManager.Instance.Loading("Stage 1-1 Load");
-                }
+                //if (room.RoomEventType == 1)
+                //{
+                //    LevelGeneration.Instance.LevelClear(2, 5);
+                //}
+                //else
+                //{
+                //    //BETA.GameManager.Instance.Loading("Stage 1-1 Load");
 
-                UIManager.Inst.ButtonActivate();
+                //    LevelGeneration.Instance.LoadMainStageScene();
+                //}
+
+                //UIManager.Inst.ButtonActivate();
             }
 
             bool IsAlive(List<EnemyController> enemies)

@@ -55,6 +55,11 @@ namespace TacticsToolkit
 
         public CharacterRenderer Renderer;
 
+        public GameEventGameObject HealthChange;
+        public GameEventGameObject ShieldChange;
+
+        public GameEventGameObject ManaChange;
+
         private void Awake()
         {
             SpawnCharacter();
@@ -222,13 +227,14 @@ namespace TacticsToolkit
             // ******
             if (statsContainer.Shield.statValue > damageToTake)
             {
-                statsContainer.Shield.statValue -= damageToTake;
+                //statsContainer.Shield.statValue -= damageToTake;
+                SetShield(statsContainer.Shield.statValue - damageToTake);
                 damageToTake = 0;
             }
             else
             {
                 damageToTake -= statsContainer.Shield.statValue;
-                statsContainer.Shield.statValue = 0;
+                SetShield(0);
             }
 
             if (damageToTake > 0)
@@ -239,6 +245,8 @@ namespace TacticsToolkit
 
                 // ******
                 //Renderer.Flip(true);
+
+                HealthChange.Raise(gameObject);
 
                 var isDead = GetStat(Stats.CurrentHealth).statValue <= 0;
 
@@ -304,6 +312,8 @@ namespace TacticsToolkit
         {
             statsContainer.CurrentHealth.statValue += value;
             UpdateCharacterUI();
+
+            HealthChange.Raise(gameObject);
         }
 
         //basic example if using a defencive stat
@@ -416,8 +426,30 @@ namespace TacticsToolkit
             healthBar.fillAmount = (float)statsContainer.CurrentHealth.statValue / (float)statsContainer.Health.statValue;
         }
 
+        // ******
         //Change characters mana
-        public void UpdateMana(int value) => statsContainer.CurrentMana.statValue -= value;
+        public void UpdateMana(int value)
+        {
+            statsContainer.CurrentMana.statValue -= value;
+
+            ManaChange.Raise(gameObject);
+        }
+
+        // ******
+        public void RestoreMana()
+        {
+            statsContainer.CurrentMana.statValue = statsContainer.Mana.statValue;
+
+            ManaChange.Raise(gameObject);
+        }
+
+        // ******
+        public void SetShield(int value)
+        {
+            statsContainer.Shield.statValue = value;
+
+            ShieldChange.Raise(gameObject);
+        }
 
         //Attach an effect to the Entity from a tile or ability. 
         public void AttachEffect(ScriptableEffect scriptableEffect)

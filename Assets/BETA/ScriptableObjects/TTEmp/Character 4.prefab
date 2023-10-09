@@ -240,9 +240,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f3414e5a5f324e046a80a4b7e9d1b7b7, type: 2}
     - target: {fileID: 849432966597489293, guid: 94912624c52864e4e833d8cbca8aec94, type: 3}
+      propertyPath: ManaChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+    - target: {fileID: 849432966597489293, guid: 94912624c52864e4e833d8cbca8aec94, type: 3}
       propertyPath: experience
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 849432966597489293, guid: 94912624c52864e4e833d8cbca8aec94, type: 3}
+      propertyPath: HealthChange
+      value: 
+      objectReference: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
+    - target: {fileID: 849432966597489293, guid: 94912624c52864e4e833d8cbca8aec94, type: 3}
+      propertyPath: ShieldChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
     - target: {fileID: 849432966597489293, guid: 94912624c52864e4e833d8cbca8aec94, type: 3}
       propertyPath: characterClass
       value: 
@@ -428,9 +440,9 @@ MonoBehaviour:
   Target: {fileID: 5427312206846355370}
   SpriteRenderer: {fileID: 210369616002285004}
   SkeletonAnimation: {fileID: 1613585143284307340}
-  SkeletonDataAsset: {fileID: 11400000, guid: 415d7847b4f432e49a59def590ff0707, type: 2}
   Distance: 0.15
   IsPlayer: 1
+  SkeletonDataAsset: {fileID: 11400000, guid: 415d7847b4f432e49a59def590ff0707, type: 2}
 --- !u!114 &5684656226742336570
 MonoBehaviour:
   m_ObjectHideFlags: 0

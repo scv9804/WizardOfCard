@@ -278,7 +278,7 @@ namespace XSSLG
 
             }
             yield return new WaitForSeconds(0.5f);
-            LevelGeneration.Inst.EndTurn();
+            //LevelGeneration.Inst.EndTurn();
         }
 
         //적 선택하는거 테스트

@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e22807c034be424cb21163501bced96, type: 3}
-  m_Name: BossSceneSO
+  m_Script: {fileID: 11500000, guid: 24b62ddf693d77b4f95cadaf7d77ad53, type: 3}
+  m_Name: ShieldChanged
   m_EditorClassIdentifier: 
-  SceneList:
-  - sceneName:
-    - 1-01 Normal
-  - sceneName:
-    - 1-01 Normal
+  gameObject: {fileID: 0}

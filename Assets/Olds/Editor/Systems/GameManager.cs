@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            LevelGeneration.Inst.EndTurn();
+            //LevelGeneration.Inst.EndTurn();
         }
 
 		if (Input.GetKeyDown(KeyCode.LeftArrow))

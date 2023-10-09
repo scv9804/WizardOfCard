@@ -100,7 +100,7 @@ public class EntityManager : MonoBehaviour
                 yield return new WaitForSeconds(enemyAttackDelay);
             }
         }
-        LevelGeneration.Inst.EndTurn();
+        //LevelGeneration.Inst.EndTurn();
     }
     
     // <<22-10-28 장형용 :: 추가>>
@@ -409,10 +409,10 @@ public class EntityManager : MonoBehaviour
             playerEntity.ResetMagicAffinity_Battle();
             playerEntity.ResetMagicAffinity_Turn(false);
 
-            if (LevelGeneration.Inst.CurrentRoom.RoomEventType == 1)
-                SceneManager.LoadScene("SorryScene");
-            else
-                RewardManager.Inst.GameClear();
+            //if (LevelGeneration.Inst.CurrentRoom.RoomEventType == 1)
+            //    SceneManager.LoadScene("SorryScene");
+            //else
+            //    RewardManager.Inst.GameClear();
         }
     }
     

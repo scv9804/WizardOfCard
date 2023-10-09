@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
 
 	private void Awake()
 	{
+		//Destroy(Inst?.gameObject);
+
 		Inst = this;
 		DontDestroyOnLoad(this);
 	}
@@ -141,7 +143,7 @@ public class UIManager : MonoBehaviour
 
 		//if(!EntityManager.Inst.IsAlreadyAllDead()) 일단 필요없어져서 지움 
         {
-			LevelGeneration.Inst.EndTurn();
+			//LevelGeneration.Inst.EndTurn();
 		}
 
 		yield return null;
@@ -269,19 +271,24 @@ public class UIManager : MonoBehaviour
 
 	public void ButtonActivate()
 	{
-		levelGeneration.existRoomCheck();
+		//levelGeneration.existRoomCheck();
+		LevelGeneration.Instance.existRoomCheck();
+
 		if (levelGeneration.i_Room_L)
 		{
 			roomMoveButton_L.gameObject.SetActive(true);
 		}
+
 		if (levelGeneration.i_Room_R)
 		{
 			roomMoveButton_R.gameObject.SetActive(true);
 		}
+
 		if (levelGeneration.i_Room_U)
 		{
 			roomMoveButton_U.gameObject.SetActive(true);
 		}
+
 		if (levelGeneration.i_Room_D)
 		{
 			roomMoveButton_D.gameObject.SetActive(true);
@@ -300,7 +307,7 @@ public class UIManager : MonoBehaviour
 		optionUI.SetActive(isOptionUse);
 		inventoryUI.SetActive(isInventoryUse);
 		deckUI.SetActive(isDeckUse);
-		CemeteryUI.SetActive(isCemeteryUse);
+		//CemeteryUI.SetActive(isCemeteryUse);
 		Reward_UI.SetActive(isRewardUse);
 
 		// << 23-06-10 장형용 :: 제거 >>

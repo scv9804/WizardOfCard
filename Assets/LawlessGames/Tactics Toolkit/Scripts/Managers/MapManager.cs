@@ -138,14 +138,14 @@ namespace TacticsToolkit
 
                 if (ignoreObstacles || (!ignoreObstacles && !isBlocked) || canWalkThroughAllies)
                 {
-                    if(remainingRange == 0)
-                    {
-                        Debug.Log("test");
-                    }
-                    if(currentOverlayTile.grid2DLocation == new Vector2Int(-2, 1) && tile.grid2DLocation == new Vector2Int(-1, 1))
-                    {
-                        Debug.Log("test2");
-                    }
+                    //if(remainingRange == 0)
+                    //{
+                    //    Debug.Log("test");
+                    //}
+                    //if(currentOverlayTile.grid2DLocation == new Vector2Int(-2, 1) && tile.grid2DLocation == new Vector2Int(-1, 1))
+                    //{
+                    //    Debug.Log("test2");
+                    //}
 
                     if (tile.GetMoveCost() <= remainingRange)
                     {

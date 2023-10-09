@@ -63,7 +63,12 @@ public class MusicManager : MonoBehaviour
 		}
 	}
 
-	void OnSceneLoaded(Scene _scene, LoadSceneMode _loadSceneManager)
+    private void OnApplicationQuit()
+    {
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+    void OnSceneLoaded(Scene _scene, LoadSceneMode _loadSceneManager)
 	{
 		for (int i = 0; i<backGroundClips.Length;i++)
 		{

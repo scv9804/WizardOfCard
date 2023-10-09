@@ -35,7 +35,7 @@ namespace BETA
 
             cardObject.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
 
-            CardManager.Instance.HandCardArrange();
+            CardManager.Instance.CardArrange(CardManager.HAND);
         }
 
         public void Hand_OnPointerExit(CardObject cardObject, PointerEventData eventData)
@@ -49,7 +49,7 @@ namespace BETA
 
             cardObject.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
-            CardManager.Instance.HandCardArrange();
+            CardManager.Instance.CardArrange(CardManager.HAND);
         }
 
         public void Hand_OnPointerClick(CardObject cardObject, PointerEventData eventData)

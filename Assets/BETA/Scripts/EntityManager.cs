@@ -22,19 +22,21 @@ namespace BETA
         // =========================================================================== Entity
 
         [FoldoutGroup("Ä³¸¯ÅÍ")]
-        public PlayerCharacterData PlayerData;
+        //public PlayerCharacterData PlayerData;
         public CharacterStats StatsContainer;
 
         public CharacterClass ClassData;
+
+        public int Money;
 
         // ==================================================================================================== Method
 
         // =========================================================================== Event
 
-        private void Start()
-        {
-            OnGameStarted();
-        }
+        //private void Start()
+        //{
+        //    OnGameStarted();
+        //}
 
         // =========================================================================== Singleton
 
@@ -47,6 +49,21 @@ namespace BETA
                 name = "Entity Manager";
 
                 DontDestroyOnLoad(gameObject);
+
+                GameManager.OnGameStart -= OnGameStarted;
+                GameManager.OnGameStart += OnGameStarted;
+            }
+
+            return isEmpty;
+        }
+
+        protected override bool Finalize()
+        {
+            var isEmpty = base.Finalize();
+
+            if (!isEmpty)
+            {
+                GameManager.OnGameStart -= OnGameStarted;
             }
 
             return isEmpty;
@@ -89,6 +106,8 @@ namespace BETA
                 var maxMana = entity.GetStat(Stats.Mana).statValue;
                 entity.GetStat(Stats.CurrentMana).ChangeStatValue(maxMana);
             }
+
+            entity.SetShield(0);
         }
 
         public void OnEntityDie(GameObject character)
@@ -102,74 +121,9 @@ namespace BETA
         {
             var player = GameObject.Find("Character 4(Clone)").GetComponent<CharacterManager>();
 
-            PlayerData = new PlayerCharacterData(player.statsContainer);
-        }
-    }
+            //PlayerData = new PlayerCharacterData(player.statsContainer);
 
-    public class PlayerCharacterData
-    {
-        //
-
-        //
-
-        public int MaxHealth;
-        public int CurrentHealth;
-
-        public int MaxMana;
-        public int CurrentMana;
-
-        public int Strength;
-        public int Intelligence;
-
-        public int Endurance;
-
-        public int Speed;
-
-        public int MoveRange;
-        public int AttackRange;
-
-        //
-
-        //
-
-        public PlayerCharacterData() { }
-
-        public PlayerCharacterData(CharacterStats stats)
-        {
-            MaxHealth = stats.getStat(Stats.Health).statValue;
-            CurrentHealth = stats.getStat(Stats.CurrentHealth).statValue;
-
-            MaxMana = stats.getStat(Stats.Mana).statValue;
-            CurrentMana = stats.getStat(Stats.CurrentMana).statValue;
-
-            Strength = stats.getStat(Stats.Strenght).statValue;
-            Intelligence = stats.getStat(Stats.Intelligence).statValue;
-
-            Endurance = stats.getStat(Stats.Endurance).statValue;
-
-            Speed = stats.getStat(Stats.Speed).statValue;
-
-            MoveRange = stats.getStat(Stats.MoveRange).statValue;
-            AttackRange = stats.getStat(Stats.AttackRange).statValue;
-        }
-
-        public void SetStats(CharacterStats stats)
-        {
-            stats.getStat(Stats.Health).ChangeStatValue(MaxHealth);
-            stats.getStat(Stats.CurrentHealth).ChangeStatValue(CurrentHealth);
-
-            stats.getStat(Stats.Mana).ChangeStatValue(MaxMana);
-            stats.getStat(Stats.CurrentMana).ChangeStatValue(CurrentMana);
-
-            stats.getStat(Stats.Strenght).ChangeStatValue(Strength);
-            stats.getStat(Stats.Intelligence).ChangeStatValue(Intelligence);
-
-            stats.getStat(Stats.Endurance).ChangeStatValue(Endurance);
-
-            stats.getStat(Stats.Speed).ChangeStatValue(Speed);
-
-            stats.getStat(Stats.MoveRange).ChangeStatValue(MoveRange);
-            stats.getStat(Stats.AttackRange).ChangeStatValue(AttackRange);
+            player.SetShield(0);
         }
     }
 }

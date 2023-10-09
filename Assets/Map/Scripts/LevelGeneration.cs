@@ -2,21 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using BETA.Singleton;
+
 using Sirenix.OdinInspector;
 
-public class LevelGeneration : SerializedMonoBehaviour {
+using TacticsToolkit;
 
-	static public LevelGeneration Inst;
-	private void Awake()
-	{
-		Inst = this;
-	}
+using UnityEngine.SceneManagement;
+
+public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
+{
+
+	//static public LevelGeneration Inst;
+	//private void Awake()
+	//{
+	//	Inst = this;
+	//}
 
 	#region 변수 등등
 	Vector2 worldSize = new Vector2(4, 4);
 
+	#region [SerializeField, TableMatrix(DrawElementMethod = "DrawMapMatrix")]
+#if UNITY_EDITOR
 	[SerializeField, TableMatrix(DrawElementMethod = "DrawMapMatrix")]
-	Room[,] rooms;
+#else
+    [SerializeField]
+#endif 
+    #endregion
+    Room[,] rooms;
 	[SerializeField]List<Room> eventRoom;
 	List<Room> EdgeRooms;
 
@@ -52,6 +65,8 @@ public class LevelGeneration : SerializedMonoBehaviour {
 	bool eventOn;
 	bool shopOn;
 
+	public int Stage = 1;
+
 	[Header("기본몹")]
 	[SerializeField]SceneSO sceneSO;
 	[Header("보스")]
@@ -66,17 +81,19 @@ public class LevelGeneration : SerializedMonoBehaviour {
 	}
 
 	// 장형용 :: 20231008 :: 추가
-	private Room DrawMapMatrix(Rect rect, Room room)
-    {
+	#region private static Room DrawMapMatrix(Rect rect, Room room);
+#if UNITY_EDITOR
+	private static Room DrawMapMatrix(Rect rect, Room room)
+	{
 		if (room == null)
-        {
+		{
 			return null;
-        }
+		}
 
 		Color color;
 
-        switch (room.RoomEventType)
-        {
+		switch (room.RoomEventType)
+		{
 			case 0:
 				color = new Color(1, 1, 1);
 				break;
@@ -86,11 +103,11 @@ public class LevelGeneration : SerializedMonoBehaviour {
 				break;
 
 			case 2:
-				color = new Color(0, 1, 0);
+				color = new Color(1, 1, 0);
 				break;
 
 			case 3:
-				color = new Color(0, 0, 1);
+				color = new Color(0, 1, 0);
 				break;
 
 			default:
@@ -102,58 +119,176 @@ public class LevelGeneration : SerializedMonoBehaviour {
 
 		return room;
 	}
+#endif
+	#endregion
 
 	#endregion
 
 	private void Start()
 	{
-		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
-		{
-			numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
-		}
-		gridSizeX = Mathf.RoundToInt(worldSize.x); //그리드 절반
-		gridSizeY = Mathf.RoundToInt(worldSize.y);
-		inPosX = gridSizeX;
-		inPosY = gridSizeY;
+		//if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
+		//{
+		//	numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
+		//}
+		//gridSizeX = Mathf.RoundToInt(worldSize.x); //그리드 절반
+		//gridSizeY = Mathf.RoundToInt(worldSize.y);
+		//inPosX = gridSizeX;
+		//inPosY = gridSizeY;
 
-		level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+		//level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+
+		//CreateRooms();
+
+		////보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
+
+		//SetRoomDoors();
+
+
+		//SetEventChangeRoom();
+		//SetEdgeRooms();
+
+		//CreateBossRoom();
+		//CreateEventRoom();
+		//CreateShopRoom();
+
+		//DrawMap();
+
+		//StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
+
+
+
+		//if (tutorial && rooms[inPosX , inPosY].isStartRoom == true)
+		//{
+		//	tutorialRoomScript.Event();
+
+
+		//	tutorial = false;
+
+		//}
+
+		//eventOn = false;
+		//shopOn = false;
+
+		//UIManager.Inst.ButtonActivate();
+
+		//DontDestroyOnLoad(this);
+	}
+
+	// 장형용 :: 20231009 :: 좀 바꿀게요~
+	protected override bool Initialize()
+    {
+		var isEmpty = base.Initialize();
+
+		if (isEmpty)
+		{
+			DontDestroyOnLoad(gameObject);
+
+			BETA.GameManager.OnStageStart -= OnStageStarted;
+			BETA.GameManager.OnStageStart += OnStageStarted;
+		}
+
+		return isEmpty;
+	}
+
+	// 장형용 :: 20231009 :: 좀 바꿀게요~
+	protected override bool Finalize()
+    {
+		var isEmpty = base.Finalize();
+
+		if (!isEmpty)
+		{
+			BETA.GameManager.OnStageStart -= OnStageStarted;
+		}
+
+		return isEmpty;
+	}
+
+	// 장형용 :: 20231009 :: 좀 바꿀게요~
+	private void OnStageStarted()
+    {
+		foreach (var selector in DrawMaps)
+		{
+			Destroy(selector?.gameObject);
+		}
+
+		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
+        {
+            numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
+        }
+        gridSizeX = Mathf.RoundToInt(worldSize.x); //그리드 절반
+        gridSizeY = Mathf.RoundToInt(worldSize.y);
+        inPosX = gridSizeX;
+        inPosY = gridSizeY;
+
+		inPosX.Log();
+		inPosY.Log();
+
+		//level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
 
 		CreateRooms();
 
-		//보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
+        //보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
 
-		SetRoomDoors();
-
-
-		SetEventChangeRoom();
-		SetEdgeRooms();
-
-		CreateBossRoom();
-		CreateEventRoom();
-		CreateShopRoom();
-
-		DrawMap();
-
-		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
+        SetRoomDoors();
 
 
+        SetEventChangeRoom();
+        SetEdgeRooms();
 
-		if (tutorial && rooms[inPosX , inPosY].isStartRoom == true)
-		{
-			tutorialRoomScript.Event();
+        CreateBossRoom();
+        CreateEventRoom();
+        CreateShopRoom();
+
+        DrawMap();
+
+        StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
 
 
-			tutorial = false;
 
+        if (tutorial && rooms[inPosX, inPosY].isStartRoom == true)
+        {
+            tutorialRoomScript.Event();
+
+
+            tutorial = false;
+
+        }
+
+        eventOn = false;
+        shopOn = false;
+
+        UIManager.Inst.ButtonActivate();
+    }
+
+	public void OnBattleEnd()
+    {
+		var character = GameObject.Find("Character 4(Clone)");
+		var entity = character.GetComponent<Entity>();
+
+		if (!entity.isAlive)
+        {
+			SceneManager.LoadScene("GameOverScene");
 		}
+        else
+        {
+			var room = CurrentRoom;
 
-		eventOn = false;
-		shopOn = false;
+			if (room.RoomEventType == 1)
+			{
+				Stage += 1;
 
-		UIManager.Inst.ButtonActivate();
+				LevelClear(Stage, 5);
+			}
+			else
+			{
+				//BETA.GameManager.Instance.Loading("Stage 1-1 Load");
 
-		DontDestroyOnLoad(this);
-	}
+				LoadMainStageScene();
+			}
+
+			UIManager.Inst.ButtonActivate();
+		}
+    }
 
 	#region 절 대 건 들 지 마
 	Vector2 NewPosition(){
@@ -847,7 +982,8 @@ public class LevelGeneration : SerializedMonoBehaviour {
 		}
 		else
 		{
-			level.existRoomCheck();
+			//level.existRoomCheck
+			existRoomCheck();
 			UIManager.Inst.ButtonDeActivate();
 			UIManager.Inst.ButtonActivate();
 		}
@@ -863,6 +999,7 @@ public class LevelGeneration : SerializedMonoBehaviour {
 		{
 			i_Room_L = false;
 		}
+
 		if (rooms[inPosX + 1, inPosY] != null)
 		{
 			i_Room_R = true;
@@ -871,6 +1008,7 @@ public class LevelGeneration : SerializedMonoBehaviour {
 		{
 			i_Room_R = false;
 		}
+
 		if (rooms[inPosX, inPosY + 1] != null)
 		{
 			i_Room_U = true;
@@ -879,6 +1017,7 @@ public class LevelGeneration : SerializedMonoBehaviour {
 		{
 			i_Room_U = false;
 		}
+
 		if (rooms[inPosX, inPosY - 1] != null)
 		{
 			i_Room_D = true;
@@ -927,57 +1066,65 @@ public class LevelGeneration : SerializedMonoBehaviour {
 
 	public void LevelClear(int stage, int _rommCount)//스테이지 입력
 	{
-		SetLevelRoomsCount(_rommCount);
-		ReCreateRoom();
-		levelSceneSO.CallLevel(stage);
+		//SetLevelRoomsCount(_rommCount);
+		//ReCreateRoom();
+		numberOfRooms = _rommCount;
+
+		levelSceneSO.CallLevel(Stage);
 	}
 
-	public void ReCreateRoom()
-	{
-		foreach (var selector in DrawMaps)
-		{
-			Destroy(selector?.gameObject);
-		}
-		eventRoom.Clear();
+	public void LoadMainStageScene()
+    {
+		levelSceneSO.CallMainStage(Stage);
 
-
-		CreateRooms();
-
-		SetRoomDoors();
-
-
-		SetEventChangeRoom();
-		SetEdgeRooms();
-
-		CreateBossRoom();
-		CreateEventRoom();
-		CreateShopRoom();
-
-		DrawMap();
-
-		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
-
-
-
-		if (tutorial && rooms[inPosX, inPosY].isStartRoom == true)
-		{
-			tutorialRoomScript.Event();
-
-
-			tutorial = false;
-
-		}
-
-		eventOn = false;
-		shopOn = false;
-
-		UIManager.Inst.ButtonActivate();
 	}
 
-	private void SetLevelRoomsCount(int _count)
-	{
-		numberOfRooms = _count;
-	}
+	//public void ReCreateRoom()
+	//{
+	//	foreach (var selector in DrawMaps)
+	//	{
+	//		Destroy(selector?.gameObject);
+	//	}
+	//	eventRoom.Clear();
+
+
+	//	CreateRooms();
+
+	//	SetRoomDoors();
+
+
+	//	SetEventChangeRoom();
+	//	SetEdgeRooms();
+
+	//	CreateBossRoom();
+	//	CreateEventRoom();
+	//	CreateShopRoom();
+
+	//	DrawMap();
+
+	//	StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
+
+
+
+	//	if (tutorial && rooms[inPosX, inPosY].isStartRoom == true)
+	//	{
+	//		tutorialRoomScript.Event();
+
+
+	//		tutorial = false;
+
+	//	}
+
+	//	eventOn = false;
+	//	shopOn = false;
+
+	//	UIManager.Inst.ButtonActivate();
+	//}
+
+	//private void SetLevelRoomsCount(int _count)
+	//{
+	//	numberOfRooms = _count;
+	//}
 
 
 
