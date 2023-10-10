@@ -12,13 +12,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 {
-
-	//static public LevelGeneration Inst;
-	//private void Awake()
-	//{
-	//	Inst = this;
-	//}
-
 	#region 변수 등등
 	Vector2 worldSize = new Vector2(4, 4);
 
@@ -45,7 +38,15 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 	int loop = 0;//임시루프
 	[SerializeField]bool create = false;
 
-	public bool i_Room_L, i_Room_R, i_Room_U, i_Room_D;
+	//public bool i_Room_L, i_Room_R, i_Room_U, i_Room_D;
+
+	public Dictionary<int, bool> IsMovable = new Dictionary<int, bool>()
+	{
+		{ 0, false },
+		{ 1, false },
+		{ 2, false },
+		{ 3, false }
+	};
 
 	public GameObject BossRoomIcon;
 	public GameObject roomWhiteObj;
@@ -56,7 +57,7 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 	GameObject mustDisableObject;
 
 
-	[SerializeField]ShopScirpt shopRoomScript;
+	//[SerializeField]ShopScirpt shopRoomScript;
 	[SerializeField] List<RoomEventListScript> eventRoomScript;
 	[SerializeField] RoomEventListScript tutorialRoomScript;
 	[SerializeField] int eventRoomValue;
@@ -73,6 +74,9 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 	[SerializeField]SceneSO bossSceneSO;
 	[Header("레벨")]
 	[SerializeField] SceneSO levelSceneSO;
+
+	[SerializeField, TitleGroup("레벨제너레이션 이벤트")]
+	private LevelGenerationEvent _events;
 
 	// <<22-12-04 장형용 :: 편의성>>
 	public Room CurrentRoom
@@ -120,91 +124,36 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 		return room;
 	}
 #endif
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
 
-	private void Start()
-	{
-		//if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
-		//{
-		//	numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
-		//}
-		//gridSizeX = Mathf.RoundToInt(worldSize.x); //그리드 절반
-		//gridSizeY = Mathf.RoundToInt(worldSize.y);
-		//inPosX = gridSizeX;
-		//inPosY = gridSizeY;
+    private void OnEnable()
+    {
+		_events.OnStageStart.Listener += OnStageStart;
 
-		//level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-
-		//CreateRooms();
-
-		////보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
-
-		//SetRoomDoors();
-
-
-		//SetEventChangeRoom();
-		//SetEdgeRooms();
-
-		//CreateBossRoom();
-		//CreateEventRoom();
-		//CreateShopRoom();
-
-		//DrawMap();
-
-		//StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
-
-
-
-		//if (tutorial && rooms[inPosX , inPosY].isStartRoom == true)
-		//{
-		//	tutorialRoomScript.Event();
-
-
-		//	tutorial = false;
-
-		//}
-
-		//eventOn = false;
-		//shopOn = false;
-
-		//UIManager.Inst.ButtonActivate();
-
-		//DontDestroyOnLoad(this);
 	}
 
-	// 장형용 :: 20231009 :: 좀 바꿀게요~
-	protected override bool Initialize()
+    private void OnDisable()
+    {
+		_events.OnStageStart.Listener -= OnStageStart;
+	}
+
+    // 장형용 :: 20231009 :: 좀 바꿀게요~
+    protected override bool Initialize()
     {
 		var isEmpty = base.Initialize();
 
 		if (isEmpty)
 		{
 			DontDestroyOnLoad(gameObject);
-
-			BETA.GameManager.OnStageStart -= OnStageStarted;
-			BETA.GameManager.OnStageStart += OnStageStarted;
 		}
 
 		return isEmpty;
 	}
 
 	// 장형용 :: 20231009 :: 좀 바꿀게요~
-	protected override bool Finalize()
-    {
-		var isEmpty = base.Finalize();
-
-		if (!isEmpty)
-		{
-			BETA.GameManager.OnStageStart -= OnStageStarted;
-		}
-
-		return isEmpty;
-	}
-
-	// 장형용 :: 20231009 :: 좀 바꿀게요~
-	private void OnStageStarted()
+	private void OnStageStart()
     {
 		foreach (var selector in DrawMaps)
 		{
@@ -219,9 +168,6 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
         gridSizeY = Mathf.RoundToInt(worldSize.y);
         inPosX = gridSizeX;
         inPosY = gridSizeY;
-
-		inPosX.Log();
-		inPosY.Log();
 
 		//level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
 
@@ -257,8 +203,8 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
         eventOn = false;
         shopOn = false;
 
-        UIManager.Inst.ButtonActivate();
-    }
+		UIManager.Instance.RefreshMoveButtons();
+	}
 
 	public void OnBattleEnd()
     {
@@ -286,7 +232,7 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 				LoadMainStageScene();
 			}
 
-			UIManager.Inst.ButtonActivate();
+			UIManager.Instance.RefreshMoveButtons();
 		}
     }
 
@@ -837,8 +783,17 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 		RefreshSpriteColor();
 	}
 
-	//방이동하기
-	public void MoveRoom(int _moveDir)
+    public void Move(int direction)
+    {
+		existRoomCheck();
+
+		ChoiseRoom(direction);
+
+		RoomRefersh();
+	}
+
+    //방이동하기
+    public void MoveRoom(int _moveDir)
 	{
 		ChoiseRoom(_moveDir);
 	/*	try
@@ -913,7 +868,8 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 		
 		if(shopOn)
 		{
-			shopRoomScript.ExitShop();
+			//shopRoomScript.ExitShop();
+			_events.OnShopEnter.Launch(false);
 			shopOn = false;
 		}
 
@@ -931,7 +887,8 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 				case 2:
 					//LoadSceneManager.LoadScene("CopyScene");
 
-					shopRoomScript.EnterShop();
+					//shopRoomScript.EnterShop();
+					_events.OnShopEnter.Launch(true);
 					Debug.Log("상점이벤트");
 					shopOn = true;
 					break;
@@ -944,7 +901,8 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 		}
 		else if (rooms[inPosX + _x, inPosY + _y].RoomEventType == 2)
 		{
-			shopRoomScript.EnterShop();
+			//shopRoomScript.EnterShop();
+			_events.OnShopEnter.Launch(true);
 			Debug.Log("상점이벤트");
 			shopOn = true;
 		}
@@ -964,19 +922,12 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 			if (rooms[inPosX, inPosY].RoomEventType == 2 ||
 				rooms[inPosX, inPosY].RoomEventType == 3)
 			{
-				UIManager.Inst.ButtonDeActivate();
-				UIManager.Inst.ButtonActivate();
+				UIManager.Instance.RefreshMoveButtons();
 			}
 			else
 			{
-				UIManager.Inst.ButtonDeActivate();
+				UIManager.Inst.DisableMoveButtons();
 			}
-
-			//게임 바뀌면서 이거 일단 지움. 맵이 안바껴 ㅅㅂ
-			/*if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
-			{
-				LevelGeneration.Inst.SetMyTurn();
-			}*/
 
 			rooms[inPosX, inPosY].Checked = true;
 		}
@@ -984,83 +935,50 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 		{
 			//level.existRoomCheck
 			existRoomCheck();
-			UIManager.Inst.ButtonDeActivate();
-			UIManager.Inst.ButtonActivate();
+			UIManager.Instance.RefreshMoveButtons();
 		}
 	}
 
 	public void existRoomCheck()
 	{
-		if (rooms[inPosX - 1, inPosY] != null)
+		if (inPosX > 0 && rooms[inPosX - 1, inPosY] != null)
 		{
-			i_Room_L = true;
+			IsMovable[0] = true;
 		}
 		else
 		{
-			i_Room_L = false;
+			IsMovable[0] = false;
 		}
 
-		if (rooms[inPosX + 1, inPosY] != null)
+		if (inPosX < rooms.GetLength(0) && rooms[inPosX + 1, inPosY] != null)
 		{
-			i_Room_R = true;
+			IsMovable[1] = true;
 		}
 		else
 		{
-			i_Room_R = false;
+			IsMovable[1] = false;
 		}
 
-		if (rooms[inPosX, inPosY + 1] != null)
+		if (inPosY < rooms.GetLength(1) && rooms[inPosX, inPosY + 1] != null)
 		{
-			i_Room_U = true;
+			IsMovable[2] = true;
 		}
 		else
 		{
-			i_Room_U = false;
+			IsMovable[2] = false;
 		}
 
-		if (rooms[inPosX, inPosY - 1] != null)
+		if (inPosY > 0 && rooms[inPosX, inPosY - 1] != null)
 		{
-			i_Room_D = true;
+			IsMovable[3] = true;
 		}
 		else
 		{
-			i_Room_D = false;
+			IsMovable[3] = false;
 		}
 	}
 
 	#endregion
-	WaitForSeconds delay_01 = new WaitForSeconds(0.1f);
-
-	public void SetMyTurn()
-	{
-		Utility.onBattleStart.Invoke(); // <<22-10-21 장형용 :: 추가, Utility에 Action을 추가한 이유는 이 스크립트에 쓰인 Random이 Using System과 겹쳐 오류를 일으키기 때문>>
-
-		//TurnManager.Inst.myTurn = true;
-		////StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
-		//StartCoroutine(TurnManager.Inst.Co_StartTurn());
-	}
-
-	public void EndTurn()
-	{
-		//TurnManager.Inst.myTurn = !TurnManager.Inst.myTurn;
-		////StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
-		//StartCoroutine(TurnManager.Inst.Co_StartTurn());
-	}
-
-	public IEnumerator Co_StartGame()
-	{
-		//TurnManager.Inst.isLoding = true;
-
-		//for (int i = 0; i < TurnManager.Inst.i_StartCardsCount; i++)
-		//{
-		//	yield return delay_01;
-		//	//TurnManager.Inst.OnAddCard();
-		//}
-		////StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX,inPosY]));
-		//StartCoroutine(TurnManager.Inst.Co_StartTurn());
-
-		yield return null;
-	}
 
 	#region 추가사항
 

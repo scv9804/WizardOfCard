@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Sirenix.OdinInspector;
+
 namespace BETA.UI
 {
     // ==================================================================================================== CardUIHandler
@@ -18,12 +20,16 @@ namespace BETA.UI
 
         //
 
+        //
+
         public Transform Container
         {
             get => _container;
 
             private set => _container = value;
         }
+
+        //
 
         //
 

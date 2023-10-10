@@ -4,12 +4,26 @@ using UnityEngine;
 
 using BETA.Enums;
 
+using Sirenix.OdinInspector;
+
 namespace BETA.UI
 {
     // ==================================================================================================== HandCardUIHandler
 
     public class HandCardUIHandler : CardUIHandler
     {
+        //
+
+        //
+
+        //
+
+        [SerializeField, TitleGroup("카드 데이터")]
+        private Dictionary<string, CardEventSystems> _handCardCommands = new Dictionary<string, CardEventSystems>();
+
+        [SerializeField, TitleGroup("카드 데이터")]
+        private Dictionary<string, CardEventSystems> _cannotCardCommands = new Dictionary<string, CardEventSystems>();
+
         //
 
         //
@@ -22,6 +36,8 @@ namespace BETA.UI
             //{
             //    return;
             //}
+
+            var isPlayerTurn = CardManager.Instance.IsPlayerTurn;
 
             var hand = CardManager.Instance.CardObjects[name];
 
@@ -37,6 +53,9 @@ namespace BETA.UI
             {
                 var cardObject = hand[i];
 
+                cardObject.Commands = isPlayerTurn ? _handCardCommands : _cannotCardCommands;
+
+                cardObject.transform.SetParent(transform);
                 if (cardObject.State >= CardState.ON_POINTER_OVER)
                 {
                     cardObject.transform.SetSiblingIndex(i + GameManager.Instance.Configs.MaxHandCount);

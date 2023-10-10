@@ -2254,6 +2254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 817625817}
   - component: {fileID: 817625818}
+  - component: {fileID: 817625819}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2297,6 +2298,35 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Configs: {fileID: 11400000, guid: 62a0b1e5a0b39fa4ba57457f858eb615, type: 2}
+  _events: {fileID: 817625819}
+--- !u!114 &817625819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817625816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83bc3aff0097f945be03d3475040802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _onGameQuit: {fileID: 11400000, guid: 72d3353759cbd8041bec914466da1e13, type: 2}
+  _onGameStart: {fileID: 11400000, guid: ff10241d6e4b082438dc5e412547a443, type: 2}
+  _onGameEnd: {fileID: 11400000, guid: b6c6c47c167ce7040bbe12e8d4636ad0, type: 2}
+  _onStageStart: {fileID: 11400000, guid: 3c8d7015874be484b8305e13dce71b79, type: 2}
+  _onStageEnd: {fileID: 11400000, guid: 156c58aeff4ce674582fbfe4f68d69de, type: 2}
+  _onBattleStart: {fileID: 11400000, guid: a23ce6f238d32cf4895f82903420bfa1, type: 2}
+  _onBattleEnd: {fileID: 11400000, guid: 64e02048c23700c4baf02f4ab9324ba0, type: 2}
 --- !u!1 &827276904
 GameObject:
   m_ObjectHideFlags: 0

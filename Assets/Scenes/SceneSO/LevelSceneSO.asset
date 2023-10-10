@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneList:
   - sceneName:
-    - Stage 1-1 Load
+    - Stage 1-1
   - sceneName:
     - Stage 2-1 Load

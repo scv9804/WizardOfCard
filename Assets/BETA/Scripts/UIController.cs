@@ -4,10 +4,14 @@ using UnityEngine;
 
 using Sirenix.OdinInspector;
 
-namespace BETA
+namespace BETA.UI
 {
     public class UIController : SerializedMonoBehaviour
     {
+        //
+
+        //
+
         public Dictionary<string, GameObject> CO = new Dictionary<string, GameObject>();
     } 
 }

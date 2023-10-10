@@ -22,10 +22,10 @@ public class LoadSceneManager : MonoBehaviour
 		nextScene = sceneName;
 		try
 		{
-			if (UIManager.Inst.maincanvas.isActiveAndEnabled)
-			{
-				UIManager.Inst.maincanvas.enabled = false;
-			}
+			//if (UIManager.Inst.maincanvas.isActiveAndEnabled)
+			//{
+			//	UIManager.Inst.maincanvas.enabled = false;
+			//}
 		}
 		catch
 		{

@@ -38,10 +38,11 @@ namespace BETA.UI
 
             var discard = CardManager.Instance.CardObjects[name];
 
-            for (var i = discard.Count - 1; i > -1; i--)
+            for (var i = 0; i < discard.Count; i++)
             {
                 var cardObject = discard[i];
 
+                cardObject.transform.SetParent(transform);
                 cardObject.transform.SetSiblingIndex(i);
             }
 

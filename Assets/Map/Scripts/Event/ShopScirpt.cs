@@ -7,10 +7,10 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-namespace WIP
-{
+using BETA;
 
-}
+using Sirenix.OdinInspector;
+
 public class ShopScirpt : MonoBehaviour
 {
 	[Header("상점 don't destroy")]
@@ -40,11 +40,6 @@ public class ShopScirpt : MonoBehaviour
 	[SerializeField] GameObject[] itemSapwnParents;
 	[SerializeField] TMP_Text[] priceTMP;
 
-
-	[Header("아이템 프리팹")]
-	[SerializeField] GameObject itemPrefab;
-	[SerializeField] GameObject cardPrefab;
-
 	//List<Item_inven> shopItemList = new List<Item_inven>();
 	List<GameObject> solditems = new List<GameObject>();
 
@@ -61,12 +56,11 @@ public class ShopScirpt : MonoBehaviour
 	#region 기본 ON OFF 설정
 	private void Start()
 	{	
-		shopOwnerButton.onClick.AddListener(OpenShop);
-		shopExitButton.onClick.AddListener(CloseShop);
-		ManaUpPurchaseButton.onClick.AddListener(ManaLevelUp);
+		//shopOwnerButton.onClick.AddListener(OpenShop);
+		//shopExitButton.onClick.AddListener(CloseShop);
+		//ManaUpPurchaseButton.onClick.AddListener(ManaLevelUp);
 		OriginSize = speechBubble.transform.localScale;
-		SetManaLevelUp();
-		DontDestroyOnLoad(shop);
+		SetUpgradeManaCost();
 	}
 
 	public void EnterShop()
@@ -257,32 +251,70 @@ public class ShopScirpt : MonoBehaviour
 	//}
 
 	//마나 업그레이드 비용은 10원부터 시작해서 10원씩 증가함 대충 1300골드 정도 들어감 일부러 좀 적은 가격으로 구성함
-	void ManaLevelUp()
+	public void ManaLevelUp()
 	{
-		if (CharacterStateStorage.Inst.money >= manaPrice)
-		{
-			CharacterStateStorage.Inst.money -= manaPrice;
-			CharacterStateStorage.Inst.aether++;
-			UIManager.Inst.PlayerMoneyUIRefresh();
-			SetManaLevelUp();
+		//if (CharacterStateStorage.Inst.money >= manaPrice)
+		//{
+		//	CharacterStateStorage.Inst.money -= manaPrice;
+		//	CharacterStateStorage.Inst.aether++;
+		//	UIManager.Inst.PlayerMoneyUIRefresh();
+		//	SetManaLevelUp();
 
-			// <<22-11-28 장형용 :: 추가>>
-			MusicManager.inst.PlayBuyingSound();
+		//	// <<22-11-28 장형용 :: 추가>>
+		//	MusicManager.inst.PlayBuyingSound();
+		//}
+
+		var mana = EntityManager.Instance.StatsContainer.Mana.statValue;
+
+		if (mana == 20)
+        {
+			return;
+        }
+
+		if (EntityManager.Instance.Money >= manaPrice)
+        {
+			EntityManager.Instance.Money -= manaPrice;
+
+			EntityManager.Instance.StatsContainer.Mana.ChangeStatValue(mana + 1);
 		}
 	}
 
-	void SetManaLevelUp()
-	{
-		//manaPrice = CharacterStateStorage.Inst.aether * 10 + 10;
-		if (manaPrice >= 170)
-		{
-			ManaUpPurchaseButton.onClick.RemoveAllListeners();
-			ManaPriceTMP.text = "재고 없음!";
+	//void SetManaLevelUp()
+	//{
+	//	//manaPrice = CharacterStateStorage.Inst.aether * 10 + 10;
+	//	if (manaPrice >= 170)
+	//	{
+	//		ManaUpPurchaseButton.onClick.RemoveAllListeners();
+	//		ManaPriceTMP.text = "재고 없음!";
+	//	}
+	//	else
+	//	{
+	//		ManaPriceTMP.text = "마나 활성\n " + manaPrice + "\n 정수!";
+	//	}
+	//}
+
+	public void SetUpgradeManaCost()
+    {
+		if (EntityManager.Instance.StatsContainer == null)
+        {
+			return;
+        }
+
+		var mana = EntityManager.Instance.StatsContainer.Mana.statValue;
+
+		var price = (mana + 1) * 10;
+		var messege = string.Empty;
+
+		if (mana == 20)
+        {
+			messege = "재고 없음!";
+        }
+        else
+        {
+			messege = $"마나 활성\n {price} \n 정수!";
 		}
-		else
-		{
-			ManaPriceTMP.text = "마나 활성\n " + manaPrice + " 정수!";
-		}
+
+		ManaPriceTMP.text = messege;
 	}
 
 	#endregion

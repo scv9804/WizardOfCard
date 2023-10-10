@@ -558,20 +558,12 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: eb4273cdf1775ab498ce5703aceb52e5, type: 2}
-    - {fileID: 11400000, guid: b3bb29a68b45d9444a3152a074020a87, type: 2}
-    - {fileID: 11400000, guid: 6acdf3bb916a97a42929e5515dbc92b8, type: 2}
-    - {fileID: 11400000, guid: 222b3a3219ad5ea4b8c50a94e048c503, type: 2}
-    - {fileID: 11400000, guid: be949881af14abe4dbb79536147b362c, type: 2}
-    - {fileID: 11400000, guid: 202221601ced3c54fa43b42ab322adef, type: 2}
+    - {fileID: 11400000, guid: 69ccbf8825467cc44b41d3f2cad06404, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _instanceID
-      Entry: 6
-      Data: 
     - Name: Commands
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[BETA.CardEventSystems,
@@ -606,7 +598,7 @@ MonoBehaviour:
       Data: ON_POINTER_EXIT
     - Name: $v
       Entry: 10
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -618,7 +610,7 @@ MonoBehaviour:
       Data: ON_POINTER_CLICK
     - Name: $v
       Entry: 10
-      Data: 2
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -630,7 +622,7 @@ MonoBehaviour:
       Data: ON_BEGIN_DRAG
     - Name: $v
       Entry: 10
-      Data: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -642,7 +634,7 @@ MonoBehaviour:
       Data: ON_DRAG
     - Name: $v
       Entry: 10
-      Data: 4
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -654,7 +646,7 @@ MonoBehaviour:
       Data: ON_END_DRAG
     - Name: $v
       Entry: 10
-      Data: 5
+      Data: 0
     - Name: 
       Entry: 8
       Data: 

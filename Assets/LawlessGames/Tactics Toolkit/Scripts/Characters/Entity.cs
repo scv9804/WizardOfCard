@@ -310,7 +310,14 @@ namespace TacticsToolkit
 
         public void HealEntity(int value)
         {
-            statsContainer.CurrentHealth.statValue += value;
+            var maxHealth = statsContainer.Health.statValue;
+            var currentHealth = statsContainer.CurrentHealth.statValue;
+
+            var health = currentHealth + value;
+
+            health = health > maxHealth ? maxHealth : health;
+
+            statsContainer.CurrentHealth.ChangeStatValue(health);
             UpdateCharacterUI();
 
             HealthChange.Raise(gameObject);

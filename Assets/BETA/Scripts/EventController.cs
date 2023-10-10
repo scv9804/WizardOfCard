@@ -15,12 +15,17 @@ namespace BETA
             LevelGeneration.Instance.OnBattleEnd();
         }
 
+        public void LevelGeneration_Move(int direction)
+        {
+            LevelGeneration.Instance.Move(direction);
+        }
+
         // =========================================================================== GameManager
 
-        public void GameManager_Quit()
-        {
-            GameManager.Instance.Quit();
-        }
+        //public void GameManager_Quit()
+        //{
+        //    GameManager.Instance.Quit();
+        //}
 
         public void GameManager_BattleEnd()
         {

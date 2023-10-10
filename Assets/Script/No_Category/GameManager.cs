@@ -52,10 +52,10 @@ public class GameManager : Singleton<GameManager>
 
     public void Loading(string name, Action callback = null)
     {
-        if (UIManager.Inst != null && UIManager.Inst.maincanvas.isActiveAndEnabled)
-        {
-            UIManager.Inst.maincanvas.enabled = false;
-        }
+        //if (UIManager.Inst != null && UIManager.Inst.maincanvas.isActiveAndEnabled)
+        //{
+        //    UIManager.Inst.maincanvas.enabled = false;
+        //}
 
         SceneManager.LoadScene("Loading");
 

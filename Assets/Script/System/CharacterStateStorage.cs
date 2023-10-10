@@ -18,7 +18,7 @@ public class CharacterStateStorage : MonoBehaviour
 		Inst = this;
 		DontDestroyOnLoad(this);
 
-		UIManager.Inst.money_TMP.text = money.ToString("D3");
+		//UIManager.Inst.money_TMP.text = money.ToString("D3");
 	}
 
 }

@@ -26,33 +26,48 @@ namespace BETA
 
         // =========================================================================== GameEvent
 
-        public static event Action OnGameQuit;
+        //public static event Action OnGameQuit;
 
-        public static event Action OnGameStart;
-        public static event Action OnGameEnd;
+        //public static event Action OnGameStart;
+        //public static event Action OnGameEnd;
 
-        public static event Action OnStageStart;
-        public static event Action OnStageEnd;
+        //public static event Action OnStageStart;
+        //public static event Action OnStageEnd;
 
-        public static event Action OnBattleStart;
-        public static event Action OnBattleEnd;
+        //public static event Action OnBattleStart;
+        //public static event Action OnBattleEnd;
+
+        [SerializeField, TitleGroup("게임매니저 이벤트")]
+        private GameManagerEvent _events;
 
         // ==================================================================================================== Method
 
-        // =========================================================================== Constance
+        // =========================================================================== Constructor
 
-        static GameManager()
+        //static GameManager()
+        //{
+        //    OnGameQuit = null;
+
+        //    OnGameStart = null;
+        //    OnGameEnd = null;
+
+        //    OnStageStart = null;
+        //    OnStageEnd = null;
+
+        //    OnBattleStart = null;
+        //    OnBattleEnd = null;
+        //}
+
+        // =========================================================================== Event
+
+        private void OnEnable()
         {
-            OnGameQuit = null;
+            _events.OnGameQuit.Listener += GameQuit;
+        }
 
-            OnGameStart = null;
-            OnGameEnd = null;
-
-            OnStageStart = null;
-            OnStageEnd = null;
-
-            OnBattleStart = null;
-            OnBattleEnd = null;
+        private void OnDisable()
+        {
+            _events.OnGameQuit.Listener -= GameQuit;
         }
 
         // =========================================================================== Singleton
@@ -77,11 +92,6 @@ namespace BETA
 
         public void Loading(string name, Action callback = null)
         {
-            if (UIManager.Inst != null && UIManager.Inst.maincanvas.isActiveAndEnabled)
-            {
-                UIManager.Inst.maincanvas.enabled = false;
-            }
-
             SceneManager.LoadScene("Loading");
 
             StartCoroutine(Main(name, callback));
@@ -137,37 +147,51 @@ namespace BETA
 
         public void GameStart()
         {
-            OnGameStart?.Invoke();
+            //OnGameStart?.Invoke();
+
+            _events.OnGameStart.Launch();
         }
 
         public void GameEnd()
         {
-            OnGameEnd?.Invoke();
+            //OnGameEnd?.Invoke();
+
+            _events.OnGameEnd.Launch();
         }
 
         public void StageStart()
         {
-            OnStageStart?.Invoke();
+            //OnStageStart?.Invoke();
+
+            _events.OnStageStart.Launch();
         }
 
         public void StageEnd()
         {
-            OnStageEnd?.Invoke();
+            //OnStageEnd?.Invoke();
+
+            _events.OnStageEnd.Launch();
         }
 
         public void BattleStart()
         {
-            OnBattleStart?.Invoke();
+            //OnBattleStart?.Invoke();
+
+            _events.OnBattleStart.Launch();
         }
 
         public void BattleEnd()
         {
-            OnBattleEnd?.Invoke();
+            //OnBattleEnd?.Invoke();
+
+            _events.OnBattleEnd.Launch();
         }
 
-        public void Quit()
+        public void GameQuit()
         {
-            OnGameQuit?.Invoke();
+            //OnGameQuit?.Invoke();
+
+            //_events.OnGameQuit.Launch();
 
             #region Application.Quit();
 #if UNITY_EDITOR

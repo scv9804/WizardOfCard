@@ -20,7 +20,7 @@ MonoBehaviour:
   range: 0
   cooldown: -1
   cost: 1
-  value: 50
+  value: 100
   repetTime: 1
   abilityType: 0
   includeOrigin: 1

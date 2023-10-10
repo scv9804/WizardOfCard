@@ -185,7 +185,7 @@ public class RewardManager : MonoBehaviour
 		{
 			CharacterStateStorage.Inst.money += rewardMoney;
 
-			UIManager.Inst.PlayerMoneyUIRefresh();
+			//UIManager.Inst.PlayerMoneyUIRefresh();
 		}
 
 		//for (int i = 0; i < rewardCardList.Count; i++)

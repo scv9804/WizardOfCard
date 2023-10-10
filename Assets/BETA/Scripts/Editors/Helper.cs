@@ -456,8 +456,6 @@ namespace BETA.Editor
 //[TableMatrix(SquareCells = true, HideColumnIndices = true, HideRowIndices = true)]
 //public Tile[,] Map = new Tile[4, 4];
 
-// 이거 근데 이렇게 넣으면 거울모드 생성되네 ㅋㅋㅋㅋㅋㅋㅋ 아 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-
 //Tilemap.ClearAllTiles();
 
 //for (var i = 0; i < Map.GetLength(0); i++)

@@ -38,10 +38,11 @@ namespace BETA.UI
 
             var deck = CardManager.Instance.CardObjects[name];
 
-            for (var i = deck.Count - 1; i > -1; i--)
+            for (var i = 0; i < deck.Count; i++)
             {
                 var cardObject = deck[i];
 
+                cardObject.transform.SetParent(transform);
                 cardObject.transform.SetSiblingIndex(i);
             }
 

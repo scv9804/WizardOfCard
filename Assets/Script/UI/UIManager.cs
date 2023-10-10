@@ -2,297 +2,199 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
+
+using BETA;
+using BETA.Singleton;
+using BETA.UI;
+
+using Sirenix.OdinInspector;
+
 using TMPro;
 
-public class UIManager : MonoBehaviour
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class UIManager : SingletonMonoBehaviour<UIManager>
 {
 	public static UIManager Inst { get; private set; }
 
-	private void Awake()
-	{
-		//Destroy(Inst?.gameObject);
-
-		Inst = this;
-		DontDestroyOnLoad(this);
-	}
 	private void Start()
 	{
-		//mainCamera = mainCam.GetComponent<CameraData>();
-		//mapCamera = mapCam.GetComponent<CameraData>();
 		SetClose();
-		DontDestroyOnLoad(maincanvas);
-		Reward_UI.gameObject.SetActive(false);
+
+		//Reward_UI.gameObject.SetActive(false);
+
+		SetRoomButtons();
 	}
+	
 	[Header("메인 켄버스")]
 	public Canvas maincanvas;
-	public GameObject maincanvas2;
 
-	[Header("방이동 버튼")]
-	public Button roomMoveButton_L;
-	public Button roomMoveButton_R;
-	public Button roomMoveButton_U;
-	public Button roomMoveButton_D;
+	[Header("방 이동 버튼")]
+	public Dictionary<string, GameObject> MoveButtons = new Dictionary<string, GameObject>()
+	{
+		{ "LEFT", null },
+		{ "RIGHT", null },
+		{ "UP", null },
+		{ "DOWN", null }
+	};
 
-	[Header("메인 UI")]
-	public TMP_Text DeckCountTMP_UI;
-	public TMP_Text CemeteryCountTMP_UI;
-	public TMP_Text HealthTMP_UI;
-	public TMP_Text myturn_UI_TMP;
-
-	public TMP_Text money_TMP;
-	public TMP_Text ManaTMP_UI;
-	public GameObject optionUI;
-	public GameObject minimapUI;
-	public GameObject inventoryUI;
-	public GameObject deckUI;
-	public GameObject CemeteryUI;
-	public GameObject Reward_UI;
-	public Image turnEndButtonSpriteImage;
-
-	[Header("온오프 UI")]
-	public GameObject CardCancleArea;
-	public GameObject optionCancleArea;
-	public GameObject minimapCancleArea;
-	public GameObject inventoryCancleArea;
-	public GameObject gameClearBack_UI;
-
-
+	[SerializeField, TitleGroup("UI 핸들러")]
+	private Dictionary<string, UIHandler> _handlers = new Dictionary<string, UIHandler>();
 
 	[Header("옵션 UI")]
 	[SerializeField] GameObject postProcessing;
 
-	[SerializeField] Camera mainCam;
-	[SerializeField] Camera mapCam;
+	[SerializeField, TitleGroup("UI매니저 이벤트")]
+	private UIManagerEvent _events;
 
-/*	[SerializeField] CameraData mainCamera;
-	[SerializeField] CameraData mapCamera;*/
+	// 장형용 :: 20231009 :: 좀 바꿀게요~
+	protected override bool Initialize()
+    {
+		var isEmpty = base.Initialize();
 
-	bool isDeckUse;
-	bool isCardUse;
-	bool isOptionUse;
-	bool isMinimapUse;
-	bool isCemeteryUse;
-	bool isInventoryUse;
-	bool isRewardUse;
-	bool ispostProcessing = true;
-	bool isUIUse;
-
-	//<<22-10-26 장형용 :: 리롤 버튼 사용 중 추가 사용 못 하게 추가>>
-	public bool canHandRefresh;
-
-	[SerializeField] LevelGeneration levelGeneration;
-
-	//Coroutine tryEndTurnCoroutine;
-
-/*	public void AntiAliasing_FXAA()
-	{
-		mainCamera.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
-		mapCamera.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
-	}
-	public void AntiAliasing_SMAA()
-	{
-		mainCamera.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
-		mapCamera.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
-	}
-
-	public void AntiAliasing_None()
-	{
-		mapCamera.antialiasing = AntialiasingMode.None;
-		mainCamera.antialiasing = AntialiasingMode.None;
-	}*/
-
-	public void PostProcessing()
-	{
-		ispostProcessing = !ispostProcessing;
-		postProcessing.SetActive(ispostProcessing);
-	}
-
-
-
-
-	private void FixedUpdate()
-	{
-		//if (TurnManager.Inst.myTurn)
-		//{
-		//	myturn_UI_TMP.text = "내 턴";
-		//}
-		//else
-		//{
-		//	myturn_UI_TMP.text = "상대 턴";
-		//}
-	}
-
-
-	public void TurnEndButton()
-	{
-		//임시
-		//if (TurnManager.Inst.myTurn && CardManager.Inst.e_CardStats == E_CardStats.CanAll)
+		if (isEmpty)
 		{
-			Debug.Log("턴 종료");
-			StartCoroutine(TryEndTurn());
-		}
+			Inst = this;
+
+            DontDestroyOnLoad(this);
+
+            SceneManager.sceneLoaded -= OnSceneWasLoaded;
+            SceneManager.sceneLoaded += OnSceneWasLoaded;
+        }
+
+		return isEmpty;
 	}
 
-	// <<22-10-27 장형용 :: 추가>>
-	public IEnumerator TryEndTurn()
+	// 장형용 :: 20231009 :: 좀 바꿀게요~
+	protected override bool Finalize()
 	{
-		//CardManager.Inst.e_CardStats = E_CardStats.Cannot; 수정함
+		var isEmpty = base.Initialize();
 
-		//yield return new WaitAllCardUsingDone();
-
-		//if(!EntityManager.Inst.IsAlreadyAllDead()) 일단 필요없어져서 지움 
+		if (!isEmpty)
         {
-			//LevelGeneration.Inst.EndTurn();
-		}
+            SceneManager.sceneLoaded -= OnSceneWasLoaded;
+        }
 
-		yield return null;
+		return isEmpty;
 	}
 
-	public void TurnEndButtonActivae()
-	{
-		// 불필요한 조건 제거
-		//if (TurnManager.Inst.myTurn/* && CardManager.Inst.myDeck.Count != 0*/)
+	private void OnSceneWasLoaded(Scene scene, LoadSceneMode mode)
+    {
+		SetRoomButtons();
+	}
+
+	public void SetRoomButtons()
+    {
+		//foreach (var conponent in MoveButtons)
 		//{
-		//	Color color = Color.white;
-		//	turnEndButtonSpriteImage.color = color;
+		//	MoveButtons[conponent.Key] = null;
 		//}
-		//else
-		//{
-		//	Color color = Color.gray;
-		//	turnEndButtonSpriteImage.color = color;
-		//}
-	}
 
-	public bool IsUIUse 
-	{ 
-		get { return isUIUse; }
-		set { isUIUse = value; }
-	}
+		var controller = GameObject.Find("Room UI Controller")?.GetComponent<UIController>();
 
-	public bool CanUseUI()
-	{
-		if (isUIUse)
+		controller.Require(() =>
 		{
-			return true;
-		}
-		else
+			foreach (var conponent in controller.CO)
+			{
+				MoveButtons[conponent.Key] = conponent.Value;
+			}
+
+            RefreshMoveButtons();
+        });
+	}
+
+	public void RefreshMoveButtons()
+    {
+		foreach (var button in MoveButtons)
 		{
-			return false;
+			if (button.Value == null)
+            {
+				return;
+            }
+
+			var handler = button.Value.GetComponent<UIHandler>();
+
+			handler.Refresh();
 		}
 	}
 
-	public void CemeteryRefresh()
+	public void DisableMoveButtons()
 	{
-		//if (TurnManager.Inst.myTurn && CardManager.Inst.myCemetery.Count != 0 )
-		//	CardManager.Inst.CemeteryRefesh();		
+		foreach (var button in MoveButtons)
+		{
+			//button.Value.Require(() =>
+			//{
+			//	button.Value.SetActive(false);
+			//});
+
+			if (button.Value == null)
+            {
+				return;
+            }
+
+			button.Value.SetActive(false);
+		}
 	}
 
-	public void HandRefresh()
-	{
-		// <<22-10-26 장형용 :: canHandRefresh 조건 추가>>
-		//if (TurnManager.Inst.myTurn 
-		//	&& CardManager.Inst.myDeck.Count != 0
-		//	&& canHandRefresh)
-		//{
-		//	//CardManager.Inst.HandRefresh();
-
-		//	StartCoroutine(CardManager.Inst.HandRefresh());
-		//}
-	}
-
-	
-	
-	public void SetDeckCountUI(int _deckCount)
-	{
-		DeckCountTMP_UI.text = _deckCount.ToString();
-	}
-
-	public void SetCemeteryCountUI(int _cemeteryCount)
-	{
-		CemeteryCountTMP_UI.text = _cemeteryCount.ToString();
-	}
-
-	public void SetManaUI()
-	{
-		//if (EntityManager.Inst.playerEntity != null)
-		//{
-		//	ManaTMP_UI.text = EntityManager.Inst.playerEntity.Status_Aether.ToString() + "/" + EntityManager.Inst.playerEntity.Status_MaxAether.ToString();
-		//}
-		//else
-		//{
-		//	ManaTMP_UI.text = CharacterStateStorage.Inst.aether.ToString() + "/" + CharacterStateStorage.Inst.aether.ToString();
-		//}
-	}
-
+	public void CardArrange()
+    {
+		_events.OnCardArrange.Launch();
+    }
 
 	public void MapClearUI()
 	{
-		gameClearBack_UI.SetActive(true);
+		//gameClearBack_UI.SetActive(true);
 	}
 
 	public void MinimapActive()
 	{
-		minimapUI.SetActive(true);
-		minimapCancleArea.SetActive(true);
+		//minimapUI.SetActive(true);
+		//minimapCancleArea.SetActive(true);
 	}
 
 
 	public void PlayerMoneyUIRefresh()
 	{
-		money_TMP.text = CharacterStateStorage.Inst.money.ToString("D3");
+		//money_TMP.text = CharacterStateStorage.Inst.money.ToString("D3");
 	}
 
 	#region minimaps
 
 	public void LeftRoomMove()
 	{
-		LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-		levelGeneration.existRoomCheck();
-		level.MoveRoom(0);		
+		//LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+		//levelGeneration.existRoomCheck();
+		//level.MoveRoom(0);
+
+		LevelGeneration.Instance.existRoomCheck();
+		LevelGeneration.Instance.MoveRoom(0);
 	}
 	public void RightRoomMove()
 	{
-		LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-		level.MoveRoom(1);		
+		//LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+		//level.MoveRoom(1);
+
+		LevelGeneration.Instance.existRoomCheck();
+		LevelGeneration.Instance.MoveRoom(1);
 	}
 
 	public void UpRoomMove()
 	{
-		LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-		level.MoveRoom(2);
+		//LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+		//level.MoveRoom(2);
+
+		LevelGeneration.Instance.existRoomCheck();
+		LevelGeneration.Instance.MoveRoom(2);
 	}
 
 	public void DownRoomMove()
 	{
-		LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-		level.MoveRoom(3);
-	}
+		//LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+		//level.MoveRoom(3);
 
-	public void ButtonActivate()
-	{
-		//levelGeneration.existRoomCheck();
 		LevelGeneration.Instance.existRoomCheck();
-
-		if (levelGeneration.i_Room_L)
-		{
-			roomMoveButton_L.gameObject.SetActive(true);
-		}
-
-		if (levelGeneration.i_Room_R)
-		{
-			roomMoveButton_R.gameObject.SetActive(true);
-		}
-
-		if (levelGeneration.i_Room_U)
-		{
-			roomMoveButton_U.gameObject.SetActive(true);
-		}
-
-		if (levelGeneration.i_Room_D)
-		{
-			roomMoveButton_D.gameObject.SetActive(true);
-		}
+		LevelGeneration.Instance.MoveRoom(3);
 	}
 
 	#endregion
@@ -303,12 +205,12 @@ public class UIManager : MonoBehaviour
 
 	void SetStateUI()
 	{
-		minimapUI.SetActive(isMinimapUse);
-		optionUI.SetActive(isOptionUse);
-		inventoryUI.SetActive(isInventoryUse);
-		deckUI.SetActive(isDeckUse);
+		//minimapUI.SetActive(isMinimapUse);
+		//optionUI.SetActive(isOptionUse);
+		//inventoryUI.SetActive(isInventoryUse);
+		//deckUI.SetActive(isDeckUse);
 		//CemeteryUI.SetActive(isCemeteryUse);
-		Reward_UI.SetActive(isRewardUse);
+		//Reward_UI.SetActive(isRewardUse);
 
 		// << 23-06-10 장형용 :: 제거 >>
 		//optionCancleArea.gameObject.SetActive(isOptionUse);
@@ -320,194 +222,24 @@ public class UIManager : MonoBehaviour
 	public void SetClose()
 	{
 		//isCardUse = true;
-		isMinimapUse = false;
-		isOptionUse = false;
-		isInventoryUse = false;
-		isCemeteryUse = false;
-		isDeckUse = false;
-		isRewardUse = false;
+		//isMinimapUse = false;
+		//isOptionUse = false;
+		//isInventoryUse = false;
+		//isCemeteryUse = false;
+		//isDeckUse = false;
+		//isRewardUse = false;
 
 		SetStateUI();
 		//CardManager.Inst.SetCardStateBack();
 	}
 
-	public void ButtonDeActivate()
-	{
-		roomMoveButton_L.gameObject.SetActive(false);
-		roomMoveButton_R.gameObject.SetActive(false);
-		roomMoveButton_U.gameObject.SetActive(false);
-		roomMoveButton_D.gameObject.SetActive(false);
-	}
-
-	public void MinimapToggel()
-	{
-		if (isMinimapUse)
-		{
-			SetClose();
-		}
-		else
-		//else if (isUIUse)
-		{
-			isMinimapUse = !isMinimapUse;
-
-			if (optionUI.activeSelf == true)
-			{
-				isOptionUse = false;
-			}
-			if (inventoryUI.activeSelf == true)
-			{
-				isInventoryUse = false;
-			}
-			if (deckUI.activeSelf == true)
-			{
-				isDeckUse = false;
-			}
-			if (CemeteryUI.activeSelf == true)
-			{
-				isCemeteryUse = false;
-			}
-
-			isCardUse = false;
-			SetStateUI();
-			//CardManager.Inst.SetCardStateCannot();
-		}
-	}
-
-	public void OptionToggle()
-	{
-		if (isOptionUse)
-		{
-			SetClose();
-		}
-		else if (isUIUse)
-		{
-			isOptionUse = !isOptionUse;
-
-
-			if (minimapUI.activeSelf == true)
-			{
-				isMinimapUse = false;
-			}
-			if (inventoryUI.activeSelf == true)
-			{
-				isInventoryUse = false;
-			}
-			if (deckUI.activeSelf == true)
-			{
-				isDeckUse = false;
-			}
-			if (CemeteryUI.activeSelf == true)
-			{
-				isCemeteryUse = false;
-			}
-
-			isCardUse = false;
-			SetStateUI();
-			//CardManager.Inst.SetCardStateCannot();
-		}	
-	}
-
-	public void InventoryToggle()
-	{
-		if (isInventoryUse)
-		{
-			SetClose();
-		}
-		else if (isUIUse)
-		{
-			isInventoryUse = !isInventoryUse;
-
-
-			if (minimapUI.activeSelf == true)
-			{
-				isMinimapUse = false;
-			}
-			if (optionUI.activeSelf == true)
-			{
-				isOptionUse = false;
-			}
-			if (deckUI.activeSelf == true)
-			{
-				isDeckUse = false;
-			}
-			if (CemeteryUI.activeSelf == true)
-			{
-				isCemeteryUse = false;
-			}
-
-			isCardUse = false;
-			SetStateUI();
-			//CardManager.Inst.SetCardStateCannot();
-		}
-	}
-
-	public void DeckToggle()
-	{
-		if (isDeckUse)
-		{
-			SetClose();
-		}
-		else if (isUIUse)
-		{
-			isDeckUse = !isDeckUse;
-
-
-			if (minimapUI.activeSelf == true)
-			{
-				isMinimapUse = false;
-			}
-			if (optionUI.activeSelf == true)
-			{
-				isOptionUse = false;
-			}
-			if (inventoryUI.activeSelf == true)
-			{
-				isInventoryUse = false;
-			}
-			if (CemeteryUI.activeSelf == true)
-			{
-				isCemeteryUse = false;
-			}
-
-			isCardUse = false;
-			SetStateUI();
-			//CardManager.Inst.SetCardStateCannot();
-		}
-	}
-
-	public void CemeteryToggle()
-	{
-		if (isCemeteryUse)
-		{
-			SetClose();
-		}
-		else if (isUIUse)
-		{
-			isCemeteryUse = !isCemeteryUse;
-
-
-			if (minimapUI.activeSelf == true)
-			{
-				isMinimapUse = false;
-			}
-			if (optionUI.activeSelf == true)
-			{
-				isOptionUse = false;
-			}
-			if (inventoryUI.activeSelf == true)
-			{
-				isInventoryUse = false;
-			}
-			if (deckUI.activeSelf == true)
-			{
-				isDeckUse = false;
-			}
-
-			isCardUse = false;
-			SetStateUI();
-			//CardManager.Inst.SetCardStateCannot();
-		}
-	}
+	//public void ButtonDeActivate()
+	//{
+	//	roomMoveButton_L.gameObject.SetActive(false);
+	//	roomMoveButton_R.gameObject.SetActive(false);
+	//	roomMoveButton_U.gameObject.SetActive(false);
+	//	roomMoveButton_D.gameObject.SetActive(false);
+	//}
 
 	#endregion
 

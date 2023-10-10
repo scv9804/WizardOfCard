@@ -33,9 +33,6 @@ namespace BETA.UI
         [SerializeField, TitleGroup("텍스트")]
         private TMP_Text _moneyTMP;
 
-        //[SerializeField, TitleGroup("텍스트")]
-        //private TMP_Text _turnTMP;
-
         // ==================================================================================================== Method
 
         // =========================================================================== Event
@@ -49,20 +46,20 @@ namespace BETA.UI
 
         public override void Refresh()
         {
-            if (EntityManager.Instance.StatsContainer == null)
+            var container = EntityManager.Instance.StatsContainer;
+
+            EntityManager.Instance.StatsContainer.Require(() =>
             {
-                return;
-            }
+                var health = container.Health.statValue;
+                var currentHealth = container.CurrentHealth.statValue;
 
-            var health = EntityManager.Instance.StatsContainer.Health.statValue;
-            var currentHealth = EntityManager.Instance.StatsContainer.CurrentHealth.statValue;
+                var money = EntityManager.Instance.Money;
 
-            var money = EntityManager.Instance.Money;
+                SetHealthFillAmount(currentHealth, health);
+                SetHealthTMP(currentHealth);
 
-            SetHealthFillAmount(currentHealth, health);
-            SetHealthTMP(currentHealth);
-
-            SetMoneyTMP(money);
+                SetMoneyTMP(money);
+            });
 
             #region void SetHealthFillAmount(float current, float max);
 
@@ -106,17 +103,5 @@ namespace BETA.UI
 
             #endregion
         }
-
-        // =========================================================================== GameEvent
-
-        //public void OnPlayerHealthChanged(GameObject character)
-        //{
-        //    var entity = GetComponent<Entity>();
-
-        //    if (entity.teamID == 1)
-        //    {
-        //        Refresh();
-        //    }
-        //}
     }
 }

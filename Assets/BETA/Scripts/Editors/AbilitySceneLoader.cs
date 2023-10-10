@@ -12,9 +12,9 @@ namespace BETA.Editor
 
         void Start()
         {
-            //SceneManager.LoadScene(SceneName);
+            SceneManager.LoadScene(SceneName);
 
-            LoadSceneManager.LoadScene(SceneName);
+            //LoadSceneManager.LoadScene(SceneName);
         }
     } 
 }

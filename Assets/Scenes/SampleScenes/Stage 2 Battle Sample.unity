@@ -9188,7 +9188,7 @@ GameObject:
   - component: {fileID: 1907071451}
   - component: {fileID: 1907071450}
   m_Layer: 0
-  m_Name: UI Controller
+  m_Name: Card UI Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

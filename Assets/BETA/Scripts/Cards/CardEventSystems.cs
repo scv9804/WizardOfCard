@@ -5,6 +5,8 @@ using UnityEngine;
 using BETA.Data;
 using BETA.Enums;
 
+using Sirenix.OdinInspector;
+
 using UnityEngine.EventSystems;
 
 namespace BETA
@@ -36,6 +38,7 @@ namespace BETA
             cardObject.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
 
             CardManager.Instance.CardArrange(CardManager.HAND);
+            //CardManager.Instance.CardArrange();
         }
 
         public void Hand_OnPointerExit(CardObject cardObject, PointerEventData eventData)
@@ -50,11 +53,19 @@ namespace BETA
             cardObject.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
             CardManager.Instance.CardArrange(CardManager.HAND);
+            //CardManager.Instance.CardArrange();
         }
 
         public void Hand_OnPointerClick(CardObject cardObject, PointerEventData eventData)
         {
+            if (cardObject.State == CardState.UNABLE)
+            {
+                return;
+            }
 
+            cardObject.State = CardState.NONE;
+
+            CardManager.Instance.Play(cardObject);
         }
 
         public void Hand_OnBeginDrag(CardObject cardObject, PointerEventData eventData)
@@ -103,5 +114,12 @@ namespace BETA
         // ================================================== Exclude
 
         // ================================================== Shop
+
+        public void Shop_OnPointerClick(CardObject cardObject, PointerEventData eventData)
+        {
+            cardObject.State = CardState.NONE;
+
+            CardManager.Instance.CardBuy(cardObject);
+        }
     }
 }

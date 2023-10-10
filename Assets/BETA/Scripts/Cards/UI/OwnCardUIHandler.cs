@@ -20,6 +20,11 @@ namespace BETA.UI
 
         //
 
+        [SerializeField, TitleGroup("카드 데이터")]
+        private Dictionary<string, CardEventSystems> _ownCardCommands = new Dictionary<string, CardEventSystems>();
+
+        //
+
         [SerializeField, TitleGroup("텍스트")]
         private TMP_Text _countTMP;
 
@@ -38,10 +43,13 @@ namespace BETA.UI
 
             var own = CardManager.Instance.CardObjects[name];
 
-            for (var i = own.Count - 1; i > -1; i--)
+            for (var i = 0; i < own.Count; i++)
             {
                 var cardObject = own[i];
 
+                cardObject.Commands = _ownCardCommands;
+
+                cardObject.transform.SetParent(transform);
                 cardObject.transform.SetSiblingIndex(i);
             }
 

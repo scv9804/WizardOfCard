@@ -29,14 +29,24 @@ namespace BETA
 
         public int Money;
 
+        // =========================================================================== EventDispatcher
+
+        [SerializeField, TitleGroup("엔티티매니저 이벤트")]
+        private EntityManagerEvent _events;
+
         // ==================================================================================================== Method
 
         // =========================================================================== Event
 
-        //private void Start()
-        //{
-        //    OnGameStarted();
-        //}
+        private void OnEnable()
+        {
+            _events.OnGameStart.Listener += OnGameStart;
+        }
+
+        private void OnDisable()
+        {
+            _events.OnGameStart.Listener -= OnGameStart;
+        }
 
         // =========================================================================== Singleton
 
@@ -49,21 +59,6 @@ namespace BETA
                 name = "Entity Manager";
 
                 DontDestroyOnLoad(gameObject);
-
-                GameManager.OnGameStart -= OnGameStarted;
-                GameManager.OnGameStart += OnGameStarted;
-            }
-
-            return isEmpty;
-        }
-
-        protected override bool Finalize()
-        {
-            var isEmpty = base.Finalize();
-
-            if (!isEmpty)
-            {
-                GameManager.OnGameStart -= OnGameStarted;
             }
 
             return isEmpty;
@@ -92,7 +87,7 @@ namespace BETA
 
         // =========================================================================== GameEvent
 
-        private void OnGameStarted()
+        private void OnGameStart()
         {
             CreatePlayerData();
         }
