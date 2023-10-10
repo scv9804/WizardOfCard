@@ -40,7 +40,34 @@ EditorBuildSettings:
     guid: a501af9c1fcb9b247b7698c3b84436d8
   - enabled: 1
     path: Assets/BETA/Scenes/Stage 1/Normal/1-02 Normal.unity
-    guid: fbde060b5c48fde478980c3d7293650d
+    guid: a85628ff354ed7f419eaa2ce1b1ca3d7
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-03 Normal 1.unity
+    guid: f9cf913026aa6644c8eb7c15e2f52fb6
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-04 Normal 1.unity
+    guid: 958f447e4512cf741b12265aa6acc844
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-05 Normal.unity
+    guid: 121074d5007932c4d846e875f55f32ab
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-06 Normal.unity
+    guid: 0016aaa49b2ddfa4893483cbd92218f9
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-07 Normal.unity
+    guid: f34f67778c473474ba7230b59be664a9
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-08 Normal.unity
+    guid: 0e14421e12601844a94a21d78147f5df
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-09 Normal.unity
+    guid: 2c55f872692980a4cacbbfbe6c4864b3
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Normal/1-10 Normal.unity
+    guid: aae4207c3aa8a9e4684401e5819da702
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/BETA/Scenes/MainBETAScene.unity
     guid: 0258532f41bc21c4b90f171233e16ecb
