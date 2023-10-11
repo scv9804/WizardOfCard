@@ -29,6 +29,8 @@ namespace TacticsToolkit
         // ******
         public GameEvent BattleEnd;
 
+        public EventDispatcher<EnemyController> OnEnemyDie;
+
         public enum Personality
         {
             Aggressive,
@@ -563,6 +565,8 @@ namespace TacticsToolkit
             //enemyCharacters.Remove(entity as EnemyController);
 
             isAlive = false;
+
+            OnEnemyDie.Launch(this);
 
             //GameObject.Find("EntityHasDie_Listener").GetComponent<BETA.Porting.GameEventEntityListener>().Response.RemoveListener(OnEntityDie);
 

@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class RewardManager : MonoBehaviour
+using BETA;
+using BETA.Data;
+using BETA.Singleton;
+
+using Sirenix.OdinInspector;
+
+using UnityEngine.SceneManagement;
+
+using TacticsToolkit;
+
+public class RewardManager : SingletonMonoBehaviour<RewardManager>
 {
-    public static RewardManager Inst { get; set; }
-
-	private void Awake()
-	{
-		Inst = this;
-		DontDestroyOnLoad(this);
-	}
-
 	//[SerializeField] List<Item_inven> itemList = new List<Item_inven>();
 	//[SerializeField] List<Item_inven> randomitemList = new List<Item_inven>();
 	[SerializeField] List<GameObject> rewardObjectList = new List<GameObject>();
@@ -30,11 +32,101 @@ public class RewardManager : MonoBehaviour
 	//[SerializeField] Inventory inven;
 	[SerializeField] GameObject rewardCard;
 
+	[SerializeField, TitleGroup("클리어 시 획득 금액")]
+	private int _moneyReward;
+
+	[SerializeField, TitleGroup("클리어 시 획득 금액")]
+	private int _minEarnMoney = 4;
+
+	[SerializeField, TitleGroup("클리어 시 획득 금액")]
+	private int _maxEarnMoney = 9;
+
+	[SerializeField, TitleGroup("리워드매니저 이벤트")]
+	private RewardManagerEvent _events;
+
+	public int MoneyReward
+    {
+		get => _moneyReward;
+
+		set => _moneyReward = value;
+	}
+
 	private void Start()
 	{
 		SetRandomRewardTable();
 	}
-	public void GameClear()
+
+    private void OnEnable()
+    {
+		_events.OnEnemyDie.Listener += OnEnemyDie;
+
+		_events.OnBattleEnd.Listener += OnBattleEnd;
+	}
+
+    private void OnDisable()
+    {
+		_events.OnEnemyDie.Listener -= OnEnemyDie;
+
+		_events.OnBattleEnd.Listener -= OnBattleEnd;
+	}
+
+    protected override bool Initialize()
+    {
+		var isEmpty = base.Initialize();
+
+		if (isEmpty)
+        {
+			DontDestroyOnLoad(this);
+
+			SceneManager.sceneLoaded -= OnSceneWasLoaded;
+			SceneManager.sceneLoaded += OnSceneWasLoaded;
+		}
+
+		return isEmpty;
+	}
+
+    protected override bool Finalize()
+    {
+		var isEmpty = base.Finalize();
+
+		if (!isEmpty)
+		{
+			DontDestroyOnLoad(this);
+
+			SceneManager.sceneLoaded -= OnSceneWasLoaded;
+		}
+
+		return isEmpty;
+	}
+
+    private void OnSceneWasLoaded(Scene scene, LoadSceneMode mode)
+    {
+		//_moneyReward = 0;
+	}
+
+	private void OnEnemyDie(EnemyController enemy)
+    {
+		var earn = Random.Range(_minEarnMoney, _maxEarnMoney + 1) * 10;
+
+		_moneyReward += earn;
+	}
+
+	private void OnBattleEnd()
+    {
+		//EntityManager.Instance.Money += _moneyReward;
+
+		EntityManager.Instance.SetMoney(_moneyReward);
+
+		var dataSet = BETA.DataManager.Instance.GetDataSet<CardDataSet>();
+
+		var serialID = Random.Range(0, dataSet.Data.Length);
+
+		BETA.CardManager.Instance.Cards[CardManager.OWN].Add(new BETA.Card(null, serialID));
+
+		_moneyReward = 0;
+	}
+
+    public void GameClear()
 	{
 		UIManager.Inst.MapClearUI();
 		acceptButton.onClick.AddListener(AddClearReword);

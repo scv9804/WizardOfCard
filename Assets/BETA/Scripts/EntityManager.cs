@@ -90,6 +90,10 @@ namespace BETA
         private void OnGameStart()
         {
             CreatePlayerData();
+
+            Money = 0;
+
+            SetMoney(100);
         }
 
         public void OnTurnStart(GameObject character)
@@ -98,8 +102,8 @@ namespace BETA
 
             if (entity.teamID == 1)
             {
-                var maxMana = entity.GetStat(Stats.Mana).statValue;
-                entity.GetStat(Stats.CurrentMana).ChangeStatValue(maxMana);
+                //var maxMana = entity.GetStat(Stats.Mana).statValue;
+                entity.RestoreMana();
             }
 
             entity.SetShield(0);
@@ -119,6 +123,18 @@ namespace BETA
             //PlayerData = new PlayerCharacterData(player.statsContainer);
 
             player.SetShield(0);
+        }
+
+        public void SetMoney(int value)
+        {
+            Money += value;
+
+            var moneyTMP = GameObject.Find("Money_TMP")?.GetComponent<TMPro.TMP_Text>();
+
+            moneyTMP.Require(() =>
+            {
+                moneyTMP.text = Money.ToString();
+            });
         }
     }
 }

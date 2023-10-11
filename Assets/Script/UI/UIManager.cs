@@ -246,10 +246,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
 	public void GameOverButton()
     {
-#if UNITY_EDITOR
-		UnityEditor.EditorApplication.isPlaying = false;
-#else
-                Application.Quit();
-#endif
+		Application.Quit();
 	}
 }

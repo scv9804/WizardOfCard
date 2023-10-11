@@ -73,31 +73,13 @@ namespace BETA
         [SerializeField, TitleGroup("카드매니저 이벤트")]
         private CardManagerEvent _events;
 
-        // =========================================================================== Data
-
-        //[ShowInInspector] [HideReferenceObjectPicker]
-        //private CardManagerData _data = new CardManagerData();
-
         // ==================================================================================================== Property
 
         // =========================================================================== Card
 
-        //public Library<string, Card> Cards
-        //{
-        //    get
-        //    {
-        //        return _data.Cards;
-        //    }
-        //}
-
         // ==================================================================================================== Method
 
         // =========================================================================== Event
-
-        private void Start()
-        {
-            SetCardUI();
-        }
 
         private void OnEnable()
         {
@@ -137,15 +119,7 @@ namespace BETA
                 SetCategory((category) =>
                 {
                     Cards.Add(category);
-                }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
-
-                SetCategory((category) =>
-                {
                     CardObjects.Add(category);
-                }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
-
-                SetCategory((category) =>
-                {
                     CardObjectContainer.Add(category, null);
                 }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
             }
@@ -197,7 +171,7 @@ namespace BETA
             Cards.Remove(category, card, isEmptyCategoryDelete);
             CardObjects.Remove(category, cardObject, isEmptyCategoryDelete);
 
-            Destroy(cardObject.gameObject);
+            Destroy(cardObject?.gameObject);
         }
 
         // =========================================================================== Scene
@@ -405,15 +379,22 @@ namespace BETA
             {
                 Cards.Add(OWN, new Card(null, serialID));
             }
+
+            SetOwnCardUI();
         }
 
         private void OnGameEnd()
         {
-            //SetCategory((category) =>
-            //{
-            //    Cards[category].Clear();
-            //    CardObjects[category].Clear();
-            //}, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
+            SetCategory((category) =>
+            {
+                //foreach (var cardObject in CardObjects[category])
+                //{
+                //    Destroy(cardObject?.gameObject);
+                //}
+
+                Cards[category].Clear();
+                CardObjects[category].Clear();
+            }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
         }
 
         public void OnBattleStart()
@@ -563,20 +544,11 @@ namespace BETA
         {
             var controller = GameObject.Find("Card UI Controller")?.GetComponent<UIController>();
 
-            if (controller == null)
-            {
-                return;
-            }
-
             controller.Require(() =>
             {
                 SetCategory((category) =>
                 {
                     CardObjects[category].Clear();
-                }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
-
-                SetCategory((category) =>
-                {
                     CardObjectContainer[category] = null;
                 }, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
 
@@ -584,11 +556,6 @@ namespace BETA
                 {
                     CardObjectContainer[conponent.Key] = conponent.Value;
                 }
-
-                //SetCategory((category) =>
-                //{
-                //    CardObjects[category].Clear();
-                //}, OWN, DECK, HAND, DISCARD, EXCLUDE, SHOP, EVENT, REWARD, TEMPORARY);
 
                 if (CardObjectContainer[OWN] != null)
                 {
@@ -600,32 +567,6 @@ namespace BETA
                     SetShopCardUI();
                 }
             });
-
-            //foreach (var UIComponent in controller.CO)
-            //{
-            //    CardObjectContainer[UIComponent.Key] = UIComponent.Value;
-            //}
-
-            //CardObjectContainer[OWN] = controller?.CO[OWN];
-            //CardObjectContainer[DECK] = controller?.CO[DECK];
-            //CardObjectContainer[HAND] = controller?.CO[HAND];
-            //CardObjectContainer[DISCARD] = controller?.CO[DISCARD];
-            //CardObjectContainer[EXCLUDE] = controller?.CO[EXCLUDE];
-
-            //if (CardObjectContainer[OWN] != null)
-            //{
-            //    SetOwnCardUI();
-            //}
-
-            //if (CardObjectContainer[DECK] != null)
-            //{
-            //    SetOwnCardUI();
-            //}
-
-            //if (CardObjectContainer[DISCARD] != null)
-            //{
-            //    SetOwnCardUI();
-            //}
         }
 
         public void SetOwnCardUI()
@@ -644,9 +585,10 @@ namespace BETA
             {
                 var cardObject = Visualize(card);
 
+                cardObject.Commands = commands;
+
                 CardObjects.Add(OWN, cardObject);
                 cardObject.SetParent(OWN);
-                cardObject.Commands = commands;
             }
 
             CardArrange(OWN);
@@ -656,13 +598,17 @@ namespace BETA
 
         public void SetShopCardUI()
         {
+            if (CardObjects[SHOP].Count > 0)
+            {
+                return;
+            }
+
             foreach (var card in Cards[SHOP])
             {
                 var cardObject = Visualize(card);
 
                 CardObjects.Add(SHOP, cardObject);
                 cardObject.SetParent(SHOP);
-                //cardObject.Commands = commands;
             }
 
             CardArrange(SHOP);
@@ -692,15 +638,6 @@ namespace BETA
     }
 
     // ==================================================================================================== CardManagerJSON
-
-    //public sealed class CardManagerData
-    //{
-    //    // ==================================================================================================== Field
-
-    //    // =========================================================================== Card
-
-    //    public Library<string, Card> Cards = new Library<string, Card>();
-    //}
 
     public sealed class CardManagerJSON
     {

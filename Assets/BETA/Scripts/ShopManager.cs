@@ -62,11 +62,11 @@ namespace BETA
         [SerializeField, TitleGroup("카드 데이터")]
         private int[] _cardPrices = new int[5]
         {
-            0,
-            0,
-            0,
-            0,
-            0
+            80,
+            80,
+            80,
+            80,
+            80
         };
 
         [SerializeField, TitleGroup("카드 데이터")]
@@ -93,7 +93,7 @@ namespace BETA
 
         private void Start()
         {
-
+            Refresh();
         }
 
         private void OnEnable()
@@ -179,10 +179,12 @@ namespace BETA
             {
                 serialID = UnityEngine.Random.Range(0, dataSet.Data.Length);
 
-                CardManager.Instance.Add(CardManager.SHOP, new Card(null, serialID));
+                CardManager.Instance.Cards.Add(CardManager.SHOP, new Card(null, serialID));
 
                 _hasSold[i] = false;
             }
+
+            CardManager.Instance.SetShopCardUI();
 
             Refresh();
         }
@@ -196,8 +198,7 @@ namespace BETA
 
             var mana = EntityManager.Instance.StatsContainer.Mana.statValue;
 
-            //var price = (mana + 1) * 10;
-            var price = 0;
+            var price = (mana + 1) * 10;
             var messege = string.Empty;
 
             if (mana == 20)
@@ -206,7 +207,7 @@ namespace BETA
             }
             else
             {
-                messege = $"마나 활성\n {price} \n 정수!";
+                messege = $"마나 활성 \n\n {price} 정수!";
             }
 
             _manaPriceTMP.text = messege;
@@ -221,8 +222,8 @@ namespace BETA
 
             var mana = EntityManager.Instance.StatsContainer.Mana.statValue;
 
-            //var price = (mana + 1) * 10;
-            var price = 0;
+            var price = (mana + 1) * 10;
+            //var price = 0;
 
             if (mana == 20 || EntityManager.Instance.Money < price)
             {
@@ -231,7 +232,7 @@ namespace BETA
 
             if (EntityManager.Instance.Money >= price)
             {
-                EntityManager.Instance.Money -= price;
+                EntityManager.Instance.SetMoney(-1 * price);
 
                 EntityManager.Instance.StatsContainer.Mana.ChangeStatValue(mana + 1);
             }
@@ -255,6 +256,8 @@ namespace BETA
                 {
                     cardObject.FrameImage.color = new Color(0.25f, 0.25f, 0.25f);
                     cardObject.ArtworkImage.color = new Color(0.25f, 0.25f, 0.25f);
+
+                    cardObject.Commands = _shopCardCommands; // cannnot
                 }
 
                 cardObject.transform.SetParent(_shopCardCollection.transform);
@@ -262,18 +265,20 @@ namespace BETA
 
                 _cardPriceTMP[i].text = _cardPrices[i].ToString();
             }
+
+            SetManaUpgradePrice();
         }
 
         private void OnCardBuy(CardObject cardObject)
         {
             var index = CardManager.Instance.CardObjects[CardManager.SHOP].IndexOf(cardObject);
 
-            index.Log();
-
             if (EntityManager.Instance.StatsContainer == null || EntityManager.Instance.Money < _cardPrices[index] || _hasSold[index])
             {
                 return;
             }
+
+            EntityManager.Instance.SetMoney(-1 * _cardPrices[index]);
 
             var card = CardManager.Instance.Cards[CardManager.SHOP, index];
 

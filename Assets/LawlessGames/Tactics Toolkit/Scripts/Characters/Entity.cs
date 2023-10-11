@@ -60,9 +60,13 @@ namespace TacticsToolkit
 
         public GameEventGameObject ManaChange;
 
+        public Canvas Canvas;
+
         private void Awake()
         {
             SpawnCharacter();
+
+            Canvas = transform.GetComponentInChildren<Canvas>();
         }
 
         public void SpawnCharacter()
@@ -221,7 +225,6 @@ namespace TacticsToolkit
         {
             int damageToTake = ignoreDefence ? damage : CalculateDamage(damage);
 
-            //Debug.Log($"{damageToTake} / {statsContainer.Shield.statValue}");
             $"{damageToTake} / {statsContainer.Shield.statValue}".Log();
 
             // ******
@@ -243,20 +246,25 @@ namespace TacticsToolkit
                 CameraShake.Shake(0.125f, 0.1f);
                 UpdateCharacterUI();
 
-                // ******
-                //Renderer.Flip(true);
-
                 HealthChange.Raise(gameObject);
 
                 var isDead = GetStat(Stats.CurrentHealth).statValue <= 0;
 
-                StartCoroutine(HitMotion(isDead));
+                StartCoroutine(HitMotion());
+
+                if (!isAlive)
+                {
+                    return;
+                }
 
                 if (isDead)
                 {
                     isAlive = false;
                     StartCoroutine(Die());
                     UnlinkCharacterToTile();
+
+                    // ******
+                    EntityDie.Raise(gameObject);
 
                     if (isActive)
                         endTurn.Raise();
@@ -265,31 +273,24 @@ namespace TacticsToolkit
 
 
             // ******
-            IEnumerator HitMotion(bool isDead)
+            IEnumerator HitMotion()
             {
                 Renderer.Flip(false);
 
                 Renderer.SetMotion("HIT");
 
+                yield return new WaitForSeconds(0.5f);
+
+                var isDead = GetStat(Stats.CurrentHealth).statValue <= 0;
+
                 if (!isDead)
                 {
-                    "¾ÈÀÜ´Ù".Log();
-
-                    yield return new WaitForSeconds(0.5f);
-
                     Renderer.Flip(true);
                 }
-                //else
-                //{
-                //    isAlive = false;
-                //    yield return StartCoroutine(Die());
-                //    UnlinkCharacterToTile();
-
-                //    if (isActive)
-                //        endTurn.Raise();
-
-                //    Renderer.SpriteRenderer.color = new Color(0.35f, 0.35f, 0.35f, 1);
-                //}
+                else
+                {
+                    Renderer.Flip(false);
+                }
 
                 yield return null;
             }
@@ -405,8 +406,8 @@ namespace TacticsToolkit
             //}
 
             // ******
-            var canvas = transform.GetComponentInChildren<Canvas>();
-            canvas.gameObject.SetActive(false);
+            //var canvas = transform.GetComponentInChildren<Canvas>();
+            Canvas.gameObject.SetActive(false);
 
             //healthBar.gameObject.SetActive(false);
 
@@ -422,7 +423,7 @@ namespace TacticsToolkit
             Renderer.SpriteRenderer.color = new Color(0.35f, 0.35f, 0.35f, 1);
 
             // ******
-            EntityDie.Raise(this.gameObject);
+            //EntityDie.Raise(this.gameObject);
         }
 
         public abstract void OnEntityDie();

@@ -207,6 +207,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &52203808
 Transform:
   m_ObjectHideFlags: 0
@@ -252,6 +288,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &61671657
 Transform:
   m_ObjectHideFlags: 0
@@ -474,6 +546,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &317122568
 Transform:
   m_ObjectHideFlags: 0
@@ -506,7 +614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &356154425
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -547,7 +655,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fef81f5e68699e54e8a07b48e47be807, type: 3}
+  m_Sprite: {fileID: 21300000, guid: febf4fbf426172d4884cea0820c33b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -738,6 +846,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &532186805
 Transform:
   m_ObjectHideFlags: 0
@@ -952,7 +1096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &721784256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,6 +1109,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &721784257
 Transform:
   m_ObjectHideFlags: 0
@@ -1228,7 +1408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1118863607
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1269,7 +1449,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e9f0dedf393eb3a43b2a3d042c5e1166, type: 3}
+  m_Sprite: {fileID: 21300000, guid: febf4fbf426172d4884cea0820c33b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1554,7 +1734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1213350107
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1595,7 +1775,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bf22a71bda652824db125b9799c4fc59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: febf4fbf426172d4884cea0820c33b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1771,6 +1951,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &1262668660
 Transform:
   m_ObjectHideFlags: 0
@@ -1871,6 +2087,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &1354318251
 Transform:
   m_ObjectHideFlags: 0
@@ -1903,7 +2155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1425687528
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1944,7 +2196,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cec0945c908ef7740a63b9275bc4e1a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: febf4fbf426172d4884cea0820c33b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2372,7 +2624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1740042892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2413,7 +2665,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 17f4c4816bd19ca44923a1d9c5e58165, type: 3}
+  m_Sprite: {fileID: 21300000, guid: febf4fbf426172d4884cea0820c33b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2454,7 +2706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1804140076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2591,7 +2843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1859833482
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2632,7 +2884,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 57ec66db212882e47aa3f159c74e37c6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: febf4fbf426172d4884cea0820c33b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2863,6 +3115,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b48dc1035c8547aed9d40627196fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Motions
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  SpriteRenderer: {fileID: 0}
+  SkeletonAnimation: {fileID: 0}
+  SkeletonDataAsset: {fileID: 0}
+  OnAttackSprite: {fileID: 0}
+  OnHitSprite: {fileID: 0}
+  Distance: 0
+  IsPlayer: 0
 --- !u!4 &2060874389
 Transform:
   m_ObjectHideFlags: 0

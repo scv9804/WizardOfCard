@@ -3943,12 +3943,14 @@ MonoBehaviour:
   HealthChange: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
   ShieldChange: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
   ManaChange: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+  Canvas: {fileID: 0}
   personality: 2
   playerCharacters: []
   moveAlongPath: {fileID: 11400000, guid: e197b2531425d504f91f3cfe3766f0ad, type: 2}
   castAbility: {fileID: 11400000, guid: a8b20fdd92db55e4b9ef025c6e2b8362, type: 2}
   logAction: {fileID: 11400000, guid: 38f2eeb4f825cbe44b3aeb59835e5095, type: 2}
   BattleEnd: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+  OnEnemyDie: {fileID: 11400000, guid: d51b237310e2b564fba08452a01d69c7, type: 2}
 --- !u!212 &471454022
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8006,6 +8008,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 64e02048c23700c4baf02f4ab9324ba0, type: 2}
+        m_TargetAssemblyTypeName: EventDispatcher, Assembly-CSharp
+        m_MethodName: Launch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1095416328
 GameObject:
   m_ObjectHideFlags: 0
@@ -8769,12 +8783,14 @@ MonoBehaviour:
   HealthChange: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
   ShieldChange: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
   ManaChange: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+  Canvas: {fileID: 0}
   personality: 2
   playerCharacters: []
   moveAlongPath: {fileID: 11400000, guid: e197b2531425d504f91f3cfe3766f0ad, type: 2}
   castAbility: {fileID: 11400000, guid: a8b20fdd92db55e4b9ef025c6e2b8362, type: 2}
   logAction: {fileID: 11400000, guid: 38f2eeb4f825cbe44b3aeb59835e5095, type: 2}
   BattleEnd: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+  OnEnemyDie: {fileID: 11400000, guid: d51b237310e2b564fba08452a01d69c7, type: 2}
 --- !u!212 &1170107342
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10211,12 +10227,14 @@ MonoBehaviour:
   HealthChange: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
   ShieldChange: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
   ManaChange: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+  Canvas: {fileID: 0}
   personality: 2
   playerCharacters: []
   moveAlongPath: {fileID: 11400000, guid: e197b2531425d504f91f3cfe3766f0ad, type: 2}
   castAbility: {fileID: 11400000, guid: a8b20fdd92db55e4b9ef025c6e2b8362, type: 2}
   logAction: {fileID: 11400000, guid: 38f2eeb4f825cbe44b3aeb59835e5095, type: 2}
   BattleEnd: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+  OnEnemyDie: {fileID: 11400000, guid: d51b237310e2b564fba08452a01d69c7, type: 2}
 --- !u!212 &1372922006
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10721,12 +10739,14 @@ MonoBehaviour:
   HealthChange: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
   ShieldChange: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
   ManaChange: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+  Canvas: {fileID: 0}
   personality: 2
   playerCharacters: []
   moveAlongPath: {fileID: 11400000, guid: e197b2531425d504f91f3cfe3766f0ad, type: 2}
   castAbility: {fileID: 11400000, guid: a8b20fdd92db55e4b9ef025c6e2b8362, type: 2}
   logAction: {fileID: 11400000, guid: 38f2eeb4f825cbe44b3aeb59835e5095, type: 2}
   BattleEnd: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+  OnEnemyDie: {fileID: 11400000, guid: d51b237310e2b564fba08452a01d69c7, type: 2}
 --- !u!212 &1457296575
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10778,6 +10798,172 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &1461898117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1461898120}
+  - component: {fileID: 1461898119}
+  - component: {fileID: 1461898118}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1461898118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461898117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eecc35b376b2ee4bb8df54cad255dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _onCardArrange: {fileID: 11400000, guid: 106c2e0ffb082e64d8e017c30a3adb35, type: 2}
+--- !u!114 &1461898119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461898117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce4c11b2064de2848bb2c01b65e80431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: MoveButtons
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.GameObject,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: LEFT
+    - Name: $v
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: RIGHT
+    - Name: $v
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: UP
+    - Name: $v
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: DOWN
+    - Name: $v
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _handlers
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[BETA.UI.UIHandler,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 3|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  maincanvas: {fileID: 0}
+  postProcessing: {fileID: 0}
+  _events: {fileID: 1461898118}
+--- !u!4 &1461898120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461898117}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1495217386
 GameObject:
   m_ObjectHideFlags: 0
@@ -11644,12 +11830,14 @@ MonoBehaviour:
   HealthChange: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
   ShieldChange: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
   ManaChange: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+  Canvas: {fileID: 0}
   personality: 2
   playerCharacters: []
   moveAlongPath: {fileID: 11400000, guid: e197b2531425d504f91f3cfe3766f0ad, type: 2}
   castAbility: {fileID: 11400000, guid: a8b20fdd92db55e4b9ef025c6e2b8362, type: 2}
   logAction: {fileID: 11400000, guid: 38f2eeb4f825cbe44b3aeb59835e5095, type: 2}
   BattleEnd: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+  OnEnemyDie: {fileID: 11400000, guid: d51b237310e2b564fba08452a01d69c7, type: 2}
 --- !u!212 &1664951472
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13356,9 +13544,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: GameOverButton
+      - m_Target: {fileID: 11400000, guid: 72d3353759cbd8041bec914466da1e13, type: 2}
+        m_TargetAssemblyTypeName: EventDispatcher, Assembly-CSharp
+        m_MethodName: Launch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

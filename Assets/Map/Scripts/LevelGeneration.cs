@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using BETA;
 using BETA.Singleton;
 
 using Sirenix.OdinInspector;
@@ -130,12 +131,15 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 
     private void OnEnable()
     {
-		_events.OnStageStart.Listener += OnStageStart;
+		_events.OnGameEnd.Listener += OnGameEnd;
 
+		_events.OnStageStart.Listener += OnStageStart;
 	}
 
     private void OnDisable()
     {
+		_events.OnGameEnd.Listener -= OnGameEnd;
+
 		_events.OnStageStart.Listener -= OnStageStart;
 	}
 
@@ -152,13 +156,36 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 		return isEmpty;
 	}
 
-	// 장형용 :: 20231009 :: 좀 바꿀게요~
-	private void OnStageStart()
+	private void OnGameEnd()
     {
 		foreach (var selector in DrawMaps)
 		{
 			Destroy(selector?.gameObject);
 		}
+
+		DrawMaps = null;
+
+		inPosX = gridSizeX;
+		inPosY = gridSizeY;
+
+		rooms = null;
+
+		eventOn = false;
+		shopOn = false;
+
+		Stage = 1;
+	}
+
+	// 장형용 :: 20231009 :: 좀 바꿀게요~
+	private void OnStageStart()
+    {
+		DrawMaps.Require(() =>
+		{
+			foreach (var selector in DrawMaps)
+			{
+				Destroy(selector?.gameObject);
+			}
+		});
 
 		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
         {
@@ -189,15 +216,11 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 
         StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
 
-
-
         if (tutorial && rooms[inPosX, inPosY].isStartRoom == true)
         {
             tutorialRoomScript.Event();
 
-
             tutorial = false;
-
         }
 
         eventOn = false;
@@ -210,6 +233,8 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
     {
 		var character = GameObject.Find("Character 4(Clone)");
 		var entity = character.GetComponent<Entity>();
+
+		"일단 한 쪽은 다 죽음".Log();
 
 		if (!entity.isAlive)
         {
@@ -878,10 +903,10 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
 			{
 				case 0:
-					sceneSO.CallBattleScene(1);
+					sceneSO.CallBattleScene(Stage);
 					break;
 				case 1:
-					bossSceneSO.CallBattleScene(1);
+					bossSceneSO.CallBattleScene(Stage);
 					Debug.Log("보스소환시도");
 					break;
 				case 2:
@@ -941,6 +966,11 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 
 	public void existRoomCheck()
 	{
+		if (rooms == null)
+        {
+			return;
+        }
+
 		if (inPosX > 0 && rooms[inPosX - 1, inPosY] != null)
 		{
 			IsMovable[0] = true;
@@ -950,7 +980,7 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 			IsMovable[0] = false;
 		}
 
-		if (inPosX < rooms.GetLength(0) && rooms[inPosX + 1, inPosY] != null)
+		if (inPosX < rooms.GetLength(0) - 1 && rooms[inPosX + 1, inPosY] != null)
 		{
 			IsMovable[1] = true;
 		}
@@ -959,7 +989,7 @@ public class LevelGeneration : SingletonMonoBehaviour<LevelGeneration>
 			IsMovable[1] = false;
 		}
 
-		if (inPosY < rooms.GetLength(1) && rooms[inPosX, inPosY + 1] != null)
+		if (inPosY < rooms.GetLength(1) - 1 && rooms[inPosX, inPosY + 1] != null)
 		{
 			IsMovable[2] = true;
 		}

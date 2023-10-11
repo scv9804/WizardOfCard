@@ -294,12 +294,14 @@ MonoBehaviour:
   HealthChange: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
   ShieldChange: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
   ManaChange: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+  Canvas: {fileID: 0}
   personality: 2
   playerCharacters: []
   moveAlongPath: {fileID: 11400000, guid: e197b2531425d504f91f3cfe3766f0ad, type: 2}
   castAbility: {fileID: 11400000, guid: a8b20fdd92db55e4b9ef025c6e2b8362, type: 2}
   logAction: {fileID: 11400000, guid: 38f2eeb4f825cbe44b3aeb59835e5095, type: 2}
   BattleEnd: {fileID: 11400000, guid: ddd8fb6fd8fa04540ab3a6f935e154ed, type: 2}
+  OnEnemyDie: {fileID: 11400000, guid: d51b237310e2b564fba08452a01d69c7, type: 2}
 --- !u!114 &2786267416097152972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +627,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7d20b84b7533e704085552f381010ac0, type: 2}
+  - {fileID: 2100000, guid: 168860bcdd1352540bd3473fb95fea21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

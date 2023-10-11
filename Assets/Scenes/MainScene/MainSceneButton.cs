@@ -103,13 +103,6 @@ public class MainSceneButton : MonoBehaviour
 
 			yield return new WaitForSeconds(3.0f);
 
-            //LoadSceneManager.LoadScene("Stage 1-1");
-
-            //GameManager.Instance.Loading("Stage 1-1", () =>
-            //{
-            //    "로딩 완료!".Log();
-            //});
-
             BETA.GameManager.Instance.Loading("Stage 1-1", BETA.GameManager.Instance.StartNewGame);
 
             yield return null;

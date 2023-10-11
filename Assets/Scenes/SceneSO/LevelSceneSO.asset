@@ -16,4 +16,6 @@ MonoBehaviour:
   - sceneName:
     - Stage 1-1
   - sceneName:
-    - Stage 2-1 Load
+    - Stage 2-1
+  - sceneName:
+    - ClearScene

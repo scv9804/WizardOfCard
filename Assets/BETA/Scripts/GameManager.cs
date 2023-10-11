@@ -139,6 +139,8 @@ namespace BETA
             #endregion
         }
 
+        //
+
         public void StartNewGame()
         {
             GameStart();
@@ -203,3 +205,5 @@ namespace BETA
         }
     }
 }
+
+// OnSceneLoaded => Start => OnGameStart => OnStageStart
