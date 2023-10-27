@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2501328740b25384ea1f3fc48553d897, type: 3}
+  m_Name: 00_TEMP
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _name: "\uBD88\uC548\uC815\uD55C \uC2E0\uBE44\uD55C \uB85C\uBE0C"
+  _type: 10
+  _description: "\uCCB4\uB825\t+ 80\n\uBC29\uC5B4\uB825\t+ 70\n\n\uD134 \uC885\uB8CC
+    \uC2DC \uCCB4\uB825\uC744 10 \uD68C\uBCF5\uD569\uB2C8\uB2E4."

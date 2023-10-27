@@ -256,7 +256,7 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
       value: 2
@@ -276,11 +276,11 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 57ec66db212882e47aa3f159c74e37c6, type: 3}
+      objectReference: {fileID: 5562662318786885629, guid: 3edc2dba4b9eaa74b86a6b8758a1fdd3, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 55585b37ed46fc346a0132667f4087f2, type: 3}
+      objectReference: {fileID: 6245521411852106366, guid: e291a6e6568020949823a984f554c21f, type: 3}
     - target: {fileID: 5542920246404535229, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -854,6 +854,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169472368}
   m_CullTransparentMesh: 1
+--- !u!1 &178121084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178121085}
+  - component: {fileID: 178121086}
+  m_Layer: 0
+  m_Name: PlayerManaChanged_Listener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &178121085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178121084}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 518823379}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &178121086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178121084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e52fc835181994ca880296abaa9b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventGameObject: {fileID: 11400000, guid: 20ad891b4ff18b146b096275b320e8a0, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 299646953}
+        m_TargetAssemblyTypeName: TacticsToolkit.UI.UIManager, Assembly-CSharp
+        m_MethodName: StartNewCharacterTurn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &181682280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,7 +1417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3f56f7e46877849b707af9c010a068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CostTMP: {fileID: 0}
+  CostTMP: {fileID: 1500018194}
 --- !u!1 &301037977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,6 +1493,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301037977}
   m_CullTransparentMesh: 1
+--- !u!1 &312132302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312132303}
+  - component: {fileID: 312132304}
+  m_Layer: 0
+  m_Name: PlayerShieldChanged_Listener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &312132303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312132302}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 518823379}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &312132304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312132302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e52fc835181994ca880296abaa9b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventGameObject: {fileID: 11400000, guid: 3a044bcfee18914478fa110efa951a68, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &331816736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,7 +1891,7 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
       value: 2
@@ -1805,11 +1911,11 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 57ec66db212882e47aa3f159c74e37c6, type: 3}
+      objectReference: {fileID: 5562662318786885629, guid: 3edc2dba4b9eaa74b86a6b8758a1fdd3, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 55585b37ed46fc346a0132667f4087f2, type: 3}
+      objectReference: {fileID: 6245521411852106366, guid: e291a6e6568020949823a984f554c21f, type: 3}
     - target: {fileID: 5542920246404535229, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: m_Name
       value: 'Enemy '
@@ -3942,7 +4048,19 @@ MonoBehaviour:
   eventGameObject: {fileID: 11400000, guid: f3414e5a5f324e046a80a4b7e9d1b7b7, type: 2}
   response:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1331064037}
+        m_TargetAssemblyTypeName: BETA.EventController, Assembly-CSharp
+        m_MethodName: EntityManager_OnEntityDie
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &823380896
 GameObject:
   m_ObjectHideFlags: 0
@@ -4778,7 +4896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1058789247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4918,6 +5036,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1331064037}
+        m_TargetAssemblyTypeName: BETA.EventController, Assembly-CSharp
+        m_MethodName: EntityManager_OnBattleEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1331064037}
+        m_TargetAssemblyTypeName: BETA.EventController, Assembly-CSharp
+        m_MethodName: LevelGeneration_OnBattleEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 64e02048c23700c4baf02f4ab9324ba0, type: 2}
         m_TargetAssemblyTypeName: EventDispatcher, Assembly-CSharp
         m_MethodName: Launch
@@ -4988,7 +5130,7 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
       value: 2
@@ -5008,11 +5150,11 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 57ec66db212882e47aa3f159c74e37c6, type: 3}
+      objectReference: {fileID: 5562662318786885629, guid: 3edc2dba4b9eaa74b86a6b8758a1fdd3, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 55585b37ed46fc346a0132667f4087f2, type: 3}
+      objectReference: {fileID: 6245521411852106366, guid: e291a6e6568020949823a984f554c21f, type: 3}
     - target: {fileID: 5542920246404535229, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -5498,7 +5640,7 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
       value: 2
@@ -5518,11 +5660,11 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 57ec66db212882e47aa3f159c74e37c6, type: 3}
+      objectReference: {fileID: 5562662318786885629, guid: 3edc2dba4b9eaa74b86a6b8758a1fdd3, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 55585b37ed46fc346a0132667f4087f2, type: 3}
+      objectReference: {fileID: 6245521411852106366, guid: e291a6e6568020949823a984f554c21f, type: 3}
     - target: {fileID: 5542920246404535229, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -7631,7 +7773,7 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
       value: 2
@@ -7651,11 +7793,11 @@ PrefabInstance:
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 57ec66db212882e47aa3f159c74e37c6, type: 3}
+      objectReference: {fileID: 5562662318786885629, guid: 3edc2dba4b9eaa74b86a6b8758a1fdd3, type: 3}
     - target: {fileID: 5542920246404535228, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 55585b37ed46fc346a0132667f4087f2, type: 3}
+      objectReference: {fileID: 6245521411852106366, guid: e291a6e6568020949823a984f554c21f, type: 3}
     - target: {fileID: 5542920246404535229, guid: 48d0a659c65d64842a946bd77104494a, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -7835,7 +7977,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1331064037}
         m_TargetAssemblyTypeName: BETA.EventController, Assembly-CSharp
         m_MethodName: CardManager_OnDrawButtonPressed
         m_Mode: 1
@@ -8889,6 +9031,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831378245}
   m_CullTransparentMesh: 1
+--- !u!1 &1850771821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1850771822}
+  - component: {fileID: 1850771823}
+  m_Layer: 0
+  m_Name: PlayerHealthChanged_Listener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1850771822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850771821}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 518823379}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1850771823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850771821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e52fc835181994ca880296abaa9b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventGameObject: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2146147522}
+        m_TargetAssemblyTypeName: BETA.UI.InformationUIHandler, Assembly-CSharp
+        m_MethodName: Refresh
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1898216064
 GameObject:
   m_ObjectHideFlags: 0
@@ -18683,7 +18884,7 @@ PrefabInstance:
     - target: {fileID: 8098888151439680960, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: ec91a1a547458ef4881b511b5dd9ee36, type: 2}
     - target: {fileID: 8098888151439680960, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
@@ -18701,12 +18902,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8098888151439680960, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Launch
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098888151439680960, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
       value: CardManager_OnTurnEnd
       objectReference: {fileID: 0}
     - target: {fileID: 8098888151439680960, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098888151439680960, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: EventDispatcher, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8098888151439680960, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
@@ -18755,7 +18964,7 @@ PrefabInstance:
     - target: {fileID: 8098888151844234837, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1331064037}
     - target: {fileID: 8098888151844234837, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
@@ -18770,7 +18979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8098888151844234837, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
-      value: SetActiveCharacter
+      value: EntityManager_OnTurnStart
       objectReference: {fileID: 0}
     - target: {fileID: 8098888151844234837, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
@@ -18786,7 +18995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8098888151844234837, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: TacticsToolkit.CreateAbilityList, Assembly-CSharp
+      value: BETA.EventController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8098888151844234837, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
       propertyPath: response.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
@@ -18812,6 +19021,10 @@ PrefabInstance:
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8098888152627399313, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
+      propertyPath: OnActionCancle
+      value: 
+      objectReference: {fileID: 11400000, guid: 24315e7b4739869498fb3db3d60ea022, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69982a98b7a46fd49b8a6fc7daaec0b8, type: 3}
 --- !u!114 &8098888152330341616 stripped

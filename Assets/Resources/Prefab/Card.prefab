@@ -567,7 +567,7 @@ RectTransform:
   m_GameObject: {fileID: 277387511909955961}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 9101697064859903131}
   m_Father: {fileID: 0}
@@ -576,7 +576,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 615, y: 872}
+  m_SizeDelta: {x: 637, y: 902}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277387511909955959
 MonoBehaviour:
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 277387511909955961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e97432f7007534db8cd3bbd2935903, type: 3}
+  m_Script: {fileID: 11500000, guid: bd24a4dc273210a4081a77e674d89927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -599,15 +599,18 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _onPointer: 
-  _onClick: 
-  _onDrag: 
   _view: {fileID: 9101697064859903132}
   _frameImage: {fileID: 277387510939167112}
   _artworkImage: {fileID: 277387510284901048}
   _nameTMP: {fileID: 277387510297599717}
   _costTMP: {fileID: 277387511972204274}
   _descriptionTMP: {fileID: 277387510903929392}
+  _cardPointerEnter: {fileID: 11400000, guid: b96daa407c01a074b8f5c920072f8588, type: 2}
+  _cardPointerExit: {fileID: 11400000, guid: 7ef513894845fcb49809a4d4c2f0ecfc, type: 2}
+  _cardPointerClick: {fileID: 11400000, guid: 72dc6ce2da809fe4ba60db220ac1fc3c, type: 2}
+  _cardBeginDrag: {fileID: 11400000, guid: 649035b74be9b0e46a9f49706f74336e, type: 2}
+  _cardDrag: {fileID: 11400000, guid: 58f292764675264499a2aa18aa6b9b3c, type: 2}
+  _cardEndDrag: {fileID: 11400000, guid: 6c1640f801372684cb407e9aeb2094dc, type: 2}
 --- !u!1 &277387511972204277
 GameObject:
   m_ObjectHideFlags: 0

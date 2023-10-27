@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c5e685a8bcdc547813e305986d832e, type: 3}
   m_Name: SandStorm
   m_EditorClassIdentifier: 
-  Name: Lazer
+  Name: SandStorm
   Desc: 
   Range: {fileID: 11400000, guid: 4b42e1a921bf7e74fa03508474751e0b, type: 2}
   effects:
@@ -21,7 +21,7 @@ MonoBehaviour:
   cooldown: 4
   cost: 25
   value: 75
-  repetTime: 0
+  repetTime: 1
   abilityType: 1
   includeOrigin: 1
   requiredLevel: 7

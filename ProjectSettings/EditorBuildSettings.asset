@@ -66,6 +66,12 @@ EditorBuildSettings:
     path: Assets/BETA/Scenes/Stage 1/Normal/1-10 Normal.unity
     guid: aae4207c3aa8a9e4684401e5819da702
   - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Boss/1-01 Boss.unity
+    guid: 27d3844449b3ded4b943adf1acf56a0d
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 1/Boss/1-02 Boss.unity
+    guid: 4efa227d1b0f703429fc83e0966984b1
+  - enabled: 1
     path: Assets/BETA/Scenes/Stage 2/Normal/2-01 Normal.unity
     guid: 324d9098b5a1c204494e9b77630494be
   - enabled: 1
@@ -80,6 +86,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/BETA/Scenes/Stage 2/Normal/2-05 Normal.unity
     guid: 6259ce8045148744ab49a991de587ecc
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 2/Boss/2-01 Boss.unity
+    guid: 53d8fbc7413e2504790e8571eecb7c68
+  - enabled: 1
+    path: Assets/BETA/Scenes/Stage 2/Boss/2-02 Boss.unity
+    guid: da5285265c45c9c49ad2de0e2fcc6362
   - enabled: 1
     path: Assets/BETA/Scenes/MainBETAScene.unity
     guid: 0258532f41bc21c4b90f171233e16ecb

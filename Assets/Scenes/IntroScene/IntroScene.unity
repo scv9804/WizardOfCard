@@ -2975,6 +2975,7 @@ MonoBehaviour:
   backGroundClips:
   - {fileID: 8300000, guid: a263bc1a365fbfd4bbfdddc183efda1f, type: 3}
   - {fileID: 8300000, guid: 749281f1adde557419519447712fc57b, type: 3}
+  - {fileID: 8300000, guid: 88d3cd9ce626bc9429a2912e8b4a86b5, type: 3}
   effectSource:
   - {fileID: 1130474683}
   - {fileID: 1130474682}
@@ -3959,6 +3960,114 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &1163254036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1163254038}
+  - component: {fileID: 1163254037}
+  m_Layer: 0
+  m_Name: Item Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1163254037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163254036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0fb596d84a2c8149b74269a7ff02dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _isEquiped
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[BETA.ItemType, Assembly-CSharp],[System.Boolean,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[BETA.ItemType, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  _onGameStart: {fileID: 11400000, guid: ff10241d6e4b082438dc5e412547a443, type: 2}
+  _onGameEnd: {fileID: 11400000, guid: b6c6c47c167ce7040bbe12e8d4636ad0, type: 2}
+  _onBattleEnd: {fileID: 11400000, guid: 64e02048c23700c4baf02f4ab9324ba0, type: 2}
+  _onTurnEnd: {fileID: 11400000, guid: ec91a1a547458ef4881b511b5dd9ee36, type: 2}
+  HealthChange: {fileID: 11400000, guid: fe08051cec87b6f40a36df22a69b1ad5, type: 2}
+  _onItemSlotRefresh: {fileID: 11400000, guid: 4ebe32f0d76c03f4c9c5b94737d0ba59, type: 2}
+--- !u!4 &1163254038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163254036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1174307239
 GameObject:
   m_ObjectHideFlags: 0

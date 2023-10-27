@@ -7,7 +7,7 @@ using BETA;
 // ================================================================================ EventDispatcher_CardObject
 
 [CreateAssetMenu(menuName = "Event/CardObject")]
-public class EventDispatcher_CardObject : EventDispatcher<CardObject>
+public class EventDispatcher_CardObject : EventDispatcher<BETA.CardObject>
 {
 
 }

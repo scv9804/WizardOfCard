@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uC0AC\uB9C9\uAC1C\uBBF8"
   m_EditorClassIdentifier: 
   Health:
-    baseStatValue: 110
+    baseStatValue: 450
     baseStatModifier:
       serializedVersion: 2
       m_Curve:
@@ -39,7 +39,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Mana:
-    baseStatValue: 100
+    baseStatValue: 200
     baseStatModifier:
       serializedVersion: 2
       m_Curve:
@@ -65,7 +65,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Strenght:
-    baseStatValue: 10
+    baseStatValue: 3
     baseStatModifier:
       serializedVersion: 2
       m_Curve:
@@ -91,7 +91,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Endurance:
-    baseStatValue: 60
+    baseStatValue: 5
     baseStatModifier:
       serializedVersion: 2
       m_Curve:
@@ -143,7 +143,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Intelligence:
-    baseStatValue: 10
+    baseStatValue: 25
     baseStatModifier:
       serializedVersion: 2
       m_Curve:
@@ -169,5 +169,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   MoveRange: 3
-  AttackRange: 1
-  abilities: []
+  AttackRange: 5
+  abilities:
+  - {fileID: 11400000, guid: 04fcd65fa2acd0b4592ad2cf4c0b62f2, type: 2}
+  - {fileID: 11400000, guid: 153af8d8d25e4ce4f935badcc071fa12, type: 2}
+  - {fileID: 11400000, guid: 78833d6594003ad46881698b841a1fd5, type: 2}

@@ -65,7 +65,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Strenght:
-    baseStatValue: 20
+    baseStatValue: 10
     baseStatModifier:
       serializedVersion: 2
       m_Curve:
@@ -91,7 +91,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   Endurance:
-    baseStatValue: 10
+    baseStatValue: 4
     baseStatModifier:
       serializedVersion: 2
       m_Curve:

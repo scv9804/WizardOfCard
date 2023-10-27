@@ -106,7 +106,7 @@ namespace BETA
                 entity.RestoreMana();
             }
 
-            entity.SetShield(0);
+            //entity.SetShield(0);
         }
 
         public void OnEntityDie(GameObject character)

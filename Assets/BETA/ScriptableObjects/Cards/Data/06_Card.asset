@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b22d8c04ebec4488e82339d4634a94, type: 3}
+  m_Name: 06_Card
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: "\uC5F0\uC1C4\uBC88\uAC1C"
+  Type: 1
+  Keyword: 000000000000000000000000
+  Cost: 010000000100000001000000
+  Description:
+  - "\uB370\uBBF8\uC9C0\uB97C 90 \uC90D\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C 120 \uC90D\uB2C8\uB2E4."
+  - "\uB370\uBBF8\uC9C0\uB97C 140 \uC90D\uB2C8\uB2E4."
