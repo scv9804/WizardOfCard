@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce20edd0cae99694ab24cd521d16b496, type: 3}
+  m_Name: 5_Wolf
+  m_EditorClassIdentifier: 
+  i_CharCode: 5
+  i_health: 20
+  i_attackCount: 0
+  i_damage: 3
+  increaseShield: 3
+  buffValue: 2
+  debuffValue: 2
+  f_percentage: 0
+  st_charName: Wolf
+  sp_sprite: {fileID: -292607455591267788, guid: e9709392b8b056248ade09cb4bc6b46b, type: 3}
+  PlayerDamagedEffect: {fileID: 9170522266831513912, guid: 5239e907273c5e74bb287e38aa59ca9a, type: 3}
+  EnemyDamagedSprite: {fileID: 205287133995507429, guid: 391c7383bdfd58d45ac192b7e90081d1, type: 3}
+  EnemyAttackSprite: {fileID: 5936145020738914265, guid: 37852e5b2634d5941b08e71f0df22ddc, type: 3}
+  SpelcialSkillSprite:
+  - {fileID: -3755699245562096711, guid: 3d9b07108e39e1d45afb02d04a375cd8, type: 3}
+  skeletonDataAsset: {fileID: 11400000, guid: 5f86b7d75f252474ea9e33aa2dd3b4cc, type: 2}
+  entityPattern: {fileID: 11400000, guid: 3e2da79e6962d8343accbdf27d69a533, type: 2}

@@ -19,4 +19,4 @@ MonoBehaviour:
     i_damage: 3
     f_percentage: 1
     st_charName: Boss
-    sp_sprite: {fileID: 21300000, guid: 4a9229a8c0c4c054eb4db5ba424b844c, type: 3}
+    sp_sprite: {fileID: 7612214934986694290, guid: e9709392b8b056248ade09cb4bc6b46b, type: 3}

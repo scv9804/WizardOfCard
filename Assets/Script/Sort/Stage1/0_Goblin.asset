@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce20edd0cae99694ab24cd521d16b496, type: 3}
+  m_Name: 0_Goblin
+  m_EditorClassIdentifier: 
+  i_CharCode: 1
+  i_health: 4
+  i_attackCount: 0
+  i_damage: 1
+  increaseShield: 2
+  buffValue: 0
+  debuffValue: 0
+  f_percentage: 4
+  st_charName: Goblin
+  sp_sprite: {fileID: 21300000, guid: ba695732d62ff89419571e5cf66fab74, type: 3}
+  PlayerDamagedEffect: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
+  EnemyAttackSprite: {fileID: -6966766722647859134, guid: 5a9b605897ba29b4b997cdcb1b0cdccb, type: 3}
+  SpelcialSkillSprite: []
+  skeletonDataAsset: {fileID: 11400000, guid: 497ad115a02a0ff44b111dd777a63c2f, type: 2}
+  damagedSkeletonDataAssets: {fileID: 11400000, guid: 494d9fbd23c125c4f8e1c3acf98fd2ec, type: 2}
+  attackSkeletonDataAssets: {fileID: 11400000, guid: 233c018d939ebaa4ab119ad2cbdf4d54, type: 2}
+  entityPattern: {fileID: 11400000, guid: 115de6aef811b474fb4599a85a6ae804, type: 2}

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce20edd0cae99694ab24cd521d16b496, type: 3}
+  m_Name: 4_Mushroom
+  m_EditorClassIdentifier: 
+  i_CharCode: 4
+  i_health: 5
+  i_attackCount: 0
+  i_damage: 1
+  increaseShield: 2
+  buffValue: 0
+  debuffValue: 1
+  f_percentage: 0
+  st_charName: MushRoom
+  sp_sprite: {fileID: 141857380789435057, guid: fe7b5bffe7fe88147a2c822d886c013a, type: 3}
+  PlayerDamagedEffect: {fileID: -2801736328284308936, guid: 5799052341745aa4a9da9fc04d922f73, type: 3}
+  EnemyAttackSprite: {fileID: 1516725587485059386, guid: f704e877440366d419dad60444a3619c, type: 3}
+  SpelcialSkillSprite:
+  - {fileID: 5395219477291198998, guid: 823628451d51a764682efa00a0cb9fe2, type: 3}
+  skeletonDataAsset: {fileID: 11400000, guid: 8699f434d11c979489cdbc9fa636b3bb, type: 2}
+  damagedSkeletonDataAssets: {fileID: 11400000, guid: 6a3f2a8ed135ff64d969798a80f16c4a, type: 2}
+  attackSkeletonDataAssets: {fileID: 11400000, guid: 85bf278933439c84c93716430191508a, type: 2}
+  entityPattern: {fileID: 11400000, guid: 4c10b886da0783d4381007ed46877ea8, type: 2}

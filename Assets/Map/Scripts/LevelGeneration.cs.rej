@@ -1,0 +1,10 @@
+diff a/Assets/Map/Scripts/LevelGeneration.cs b/Assets/Map/Scripts/LevelGeneration.cs	(rejected hunks)
+@@ -663,6 +663,8 @@
+ 			if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
+ 			{
+ 				LevelGeneration.Inst.SetMyTurn();
++
++				OnBattleStart.Invoke(); 
+ 			}
+ 
+ 			rooms[inPosX, inPosY].Checked = true;

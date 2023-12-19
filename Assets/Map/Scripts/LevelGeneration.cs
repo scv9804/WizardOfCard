@@ -4,21 +4,61 @@ using UnityEngine;
 
 public class LevelGeneration : MonoBehaviour {
 
+	static public LevelGeneration Inst;
+	private void Awake()
+	{
+		Inst = this;
+	}
+
+	#region 변수 등등
 	Vector2 worldSize = new Vector2(4, 4);
 
 	Room[,] rooms;
+	[SerializeField]List<Room> eventRoom;
+	List<Room> EdgeRooms;
 
 	MapSpriteSelector[] DrawMaps;
 
 	List<Vector2> takenPositions = new List<Vector2>();
 
-	int gridSizeX, gridSizeY, numberOfRooms = 20;
-	int inPosX, inPosY;
-	public bool i_Room_L, i_Room_R, i_Room_U, i_Room_D;
+	int gridSizeX, gridSizeY;
 
+	[SerializeField]int numberOfRooms = 20;
+
+	int inPosX, inPosY;
+	int loop = 0;//임시루프
+	[SerializeField]bool create = false;
+
+	public bool i_Room_L, i_Room_R, i_Room_U, i_Room_D;
 
 	public GameObject BossRoomIcon;
 	public GameObject roomWhiteObj;
+	[SerializeField] bool tutorial = true;
+
+	LevelGeneration level;
+
+	GameObject mustDisableObject;
+
+
+	[SerializeField]ShopScirpt shopRoomScript;
+	[SerializeField] List<RoomEventListScript> eventRoomScript;
+	[SerializeField]RoomEventListScript tutorialRoomScript;
+	[SerializeField] int eventRoomValue;
+
+	int eventNumber;
+	bool eventOn;
+	bool shopOn;
+
+	[SerializeField]SceneSO sceneSO;
+	[SerializeField]SceneSO bossSceneSO;
+
+	// <<22-12-04 장형용 :: 편의성>>
+	public Room CurrentRoom
+    {
+		get { return rooms[inPosX, inPosY]; }
+	}
+
+	#endregion
 
 	private void Start()
 	{
@@ -30,50 +70,47 @@ public class LevelGeneration : MonoBehaviour {
 		gridSizeY = Mathf.RoundToInt(worldSize.y);
 		inPosX = gridSizeX;
 		inPosY = gridSizeY;
-		CreateRooms(); 
-		SetRoomDoors(); 
-		DrawMap();
+
+		level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
+
+		CreateRooms();
+
+		//보스방 먼저 설정. 그 후 뒤에는 이벤트맵 추가.
+
+		SetRoomDoors();
+
+
+		SetEventChangeRoom();
+		SetEdgeRooms();
+
 		CreateBossRoom();
+		CreateEventRoom();
+		CreateShopRoom();
+
+		DrawMap();
+
 		StartCoroutine(RefreshTest()); //다른 스크립트 로드 할 때 까지 호출 대기.(endframe)
+
+
+
+		if (tutorial && rooms[inPosX , inPosY].isStartRoom == true)
+		{
+			tutorialRoomScript.Event();
+
+
+			tutorial = false;
+
+		}
+
+		eventOn = false;
+		shopOn = false;
+
+		UIManager.Inst.ButtonActivate();
+
+		DontDestroyOnLoad(this);
 	}
 
-
-	void CreateRooms(){
-		//setup
-		rooms = new Room[gridSizeX * 2,gridSizeY * 2];
-		rooms[gridSizeX,gridSizeY] = new Room(Vector2.zero, 1);
-		rooms[gridSizeX, gridSizeY].Checked = true;
-		takenPositions.Insert(0,Vector2.zero);
-
-		//test Setup DrawObject
-		DrawMaps = new MapSpriteSelector[30];
-
-		Vector2 checkPos = Vector2.zero;
-		//magic numbers
-		float randomCompare = 0.2f, randomCompareStart = 0.2f, randomCompareEnd = 0.01f;
-		//add rooms
-		for (int i =0; i < numberOfRooms -1; i++){
-			float randomPerc = ((float) i) / (((float)numberOfRooms - 1));
-			randomCompare = Mathf.Lerp(randomCompareStart, randomCompareEnd, randomPerc);
-			//grab new position
-			checkPos = NewPosition();
-			//test new position
-			if (NumberOfNeighbors(checkPos, takenPositions) > 1 && Random.value > randomCompare){
-				int iterations = 0;
-				do
-				{
-					checkPos = SelectiveNewPosition();
-					iterations++;
-				}while(NumberOfNeighbors(checkPos, takenPositions) > 1 && iterations < 100);
-				if (iterations >= 50)
-					print("error: could not create with fewer neighbors than : " + NumberOfNeighbors(checkPos, takenPositions));
-			}
-			//finalize position
-			rooms[(int) checkPos.x + gridSizeX, (int) checkPos.y + gridSizeY] = new Room(checkPos, 2);
-			takenPositions.Insert(0,checkPos);
-		}	
-	}
-
+	#region 절 대 건 들 지 마
 	Vector2 NewPosition(){
 		int x = 0, y = 0;
 		Vector2 checkingPos = Vector2.zero;
@@ -166,8 +203,8 @@ public class LevelGeneration : MonoBehaviour {
 			}
 			
 			Vector2 drawPos = room.gridPos;
-			drawPos.x *= 15;//aspect ratio of map sprite
-			drawPos.y *= 8;
+			drawPos.x *= 2.7f;//aspect ratio of map sprite
+			drawPos.y *= 1.5f;
 			//create map obj and assign its variables
 			MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
 			mapper.type = room.type;
@@ -175,6 +212,9 @@ public class LevelGeneration : MonoBehaviour {
 			mapper.down = room.doorBot;
 			mapper.right = room.doorRight;
 			mapper.left = room.doorLeft;
+			mapper.RoomEventType = room.RoomEventType;
+			mapper.roomNumX = room.roomNumX;
+			mapper.roomNumY = room.roomNumY;
 			DrawMaps[add] = mapper;
 			add++;
 		}
@@ -184,7 +224,8 @@ public class LevelGeneration : MonoBehaviour {
 	void SetRoomDoors(){
 		for (int x = 0; x < ((gridSizeX * 2)); x++){
 			for (int y = 0; y < ((gridSizeY * 2)); y++){
-				if (rooms[x,y] == null){
+				if (rooms[x,y] == null)
+				{
 					continue;
 				}
 				Vector2 gridPosition = new Vector2(x,y);
@@ -213,6 +254,15 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
+	#endregion
+
+	#region 추가 기능
+	void RoomNumberring(int _x, int _y)
+	{
+		rooms[_x + gridSizeX , _y + gridSizeY].roomNumX = _x;
+		rooms[_x + gridSizeX, _y + gridSizeY].roomNumY = _y;
+	}
+
 
 	//전체를 리프레쉬해주는 방식으로 함. 방 한칸식 해주고 싶은데 안떠오름 ㅋㅋㅋㅋ;;;;
 	void RefreshSpriteColor()
@@ -226,8 +276,9 @@ public class LevelGeneration : MonoBehaviour {
 				continue; //skip where there is no room
 			}
 
+		
 			DrawMaps[add].type = room.type;
-			
+
 			add++;
 		}
 
@@ -247,64 +298,352 @@ public class LevelGeneration : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 		RoomRefersh();
 	}
+	#endregion
 
+	#region RoomsType Set
+	// type 
+	// 0: normal, 1: enter 2: SetActiveFalse 3: SetActiveTrue And NotSerchedYet
+	// 0: normal 1: Boss 2: Shop 3: Event
 
-	// tlqkf 수정할거 너무많음 ㅇㅇ
+	// 보스룸 만들기.
 	void CreateBossRoom()
 	{
+		create = false;
+		int i = 0;
+		do
+		{
+			i++;
+			try
+			{
+				if (EdgeRooms.Count == 0) break;
+				int randomRoom;
+				randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count);
+
+				if (EdgeRooms[randomRoom].type != 1)
+				{
+					EdgeRooms[randomRoom].type = 4;
+					EdgeRooms[randomRoom].RoomEventType = 1;
+					EdgeRooms.RemoveAt(randomRoom);
+					create = true;
+					break;
+				}
+			}
+			catch
+			{
+				Debug.LogError("Error_Edge_Empty");
+			}
+		} while (i < 100);
+
+		while(!create)
+		{
+			try
+			{
+				int randomRoom;
+				randomRoom = UnityEngine.Random.Range(0, eventRoom.Count);
+
+				if (eventRoom[randomRoom].type != 1)
+				{
+					int randomPos;
+					randomPos = UnityEngine.Random.Range(0, 4);
+					//0 --> left
+					//1 --> right
+					//2 --> above
+					//3 --> bellow
+					if (randomPos == 0)
+						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 1)) { create = true; break; }
+					if (randomPos == 1)
+						if (RoomExpansion_EventRoom(1, 0, randomRoom, 1)) { create = true; break; }
+					if (randomPos == 2)
+						if (RoomExpansion_EventRoom(0, 1, randomRoom, 1)) { create = true; break; }
+					if (randomPos == 3)
+						if (RoomExpansion_EventRoom(0, -1, randomRoom, 1)) { create = true; break; }
+				}
+			}
+			catch
+			{
+				Debug.LogError("Error_Edge_Empty");
+			}
+		}
+	}
+
+
+	//이벤트 룸 일단 하나만 만들도록 해놓음
+	void CreateEventRoom()
+	{
+		int eventRoomCount = 0;
+		do
+		{
+			int randomRoom;
+			if (eventRoom.Count == 0) break;
+			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count);
+			if (eventRoom[randomRoom].type != 1)
+			{
+				eventRoom[randomRoom].RoomEventType = 3;
+				eventRoom.RemoveAt(randomRoom);
+				eventRoomCount++;
+				if (eventRoomCount == eventRoomValue)
+				{
+					break;
+				}
+			}
+
+		} while (true);
+
+	}
+
+
+	//상점은 남은방 중 
+	void CreateShopRoom() // <<22-11-01 장형용 :: 프리즈 최적화 버전, 상점이 가끔 나오지 않는 버그는 일단 고치지 않음>>
+	{
+		// <<22. 11. 07 이동화 :: 프리즈 더 깔끔하게 최적화 완료 만약 엣지룸 없으면 무작위 방에서 추가로 생성하기로 함.>>
+		create = false;
+		do
+		{
+			int randomRoom;
+			if (EdgeRooms.Count == 0) break; // 엣지룸 없으면 브레이크
+			randomRoom = UnityEngine.Random.Range(0, EdgeRooms.Count);
+			try
+			{
+				if (EdgeRooms[randomRoom].type != 1 && EdgeRooms[randomRoom].RoomEventType != 1)
+				{
+					int randomPos;
+					randomPos = UnityEngine.Random.Range(0, 4);
+					//0 --> left
+					//1 --> right
+					//2 --> above
+					//3 --> bellow
+					if (randomPos == 0)
+						if (RoomExpansion_EdgeRoom(-1, 0, randomRoom, 2)) { create = true; break; }
+					if (randomPos == 1)
+						if (RoomExpansion_EdgeRoom(1, 0, randomRoom, 2)) { create = true; break; }
+					if (randomPos == 2)
+						if (RoomExpansion_EdgeRoom(0, 1, randomRoom, 2)) { create = true; break; }
+					if (randomPos == 3)
+						if (RoomExpansion_EdgeRoom(0, -1, randomRoom, 2)) { create = true; break; }
+				}
+			}
+			catch
+			{
+				
+			}
+		} while (true);
+
+		while (!create) // 만약 안됐으면 다른방에 추가로 만들기
+		{
+			int randomRoom;
+			randomRoom = UnityEngine.Random.Range(0, eventRoom.Count);
+			Debug.Log(":");
+			try
+			{
+				if (eventRoom[randomRoom].type != 1)
+				{
+					int randomPos;
+					randomPos = UnityEngine.Random.Range(0, 4);
+					//0 --> left
+					//1 --> right
+					//2 --> above
+					//3 --> bellow
+					if (randomPos == 0)
+						if (RoomExpansion_EventRoom(-1, 0, randomRoom, 2)) { create = true; break; }
+					if (randomPos == 1)
+						if (RoomExpansion_EventRoom(1, 0, randomRoom, 2)) { create = true; break; }
+					if (randomPos == 2)
+						if (RoomExpansion_EventRoom(0, 1, randomRoom, 2)) { create = true; break; }
+					if (randomPos == 3)
+						if (RoomExpansion_EventRoom(0, -1, randomRoom,2)) { create = true; break; }
+				}
+			}
+			catch
+			{
+				Debug.LogError("상점생성 에러");
+			}
+		}
+		SetRoomDoors();
+	}
+
+	#region 방 확장
+	bool RoomExpansion_EdgeRoom(int _x, int _y, int _random, int roomEventType)
+	{
+		if (rooms[EdgeRooms[_random].roomNumX + _x + gridSizeX, EdgeRooms[_random].roomNumY + _y + gridSizeY] == null)
+		{
+			rooms[EdgeRooms[_random].roomNumX + _x + gridSizeX, 
+				EdgeRooms[_random].roomNumY + _y + gridSizeY] = new Room(new Vector2(EdgeRooms[_random].roomNumX + _x, 
+				EdgeRooms[_random].roomNumY + _y), 2, roomEventType);
+			EdgeRooms.RemoveAt(_random);
+			return true;
+		}
+		return false;
+	}
+	bool RoomExpansion_EventRoom(int _x, int _y, int _random, int roomEventType)
+	{
+		if (rooms[eventRoom[_random].roomNumX + _x + gridSizeX, eventRoom[_random].roomNumY + _y + gridSizeY] == null)
+		{
+			rooms[eventRoom[_random].roomNumX + _x + gridSizeX,
+				eventRoom[_random].roomNumY + _y + gridSizeY] = new Room(new Vector2(eventRoom[_random].roomNumX + _x,
+				eventRoom[_random].roomNumY + _y), 2, roomEventType);
+			eventRoom.RemoveAt(_random);
+			return true;
+		}
+		return false;
+	}
+	#endregion
+
+
+
+	void SetEdgeRooms()
+	{
+		EdgeRooms = new List<Room>();
+		int temt = 0;
+		int temt2 = eventRoom.Count;
+		for (int i = eventRoom.Count - 1; 0 <= i; i--)
+		{
+			if (eventRoom[i].doorTop)
+				temt++;
+			if (eventRoom[i].doorRight)
+				temt++;
+			if (eventRoom[i].doorLeft)
+				temt++;
+			if (eventRoom[i].doorBot)
+				temt++;
+
+			if (temt == 1)
+			{
+				EdgeRooms.Add(eventRoom[i]);
+				eventRoom.RemoveAt(i);
+			}
+			temt = 0;
+		}
+
+		if (eventRoom.Count == temt2)
+		{
+			Debug.Log("error_Room_NoEdge");
+		}
+	}
+
+	void SetEventChangeRoom()
+	{
+		eventRoom = new List<Room>();
+		int temp = 0;
 		foreach (var room in rooms)
 		{
 			if (room == null)
 				continue;
-			if (room.doorBot == true && room.doorLeft == false && room.doorTop == false && room.doorRight == false)
+			if (room.RoomEventType == 0)
 			{
-				room.type = 4;
-				break;
+				eventRoom.Add(room);
+				temp++;
 			}
-			if (room.doorBot == false && room.doorLeft == true && room.doorTop == false && room.doorRight == false)
+		}
+	}
+
+	void CreateRooms()
+	{
+		//setup
+		rooms = new Room[gridSizeX * 2, gridSizeY * 2];
+		rooms[gridSizeX, gridSizeY] = new Room(Vector2.zero, 1, 0);
+		rooms[gridSizeX, gridSizeY].Checked = true;
+		rooms[gridSizeX, gridSizeY].isStartRoom = true;
+		takenPositions.Insert(0, Vector2.zero);
+
+		//그릴 맵 총개수 테스트
+		DrawMaps = new MapSpriteSelector[40];
+
+		Vector2 checkPos = Vector2.zero;
+		//magic numbers
+		float randomCompare = 0.2f, randomCompareStart = 0.2f, randomCompareEnd = 0.01f;
+
+		//add rooms
+		for (int i = 0; i < numberOfRooms - 1; i++)
+		{
+			float randomPerc = ((float)i) / (((float)numberOfRooms - 1));
+			randomCompare = Mathf.Lerp(randomCompareStart, randomCompareEnd, randomPerc);
+			//grab new position
+			checkPos = NewPosition();
+			//test new position
+			if (NumberOfNeighbors(checkPos, takenPositions) > 1 && Random.value > randomCompare)
 			{
-				room.type = 4;
-				break;
+				int iterations = 0;
+				do
+				{
+					checkPos = SelectiveNewPosition();
+					iterations++;
+				} while (NumberOfNeighbors(checkPos, takenPositions) > 1 && iterations < 100);
+
+				if (iterations >= 50)
+					print("error: could not create with fewer neighbors than : " + NumberOfNeighbors(checkPos, takenPositions));
 			}
-			if (room.doorBot == false && room.doorLeft == false && room.doorTop == true && room.doorRight == false)
-			{
-				room.type = 4;
-				break;
-			}
-			if (room.doorBot == false && room.doorLeft == false && room.doorTop == false && room.doorRight == true)
-			{
-				room.type = 4;
-				break;
-			}
+
+			//finalize position
+			rooms[(int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY] = new Room(checkPos, 2, 0);
+			//방 번호 넘버링.
+			RoomNumberring((int)checkPos.x , (int)checkPos.y );
+
+			takenPositions.Insert(0, checkPos);
 		}
 	}
 
 
 
 
+	#endregion
+
+	#region RoomCode
 	void RoomRefersh()
 	{
-		//세상에서 가장 미친 문구 ㅋㅋㅋㅋㅋㅋㅋ
 		try
 		{
 			if (rooms[inPosX, inPosY] != null)
 			{
-				if (rooms[inPosX - 1, inPosY] != null && rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX -1, inPosY ].type != 4)
+				if (rooms[inPosX - 1, inPosY] != null && rooms[inPosX - 1, inPosY].Checked != true )
 				{
 					rooms[inPosX - 1, inPosY].type = 3;
 
 				}
-				if (rooms[inPosX + 1, inPosY] != null && rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY ].type != 4)
+			}
+		}
+		catch
+		{
+			Debug.Log("LeftRoomIsOutOfIndex");
+		}
+		try
+		{
+			if (rooms[inPosX, inPosY] != null)
+			{
+				if (rooms[inPosX + 1, inPosY] != null && rooms[inPosX + 1, inPosY].Checked != true)
 				{
 					rooms[inPosX + 1, inPosY].type = 3;
 
 				}
-				if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
+
+			}
+		}
+		catch
+		{
+			Debug.Log("RightRoomIsOutOfIndex");
+		}
+		try
+		{
+			if (rooms[inPosX, inPosY] != null)
+			{
+
+				if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true)
 				{
 					rooms[inPosX, inPosY + 1].type = 3;
 
 				}
-				if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
+
+			}
+		}
+		catch
+		{
+			Debug.Log("AboveRoomIsOutOfIndex");
+		}
+		try
+		{
+			if (rooms[inPosX, inPosY] != null)
+			{
+
+				if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true)
 				{
 					rooms[inPosX, inPosY - 1].type = 3;
 				}
@@ -312,56 +651,7 @@ public class LevelGeneration : MonoBehaviour {
 		}
 		catch
 		{
-			try
-			{
-					if (rooms[inPosX + 1, inPosY] != null && rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].type != 4)
-					{
-						rooms[inPosX + 1, inPosY].type = 3;
-
-					}
-					if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
-					{
-						rooms[inPosX, inPosY + 1].type = 3;
-
-					}
-					if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-					{
-						rooms[inPosX, inPosY - 1].type = 3;
-
-					}
-			}
-			catch
-			{
-				try
-				{
-
-					if (rooms[inPosX, inPosY + 1] != null && rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
-					{
-						rooms[inPosX, inPosY + 1].type = 3;
-
-					}
-					if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-					{
-						rooms[inPosX, inPosY - 1].type = 3;
-
-					}
-				}
-				catch
-				{
-					try
-					{
-						if (rooms[inPosX, inPosY - 1] != null && rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-						{
-							rooms[inPosX, inPosY - 1].type = 3;
-						}
-					}
-					catch
-					{
-
-					}
-				}
-
-			}
+			Debug.Log("UnderRoomIsOutOfIndex");
 		}
 		RefreshSpriteColor();
 	}
@@ -369,157 +659,157 @@ public class LevelGeneration : MonoBehaviour {
 	//방이동하기
 	public void MoveRoom(int _moveDir)
 	{
-		//0 --> left
-		//1 --> right
-		//2 --> above
-		//3 --> bellow
-		try
+		ChoiseRoom(_moveDir);
+	/*	try
 		{
-			LevelGeneration level = GameObject.Find("LevelGenerator").GetComponent<LevelGeneration>();
-
-			switch (_moveDir)
-			{
-				case 0:
-					{
-						if (rooms[inPosX - 1, inPosY] != null)
-						{
-							if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX - 1, inPosY].Checked != true && rooms[inPosX - 1, inPosY].type == 4)
-							{
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX - 1, inPosY].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosX--;
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-				case 1:
-					{
-						if (rooms[inPosX + 1, inPosY] != null)
-						{						
-							if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX + 1, inPosY].Checked != true && rooms[inPosX + 1, inPosY].type == 4)
-							{
-								Debug.Log("보스소환시도");
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX + 1, inPosY].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosX++;
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-				case 2:
-					{
-						if (rooms[inPosX, inPosY + 1] != null)
-						{
-							if (rooms[inPosX, inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX , inPosY + 1].Checked != true && rooms[inPosX, inPosY + 1].type == 4)
-							{
-								Debug.Log("보스소환시도");
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX, inPosY + 1].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosY++;
-
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-				case 3:
-					{
-						if (rooms[inPosX, inPosY - 1] != null)
-						{							
-							if (rooms[inPosX, inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type != 4)
-							{
-								EntityManager.Inst.SpawnEnemyEntity();
-							}
-							else if (rooms[inPosX , inPosY - 1].Checked != true && rooms[inPosX, inPosY - 1].type == 4)
-							{
-								Debug.Log("보스소환시도");
-								EntityManager.Inst.SpawnEnemyBossEntity();
-							}
-
-							rooms[inPosX, inPosY - 1].type = 1;
-							rooms[inPosX, inPosY].type = 0;
-
-							inPosY--;
-						}
-						if (rooms[inPosX, inPosY].Checked != true)
-						{
-							UIManager.Inst.ButtonDeActivate();
-							TurnManager.Inst.SetMyTurn();
-							rooms[inPosX, inPosY].Checked = true;
-						}
-						else
-						{
-							level.existRoomCheck();
-							UIManager.Inst.ButtonDeActivate();
-							UIManager.Inst.ButtonActivate();
-						}
-						break;
-					}
-			}
+			
 		}
 		catch
 		{
 			Debug.Log("방이없습니다.");
-		}
+		}*/
 		RoomRefersh();
 	}
 
+	//0 --> left
+	//1 --> right
+	//2 --> above
+	//3 --> bellow
+
+	void ChoiseRoom(int _moveDir)
+	{
+		switch (_moveDir)
+		{
+			case 0:
+				{
+					if (rooms[inPosX - 1, inPosY] != null)
+					{
+						SerchRoomEvent(-1, 0);
+					}
+					SetMoveRoomButton();
+					break;
+				}
+			case 1:
+				{
+					if (rooms[inPosX + 1, inPosY] != null)
+					{
+						SerchRoomEvent(1, 0);
+					}
+					SetMoveRoomButton();
+					break;
+				}
+			case 2:
+				{
+					if (rooms[inPosX, inPosY + 1] != null)
+					{
+						SerchRoomEvent(0, 1);
+					}
+					SetMoveRoomButton();
+					break;
+				}
+			case 3:
+				{
+					if (rooms[inPosX, inPosY - 1] != null)
+					{
+						SerchRoomEvent(0 , -1);
+					}
+					SetMoveRoomButton();
+					break;
+				}
+		}
+	}
+
+
+	//방 체크 최종임. 여기서 진입.
+	void SerchRoomEvent(int _x, int _y)
+	{
+		if (eventOn)
+		{
+			eventRoomScript[eventNumber].ExitRoom();
+			eventRoomScript.RemoveAt(eventNumber); ;
+			eventOn = false;
+		}
+		
+		if(shopOn)
+		{
+			shopRoomScript.ExitShop();
+			shopOn = false;
+		}
+
+		if (rooms[inPosX + _x, inPosY + _y].Checked != true)
+		{
+			switch (rooms[inPosX + _x, inPosY + _y].RoomEventType)
+			{
+				case 0:
+					sceneSO.CallBattleScene(1);
+					break;
+				case 1:
+					bossSceneSO.CallBattleScene(1);
+					Debug.Log("보스소환시도");
+					break;
+				case 2:
+					//LoadSceneManager.LoadScene("CopyScene");
+
+					shopRoomScript.EnterShop();
+					Debug.Log("상점이벤트");
+					shopOn = true;
+					break;
+				case 3:
+					//LoadSceneManager.LoadScene("CopyScene");
+
+					Debug.Log("그냥 이벤트");
+					//int rand = UnityEngine.Random.Range(0, eventRoomScript.Count);
+					//eventRoomScript[rand].Event();
+					//eventOn = true;
+					//eventNumber = rand;
+					break;
+			}
+		}
+		else if (rooms[inPosX + _x, inPosY + _y].RoomEventType == 2)
+		{
+			shopRoomScript.EnterShop();
+			Debug.Log("상점이벤트");
+			shopOn = true;
+		}
+
+
+		rooms[inPosX + _x, inPosY + _y].type = 1;
+		rooms[inPosX, inPosY].type = 0;
+
+		inPosX += _x;
+		inPosY += _y;
+	}
+
+	void SetMoveRoomButton()
+	{
+		if (rooms[inPosX, inPosY].Checked != true)
+		{
+			if (rooms[inPosX, inPosY].RoomEventType == 2 ||
+				rooms[inPosX, inPosY].RoomEventType == 3)
+			{
+				UIManager.Inst.ButtonDeActivate();
+				UIManager.Inst.ButtonActivate();
+			}
+			else
+			{
+				UIManager.Inst.ButtonDeActivate();
+			}
+
+			//게임 바뀌면서 이거 일단 지움. 맵이 안바껴 ㅅㅂ
+			/*if (rooms[inPosX, inPosY].RoomEventType == 0|| rooms[inPosX, inPosY].RoomEventType == 1)
+			{
+				LevelGeneration.Inst.SetMyTurn();
+			}*/
+
+			rooms[inPosX, inPosY].Checked = true;
+		}
+		else
+		{
+			level.existRoomCheck();
+			UIManager.Inst.ButtonDeActivate();
+			UIManager.Inst.ButtonActivate();
+		}
+	}
 
 	public void existRoomCheck()
 	{
@@ -557,5 +847,38 @@ public class LevelGeneration : MonoBehaviour {
 		}
 	}
 
+	#endregion
 
+
+
+	WaitForSeconds delay_01 = new WaitForSeconds(0.1f);
+
+	public void SetMyTurn()
+	{
+		Utility.onBattleStart.Invoke(); // <<22-10-21 장형용 :: 추가, Utility에 Action을 추가한 이유는 이 스크립트에 쓰인 Random이 Using System과 겹쳐 오류를 일으키기 때문>>
+
+		TurnManager.Inst.myTurn = true;
+		//StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
+		StartCoroutine(TurnManager.Inst.Co_StartTurn());
+	}
+
+	public void EndTurn()
+	{
+		TurnManager.Inst.myTurn = !TurnManager.Inst.myTurn;
+		//StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX, inPosY]));
+		StartCoroutine(TurnManager.Inst.Co_StartTurn());
+	}
+
+	public IEnumerator Co_StartGame()
+	{
+		TurnManager.Inst.isLoding = true;
+
+		for (int i = 0; i < TurnManager.Inst.i_StartCardsCount; i++)
+		{
+			yield return delay_01;
+			//TurnManager.Inst.OnAddCard();
+		}
+		//StartCoroutine(TurnManager.Inst.Co_StartTurn(rooms[inPosX,inPosY]));
+		StartCoroutine(TurnManager.Inst.Co_StartTurn());
+	}
 }

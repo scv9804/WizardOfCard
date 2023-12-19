@@ -13,41 +13,71 @@ MonoBehaviour:
   m_Name: ItemSO
   m_EditorClassIdentifier: 
   items:
-  - i_itemNum: 1
-    st_cardName: "\uACF5\uACA9"
-    i_attack: 1
-    i_Cost: 2
-    f_percentage: 2
-    st_explainCard: "\uC801\uC5D0\uAC8C \uB370\uBBF8\uC9C0\uB97C 1 \uC90D\uB2C8\uB2E4."
-    sp_CharacterSprite: {fileID: 0}
-    type: 0
-    sp_CardSprite: {fileID: 4477159931361051813, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
-  - i_itemNum: 2
-    st_cardName: "\uAC15\uD654"
-    i_attack: 0
-    i_Cost: 3
-    f_percentage: 2
-    st_explainCard: "\uB2E4\uC74C\uC5D0 \uC0AC\uC6A9\uD558\uB294 \uCE74\uB4DC\uC758
-      \uC218\uCE58\uAC00 2\uBC30\uAC00 \uB429\uB2C8\uB2E4"
-    sp_CharacterSprite: {fileID: 0}
-    type: 1
-    sp_CardSprite: {fileID: 416812731473756612, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
-  - i_itemNum: 2
-    st_cardName: "\uBC29\uC5B4"
-    i_attack: 0
-    i_Cost: 2
-    f_percentage: 2
-    st_explainCard: "\uD574\uB2F9 \uCE90\uB9AD\uD130\uC758 \uBC29\uC5B4\uB9C9\uC744
-      1 \uB9CC\uD07C \uC62C\uB824\uC90D\uB2C8\uB2E4."
-    sp_CharacterSprite: {fileID: 0}
-    type: 2
-    sp_CardSprite: {fileID: 2783481227301185972, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
-  - i_itemNum: 2
-    st_cardName: "\uD68C"
-    i_attack: 0
-    i_Cost: 1
-    f_percentage: 2
-    st_explainCard: "\uD574\uB2F9\uCE90\uB9AD\uD130\uC758 \uCCB4\uB825\uC744 1 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
-    sp_CharacterSprite: {fileID: 0}
-    type: 3
-    sp_CardSprite: {fileID: -5464473695567831355, guid: 5c6f8d41f77976445ab64bcdca0786ae, type: 3}
+  - card: {fileID: -8150516374246844532, guid: 976305f8590a7f442bea100d9bbae388, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 976305f8590a7f442bea100d9bbae388, type: 3}
+  - card: {fileID: 1009102557321847843, guid: 300c8a1a0c7fa9d4199a97bb37bae5f9, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 300c8a1a0c7fa9d4199a97bb37bae5f9, type: 3}
+  - card: {fileID: -2918807217507532017, guid: 61ddae1aafb2c754ba4eadbf413ea20b, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 61ddae1aafb2c754ba4eadbf413ea20b, type: 3}
+  - card: {fileID: -2607504812309240826, guid: 81e234634f4598941aed3e41361f2fb9, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 81e234634f4598941aed3e41361f2fb9, type: 3}
+  - card: {fileID: 2986212588026597534, guid: f7041149f65c2c64c94f2b2fc353176c, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: f7041149f65c2c64c94f2b2fc353176c, type: 3}
+  - card: {fileID: 6175402106577999441, guid: c846d3b0b2322df4daf6ccb6837cace4, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: c846d3b0b2322df4daf6ccb6837cace4, type: 3}
+  - card: {fileID: 3837261346033852980, guid: 5b8c1c8e56cfc824db2942f83e03c86a, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 5b8c1c8e56cfc824db2942f83e03c86a, type: 3}
+  - card: {fileID: 5730747856063684451, guid: 0a342f2156d041940a6959a4394721a3, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 0a342f2156d041940a6959a4394721a3, type: 3}
+  - card: {fileID: -4810641639977641128, guid: 3a5aff066f2cf694e8604ad6e4f48247, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 3a5aff066f2cf694e8604ad6e4f48247, type: 3}
+  - card: {fileID: 1439859016149703183, guid: 4268e0e9f67083a43a4d41c628db22a8, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 4268e0e9f67083a43a4d41c628db22a8, type: 3}
+  - card: {fileID: -1602002505651001504, guid: 1ed675b908cc4ca4884ddc4a5a2d4f3c, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 1ed675b908cc4ca4884ddc4a5a2d4f3c, type: 3}
+  - card: {fileID: 7150842848999623381, guid: 1faf8cfd015ab724c8c89fa3c632e858, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 1faf8cfd015ab724c8c89fa3c632e858, type: 3}
+  - card: {fileID: 1590612864075145717, guid: 5459a47eaa6c083449aa37ff647b9fa6, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 5459a47eaa6c083449aa37ff647b9fa6, type: 3}
+  - card: {fileID: 3019776578482814916, guid: b4687d134ee3b2f4aba690b34a8b74b4, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: b4687d134ee3b2f4aba690b34a8b74b4, type: 3}
+  - card: {fileID: 1468972516995107159, guid: f5f96139fb02bb5448b442dd0b4bcdb3, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: f5f96139fb02bb5448b442dd0b4bcdb3, type: 3}
+  - card: {fileID: 7090123234911159775, guid: efd25581714a20a47ac1adaa8513d18a, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: efd25581714a20a47ac1adaa8513d18a, type: 3}
+  - card: {fileID: -6350779738699052301, guid: a04bec0e54ca4544b80d1f2802a60e10, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: a04bec0e54ca4544b80d1f2802a60e10, type: 3}
+  - card: {fileID: 8623296433942024127, guid: c6bc3f76705821245bfc3cb271a155b0, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: c6bc3f76705821245bfc3cb271a155b0, type: 3}
+  - card: {fileID: -7591075208385413331, guid: 8e0b8857d37d44c48ac97084a98a9683, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 8e0b8857d37d44c48ac97084a98a9683, type: 3}
+  - card: {fileID: -5821498611904698519, guid: 8714eee87bd654d498ec7add7e658d2d, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 8714eee87bd654d498ec7add7e658d2d, type: 3}
+  - card: {fileID: 6128140062401689212, guid: 2230bcac3ef178e4ebc9997b385dfb8d, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 2230bcac3ef178e4ebc9997b385dfb8d, type: 3}
+  - card: {fileID: 1945833580905089631, guid: 64ae63de864d66647bb5ac1cbfb5de3b, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 64ae63de864d66647bb5ac1cbfb5de3b, type: 3}
+  - card: {fileID: 5842620042234717737, guid: 9689ce567eb068d40ba4129efea71997, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 9689ce567eb068d40ba4129efea71997, type: 3}
+  - card: {fileID: -5623121842132738698, guid: ed1b7a0700059454388191657ae1d23a, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: ed1b7a0700059454388191657ae1d23a, type: 3}
+  - card: {fileID: 3148710705410026946, guid: 2c8da1af6467a79459ca0bf8eee69d80, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 2c8da1af6467a79459ca0bf8eee69d80, type: 3}
+  - card: {fileID: -829170969718360272, guid: ece480ea5ed5cb341872c96d076d48ad, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: ece480ea5ed5cb341872c96d076d48ad, type: 3}
+  - card: {fileID: 6756141277668787388, guid: 9f0d8e5b2b9a95e498ae2edb6e74eba0, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 9f0d8e5b2b9a95e498ae2edb6e74eba0, type: 3}
+  - card: {fileID: 5129288924695183543, guid: c96ca9a0182cb4640a7ed693ce2a6764, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: c96ca9a0182cb4640a7ed693ce2a6764, type: 3}
+  - card: {fileID: 4607255551245517357, guid: 76fe13085930c1543bc125756b99acf5, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 76fe13085930c1543bc125756b99acf5, type: 3}
+  - card: {fileID: 900910324449656004, guid: efe7804ad492194439ce6cd47327427f, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: efe7804ad492194439ce6cd47327427f, type: 3}
+  - card: {fileID: 819503680720801257, guid: deba2737121184047a930069a9362225, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: deba2737121184047a930069a9362225, type: 3}
+  - card: {fileID: 5098886892376731245, guid: 050aa180c8109934bb91a4527e05f9e5, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 050aa180c8109934bb91a4527e05f9e5, type: 3}
+  - card: {fileID: 5251858741531333875, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 9340accd3cc9f904f8fb7ce74eb21916, type: 3}
+  - card: {fileID: 5422279455807514475, guid: 4e08377586d92854a8aed801166a8eb0, type: 3}
+    card_object: {fileID: 7395019933593546574, guid: 4e08377586d92854a8aed801166a8eb0, type: 3}

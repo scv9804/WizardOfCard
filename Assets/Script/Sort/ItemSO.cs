@@ -2,27 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardType {Spell, Spell_Enhance, Shlied, Heal, Buff, Debuff};
+
 
 [System.Serializable]
-public class Item
+public class Item_Card
 {
-	public int i_itemNum;
-
-	public string st_cardName;
-	public int i_attack;
-	public int i_Cost;
-
-	public float f_percentage;
-	public string st_explainCard;
-	public Sprite sp_CharacterSprite;
-
-	public CardType type;
-	public Sprite sp_CardSprite;
+	//public int itemCode; //<<22-11-05 장형용 :: 제거>>
+	public Card card;
+	public GameObject card_object;
 }
 
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptalbe Object/ItemSO")]
 public class ItemSO : ScriptableObject
 {
-	public Item[] items;
+	public Item_Card[] items;
 } 

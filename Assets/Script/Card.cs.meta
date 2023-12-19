@@ -3,7 +3,14 @@ guid: e473a6aa4d9eaf742b166720a18ea3b1
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - itemSO: {fileID: 11400000, guid: 9ad4ad0a69ce8804c88d131b154083b7, type: 2}
+  - card_info: {instanceID: 0}
+  - nameTMP: {instanceID: 0}
+  - manaCostTMP: {instanceID: 0}
+  - explainTMP: {instanceID: 0}
+  - enemyDamageSprite: {fileID: 21300000, guid: 809064403ea19ae45baf02e0603db187, type: 3}
+  - playerAttackSprite: {fileID: 21300000, guid: de52e0611cfd4ce46bb30fc97b9c7067, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
